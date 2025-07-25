@@ -205,6 +205,7 @@ fun textLinkStyles(): TextLinkStyles {
     val baseStyle =
         LocalTextStyle.current
             .merge(
+                fontFamily = LocalReadingFonts.current.asFontFamily(LocalContext.current),
                 color = color,
                 fontSize = LocalReadingTextFontSize.current.sp,
                 textDecoration = TextDecoration.Underline,
