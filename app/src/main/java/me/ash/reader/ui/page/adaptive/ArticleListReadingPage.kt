@@ -1,6 +1,7 @@
 package me.ash.reader.ui.page.adaptive
 
 import android.os.Parcelable
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -22,7 +23,6 @@ import androidx.compose.material3.adaptive.navigation.NavigableListDetailPaneSca
 import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -95,7 +95,15 @@ fun ArticleListReaderPage(
             NavigationAction.Close
         }
 
-    LaunchedEffect(isTwoPane) { Timber.d("isTwoPane: $isTwoPane") }
+    var listAlpha by rememberSaveable { mutableFloatStateOf(1f) }
+
+    LaunchedEffect(isTwoPane) {
+        Timber.d("isTwoPane: $isTwoPane")
+        if (!isTwoPane) {
+            listAlpha = 1f
+            paneExpansionState.animateTo(expandedAnchor)
+        }
+    }
 
     val contentWidth =
         when (navigationAction) {
@@ -104,7 +112,6 @@ fun ArticleListReaderPage(
             NavigationAction.ExpandList -> ExpandedContentWidth
         }
 
-    var listAlpha by rememberSaveable { mutableFloatStateOf(1f) }
 
     val animatedContentWidth by animateDpAsState(contentWidth)
     val animatedListAlpha by animateFloatAsState(listAlpha)
@@ -116,6 +123,12 @@ fun ArticleListReaderPage(
         paneExpansionDragHandle = { Spacer(modifier = Modifier.width(2.dp)) },
         paneExpansionState = paneExpansionState,
         listPane = {
+            if (navigationAction == NavigationAction.ExpandList) {
+                BackHandler {
+                    listAlpha = 1f
+                    scope.launch { paneExpansionState.animateTo(expandedAnchor) }
+                }
+            }
             AnimatedPane(
                 enterTransition = motionDataProvider.calculateEnterTransition(paneRole),
                 exitTransition = motionDataProvider.calculateExitTransition(paneRole),
