@@ -76,7 +76,7 @@ constructor(
             workManager
                 .beginUniqueWork(
                     SYNC_ONETIME_NAME,
-                    ExistingWorkPolicy.KEEP,
+                    ExistingWorkPolicy.REPLACE,
                     OneTimeWorkRequestBuilder<SyncWorker>()
                         .addTag(SYNC_TAG)
                         .addTag(ONETIME_WORK_TAG)

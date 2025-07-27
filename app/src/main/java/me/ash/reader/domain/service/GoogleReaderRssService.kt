@@ -97,6 +97,7 @@ constructor(
                 httpUsername = null,
                 httpPassword = null,
                 clientCertificateAlias = clientCertificateAlias,
+                syncLogger = syncLogger,
             )
         }
 

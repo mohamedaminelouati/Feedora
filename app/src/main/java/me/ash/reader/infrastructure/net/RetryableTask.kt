@@ -1,11 +1,11 @@
 package me.ash.reader.infrastructure.net
 
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withTimeoutOrNull
 
 data class RetryConfig(
     val attempts: Int = 2,
@@ -21,17 +21,22 @@ class TimeoutException(val timeout: Long) : Exception("Task attempt timed out af
 
 sealed class RetryableTaskResult<out R> {
     data class Success<out T>(val value: T) : RetryableTaskResult<T>()
+
     data class Failure(
-        val finalException: Throwable? = null, val attemptExceptions: List<Throwable> = emptyList()
+        val finalException: Throwable,
+        val attemptExceptions: List<Throwable> = emptyList(),
     ) : RetryableTaskResult<Nothing>()
 
-    val isSuccess: Boolean get() = this is Success
-    val isFailure: Boolean get() = this is Failure
+    val isSuccess: Boolean
+        get() = this is Success
+
+    val isFailure: Boolean
+        get() = this is Failure
 
     fun getOrThrow(): R {
         return when (this) {
             is Success -> value
-            is Failure -> throw finalException ?: IllegalStateException("No exception was thrown")
+            is Failure -> throw finalException
         }
     }
 
@@ -41,13 +46,43 @@ sealed class RetryableTaskResult<out R> {
             is Failure -> null
         }
     }
+
+    fun exceptionOrNull(): Throwable? =
+        when (this) {
+            is Failure -> finalException
+            is Success<*> -> null
+        }
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <R, T> RetryableTaskResult<T>.fold(
+    onSuccess: (value: T) -> R,
+    onFailure: (exception: Throwable) -> R,
+): R {
+    contract {
+        callsInPlace(onSuccess, InvocationKind.AT_MOST_ONCE)
+        callsInPlace(onFailure, InvocationKind.AT_MOST_ONCE)
+    }
+    return when (this) {
+        is RetryableTaskResult.Failure -> onFailure(finalException)
+        is RetryableTaskResult.Success<*> -> onSuccess(value as T)
+    }
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T> RetryableTaskResult<T>.mapFailure(
+    onFailure: (exception: Throwable) -> Throwable
+): RetryableTaskResult<T> {
+    contract { callsInPlace(onFailure, InvocationKind.AT_MOST_ONCE) }
+    return when (this) {
+        is RetryableTaskResult.Failure -> RetryableTaskResult.Failure(onFailure(finalException))
+        is RetryableTaskResult.Success<*> -> this as RetryableTaskResult<T>
+    }
 }
 
 @OptIn(ExperimentalContracts::class)
 inline fun <T> RetryableTaskResult<T>.onSuccess(block: (T) -> Unit): RetryableTaskResult<T> {
-    contract {
-        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-    }
+    contract { callsInPlace(block, InvocationKind.AT_MOST_ONCE) }
     if (this is RetryableTaskResult.Success) {
         block(value)
     }
@@ -55,18 +90,19 @@ inline fun <T> RetryableTaskResult<T>.onSuccess(block: (T) -> Unit): RetryableTa
 }
 
 @OptIn(ExperimentalContracts::class)
-inline fun <T> RetryableTaskResult<T>.onFailure(block: (Throwable) -> Unit): RetryableTaskResult<T> {
-    contract {
-        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-    }
+inline fun <T> RetryableTaskResult<T>.onFailure(
+    block: (Throwable) -> Unit
+): RetryableTaskResult<T> {
+    contract { callsInPlace(block, InvocationKind.AT_MOST_ONCE) }
     if (this is RetryableTaskResult.Failure) {
-        block(finalException ?: IllegalStateException("No exception was thrown"))
+        block(finalException)
     }
     return this
 }
 
 suspend fun <R> withRetries(
-    config: RetryConfig = RetryConfig(), block: suspend () -> R
+    config: RetryConfig = RetryConfig(),
+    block: suspend () -> R,
 ): RetryableTaskResult<R> {
     val attemptExceptions = mutableListOf<Throwable>()
     with(config) {
@@ -74,9 +110,7 @@ suspend fun <R> withRetries(
 
         for (attempt in 1..attempts) {
             try {
-                val result = withTimeoutOrNull(timeoutPerAttempt) {
-                    block()
-                }
+                val result = withTimeoutOrNull(timeoutPerAttempt) { block() }
 
                 if (result != null) {
                     return RetryableTaskResult.Success(result)
@@ -93,7 +127,8 @@ suspend fun <R> withRetries(
 
                 if (!shouldRetry(th) || attempt == attempts) {
                     return RetryableTaskResult.Failure(
-                        finalException = th, attemptExceptions = attemptExceptions
+                        finalException = th,
+                        attemptExceptions = attemptExceptions,
                     )
                 }
 
@@ -101,7 +136,8 @@ suspend fun <R> withRetries(
             }
         }
         return RetryableTaskResult.Failure(
-            finalException = attemptExceptions.lastOrNull(), attemptExceptions = attemptExceptions
+            finalException = attemptExceptions.last(),
+            attemptExceptions = attemptExceptions,
         )
     }
 }

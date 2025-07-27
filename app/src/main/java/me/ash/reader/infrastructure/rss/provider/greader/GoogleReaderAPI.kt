@@ -7,6 +7,7 @@ import kotlin.text.hexToLong
 import kotlin.text.startsWith
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import me.ash.reader.domain.data.SyncLogger
 import me.ash.reader.infrastructure.di.USER_AGENT_STRING
 import me.ash.reader.infrastructure.exception.GoogleReaderAPIException
 import me.ash.reader.infrastructure.exception.RetryException
@@ -14,6 +15,7 @@ import me.ash.reader.infrastructure.net.ApiResult
 import me.ash.reader.infrastructure.net.RetryConfig
 import me.ash.reader.infrastructure.net.RetryableTaskResult
 import me.ash.reader.infrastructure.net.getOrThrow
+import me.ash.reader.infrastructure.net.onFailure
 import me.ash.reader.infrastructure.net.onSuccess
 import me.ash.reader.infrastructure.net.withRetries
 import me.ash.reader.infrastructure.rss.provider.ProviderAPI
@@ -33,6 +35,7 @@ private constructor(
     private val password: String,
     private val httpUsername: String? = null,
     private val httpPassword: String? = null,
+    private val syncLogger: SyncLogger,
     clientCertificateAlias: String? = null,
 ) : ProviderAPI(context, clientCertificateAlias) {
 
@@ -165,7 +168,13 @@ private constructor(
         params: List<Pair<String, String>>? = null,
         form: List<Pair<String, String>>? = null,
     ): T {
-        return withRetries(retryConfig) { postRequest<T>(query, params, form) }.getOrThrow()
+        return withRetries(retryConfig) { postRequest<T>(query, params, form) }
+            .onFailure {
+                if (it is GoogleReaderAPIException) {
+                    syncLogger.log(it.copy(query = query, params = params, form = form))
+                }
+            }
+            .getOrThrow()
     }
 
     @CheckResult
@@ -508,6 +517,7 @@ private constructor(
             httpUsername: String? = null,
             httpPassword: String? = null,
             clientCertificateAlias: String? = null,
+            syncLogger: SyncLogger,
         ): GoogleReaderAPI =
             instances.getOrPut(
                 "$serverUrl$username$password$httpUsername$httpPassword$clientCertificateAlias"
@@ -519,6 +529,7 @@ private constructor(
                     password,
                     httpUsername,
                     httpPassword,
+                    syncLogger,
                     clientCertificateAlias,
                 )
             }
