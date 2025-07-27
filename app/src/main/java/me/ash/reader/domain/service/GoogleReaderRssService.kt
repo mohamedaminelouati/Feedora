@@ -23,6 +23,7 @@ import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import me.ash.reader.R
+import me.ash.reader.domain.data.SyncLogger
 import me.ash.reader.domain.model.account.Account
 import me.ash.reader.domain.model.account.AccountType.Companion.FreshRSS
 import me.ash.reader.domain.model.account.security.GoogleReaderSecurityKey
@@ -66,6 +67,7 @@ constructor(
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     private val workManager: WorkManager,
     private val accountService: AccountService,
+    private val syncLogger: SyncLogger,
 ) :
     AbstractRssRepository(
         articleDao,
@@ -459,12 +461,13 @@ constructor(
             ListenableWorker.Result.success()
         } catch (e: Exception) {
             Timber.tag("RLog").e(e, "On sync exception: ${e.message}")
+            syncLogger.log(e)
             //                withContext(mainDispatcher) {
             //                    context.showToast(e.message) todo: find a good way to
             // notice user
             // the error
             //                }
-            ListenableWorker.Result.failure()
+            ListenableWorker.Result.retry()
         }
     }
 
