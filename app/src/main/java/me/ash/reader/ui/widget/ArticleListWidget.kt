@@ -227,7 +227,6 @@ fun ArticleList(
             Header(title, theme)
 
             LazyColumn() {
-                item { Spacer(modifier = GlanceModifier.height(4.dp)) }
                 items(items) {
                     ArticleItem(
                         article = it,
@@ -249,7 +248,10 @@ fun ArticleList(
 @GlanceComposable
 @Composable
 fun ArticleItem(article: Article, theme: Theme, modifier: GlanceModifier = GlanceModifier) {
-    Column(modifier = modifier.fillMaxWidth().padding(bottom = 8.dp).padding(horizontal = 12.dp)) {
+    Column(
+        modifier =
+            modifier.fillMaxWidth().padding(top = 3.dp, bottom = 6.dp).padding(horizontal = 12.dp)
+    ) {
         Text(
             text = article.feedName,
             style =
