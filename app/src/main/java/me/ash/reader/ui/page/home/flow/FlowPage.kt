@@ -59,6 +59,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.zIndex
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -241,27 +242,56 @@ fun FlowPage(
             }
         }
 
+    val snapAppBarToCollapsed =
+        remember(topAppBarState) {
+            {
+                scope.launch {
+                    val initial = topAppBarState.heightOffset
+                    val target = topAppBarState.heightOffsetLimit
+                    if (initial != target) {
+                        topAppBarState.heightOffset = target
+                    }
+                }
+            }
+        }
+
     val readerState = viewModel.readerStateStateFlow.collectAsStateValue()
 
     var pagingItems: LazyPagingItems<ArticleFlowItem>? by remember { mutableStateOf(null) }
 
-    LaunchedEffect(readerState, isTwoPane) {
-        if (readerState.articleId != null) {
-            val articleId = readerState.articleId
+    if (isTwoPane) {
+        LaunchedEffect(readerState) {
+            if (readerState.articleId != null) {
+                val articleId = readerState.articleId
 
-            val itemList = pagingItems?.itemSnapshotList
+                val itemList = pagingItems?.itemSnapshotList
 
-            val index =
-                itemList?.indexOfFirst {
-                    it is ArticleFlowItem.Article && it.articleWithFeed.article.id == articleId
-                } ?: -1
+                val index =
+                    itemList?.indexOfFirst {
+                        it is ArticleFlowItem.Article && it.articleWithFeed.article.id == articleId
+                    } ?: -1
 
-            if (index != -1) {
-                scrollAppBarToCollapsed()
-                if (isTwoPane) {
+                if (index != -1) {
+                    scrollAppBarToCollapsed()
                     listState.animateScrollToItem(index, scrollOffset = -200)
-                } else {
-                    listState.scrollToItem(index, scrollOffset = -100)
+                }
+            }
+        }
+    } else {
+        LaunchedEffect(Unit) {
+            if (readerState.articleId != null) {
+                val articleId = readerState.articleId
+
+                val itemList = pagingItems?.itemSnapshotList
+
+                val index =
+                    itemList?.indexOfFirst {
+                        it is ArticleFlowItem.Article && it.articleWithFeed.article.id == articleId
+                    } ?: -1
+
+                if (index != -1) {
+                    snapAppBarToCollapsed()
+                    listState.requestScrollToItem(index, scrollOffset = -400)
                 }
             }
         }
