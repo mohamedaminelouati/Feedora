@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Looper
 import androidx.datastore.preferences.core.intPreferencesKey
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.UUID
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.runBlocking
 import me.ash.reader.R
 import me.ash.reader.domain.model.account.Account
 import me.ash.reader.domain.model.account.AccountType
+import me.ash.reader.domain.model.feed.Feed
 import me.ash.reader.domain.model.group.Group
 import me.ash.reader.domain.repository.AccountDao
 import me.ash.reader.domain.repository.ArticleDao
@@ -28,6 +30,7 @@ import me.ash.reader.ui.ext.dataStore
 import me.ash.reader.ui.ext.getDefaultGroupId
 import me.ash.reader.ui.ext.put
 import me.ash.reader.ui.ext.showToast
+import me.ash.reader.ui.ext.spacerDollar
 
 class AccountService
 @Inject
@@ -91,7 +94,24 @@ constructor(
     private fun getDefaultAccount(): Account =
         Account(type = AccountType.Local, name = context.getString(R.string.read_you))
 
-    suspend fun addDefaultAccount(): Account = addAccount(getDefaultAccount())
+    private suspend fun addDefaultAccount(): Account = addAccount(getDefaultAccount())
+
+    suspend fun initWithDefaultAccount() {
+        val account = addDefaultAccount()
+        val group = getDefaultGroup()
+        val initialFeed = getInitialFeed(account, group)
+        feedDao.insert(initialFeed)
+    }
+
+    private fun getInitialFeed(account: Account, group: Group): Feed =
+        Feed(
+            id = account.id!!.spacerDollar(UUID.randomUUID().toString()),
+            name = "ReadYou Releases",
+            icon = "https://github.com/ReadYouApp.png",
+            url = "https://github.com/ReadYouApp/ReadYou/releases.atom",
+            groupId = group.id,
+            accountId = account.id,
+        )
 
     fun getDefaultGroup(): Group =
         getCurrentAccountId().let {

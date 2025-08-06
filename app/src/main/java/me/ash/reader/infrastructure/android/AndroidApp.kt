@@ -7,6 +7,7 @@ import androidx.work.WorkManager
 import coil.Coil
 import coil.ImageLoader
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,11 +32,8 @@ import me.ash.reader.ui.ext.getLatestApk
 import me.ash.reader.ui.ext.isGitHub
 import okhttp3.OkHttpClient
 import timber.log.Timber
-import javax.inject.Inject
 
-/**
- * The Application class, where the Dagger components is generated.
- */
+/** The Application class, where the Dagger components is generated. */
 @HiltAndroidApp
 class AndroidApp : Application(), Configuration.Provider {
 
@@ -49,71 +47,48 @@ class AndroidApp : Application(), Configuration.Provider {
         // Security.insertProviderAt(Conscrypt.newProvider(), 1)
     }
 
-    @Inject
-    lateinit var androidDatabase: AndroidDatabase
+    @Inject lateinit var androidDatabase: AndroidDatabase
 
-    @Inject
-    lateinit var workerFactory: HiltWorkerFactory
+    @Inject lateinit var workerFactory: HiltWorkerFactory
 
-    @Inject
-    lateinit var workManager: WorkManager
+    @Inject lateinit var workManager: WorkManager
 
-    @Inject
-    lateinit var networkDataSource: NetworkDataSource
+    @Inject lateinit var networkDataSource: NetworkDataSource
 
-    @Inject
-    lateinit var OPMLDataSource: OPMLDataSource
+    @Inject lateinit var OPMLDataSource: OPMLDataSource
 
-    @Inject
-    lateinit var rssHelper: RssHelper
+    @Inject lateinit var rssHelper: RssHelper
 
-    @Inject
-    lateinit var notificationHelper: NotificationHelper
+    @Inject lateinit var notificationHelper: NotificationHelper
 
-    @Inject
-    lateinit var appService: AppService
+    @Inject lateinit var appService: AppService
 
-    @Inject
-    lateinit var androidStringsHelper: AndroidStringsHelper
+    @Inject lateinit var androidStringsHelper: AndroidStringsHelper
 
-    @Inject
-    lateinit var accountService: AccountService
+    @Inject lateinit var accountService: AccountService
 
-    @Inject
-    lateinit var localRssService: LocalRssService
+    @Inject lateinit var localRssService: LocalRssService
 
-    @Inject
-    lateinit var opmlService: OpmlService
+    @Inject lateinit var opmlService: OpmlService
 
-    @Inject
-    lateinit var rssService: RssService
+    @Inject lateinit var rssService: RssService
 
-    @Inject
-    @ApplicationScope
-    lateinit var applicationScope: CoroutineScope
+    @Inject @ApplicationScope lateinit var applicationScope: CoroutineScope
 
-    @Inject
-    @IODispatcher
-    lateinit var ioDispatcher: CoroutineDispatcher
+    @Inject @IODispatcher lateinit var ioDispatcher: CoroutineDispatcher
 
-    @Inject
-    lateinit var okHttpClient: OkHttpClient
+    @Inject lateinit var okHttpClient: OkHttpClient
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
+    @Inject lateinit var imageLoader: ImageLoader
 
-    @Inject
-    lateinit var imageDownloader: AndroidImageDownloader
+    @Inject lateinit var imageDownloader: AndroidImageDownloader
 
-    @Inject
-    lateinit var settingsProvider: SettingsProvider
+    @Inject lateinit var settingsProvider: SettingsProvider
 
-    @Inject
-    lateinit var diffMapHolder: DiffMapHolder
+    @Inject lateinit var diffMapHolder: DiffMapHolder
 
     /**
      * When the application startup.
-     *
      * 1. Set the uncaught exception handler
      * 2. Initialize the default account if there is none
      * 3. Synchronize once
@@ -133,9 +108,7 @@ class AndroidApp : Application(), Configuration.Provider {
         Coil.setImageLoader(imageLoader)
     }
 
-    /**
-     * Override the [Configuration.Builder] to provide the [HiltWorkerFactory].
-     */
+    /** Override the [Configuration.Builder] to provide the [HiltWorkerFactory]. */
     override val workManagerConfiguration: Configuration
         get() =
             Configuration.Builder()
@@ -147,7 +120,8 @@ class AndroidApp : Application(), Configuration.Provider {
     private suspend fun accountInit() {
         withContext(ioDispatcher) {
             if (accountService.isNoAccount()) {
-                accountService.addDefaultAccount()
+                launch { accountService.initWithDefaultAccount() }
+                    .invokeOnCompletion { rssService.get().doSyncOneTime() }
             }
         }
     }
@@ -159,9 +133,7 @@ class AndroidApp : Application(), Configuration.Provider {
     private suspend fun checkUpdate() {
         if (!isGitHub) return
         withContext(ioDispatcher) {
-            applicationContext.getLatestApk().let {
-                if (it.exists()) it.del()
-            }
+            applicationContext.getLatestApk().let { if (it.exists()) it.del() }
         }
         appService.checkUpdate(showToast = false)
     }
