@@ -172,6 +172,15 @@ private constructor(
             .onFailure {
                 if (it is GoogleReaderAPIException) {
                     syncLogger.log(it.copy(query = query, params = params, form = form))
+                } else {
+                    syncLogger.log(
+                        GoogleReaderAPIException(
+                            message = it.message.toString(),
+                            query = query,
+                            params = params,
+                            form = form,
+                        )
+                    )
                 }
             }
             .getOrThrow()
