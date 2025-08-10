@@ -211,6 +211,7 @@ constructor(
     }
 
     fun sync() {
+        diffMapHolder.commitDiffsToDb()
         viewModelScope.launch {
             _isSyncingFlow.value = true
             val isSyncing = syncWorkerStatusFlow.value
