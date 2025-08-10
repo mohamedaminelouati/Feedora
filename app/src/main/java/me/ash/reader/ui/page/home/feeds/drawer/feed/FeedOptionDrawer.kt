@@ -9,14 +9,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CreateNewFolder
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -34,7 +34,7 @@ import me.ash.reader.infrastructure.preference.LocalOpenLinkSpecificBrowser
 import me.ash.reader.ui.component.ChangeUrlDialog
 import me.ash.reader.ui.component.FeedIcon
 import me.ash.reader.ui.component.RenameDialog
-import me.ash.reader.ui.component.base.M3BottomDrawer
+import me.ash.reader.ui.component.base.BottomDrawer
 import me.ash.reader.ui.component.base.TextFieldDialog
 import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.ext.openURL
@@ -42,12 +42,11 @@ import me.ash.reader.ui.ext.roundClick
 import me.ash.reader.ui.ext.showToast
 import me.ash.reader.ui.page.home.feeds.FeedOptionView
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedOptionDrawer(
-    drawerState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    drawerState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
     feedOptionViewModel: FeedOptionViewModel = hiltViewModel(),
-    onDismiss: () -> Unit,
+    content: @Composable () -> Unit = {},
 ) {
     val context = LocalContext.current
     val view = LocalView.current
@@ -58,32 +57,32 @@ fun FeedOptionDrawer(
     val feed = feedOptionUiState.feed
     val toastString = stringResource(R.string.rename_toast, feedOptionUiState.newName)
 
-    BackHandler(drawerState.isVisible) { scope.launch { onDismiss() } }
 
-    M3BottomDrawer(
+    BackHandler(drawerState.isVisible) {
+        scope.launch {
+            drawerState.hide()
+        }
+    }
+
+    BottomDrawer(
         drawerState = drawerState,
-        onDismiss = onDismiss,
         sheetContent = {
-            Column(modifier = Modifier.navigationBarsPadding().padding(horizontal = 24.dp)) {
+            Column(modifier = Modifier.navigationBarsPadding()) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    FeedIcon(
-                        modifier = Modifier.clickable { feedOptionViewModel.reloadIcon() },
-                        feedName = feed?.name,
-                        iconUrl = feed?.icon,
-                        size = 24.dp,
-                    )
+                    FeedIcon(modifier = Modifier.clickable {
+                        feedOptionViewModel.reloadIcon()
+                    }, feedName = feed?.name, iconUrl = feed?.icon, size = 24.dp)
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        modifier =
-                            Modifier.roundClick {
-                                if (feedOptionViewModel.rssService.get().updateSubscription) {
-                                    feedOptionViewModel.showRenameDialog()
-                                }
-                            },
+                        modifier = Modifier.roundClick {
+                            if (feedOptionViewModel.rssService.get().updateSubscription) {
+                                feedOptionViewModel.showRenameDialog()
+                            }
+                        },
                         text = feed?.name ?: stringResource(R.string.unknown),
                         style = MaterialTheme.typography.headlineSmall,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -93,11 +92,10 @@ fun FeedOptionDrawer(
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 FeedOptionView(
-                    modifier = Modifier,
                     link = feed?.url ?: stringResource(R.string.unknown),
                     groups = feedOptionUiState.groups,
-                    selectedAllowNotificationPreset =
-                        feedOptionUiState.feed?.isNotification ?: false,
+                    selectedAllowNotificationPreset = feedOptionUiState.feed?.isNotification
+                        ?: false,
                     selectedParseFullContentPreset = feedOptionUiState.feed?.isFullContent ?: false,
                     selectedOpenInBrowserPreset = feedOptionUiState.feed?.isBrowser ?: false,
                     isMoveToGroup = true,
@@ -114,10 +112,18 @@ fun FeedOptionDrawer(
                     openInBrowserPresetOnClick = {
                         feedOptionViewModel.changeOpenInBrowserPreset()
                     },
-                    clearArticlesOnClick = { feedOptionViewModel.showClearDialog() },
-                    unsubscribeOnClick = { feedOptionViewModel.showDeleteDialog() },
-                    onGroupClick = { feedOptionViewModel.selectedGroup(it) },
-                    onAddNewGroup = { feedOptionViewModel.showNewGroupDialog() },
+                    clearArticlesOnClick = {
+                        feedOptionViewModel.showClearDialog()
+                    },
+                    unsubscribeOnClick = {
+                        feedOptionViewModel.showDeleteDialog()
+                    },
+                    onGroupClick = {
+                        feedOptionViewModel.selectedGroup(it)
+                    },
+                    onAddNewGroup = {
+                        feedOptionViewModel.showNewGroupDialog()
+                    },
                     onFeedUrlClick = {
                         context.openURL(feed?.url, openLink, openLinkSpecificBrowser)
                     },
@@ -126,16 +132,21 @@ fun FeedOptionDrawer(
                             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                             feedOptionViewModel.showFeedUrlDialog()
                         }
-                    },
+                    }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
             }
-        },
-    )
+        }
+    ) {
+        content()
+    }
 
-    DeleteFeedDialog(feedName = feed?.name ?: "", onConfirm = { onDismiss() })
+    DeleteFeedDialog(
+        feedName = feed?.name ?: "",
+        onConfirm = { scope.launch { drawerState.hide() } })
 
-    ClearFeedDialog(feedName = feed?.name ?: "", onConfirm = { onDismiss() })
+    ClearFeedDialog(
+        feedName = feed?.name ?: "",
+        onConfirm = { scope.launch { drawerState.hide() } })
 
     TextFieldDialog(
         visible = feedOptionUiState.newGroupDialogVisible,
@@ -143,31 +154,45 @@ fun FeedOptionDrawer(
         icon = Icons.Outlined.CreateNewFolder,
         value = feedOptionUiState.newGroupContent,
         placeholder = stringResource(R.string.name),
-        onValueChange = { feedOptionViewModel.inputNewGroup(it) },
-        onDismissRequest = { feedOptionViewModel.hideNewGroupDialog() },
-        onConfirm = { feedOptionViewModel.addNewGroup() },
+        onValueChange = {
+            feedOptionViewModel.inputNewGroup(it)
+        },
+        onDismissRequest = {
+            feedOptionViewModel.hideNewGroupDialog()
+        },
+        onConfirm = {
+            feedOptionViewModel.addNewGroup()
+        }
     )
 
     RenameDialog(
         visible = feedOptionUiState.renameDialogVisible,
         value = feedOptionUiState.newName,
-        onValueChange = { feedOptionViewModel.inputNewName(it) },
-        onDismissRequest = { feedOptionViewModel.hideRenameDialog() },
+        onValueChange = {
+            feedOptionViewModel.inputNewName(it)
+        },
+        onDismissRequest = {
+            feedOptionViewModel.hideRenameDialog()
+        },
         onConfirm = {
             feedOptionViewModel.renameFeed()
-            onDismiss()
+            scope.launch { drawerState.hide() }
             context.showToast(toastString)
-        },
+        }
     )
 
     ChangeUrlDialog(
         visible = feedOptionUiState.changeUrlDialogVisible,
         value = feedOptionUiState.newUrl,
-        onValueChange = { feedOptionViewModel.inputNewUrl(it) },
-        onDismissRequest = { feedOptionViewModel.hideFeedUrlDialog() },
+        onValueChange = {
+            feedOptionViewModel.inputNewUrl(it)
+        },
+        onDismissRequest = {
+            feedOptionViewModel.hideFeedUrlDialog()
+        },
         onConfirm = {
             feedOptionViewModel.changeFeedUrl()
-            onDismiss()
-        },
+            scope.launch { drawerState.hide() }
+        }
     )
 }
