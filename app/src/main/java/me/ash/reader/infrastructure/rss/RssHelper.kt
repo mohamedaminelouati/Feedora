@@ -2,6 +2,9 @@ package me.ash.reader.infrastructure.rss
 
 import android.content.Context
 import android.util.Log
+import com.rometools.modules.mediarss.MediaEntryModule
+import com.rometools.modules.mediarss.MediaModule
+import com.rometools.modules.mediarss.types.UrlReference
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeed
 import com.rometools.rome.feed.synd.SyndImageImpl
@@ -183,6 +186,13 @@ constructor(
                 ?.find { it.name == "url" }
                 ?.value
         }
+
+        val mediaModule = syndEntry.getModule(MediaModule.URI) as? MediaEntryModule
+        if (mediaModule != null) {
+            val ref = mediaModule.mediaContents.firstOrNull { it.medium == "image" }?.reference
+            return (ref as? UrlReference)?.url?.toString()
+        }
+
         return null
     }
 
