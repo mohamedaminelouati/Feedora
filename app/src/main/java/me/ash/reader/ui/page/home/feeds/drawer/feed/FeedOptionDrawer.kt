@@ -40,6 +40,7 @@ import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.ext.openURL
 import me.ash.reader.ui.ext.roundClick
 import me.ash.reader.ui.ext.showToast
+import me.ash.reader.ui.interaction.alphaIndicationClickable
 import me.ash.reader.ui.page.home.feeds.FeedOptionView
 
 @Composable
@@ -78,7 +79,7 @@ fun FeedOptionDrawer(
                     }, feedName = feed?.name, iconUrl = feed?.icon, size = 24.dp)
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        modifier = Modifier.roundClick {
+                        modifier = Modifier.alphaIndicationClickable {
                             if (feedOptionViewModel.rssService.get().updateSubscription) {
                                 feedOptionViewModel.showRenameDialog()
                             }

@@ -3,6 +3,7 @@ package me.ash.reader.ui.page.home.feeds
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -15,14 +16,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.FlowRow
 import me.ash.reader.R
 import me.ash.reader.domain.model.group.Group
 import me.ash.reader.ui.component.base.RYSelectionChip
@@ -53,14 +52,8 @@ fun FeedOptionView(
     onFeedUrlLongClick: () -> Unit = {},
 ) {
 
-    Column(
-        modifier = modifier.verticalScroll(rememberScrollState())
-    ) {
-        EditableUrl(
-            text = link,
-            onClick = onFeedUrlClick,
-            onLongClick = onFeedUrlLongClick,
-        )
+    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
+        EditableUrl(text = link, onClick = onFeedUrlClick, onLongClick = onFeedUrlLongClick)
         Spacer(modifier = Modifier.height(26.dp))
 
         Preset(
@@ -93,22 +86,13 @@ fun FeedOptionView(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun EditableUrl(
-    text: String,
-    onClick: () -> Unit,
-    onLongClick: () -> Unit,
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-    ) {
+private fun EditableUrl(text: String, onClick: () -> Unit, onLongClick: () -> Unit) {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Text(
-            modifier = Modifier
-                .clip(MaterialTheme.shapes.small)
-                .combinedClickable(
-                    onClick = onClick,
-                    onLongClick = onLongClick,
-                ),
+            modifier =
+                Modifier.clip(MaterialTheme.shapes.small)
+                    .combinedClickable(onClick = onClick, onLongClick = onLongClick)
+                    .padding(horizontal = 4.dp, vertical = 2.dp),
             text = text,
             color = MaterialTheme.colorScheme.outline.copy(alpha = 0.7f),
             style = MaterialTheme.typography.bodyMedium,
@@ -144,9 +128,7 @@ private fun Preset(
             selected = selectedParseFullContentPreset,
             selectedIcon = {
                 Icon(
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .size(20.dp),
+                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
                     imageVector = Icons.AutoMirrored.Outlined.Article,
                     contentDescription = stringResource(R.string.parse_full_content),
                     tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
@@ -161,9 +143,7 @@ private fun Preset(
             selected = selectedOpenInBrowserPreset,
             selectedIcon = {
                 Icon(
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .size(20.dp),
+                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
                     imageVector = Icons.Outlined.OpenInBrowser,
                     contentDescription = stringResource(R.string.open_in_browser),
                     tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
@@ -187,9 +167,7 @@ private fun Preset(
             selected = selectedAllowNotificationPreset,
             selectedIcon = {
                 Icon(
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .size(20.dp),
+                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
                     imageVector = Icons.Outlined.Notifications,
                     contentDescription = stringResource(R.string.allow_notification),
                     tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
@@ -228,13 +206,13 @@ private fun AddToGroup(
     onGroupClick: (groupId: String) -> Unit = {},
     onAddNewGroup: () -> Unit = {},
 ) {
-    Subtitle(text = stringResource(if (isMoveToGroup) R.string.move_to_group else R.string.add_to_group))
+    Subtitle(
+        text = stringResource(if (isMoveToGroup) R.string.move_to_group else R.string.add_to_group)
+    )
     Spacer(modifier = Modifier.height(10.dp))
 
     if (groups.size > 6) {
-        LazyRow(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+        LazyRow(verticalAlignment = Alignment.CenterVertically) {
             items(groups) {
                 RYSelectionChip(
                     modifier = Modifier.animateContentSize(),
@@ -245,12 +223,7 @@ private fun AddToGroup(
                 }
                 Spacer(modifier = Modifier.width(10.dp))
             }
-            item {
-                NewGroupButton(
-                    onAddNewGroup,
-                    Modifier,
-                )
-            }
+            item { NewGroupButton(onAddNewGroup, Modifier) }
         }
     } else {
         FlowRow(
@@ -266,10 +239,7 @@ private fun AddToGroup(
                     onGroupClick(it.id)
                 }
             }
-            NewGroupButton(
-                onAddNewGroup,
-                Modifier.align(Alignment.CenterVertically),
-            )
+            NewGroupButton(onAddNewGroup, Modifier.align(Alignment.CenterVertically))
         }
     }
 }
@@ -277,18 +247,19 @@ private fun AddToGroup(
 @Composable
 private fun NewGroupButton(onAddNewGroup: () -> Unit, modifier: Modifier) {
     Box(
-        modifier = modifier
-            .size(36.dp)
-            .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.surfaceVariant)
-            .clickable { onAddNewGroup() },
+        modifier =
+            modifier
+                .size(36.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .clickable { onAddNewGroup() },
         contentAlignment = Alignment.Center,
     ) {
         Icon(
             modifier = Modifier.size(20.dp),
             imageVector = Icons.Outlined.Add,
             contentDescription = stringResource(R.string.create_new_group),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }

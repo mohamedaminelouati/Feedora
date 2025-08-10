@@ -39,6 +39,7 @@ import me.ash.reader.ui.component.base.BottomDrawer
 import me.ash.reader.ui.component.base.RYSelectionChip
 import me.ash.reader.ui.component.base.Subtitle
 import me.ash.reader.ui.ext.*
+import me.ash.reader.ui.interaction.alphaIndicationClickable
 
 @Composable
 fun GroupOptionDrawer(
@@ -74,7 +75,7 @@ fun GroupOptionDrawer(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        modifier = Modifier.roundClick {
+                        modifier = Modifier.alphaIndicationClickable() {
                             if (viewModel.rssService.get().updateSubscription) {
                                 viewModel.showRenameDialog()
                             }
