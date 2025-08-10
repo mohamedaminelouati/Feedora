@@ -103,7 +103,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures { buildConfig = true }
-    packaging { resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}") }
+    packaging {
+        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+        resources.excludes.add("rome-utils-*.jar")
+    }
     androidResources { generateLocaleConfig = true }
     composeCompiler { featureFlags = setOf(ComposeFeatureFlag.PausableComposition) }
     namespace = "me.ash.reader"
@@ -153,6 +156,7 @@ dependencies {
     implementation(libs.opml.parser)
     implementation(libs.readability4j)
     implementation(libs.rome)
+    implementation(libs.rome.modules)
     implementation(libs.telephoto)
     implementation(libs.okhttp)
     implementation(libs.okhttp.coroutines)
