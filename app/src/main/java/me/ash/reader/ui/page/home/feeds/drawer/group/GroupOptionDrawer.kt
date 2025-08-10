@@ -176,7 +176,7 @@ private fun Preset(
         verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
     ) {
         RYSelectionChip(
-            modifier = Modifier.animateContentSize(),
+            modifier = Modifier,
             content = stringResource(R.string.allow_notification),
             selected = false,
             selectedIcon = {
@@ -192,7 +192,7 @@ private fun Preset(
             viewModel.showAllAllowNotificationDialog()
         }
         RYSelectionChip(
-            modifier = Modifier.animateContentSize(),
+            modifier = Modifier,
             content = stringResource(R.string.parse_full_content),
             selected = false,
             selectedIcon = {
@@ -208,7 +208,7 @@ private fun Preset(
             viewModel.showAllParseFullContentDialog()
         }
         RYSelectionChip(
-            modifier = Modifier.animateContentSize(),
+            modifier = Modifier,
             content = stringResource(R.string.open_in_browser),
             selected = false,
             selectedIcon = {
@@ -224,7 +224,7 @@ private fun Preset(
             viewModel.showAllOpenInBrowserDialog()
         }
         RYSelectionChip(
-            modifier = Modifier.animateContentSize(),
+            modifier = Modifier,
             content = stringResource(R.string.clear_articles),
             selected = false,
         ) {
@@ -232,7 +232,7 @@ private fun Preset(
         }
         if (viewModel.rssService.get().deleteSubscription && group?.id != context.currentAccountId.getDefaultGroupId()) {
             RYSelectionChip(
-                modifier = Modifier.animateContentSize(),
+                modifier = Modifier,
                 content = stringResource(R.string.delete_group),
                 selected = false,
             ) {
@@ -256,7 +256,7 @@ private fun FlowRowGroups(
         groupOptionUiState.groups.forEach {
             if (it.id != group?.id) {
                 RYSelectionChip(
-                    modifier = Modifier.animateContentSize(),
+                    modifier = Modifier,
                     content = it.name,
                     selected = false,
                 ) {
@@ -277,7 +277,7 @@ private fun LazyRowGroups(
         items(groupOptionUiState.groups) {
             if (it.id != group?.id) {
                 RYSelectionChip(
-                    modifier = Modifier.animateContentSize(),
+                    modifier = Modifier,
                     content = it.name,
                     selected = false,
                 ) {

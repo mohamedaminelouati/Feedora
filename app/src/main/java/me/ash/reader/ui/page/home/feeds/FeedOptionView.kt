@@ -1,6 +1,5 @@
 package me.ash.reader.ui.page.home.feeds
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.FlowRow
@@ -118,39 +117,40 @@ private fun Preset(
 ) {
     Subtitle(text = stringResource(R.string.reading_page))
     Spacer(modifier = Modifier.height(10.dp))
-    FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start),
-        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-    ) {
-        RYSelectionChip(
-            modifier = Modifier.animateContentSize(),
-            content = stringResource(R.string.parse_full_content),
-            selected = selectedParseFullContentPreset,
-            selectedIcon = {
-                Icon(
-                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
-                    imageVector = Icons.AutoMirrored.Outlined.Article,
-                    contentDescription = stringResource(R.string.parse_full_content),
-                    tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
-                )
-            },
-        ) {
-            parseFullContentPresetOnClick()
+    LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start)) {
+        item {
+            RYSelectionChip(
+                modifier = Modifier,
+                content = stringResource(R.string.parse_full_content),
+                selected = selectedParseFullContentPreset,
+                selectedIcon = {
+                    Icon(
+                        modifier = Modifier.padding(start = 8.dp).size(20.dp),
+                        imageVector = Icons.AutoMirrored.Outlined.Article,
+                        contentDescription = stringResource(R.string.parse_full_content),
+                        tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
+                    )
+                },
+            ) {
+                parseFullContentPresetOnClick()
+            }
         }
-        RYSelectionChip(
-            modifier = Modifier.animateContentSize(),
-            content = stringResource(R.string.open_in_browser),
-            selected = selectedOpenInBrowserPreset,
-            selectedIcon = {
-                Icon(
-                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
-                    imageVector = Icons.Outlined.OpenInBrowser,
-                    contentDescription = stringResource(R.string.open_in_browser),
-                    tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
-                )
-            },
-        ) {
-            openInBrowserPresetOnClick()
+        item {
+            RYSelectionChip(
+                modifier = Modifier,
+                content = stringResource(R.string.open_in_browser),
+                selected = selectedOpenInBrowserPreset,
+                selectedIcon = {
+                    Icon(
+                        modifier = Modifier.padding(start = 8.dp).size(20.dp),
+                        imageVector = Icons.Outlined.OpenInBrowser,
+                        contentDescription = stringResource(R.string.open_in_browser),
+                        tint = MaterialTheme.colorScheme.onSurface alwaysLight true,
+                    )
+                },
+            ) {
+                openInBrowserPresetOnClick()
+            }
         }
     }
     Spacer(modifier = Modifier.height(26.dp))
@@ -162,7 +162,7 @@ private fun Preset(
         verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
     ) {
         RYSelectionChip(
-            modifier = Modifier.animateContentSize(),
+            modifier = Modifier,
             content = stringResource(R.string.allow_notification),
             selected = selectedAllowNotificationPreset,
             selectedIcon = {
@@ -178,7 +178,7 @@ private fun Preset(
         }
         if (notSubscribeMode) {
             RYSelectionChip(
-                modifier = Modifier.animateContentSize(),
+                modifier = Modifier,
                 content = stringResource(R.string.clear_articles),
                 selected = false,
             ) {
@@ -186,7 +186,7 @@ private fun Preset(
             }
             if (showUnsubscribe) {
                 RYSelectionChip(
-                    modifier = Modifier.animateContentSize(),
+                    modifier = Modifier,
                     content = stringResource(R.string.unsubscribe),
                     selected = false,
                 ) {
@@ -215,7 +215,7 @@ private fun AddToGroup(
         LazyRow(verticalAlignment = Alignment.CenterVertically) {
             items(groups) {
                 RYSelectionChip(
-                    modifier = Modifier.animateContentSize(),
+                    modifier = Modifier,
                     content = it.name,
                     selected = it.id == selectedGroupId,
                 ) {
@@ -232,7 +232,7 @@ private fun AddToGroup(
         ) {
             groups.forEach {
                 RYSelectionChip(
-                    modifier = Modifier.animateContentSize(),
+                    modifier = Modifier,
                     content = it.name,
                     selected = it.id == selectedGroupId,
                 ) {
