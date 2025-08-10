@@ -32,7 +32,7 @@ sealed class FlowTopBarTonalElevationPreference(val value: Int) : Preference() {
 
     companion object {
 
-        val default = Elevated
+        val default = None
         val values = listOf(None, Elevated)
 
         fun fromPreferences(preferences: Preferences) =
