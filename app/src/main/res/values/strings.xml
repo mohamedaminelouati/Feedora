@@ -375,4 +375,14 @@
     <string name="list_widget_label">List view</string>
     <string name="card_widget_label">Card view</string>"
     <string name="widget_description">View latest unread articles from selected sources</string>
+    <string name="apply">Apply</string>
+    <string name="notifications">Notifications</string>
+    <string name="group_configuration_description">Configure \"%1$s\" for feeds in \"%2$s\"</string>
+    <string name="disabled">Disabled</string>
+    <string name="enabled">Enabled</string>
+    <string name="notifications_desc">Get notifications when new unread articles are available</string>
+    <string name="open_in_browser_desc">Open articles in the browser</string>
+    <string name="parse_full_content_desc">Fetch full articles from webpages</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
 </resources>
