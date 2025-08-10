@@ -4,19 +4,22 @@ import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Article
 import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.OpenInBrowser
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -27,24 +30,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
 import kotlinx.coroutines.launch
 import me.ash.reader.R
 import me.ash.reader.domain.model.group.Group
 import me.ash.reader.ui.component.RenameDialog
-import me.ash.reader.ui.component.base.BottomDrawer
+import me.ash.reader.ui.component.base.M3BottomDrawer
 import me.ash.reader.ui.component.base.RYSelectionChip
 import me.ash.reader.ui.component.base.Subtitle
 import me.ash.reader.ui.ext.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GroupOptionDrawer(
-    drawerState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
+    drawerState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     viewModel: GroupOptionViewModel = hiltViewModel(),
-    content: @Composable () -> Unit = {},
+    onDismiss: () -> Unit,
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -52,20 +52,22 @@ fun GroupOptionDrawer(
     val group = groupOptionUiState.group
     val toastString = stringResource(R.string.rename_toast, groupOptionUiState.newName)
 
-    BackHandler(drawerState.isVisible) {
-        scope.launch {
-            drawerState.hide()
-        }
-    }
+    BackHandler(drawerState.isVisible) { scope.launch { onDismiss() } }
 
-    BottomDrawer(
+    M3BottomDrawer(
         drawerState = drawerState,
+        onDismiss = onDismiss,
         sheetContent = {
-            Column(modifier = Modifier.navigationBarsPadding()) {
+            Column(
+                modifier =
+                    Modifier.navigationBarsPadding()
+                        .padding(horizontal = 24.dp)
+                        .padding(bottom = 16.dp)
+            ) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.Center,
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Folder,
@@ -74,11 +76,12 @@ fun GroupOptionDrawer(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        modifier = Modifier.roundClick {
-                            if (viewModel.rssService.get().updateSubscription) {
-                                viewModel.showRenameDialog()
-                            }
-                        },
+                        modifier =
+                            Modifier.roundClick {
+                                if (viewModel.rssService.get().updateSubscription) {
+                                    viewModel.showRenameDialog()
+                                }
+                            },
                         text = group?.name ?: stringResource(R.string.unknown),
                         style = MaterialTheme.typography.headlineSmall,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -87,12 +90,10 @@ fun GroupOptionDrawer(
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState())
-                ) {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
+                        horizontalArrangement = Arrangement.Center,
                     ) {
                         Text(
                             text = stringResource(R.string.group_option_tips),
@@ -108,7 +109,10 @@ fun GroupOptionDrawer(
                     Spacer(modifier = Modifier.height(10.dp))
                     Preset(viewModel, group, context)
 
-                    if (viewModel.rssService.get().moveSubscription && groupOptionUiState.groups.size != 1) {
+                    if (
+                        viewModel.rssService.get().moveSubscription &&
+                            groupOptionUiState.groups.size != 1
+                    ) {
                         Spacer(modifier = Modifier.height(26.dp))
                         Subtitle(text = stringResource(R.string.move_to_group))
                         Spacer(modifier = Modifier.height(10.dp))
@@ -123,53 +127,31 @@ fun GroupOptionDrawer(
                     Spacer(modifier = Modifier.height(6.dp))
                 }
             }
-        }
-    ) {
-        content()
-    }
+        },
+    )
 
-    ClearGroupDialog(
-        groupName = group?.name ?: "",
-        onConfirm = { scope.launch { drawerState.hide() } })
-    DeleteGroupDialog(
-        groupName = group?.name ?: "",
-        onConfirm = { scope.launch { drawerState.hide() } })
-    AllAllowNotificationDialog(
-        groupName = group?.name ?: "",
-        onConfirm = { scope.launch { drawerState.hide() } })
-    AllParseFullContentDialog(
-        groupName = group?.name ?: "",
-        onConfirm = { scope.launch { drawerState.hide() } })
-    AllOpenInBrowserDialog(
-        groupName = group?.name ?: "",
-        onConfirm = { scope.launch { drawerState.hide() } })
-    AllMoveToGroupDialog(
-        groupName = group?.name ?: "",
-        onConfirm = { scope.launch { drawerState.hide() } })
+    ClearGroupDialog(groupName = group?.name ?: "", onConfirm = { onDismiss() })
+    DeleteGroupDialog(groupName = group?.name ?: "", onConfirm = { onDismiss() })
+    AllAllowNotificationDialog(groupName = group?.name ?: "", onConfirm = { onDismiss() })
+    AllParseFullContentDialog(groupName = group?.name ?: "", onConfirm = { onDismiss() })
+    AllOpenInBrowserDialog(groupName = group?.name ?: "", onConfirm = { onDismiss() })
+    AllMoveToGroupDialog(groupName = group?.name ?: "", onConfirm = { onDismiss() })
     RenameDialog(
         visible = groupOptionUiState.renameDialogVisible,
         value = groupOptionUiState.newName,
-        onValueChange = {
-            viewModel.inputNewName(it)
-        },
-        onDismissRequest = {
-            viewModel.hideRenameDialog()
-        },
+        onValueChange = { viewModel.inputNewName(it) },
+        onDismissRequest = { viewModel.hideRenameDialog() },
         onConfirm = {
             viewModel.rename()
-            scope.launch { drawerState.hide() }
+            onDismiss()
             context.showToast(toastString)
-        }
+        },
     )
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun Preset(
-    viewModel: GroupOptionViewModel,
-    group: Group?,
-    context: Context,
-) {
+private fun Preset(viewModel: GroupOptionViewModel, group: Group?, context: Context) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.Start),
         verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
@@ -182,9 +164,7 @@ private fun Preset(
                 Icon(
                     imageVector = Icons.Outlined.Notifications,
                     contentDescription = stringResource(R.string.allow_notification),
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .size(20.dp),
+                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
                 )
             },
         ) {
@@ -198,9 +178,7 @@ private fun Preset(
                 Icon(
                     imageVector = Icons.AutoMirrored.Outlined.Article,
                     contentDescription = stringResource(R.string.parse_full_content),
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .size(20.dp),
+                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
                 )
             },
         ) {
@@ -214,9 +192,7 @@ private fun Preset(
                 Icon(
                     imageVector = Icons.Outlined.OpenInBrowser,
                     contentDescription = stringResource(R.string.open_in_browser),
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .size(20.dp),
+                    modifier = Modifier.padding(start = 8.dp).size(20.dp),
                 )
             },
         ) {
@@ -229,7 +205,10 @@ private fun Preset(
         ) {
             viewModel.showClearDialog()
         }
-        if (viewModel.rssService.get().deleteSubscription && group?.id != context.currentAccountId.getDefaultGroupId()) {
+        if (
+            viewModel.rssService.get().deleteSubscription &&
+                group?.id != context.currentAccountId.getDefaultGroupId()
+        ) {
             RYSelectionChip(
                 modifier = Modifier.animateContentSize(),
                 content = stringResource(R.string.delete_group),

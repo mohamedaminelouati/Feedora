@@ -5,12 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.material.BottomDrawerState
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Tab
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -22,15 +20,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import me.ash.reader.R
-import me.ash.reader.ui.component.base.BottomDrawer
+import me.ash.reader.ui.component.base.M3BottomDrawer
 import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.page.home.feeds.drawer.feed.FeedOptionViewModel
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StyleOptionDrawer(
-    drawerState: ModalBottomSheetState,
+    drawerState: SheetState,
     feedOptionViewModel: FeedOptionViewModel = hiltViewModel(),
+    onDismiss: () -> Unit,
     content: @Composable () -> Unit = {},
 ) {
     val context = LocalContext.current
@@ -42,18 +41,19 @@ fun StyleOptionDrawer(
 
     BackHandler(drawerState.isVisible) {
         scope.launch {
-            drawerState.hide()
+            onDismiss()
         }
     }
 
-    BottomDrawer(
+    content()
+
+    M3BottomDrawer(
         drawerState = drawerState,
+        onDismiss = onDismiss,
         sheetContent = {
             Info()
         }
-    ) {
-        content()
-    }
+    )
 }
 
 @Composable

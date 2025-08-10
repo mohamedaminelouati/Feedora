@@ -20,13 +20,11 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.UnfoldLess
 import androidx.compose.material.icons.rounded.UnfoldMore
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -78,7 +76,6 @@ import me.ash.reader.ui.ext.currentAccountId
 import me.ash.reader.ui.ext.findActivity
 import me.ash.reader.ui.ext.getCurrentVersion
 import me.ash.reader.ui.ext.surfaceColorAtElevation
-import me.ash.reader.ui.page.common.RouteName
 import me.ash.reader.ui.page.home.feeds.accounts.AccountsTab
 import me.ash.reader.ui.page.home.feeds.drawer.feed.FeedOptionDrawer
 import me.ash.reader.ui.page.home.feeds.drawer.group.GroupOptionDrawer
@@ -171,9 +168,8 @@ fun FeedsPage(
         groupWithFeedList.forEach { groupWithFeed -> groupsVisible[groupWithFeed.group.id] = false }
     }
 
-    val groupDrawerState =
-        rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    val feedDrawerState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    var showFeedDrawer by remember { mutableStateOf(false) }
+    var showGroupDrawer by remember { mutableStateOf(false) }
 
     BackHandler(true) { context.findActivity()?.moveTaskToBack(false) }
 
@@ -248,9 +244,7 @@ fun FeedsPage(
                     item {
                         Spacer(modifier = Modifier.height(24.dp))
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 26.dp),
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 26.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
@@ -263,9 +257,7 @@ fun FeedsPage(
                                 onClick = {
                                     if (hasGroupVisible) collapseAllGroups() else expandAllGroups()
                                 },
-                                modifier = Modifier
-                                    .padding(end = 8.dp)
-                                    .size(28.dp),
+                                modifier = Modifier.padding(end = 8.dp).size(28.dp),
                             ) {
                                 Icon(
                                     imageVector =
@@ -292,7 +284,7 @@ fun FeedsPage(
                                             .getOrPut(group.id, groupListExpand::value)
                                             .not()
                                 },
-                                onLongClick = { scope.launch { groupDrawerState.show() } },
+                                onLongClick = { showGroupDrawer = true },
                             ) {
                                 feedsViewModel.changeFilter(
                                     filterState.copy(group = group, feed = null)
@@ -313,7 +305,7 @@ fun FeedsPage(
                                         )
                                         navigationToFlow()
                                     },
-                                    onLongClick = { scope.launch { feedDrawerState.show() } },
+                                    onLongClick = { showFeedDrawer = true },
                                 )
                             }
                         }
@@ -351,8 +343,13 @@ fun FeedsPage(
 
     SubscribeDialog(subscribeViewModel = subscribeViewModel)
 
-    GroupOptionDrawer(drawerState = groupDrawerState)
-    FeedOptionDrawer(drawerState = feedDrawerState)
+    if (showGroupDrawer) {
+        GroupOptionDrawer(onDismiss = { showGroupDrawer = false })
+    }
+
+    if (showFeedDrawer) {
+        FeedOptionDrawer(onDismiss = { showFeedDrawer = false })
+    }
 
     val currentAccountId = feedsUiState.account?.id
 
