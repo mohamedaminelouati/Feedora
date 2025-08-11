@@ -53,6 +53,8 @@ import me.ash.reader.ui.ext.isFuture
 import me.ash.reader.ui.ext.spacerDollar
 import timber.log.Timber
 
+private const val TAG = "GoogleReaderRssService"
+
 class GoogleReaderRssService
 @Inject
 constructor(
@@ -440,11 +442,17 @@ constructor(
             }
 
             launch {
-                articleDao.markAsReadByIdSet(
-                    accountId = accountId,
-                    ids = remoteReadIds.await().map { accountId spacerDollar it }.toSet(),
-                    isUnread = false,
-                )
+                val toBeReadIds = remoteReadIds.await().intersect(localUnreadIds)
+                toBeReadIds
+                    .map { accountId spacerDollar it }
+                    .chunked(1000)
+                    .forEach {
+                        articleDao.markAsReadByIdSet(
+                            accountId = accountId,
+                            ids = it.toSet(),
+                            isUnread = false,
+                        )
+                    }
             }
 
             // 8. Remove orphaned groups and feeds, after synchronizing the
