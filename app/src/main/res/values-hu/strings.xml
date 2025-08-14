@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="starred_desc">
-        <item quantity="one">%1$d csillagozott elem</item>
-        <item quantity="other">%1$d csillagozott elem</item>
+        <item quantity="one">%1$d csillagozott cikk</item>
+        <item quantity="other">%1$d csillagozott cikk</item>
     </plurals>
     <string name="all">Összes</string>
     <string name="clear">Törlés</string>
@@ -12,8 +12,8 @@
     </plurals>
     <string name="unread">Olvasatlanok</string>
     <plurals name="unread_desc">
-        <item quantity="one">%1$d olvasatlan elem</item>
-        <item quantity="other">%1$d olvasatlan elem</item>
+        <item quantity="one">%1$d olvasatlan cikk</item>
+        <item quantity="other">%1$d olvasatlan cikk</item>
     </plurals>
     <string name="starred">Csillagozottak</string>
     <string name="feeds">Hírforrások</string>
@@ -323,7 +323,7 @@
     <string name="toggle_starred">Csillagozás ki/be</string>
     <string name="export">Exportálás</string>
     <string name="swipe_to_start">Balra csúsztatás</string>
-    <string name="read_excluding_starred">Olvasás, csillagozottak kizárása</string>
+    <string name="read_excluding_starred">Olvasás, csillagozott cikkek kizárása</string>
     <string name="invalid_protobuf_file_warning">Ez a fájl lehet, hogy nem érvényes protobuf-fájl. Az importálása potenciálisan megrongálhatja az alkalmazást, és a jelenlegi beállítások elvesztéséhez vezethet. Biztosan folytatni szeretné?</string>
     <string name="grey_out_articles">Olvasott cikkek elszürkítése</string>
     <string name="additional_info_desc">További információk tartalmazzák az egyes hírforrások konfigurációs beállításait, például hogy engedélyezzék-e az értesítést, elemezzék-e a teljes tartalmat stb. Ha az exportált OPML-fájlt más olvasókkal kívánja használni, válassza a „kizárás” lehetőséget.</string>
@@ -343,4 +343,14 @@
     <string name="list_widget_label">Listanézet</string>
     <string name="card_widget_label">Kártyanézet</string>"
     <string name="widget_description">Legutóbbi olvasatlan cikkek megtekintése a kiválasztott forrásokból</string>
+    <string name="apply">Alkalmaz</string>
+    <string name="notifications">Értesítések</string>
+    <string name="group_configuration_description">A(z) „%1$s” konfigurálása a hírforrásokhoz ebben: „%2$s”</string>
+    <string name="disabled">Letiltva</string>
+    <string name="enabled">Engedélyezve</string>
+    <string name="notifications_desc">Kapjon értesítéseket, ha új, még nem olvasott cikkek érhetők el</string>
+    <string name="open_in_browser_desc">Cikkek megnyitása a böngészőben</string>
+    <string name="parse_full_content_desc">Teljes cikkek lekérése a weboldalakról</string>
+    <string name="enable">Engedélyezés</string>
+    <string name="disable">Letiltás</string>
 </resources>

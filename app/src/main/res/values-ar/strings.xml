@@ -325,4 +325,32 @@
     <string name="sponsor_desc">نحن نبني ونحافظ على هذا التطبيق المجاني والمفتوح المصدر في غير ساعات العمل لدينا. إذا كنت تستمتع به، فيرجى التفكير في دعمنا بتبرع صغير! ☕️</string>
     <string name="toolbars">شريط الأدوات</string>
     <string name="all_open_in_browser_toast">Opening all articles in the \"%1$s\" group in the default browser is allowed</string>
-</resources>
+    <string name="open_in_browser">فتح في المتصفح</string>
+    <string name="all_open_in_browser_tips">فتح كل المقالات في مجموعة \"%1$s\" باستخدام المتصفح الافتراضي</string>
+    <string name="all_deny_open_in_browser_toast">فتح كل المقالات في مجموعة \"%1$s\" في المتصفح الافتراضي مرفوض</string>
+    <string name="client_certificate">شهادة العميل (اختياري)</string>
+    <string name="hide_empty_groups">اخفاء المجموعات الفارغة</string>
+    <string name="sort_unread_articles">فرز المقالات غير المقروءة</string>
+    <string name="latest">الأحدث</string>
+    <string name="earliest">الأقدم</string>
+    <string name="short_desc">قصير</string>
+    <string name="long_desc">طويل</string>
+    <string name="none_desc">لا يوجد</string>
+    <string name="pull_to_switch_feed">اسحب لتحميل المحتوى التالي</string>
+    <string name="bold_characters">حروف غليظة</string>
+    <string name="use_bold_characters">استخدم الحروف الغليظة</string>
+    <string name="bold_characters_preview">استخدم الحروف الغليظة على الأحرف الأولى من الكلمات في المقالة</string>
+    <string name="load_next_feed">حمل المحتوى التالي</string>
+    <string name="mark_all_as_read_and_load_next_feed">علم الكل كمقروء وحمل المحتوى التالي</string>
+    <string name="pull_from_bottom">اسحب من الأسفل</string>
+    <string name="account">حساب</string>
+    <string name="feed">خلاصة</string>
+    <string name="folder">مجلد</string>
+    <string name="data_source">مصدر البيانات</string>
+    <string name="theme">سمة</string>
+    <string name="done">تم</string>
+    <string name="last_updated">المحدثة مؤخرا</string>
+    <string name="no_unread_articles">لا توجد مقالات غير مقروءة</string>
+    <string name="list_widget_label">عرض كقائمة</string>
+    <string name="card_widget_label">عرض كبطاقة</string>"
+    </resources>

@@ -343,4 +343,14 @@
     <string name="list_widget_label">Изглед като списък</string>
     <string name="card_widget_label">Изглед като карта</string>"
     <string name="widget_description">Преглед на най-новите непрочетени статии от избрани източници</string>
+    <string name="apply">Приложи</string>
+    <string name="notifications">Известия</string>
+    <string name="group_configuration_description">Конфигуриране на \"%1$s\" за емисии в \"%2$s\"</string>
+    <string name="disabled">Деактивирано</string>
+    <string name="enabled">Активирано</string>
+    <string name="notifications_desc">Получаване на известия, когато има нови непрочетени статии</string>
+    <string name="open_in_browser_desc">Отваряне на статии в браузъра</string>
+    <string name="parse_full_content_desc">Извличане на пълни статии от уеб страници</string>
+    <string name="enable">Активиране</string>
+    <string name="disable">Деактивиране</string>
 </resources>

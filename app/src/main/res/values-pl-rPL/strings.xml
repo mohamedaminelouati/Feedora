@@ -349,4 +349,14 @@
     <string name="list_widget_label">Widok listy</string>
     <string name="card_widget_label">Widok kart</string>"
     <string name="widget_description">Zobacz najnowsze nieprzeczytane artykuły z wybranych źródeł</string>
+    <string name="notifications_desc">Otrzymuj powiadomienia, gdy pojawią się nowe nieprzeczytane artykuły</string>
+    <string name="open_in_browser_desc">Otwórz artykuły w przeglądarce</string>
+    <string name="parse_full_content_desc">Pobierz pełne artykuły ze stron internetowych</string>
+    <string name="enable">Włącz</string>
+    <string name="disable">Wyłącz</string>
+    <string name="apply">Zastosuj</string>
+    <string name="notifications">Powiadomienia</string>
+    <string name="group_configuration_description">Skonfiguruj „%1$s” dla kanałów w „%2$s”</string>
+    <string name="disabled">Wyłączone</string>
+    <string name="enabled">Włączone</string>
 </resources>
