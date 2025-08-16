@@ -349,4 +349,14 @@
     <string name="list_widget_label">Список перегляд</string>
     <string name="card_widget_label">Перегляд картки</string>"
     <string name="widget_description">Переглянути останні непрочитані статті з вибраних джерел</string>
+    <string name="apply">Застосувати</string>
+    <string name="notifications">Сповіщення</string>
+    <string name="group_configuration_description">Налаштуйте \"%1$s\" для каналів у \"%2$s\"</string>
+    <string name="disabled">Вимкнено</string>
+    <string name="enabled">Увімкнено</string>
+    <string name="notifications_desc">Отримуйте сповіщення, коли з\'являються нові непрочитані статті</string>
+    <string name="open_in_browser_desc">Відкривати статті у браузері</string>
+    <string name="parse_full_content_desc">Отримання повних статей з веб-сторінок</string>
+    <string name="enable">Увімкнути</string>
+    <string name="disable">Вимкнути</string>
 </resources>
