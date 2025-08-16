@@ -27,7 +27,7 @@ room = "2.7.2"
 work = "2.10.1"
 
 # Compose
-composeBom = "2025.06.02"
+composeBom = "2025.08.00"
 composeHtml = "1.0.2"
 
 # Coil
