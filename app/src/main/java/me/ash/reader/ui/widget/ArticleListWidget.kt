@@ -223,7 +223,12 @@ fun ArticleList(
             )
         }
     } else {
-        Column(modifier = modifier) {
+        Column(
+            modifier =
+                modifier.clickable(
+                    actionStartActivity<MainActivity>(makeActionParameters(null, dataSource))
+                )
+        ) {
             Header(title, theme)
 
             LazyColumn() {

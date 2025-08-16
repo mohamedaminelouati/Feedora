@@ -10,7 +10,7 @@ internal fun makeActionParameters(item: Article?, dataSource: DataSource) =
             set(ActionParameters.Key<String>(ExtraName.ARTICLE_ID), item.id)
         }
         when (dataSource) {
-            is DataSource.Account -> {}
+            is DataSource.Account -> set(ActionParameters.Key<Int>(ExtraName.ACCOUNT_ID), dataSource.accountId)
             is DataSource.Feed ->
                 set(ActionParameters.Key<String>(ExtraName.FEED_ID), dataSource.feedId)
             is DataSource.Group ->

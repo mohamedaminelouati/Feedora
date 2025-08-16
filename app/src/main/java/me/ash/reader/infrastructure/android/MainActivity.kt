@@ -40,6 +40,7 @@ import me.ash.reader.ui.page.common.ExtraName
 import me.ash.reader.ui.page.home.feeds.subscribe.SubscribeViewModel
 import me.ash.reader.ui.page.nav3.AppEntry
 import me.ash.reader.ui.page.nav3.key.Route
+import me.ash.reader.ui.page.nav3.key.Route.*
 import me.ash.reader.ui.theme.AppTheme
 
 /** The Single-Activity Architecture. */
@@ -157,7 +158,22 @@ class MainActivity : AppCompatActivity() {
                                 if (readingIndex != -1) {
                                     backStack.removeRange(readingIndex, backStack.size)
                                 }
-                                backStack.add(Route.Reading(articleId = articleId))
+                                backStack.add(Reading(articleId = articleId))
+                            }
+
+                            is LaunchAction.OpenArticleList -> {
+                                val (accountId, feedId, groupId) = action
+                                if (
+                                    accountId != null &&
+                                        accountId != accountService.getCurrentAccountId()
+                                )
+                                    return@Consumer
+                                filterUseCase.init(feedId, groupId)
+                                val readingIndex = backStack.indexOfFirst { it is Reading }
+                                if (readingIndex != -1) {
+                                    backStack.removeRange(readingIndex, backStack.size)
+                                }
+                                backStack.add(Reading(articleId = null))
                             }
 
                             is LaunchAction.Subscribe -> {
@@ -190,6 +206,9 @@ sealed interface LaunchAction {
 
     data class OpenArticle(val articleId: String, val feedId: String?, val groupId: String?) :
         LaunchAction
+
+    data class OpenArticleList(val accountId: Int?, val feedId: String?, val groupId: String?) :
+        LaunchAction
 }
 
 private fun Intent.getLaunchAction(): LaunchAction? {
@@ -210,8 +229,23 @@ private fun Intent.getLaunchAction(): LaunchAction? {
             val feedId = getStringExtra(ExtraName.FEED_ID)?.also { removeExtra(ExtraName.FEED_ID) }
             val groupId =
                 getStringExtra(ExtraName.GROUP_ID)?.also { removeExtra(ExtraName.GROUP_ID) }
+            val accountId = getIntExtra(ExtraName.ACCOUNT_ID, -1)
 
-            articleId?.let { LaunchAction.OpenArticle(it, feedId, groupId) }
+            if (accountId != -1) {
+                removeExtra(ExtraName.ACCOUNT_ID)
+            }
+
+            if (articleId != null) {
+                LaunchAction.OpenArticle(articleId, feedId, groupId)
+            } else if (feedId != null || groupId != null || accountId != -1) {
+                LaunchAction.OpenArticleList(
+                    accountId = if (accountId != -1) accountId else null,
+                    feedId = feedId,
+                    groupId = groupId,
+                )
+            } else {
+                null
+            }
         }
     }
 }
