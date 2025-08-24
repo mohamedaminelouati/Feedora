@@ -10,6 +10,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
+import kotlin.collections.chunked
+import kotlin.collections.toSet
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -42,9 +44,11 @@ import me.ash.reader.infrastructure.net.onFailure
 import me.ash.reader.infrastructure.net.onSuccess
 import me.ash.reader.infrastructure.rss.RssHelper
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI
+import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.dbId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.ofCategoryIdToStreamId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.ofCategoryStreamIdToId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.ofFeedStreamIdToId
+import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.remoteId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.shortId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderDTO
 import me.ash.reader.ui.ext.decodeHTML
@@ -488,12 +492,22 @@ constructor(
         val googleReaderAPI = getGoogleReaderAPI()
 
         val feed = feedDao.queryById(feedId)!!
-        val localUnreadIds = articleDao.queryMetadataByFeedId(accountId, feedId, isUnread = true)
-        val localReadIds = articleDao.queryMetadataByFeedId(accountId, feedId, isUnread = false)
+        val localStarredIds =
+            articleDao.queryMetadataByFeedId(accountId, feedId, isUnread = true).map {
+                it.id.remoteId
+            }
+        val localUnreadIds =
+            articleDao.queryMetadataByFeedId(accountId, feedId, isUnread = true).map {
+                it.id.remoteId
+            }
+        val localReadIds =
+            articleDao.queryMetadataByFeedId(accountId, feedId, isUnread = false).map {
+                it.id.remoteId
+            }
 
-        val localIds = (localReadIds + localUnreadIds).map { it.id.dollarLast() }
+        val localIds = (localReadIds + localUnreadIds)
 
-        val unreadIds = async {
+        val remoteUnreadIds = async {
             fetchItemIdsAndContinue {
                     googleReaderAPI.getItemIdsForFeed(
                         feedId = feedId.dollarLast(),
@@ -505,7 +519,7 @@ constructor(
                 .toSet()
         }
 
-        val allIds = async {
+        val remoteAllIds = async {
             fetchItemIdsAndContinue {
                     googleReaderAPI.getItemIdsForFeed(
                         feedId = feedId.dollarLast(),
@@ -517,26 +531,57 @@ constructor(
                 .toSet()
         }
 
-        val starredIds = async {
+        val remoteStarredIds = async {
             fetchItemIdsAndContinue { googleReaderAPI.getStarredItemIds(continuationId = it) }
                 .map { it.shortId }
                 .toSet()
         }
 
-        val toFetch = allIds.await() - localIds
+        val toFetch = remoteAllIds.await() - localIds
 
         val items =
             fetchItemsContents(
                 itemIds = toFetch,
                 googleReaderAPI = googleReaderAPI,
                 accountId = accountId,
-                unreadIds = unreadIds.await(),
-                starredIds = starredIds.await(),
+                unreadIds = remoteUnreadIds.await(),
+                starredIds = remoteStarredIds.await(),
             )
 
         if (feed.isNotification) {
             val articlesToNotify = items.fastFilter { it.isUnread }
             notificationHelper.notify(feed, articlesToNotify)
+        }
+
+        launch {
+            val remoteReadIds = remoteAllIds.await() - remoteUnreadIds.await()
+            val toBeReadIds = remoteReadIds.intersect(localUnreadIds)
+
+            toBeReadIds
+                .map { it.dbId(accountId) }
+                .chunked(1000)
+                .forEach {
+                    articleDao.markAsReadByIdSet(
+                        accountId = accountId,
+                        ids = it.toSet(),
+                        isUnread = false,
+                    )
+                }
+        }
+
+        launch {
+            val toBeStarred = remoteStarredIds.await().intersect(localIds) - localStarredIds
+
+            toBeStarred
+                .map { it.dbId(accountId) }
+                .chunked(1000)
+                .forEach {
+                    articleDao.markAsStarredByIdSet(
+                        accountId = accountId,
+                        ids = it.toSet(),
+                        isStarred = true,
+                    )
+                }
         }
 
         articleDao.insert(*items.toTypedArray())

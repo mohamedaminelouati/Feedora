@@ -19,6 +19,8 @@ import me.ash.reader.infrastructure.net.onFailure
 import me.ash.reader.infrastructure.net.onSuccess
 import me.ash.reader.infrastructure.net.withRetries
 import me.ash.reader.infrastructure.rss.provider.ProviderAPI
+import me.ash.reader.ui.ext.dollarLast
+import me.ash.reader.ui.ext.spacerDollar
 import okhttp3.FormBody
 import okhttp3.Request
 import okhttp3.executeAsync
@@ -497,6 +499,11 @@ private constructor(
                 } else {
                     this.removePrefix(PREFIX).hexToLong().toString()
                 }
+
+        fun ItemId.dbId(accountId: Int) = accountId spacerDollar this
+
+        val String.remoteId
+            get() = this.dollarLast()
 
         fun String.ofFeedIdToStreamId(): String {
             return "feed/$this"
