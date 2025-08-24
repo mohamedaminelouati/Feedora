@@ -179,20 +179,25 @@ constructor(
         if (syndEntry.enclosures?.firstOrNull()?.url != null) {
             return syndEntry.enclosures.first().url
         }
-        if (syndEntry.foreignMarkup.firstOrNull()?.name == "thumbnail") {
-            return syndEntry.foreignMarkup
-                .firstOrNull()
-                ?.attributes
-                ?.find { it.name == "url" }
-                ?.value
-        }
 
         val mediaModule = syndEntry.getModule(MediaModule.URI) as? MediaEntryModule
         if (mediaModule != null) {
-            val ref = mediaModule.mediaContents.firstOrNull { it.medium == "image" }?.reference
-            return (ref as? UrlReference)?.url?.toString()
+            return findThumbnail(mediaModule)
         }
 
+        return null
+    }
+
+    private fun findThumbnail(mediaModule: MediaEntryModule): String? {
+        val thumbnail = mediaModule.metadata.thumbnail.firstOrNull()
+        if (thumbnail != null) {
+            return thumbnail.url.toString()
+        } else {
+            val imageMedia = mediaModule.mediaContents.firstOrNull { it.medium == "image" }
+            if (imageMedia != null) {
+                return (imageMedia.reference as? UrlReference)?.url.toString()
+            }
+        }
         return null
     }
 
