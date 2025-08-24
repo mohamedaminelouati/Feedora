@@ -43,7 +43,15 @@ body:
         2.
         3.
         ...
-      render: bash
     validations:
       required: true
+      
+  - type: textarea
+    id: stacktrace
+    attributes:
+      label: Crash report
+      description: ""
+      render: text
+    validations:
+      required: false
 
