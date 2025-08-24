@@ -50,7 +50,7 @@ body:
     id: stacktrace
     attributes:
       label: Crash report
-      description: ""
+      description: "If you encountered an issue caused the app to crash, paste the stacktrace here"
       render: text
     validations:
       required: false
