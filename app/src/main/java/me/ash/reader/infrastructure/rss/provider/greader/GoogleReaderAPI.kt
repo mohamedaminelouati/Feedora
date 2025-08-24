@@ -480,7 +480,12 @@ private constructor(
         }
 
         val ItemId.isLongId: Boolean
-            get() = startsWith(PREFIX)
+            get() = startsWith(PREFIX) && removePrefix(PREFIX).length == 16
+
+        val ItemId.isShortId: Boolean
+            get() = this.toLongOrNull() != null
+
+        fun ItemId.isValidItemId(): Boolean = isLongId || isShortId
 
         @OptIn(ExperimentalStdlibApi::class)
         val ItemId.longId: String

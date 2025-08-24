@@ -3,6 +3,7 @@ package me.ash.reader.domain.service
 import android.content.Context
 import android.util.Log
 import androidx.compose.ui.util.fastFilter
+import androidx.compose.ui.util.fastFilteredMap
 import androidx.work.ListenableWorker
 import androidx.work.WorkManager
 import com.rometools.rome.feed.synd.SyndFeed
@@ -45,6 +46,7 @@ import me.ash.reader.infrastructure.net.onSuccess
 import me.ash.reader.infrastructure.rss.RssHelper
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.dbId
+import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.isValidItemId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.ofCategoryIdToStreamId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.ofCategoryStreamIdToId
 import me.ash.reader.infrastructure.rss.provider.greader.GoogleReaderAPI.Companion.ofFeedStreamIdToId
@@ -619,37 +621,42 @@ constructor(
                     val result = googleReaderAPI.getItemsContents(chunkedIds)
                     val updated = result.updated
                     val fetchedItems = result.items
-                    fetchedItems?.map {
-                        val articleId = it.id?.shortId
-                        requireNotNull(articleId) { "articleId is null" }
-                        Article(
-                            id = accountId.spacerDollar(articleId),
-                            date =
-                                it.published
-                                    ?.run { Date(this * 1000) }
-                                    ?.takeIf { !it.isFuture(currentDate) } ?: currentDate,
-                            title = it.title.decodeHTML() ?: context.getString(R.string.empty),
-                            author = it.author,
-                            rawDescription = it.summary?.content ?: "",
-                            shortDescription =
-                                Readability.parseToText(it.summary?.content, findArticleURL(it))
-                                    .take(280),
-                            //                        fullContent = it.summary?.content
-                            // ?:
-                            // "",
-                            img = rssHelper.findThumbnail(it.summary?.content),
-                            link = findArticleURL(it),
-                            feedId =
-                                accountId.spacerDollar(it.origin?.streamId?.ofFeedStreamIdToId()!!),
-                            accountId = accountId,
-                            isUnread = unreadIds.contains(articleId),
-                            isStarred = starredIds.contains(articleId),
-                            updateAt =
-                                updated?.let { Date(updated * 1000L) }
-                                    ?: it.crawlTimeMsec?.let { Date(it.toLong()) }
-                                    ?: currentDate,
-                        )
-                    } ?: emptyList()
+                    if (fetchedItems == null) return@async emptyList()
+                    fetchedItems.fastFilteredMap(
+                        predicate = { it.id?.isValidItemId() == true },
+                        transform = {
+                            val articleId = it.id!!.shortId
+                            Article(
+                                id = accountId.spacerDollar(articleId),
+                                date =
+                                    it.published
+                                        ?.run { Date(this * 1000) }
+                                        ?.takeIf { !it.isFuture(currentDate) } ?: currentDate,
+                                title = it.title.decodeHTML() ?: context.getString(R.string.empty),
+                                author = it.author,
+                                rawDescription = it.summary?.content ?: "",
+                                shortDescription =
+                                    Readability.parseToText(it.summary?.content, findArticleURL(it))
+                                        .take(280),
+                                //                        fullContent = it.summary?.content
+                                // ?:
+                                // "",
+                                img = rssHelper.findThumbnail(it.summary?.content),
+                                link = findArticleURL(it),
+                                feedId =
+                                    accountId.spacerDollar(
+                                        it.origin?.streamId?.ofFeedStreamIdToId()!!
+                                    ),
+                                accountId = accountId,
+                                isUnread = unreadIds.contains(articleId),
+                                isStarred = starredIds.contains(articleId),
+                                updateAt =
+                                    updated?.let { Date(updated * 1000L) }
+                                        ?: it.crawlTimeMsec?.let { Date(it.toLong()) }
+                                        ?: currentDate,
+                            )
+                        },
+                    )
                 }
             }
         }
