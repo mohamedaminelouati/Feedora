@@ -189,7 +189,16 @@ constructor(
     }
 
     private fun findThumbnail(mediaModule: MediaEntryModule): String? {
-        val thumbnail = mediaModule.metadata.thumbnail.firstOrNull()
+        val candidates =
+            buildList {
+                    add(mediaModule.metadata)
+                    addAll(mediaModule.mediaGroups.map { mediaGroup -> mediaGroup.metadata })
+                    addAll(mediaModule.mediaContents.map { content -> content.metadata })
+                }
+                .flatMap { it.thumbnail.toList() }
+
+        val thumbnail = candidates.firstOrNull()
+
         if (thumbnail != null) {
             return thumbnail.url.toString()
         } else {
