@@ -69,6 +69,15 @@ fun AppEntry(backStack: NavBackStack) {
         if (backStack.size == 1) backStack[0] = Route.Feeds else backStack.removeLastOrNull()
     }
 
+    val scaffoldDirective =
+        calculatePaneScaffoldDirective(currentWindowAdaptiveInfo())
+
+    val navigator =
+        rememberListDetailPaneScaffoldNavigator<ArticleData>(
+            scaffoldDirective = scaffoldDirective,
+            isDestinationHistoryAware = false,
+        )
+
     SharedTransitionLayout {
         NavDisplay(
             modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
@@ -119,16 +128,7 @@ fun AppEntry(backStack: NavBackStack) {
                     }
                     is Route.Reading -> {
                         NavEntry(key) {
-                            val scaffoldDirective =
-                                calculatePaneScaffoldDirective(currentWindowAdaptiveInfo())
-
                             val key = rememberSaveable(saver = Route.Reading.Saver) { key }
-
-                            val navigator =
-                                rememberListDetailPaneScaffoldNavigator<ArticleData>(
-                                    scaffoldDirective = scaffoldDirective,
-                                    isDestinationHistoryAware = false,
-                                )
 
                             LaunchedEffect(key) {
                                 if (key.articleId != null) {
