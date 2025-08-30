@@ -1,7 +1,0 @@
-## 0.11.0
-
-Cambios notables:
-2. Marcación automática de artículos como leídos al desplazarse
-3. Haga clic en la barra superior de la aplicación para volver a la parte superior de la página
-4. Añadir separadores a las barras de herramientas en la página de lectura
-5. Añadir un botón para contraer/expandir los grupos de noticias

@@ -1,7 +1,0 @@
-## 0.7.6
-
-1. Atsevišķs ViewPager.
-
-2. Grupē paziņojumus pa ziņu plūsmām.
-
-3. Vairs nelejupielādē atjaunināšanas datnes, bet dodas uz versiju izstrādes lapu.
