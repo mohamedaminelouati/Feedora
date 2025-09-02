@@ -121,7 +121,9 @@ class AndroidApp : Application(), Configuration.Provider {
         withContext(ioDispatcher) {
             if (accountService.isNoAccount()) {
                 launch { accountService.initWithDefaultAccount() }
-                    .invokeOnCompletion { rssService.get().doSyncOneTime() }
+                    .invokeOnCompletion {
+                        rssService.get().doSyncOneTime(accountService.getCurrentAccountId())
+                    }
             }
         }
     }

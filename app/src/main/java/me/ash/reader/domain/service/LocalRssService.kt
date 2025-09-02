@@ -64,7 +64,7 @@ constructor(
             val preTime = System.currentTimeMillis()
             val preDate = Date(preTime)
             val currentAccount = accountService.getAccountById(accountId)!!
-            require(currentAccount.type == AccountType.Local) {
+            require(currentAccount.type.id == AccountType.Local.id) {
                 "Account type is invalid"
             }
             val semaphore = Semaphore(16)

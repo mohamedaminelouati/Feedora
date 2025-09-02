@@ -223,7 +223,7 @@ constructor(
     override suspend fun sync(
         accountId: Int,
         feedId: String?,
-        groupId: String?
+        groupId: String?,
     ): ListenableWorker.Result {
         return if (feedId != null) {
             syncFeed(accountId, feedId)
@@ -259,7 +259,12 @@ constructor(
         try {
             val account = accountService.getAccountById(accountId)
             requireNotNull(account) { "cannot find account" }
-            check(account.type == AccountType.GoogleReader || account.type == AccountType.FreshRSS) { "account type is invalid" }
+            check(
+                account.type.id == AccountType.GoogleReader.id ||
+                    account.type.id == AccountType.FreshRSS.id
+            ) {
+                "account type is invalid"
+            }
             val googleReaderAPI = getGoogleReaderAPI()
             googleReaderAPI.refreshCredentialsIfNeeded()
             val lastMonthAt =
@@ -286,12 +291,12 @@ constructor(
             val isFreshRss = account.type.id == FreshRSS.id
             val remoteReadIds = async {
                 fetchItemIdsAndContinue {
-                    googleReaderAPI.getReadItemIds(
-                        since = lastMonthAt,
-                        continuationId = it,
-                        useIt = isFreshRss,
-                    )
-                }
+                        googleReaderAPI.getReadItemIds(
+                            since = lastMonthAt,
+                            continuationId = it,
+                            useIt = isFreshRss,
+                        )
+                    }
                     .map { it.shortId }
                     .toSet()
             }
@@ -385,13 +390,13 @@ constructor(
 
             val deferredList =
                 fetchItemsContentsDeferred(
-                    itemIds = toBeSync.await(),
-                    googleReaderAPI = googleReaderAPI,
-                    accountId = accountId,
-                    unreadIds = remoteUnreadIds.await(),
-                    starredIds = remoteStarredIds.await(),
-                    scope = this,
-                )
+                        itemIds = toBeSync.await(),
+                        googleReaderAPI = googleReaderAPI,
+                        accountId = accountId,
+                        unreadIds = remoteUnreadIds.await(),
+                        starredIds = remoteStarredIds.await(),
+                        scope = this,
+                    )
                     .toMutableList()
 
             val remoteGroups = async { groupWithFeedsMap.await().keys.toList() }
@@ -425,21 +430,21 @@ constructor(
 
             if (deferredList.isNotEmpty()) {
                 launch {
-                    whileSelect {
-                        for (deferred in deferredList) {
-                            deferred.onAwait {
-                                articleDao.insertList(it)
-                                articlesToNotify.addAll(
-                                    it.fastFilter {
-                                        it.isUnread && notificationFeedIds.contains(it.feedId)
-                                    }
-                                )
-                                deferredList.remove(deferred)
-                                deferredList.isNotEmpty()
+                        whileSelect {
+                            for (deferred in deferredList) {
+                                deferred.onAwait {
+                                    articleDao.insertList(it)
+                                    articlesToNotify.addAll(
+                                        it.fastFilter {
+                                            it.isUnread && notificationFeedIds.contains(it.feedId)
+                                        }
+                                    )
+                                    deferredList.remove(deferred)
+                                    deferredList.isNotEmpty()
+                                }
                             }
                         }
                     }
-                }
                     .invokeOnCompletion {
                         launch {
                             articlesToNotify
@@ -496,7 +501,11 @@ constructor(
             val preTime = System.currentTimeMillis()
             val account = accountService.getAccountById(accountId)
             requireNotNull(account) { "cannot find account" }
-            check(account.type == AccountType.GoogleReader || account.type == AccountType.FreshRSS) { "account type is invalid" }
+            check(
+                account.type.id == AccountType.GoogleReader.id || account.type.id == AccountType.FreshRSS.id
+            ) {
+                "account type is invalid"
+            }
             val googleReaderAPI = getGoogleReaderAPI()
 
             val feed = feedDao.queryById(feedId)!!
@@ -517,24 +526,24 @@ constructor(
 
             val remoteUnreadIds = async {
                 fetchItemIdsAndContinue {
-                    googleReaderAPI.getItemIdsForFeed(
-                        feedId = feedId.dollarLast(),
-                        filterRead = true,
-                        continuationId = it,
-                    )
-                }
+                        googleReaderAPI.getItemIdsForFeed(
+                            feedId = feedId.dollarLast(),
+                            filterRead = true,
+                            continuationId = it,
+                        )
+                    }
                     .map { it.shortId }
                     .toSet()
             }
 
             val remoteAllIds = async {
                 fetchItemIdsAndContinue {
-                    googleReaderAPI.getItemIdsForFeed(
-                        feedId = feedId.dollarLast(),
-                        filterRead = false,
-                        continuationId = it,
-                    )
-                }
+                        googleReaderAPI.getItemIdsForFeed(
+                            feedId = feedId.dollarLast(),
+                            filterRead = false,
+                            continuationId = it,
+                        )
+                    }
                     .map { it.shortId }
                     .toSet()
             }
@@ -676,13 +685,13 @@ constructor(
         starredIds: Set<String>,
     ): List<Article> = supervisorScope {
         fetchItemsContentsDeferred(
-            itemIds = itemIds,
-            googleReaderAPI = googleReaderAPI,
-            accountId = accountId,
-            unreadIds = unreadIds,
-            starredIds = starredIds,
-            scope = this,
-        )
+                itemIds = itemIds,
+                googleReaderAPI = googleReaderAPI,
+                accountId = accountId,
+                unreadIds = unreadIds,
+                starredIds = starredIds,
+                scope = this,
+            )
             .awaitAll()
             .flatten()
     }
@@ -706,28 +715,28 @@ constructor(
             when {
                 groupId != null -> {
                     if (before == null) {
-                        articleDao.queryMetadataByGroupIdWhenIsUnread(
-                            accountId,
-                            groupId,
-                            !isUnread,
-                        )
-                    } else {
-                        articleDao.queryMetadataByGroupIdWhenIsUnread(
-                            accountId,
-                            groupId,
-                            !isUnread,
-                            before,
-                        )
-                    }
+                            articleDao.queryMetadataByGroupIdWhenIsUnread(
+                                accountId,
+                                groupId,
+                                !isUnread,
+                            )
+                        } else {
+                            articleDao.queryMetadataByGroupIdWhenIsUnread(
+                                accountId,
+                                groupId,
+                                !isUnread,
+                                before,
+                            )
+                        }
                         .map { it.id.dollarLast() }
                 }
 
                 feedId != null -> {
                     if (before == null) {
-                        articleDao.queryMetadataByFeedId(accountId, feedId, !isUnread)
-                    } else {
-                        articleDao.queryMetadataByFeedId(accountId, feedId, !isUnread, before)
-                    }
+                            articleDao.queryMetadataByFeedId(accountId, feedId, !isUnread)
+                        } else {
+                            articleDao.queryMetadataByFeedId(accountId, feedId, !isUnread, before)
+                        }
                         .map { it.id.dollarLast() }
                 }
 
@@ -737,10 +746,10 @@ constructor(
 
                 else -> {
                     if (before == null) {
-                        articleDao.queryMetadataAll(accountId, !isUnread)
-                    } else {
-                        articleDao.queryMetadataAll(accountId, !isUnread, before)
-                    }
+                            articleDao.queryMetadataAll(accountId, !isUnread)
+                        } else {
+                            articleDao.queryMetadataAll(accountId, !isUnread, before)
+                        }
                         .map { it.id.dollarLast() }
                 }
             }

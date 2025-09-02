@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import me.ash.reader.R
 import me.ash.reader.domain.model.account.Account
+import me.ash.reader.domain.model.account.AccountType
 import me.ash.reader.domain.model.account.security.FeverSecurityKey
 import me.ash.reader.domain.model.article.Article
 import me.ash.reader.domain.model.article.ArticleMeta
@@ -142,185 +143,187 @@ constructor(
      * 3. Fetch the Fever articles
      * 4. Synchronize read/unread and starred/un-starred items
      */
-    override suspend fun sync(feedId: String?, groupId: String?): ListenableWorker.Result =
-        coroutineScope {
-            try {
-                val preTime = System.currentTimeMillis()
-                val preDate = Date(preTime)
-                val accountId = accountService.getCurrentAccountId()
-                val account = accountService.getCurrentAccount()
-                val feverAPI = getFeverAPI()
+    override suspend fun sync(
+        accountId: Int,
+        feedId: String?,
+        groupId: String?,
+    ): ListenableWorker.Result = coroutineScope {
+        try {
+            val preTime = System.currentTimeMillis()
+            val preDate = Date(preTime)
+            val account = accountService.getAccountById(accountId)!!
+            check(account.type.id == AccountType.Fever.id) { "account type is invalid" }
 
-                // 1. Fetch the Fever groups
-                val groupsBody = feverAPI.getGroups()
+            val feverAPI = getFeverAPI()
 
-                val groups =
-                    groupsBody.groups?.map {
-                        Group(
-                            id = accountId.spacerDollar(it.id!!),
-                            name = it.title ?: context.getString(R.string.empty),
-                            accountId = accountId,
-                        )
-                    } ?: emptyList()
-                groupDao.insertOrUpdate(groups)
+            // 1. Fetch the Fever groups
+            val groupsBody = feverAPI.getGroups()
 
-                // 2. Fetch the Fever feeds
-                val feedsBody = feverAPI.getFeeds()
-
-                val feedsGroupsMap =
-                    buildMap<String, String> {
-                        groupsBody.feeds_groups?.forEach { feedsGroups ->
-                            feedsGroups.group_id?.toString()?.let { groupId ->
-                                feedsGroups.feed_ids?.split(",")?.forEach { feedId ->
-                                    this[feedId] = groupId
-                                }
-                            }
-                        }
-
-                        feedsBody.feeds_groups?.forEach { feedsGroups ->
-                            feedsGroups.group_id?.toString()?.let { groupId ->
-                                feedsGroups.feed_ids?.split(",")?.forEach { feedId ->
-                                    this[feedId] = groupId
-                                }
-                            }
-                        }
-                    }
-
-                // Fetch the Fever favicons
-                val faviconsById =
-                    feverAPI.getFavicons().favicons?.associateBy { it.id } ?: emptyMap()
-                feedDao.insertOrUpdate(
-                    feedsBody.feeds?.map {
-                        Feed(
-                            id = accountId.spacerDollar(it.id!!),
-                            name = it.title.decodeHTML() ?: context.getString(R.string.empty),
-                            url = it.url!!,
-                            groupId = accountId.spacerDollar(feedsGroupsMap[it.id.toString()]!!),
-                            accountId = accountId,
-                            icon = faviconsById[it.favicon_id]?.data,
-                        )
-                    } ?: emptyList()
-                )
-
-                // Handle empty icon for feeds
-                val noIconFeeds = feedDao.queryNoIcon(accountId)
-                feedDao.update(
-                    *noIconFeeds
-                        .map { it.copy(icon = rssHelper.queryRssIconLink(it.url)) }
-                        .toTypedArray()
-                )
-
-                // 3. Fetch the Fever articles (up to unlimited counts)
-                val allArticles = mutableListOf<Article>()
-
-                var lastSeenId = account.lastArticleId?.dollarLast() ?: ""
-
-                while (true) {
-                    val itemsBody = feverAPI.getItemsSince(lastSeenId)
-                    val fetchedItems = itemsBody.items
-
-                    if (fetchedItems.isNullOrEmpty()) {
-                        break
-                    }
-
-                    val articlesFromBatch =
-                        fetchedItems.map { item ->
-                            Article(
-                                id = accountId.spacerDollar(item.id!!),
-                                date =
-                                    item.created_on_time
-                                        ?.run { Date(this * 1000) }
-                                        ?.takeIf { !it.isFuture(preDate) } ?: preDate,
-                                title =
-                                    item.title.decodeHTML() ?: context.getString(R.string.empty),
-                                author = item.author,
-                                rawDescription = item.html ?: "",
-                                shortDescription =
-                                    Readability.parseToText(item.html, item.url).take(280),
-                                img = rssHelper.findThumbnail(item.html),
-                                link = item.url ?: "",
-                                feedId = accountId.spacerDollar(item.feed_id!!),
-                                accountId = accountId,
-                                isUnread = (item.is_read ?: 0) <= 0,
-                                isStarred = (item.is_saved ?: 0) > 0,
-                                updateAt = preDate,
-                            )
-                        }
-
-                    allArticles.addAll(articlesFromBatch)
-
-                    lastSeenId = fetchedItems.lastOrNull()?.id ?: break
-
-                    if (fetchedItems.size < 50) {
-                        break
-                    }
-                }
-
-                if (allArticles.isNotEmpty()) {
-                    articleDao.insert(*allArticles.toTypedArray())
-                    val notificationFeeds =
-                        feedDao.queryNotificationEnabled(accountId).associateBy { it.id }
-                    val notificationFeedIds = notificationFeeds.keys
-                    allArticles
-                        .fastFilter { it.isUnread && it.feedId in notificationFeedIds }
-                        .groupBy { it.feedId }
-                        .mapKeys { (feedId, _) -> notificationFeeds[feedId]!! }
-                        .forEach { (feed, articles) -> notificationHelper.notify(feed, articles) }
-                }
-
-                // 4. Synchronize read/unread and starred/un-starred
-                val unreadArticleIds = feverAPI.getUnreadItems().unread_item_ids?.split(",")
-                val starredArticleIds = feverAPI.getSavedItems().saved_item_ids?.split(",")
-                val articleMeta = articleDao.queryMetadataAll(accountId)
-                for (meta: ArticleMeta in articleMeta) {
-                    val articleId = meta.id.dollarLast()
-                    val shouldBeUnread = unreadArticleIds?.contains(articleId)
-                    val shouldBeStarred = starredArticleIds?.contains(articleId)
-                    if (meta.isUnread != shouldBeUnread) {
-                        articleDao.markAsReadByArticleId(accountId, meta.id, shouldBeUnread ?: true)
-                    }
-                    if (meta.isStarred != shouldBeStarred) {
-                        articleDao.markAsStarredByArticleId(
-                            accountId,
-                            meta.id,
-                            shouldBeStarred ?: false,
-                        )
-                    }
-                }
-
-                // Remove orphaned groups and feeds, after synchronizing the starred/un-starred
-                val groupIds = groups.map { it.id }
-                groupDao.queryAll(accountId).forEach {
-                    if (!groupIds.contains(it.id)) {
-                        super.deleteGroup(it, true)
-                    }
-                }
-
-                feedDao.queryAll(accountId).forEach {
-                    if (!feedsGroupsMap.contains(it.id.dollarLast())) {
-                        super.deleteFeed(it, true)
-                    }
-                }
-
-                Log.i("RLog", "onCompletion: ${System.currentTimeMillis() - preTime}")
-                accountService.update(
-                    account.copy(
-                        updateAt = Date(),
-                        lastArticleId =
-                            if (lastSeenId.isNotEmpty()) {
-                                accountId.spacerDollar(lastSeenId)
-                            } else account.lastArticleId,
+            val groups =
+                groupsBody.groups?.map {
+                    Group(
+                        id = accountId.spacerDollar(it.id!!),
+                        name = it.title ?: context.getString(R.string.empty),
+                        accountId = accountId,
                     )
-                )
-                ListenableWorker.Result.success()
-            } catch (e: Exception) {
-                Log.e("RLog", "On sync exception: ${e.message}", e)
-                //                withContext(mainDispatcher) {
-                //                    context.showToast(e.message)
-                //                }
-                ListenableWorker.Result.failure()
+                } ?: emptyList()
+            groupDao.insertOrUpdate(groups)
+
+            // 2. Fetch the Fever feeds
+            val feedsBody = feverAPI.getFeeds()
+
+            val feedsGroupsMap =
+                buildMap<String, String> {
+                    groupsBody.feeds_groups?.forEach { feedsGroups ->
+                        feedsGroups.group_id?.toString()?.let { groupId ->
+                            feedsGroups.feed_ids?.split(",")?.forEach { feedId ->
+                                this[feedId] = groupId
+                            }
+                        }
+                    }
+
+                    feedsBody.feeds_groups?.forEach { feedsGroups ->
+                        feedsGroups.group_id?.toString()?.let { groupId ->
+                            feedsGroups.feed_ids?.split(",")?.forEach { feedId ->
+                                this[feedId] = groupId
+                            }
+                        }
+                    }
+                }
+
+            // Fetch the Fever favicons
+            val faviconsById = feverAPI.getFavicons().favicons?.associateBy { it.id } ?: emptyMap()
+            feedDao.insertOrUpdate(
+                feedsBody.feeds?.map {
+                    Feed(
+                        id = accountId.spacerDollar(it.id!!),
+                        name = it.title.decodeHTML() ?: context.getString(R.string.empty),
+                        url = it.url!!,
+                        groupId = accountId.spacerDollar(feedsGroupsMap[it.id.toString()]!!),
+                        accountId = accountId,
+                        icon = faviconsById[it.favicon_id]?.data,
+                    )
+                } ?: emptyList()
+            )
+
+            // Handle empty icon for feeds
+            val noIconFeeds = feedDao.queryNoIcon(accountId)
+            feedDao.update(
+                *noIconFeeds
+                    .map { it.copy(icon = rssHelper.queryRssIconLink(it.url)) }
+                    .toTypedArray()
+            )
+
+            // 3. Fetch the Fever articles (up to unlimited counts)
+            val allArticles = mutableListOf<Article>()
+
+            var lastSeenId = account.lastArticleId?.dollarLast() ?: ""
+
+            while (true) {
+                val itemsBody = feverAPI.getItemsSince(lastSeenId)
+                val fetchedItems = itemsBody.items
+
+                if (fetchedItems.isNullOrEmpty()) {
+                    break
+                }
+
+                val articlesFromBatch =
+                    fetchedItems.map { item ->
+                        Article(
+                            id = accountId.spacerDollar(item.id!!),
+                            date =
+                                item.created_on_time
+                                    ?.run { Date(this * 1000) }
+                                    ?.takeIf { !it.isFuture(preDate) } ?: preDate,
+                            title = item.title.decodeHTML() ?: context.getString(R.string.empty),
+                            author = item.author,
+                            rawDescription = item.html ?: "",
+                            shortDescription =
+                                Readability.parseToText(item.html, item.url).take(280),
+                            img = rssHelper.findThumbnail(item.html),
+                            link = item.url ?: "",
+                            feedId = accountId.spacerDollar(item.feed_id!!),
+                            accountId = accountId,
+                            isUnread = (item.is_read ?: 0) <= 0,
+                            isStarred = (item.is_saved ?: 0) > 0,
+                            updateAt = preDate,
+                        )
+                    }
+
+                allArticles.addAll(articlesFromBatch)
+
+                lastSeenId = fetchedItems.lastOrNull()?.id ?: break
+
+                if (fetchedItems.size < 50) {
+                    break
+                }
             }
+
+            if (allArticles.isNotEmpty()) {
+                articleDao.insert(*allArticles.toTypedArray())
+                val notificationFeeds =
+                    feedDao.queryNotificationEnabled(accountId).associateBy { it.id }
+                val notificationFeedIds = notificationFeeds.keys
+                allArticles
+                    .fastFilter { it.isUnread && it.feedId in notificationFeedIds }
+                    .groupBy { it.feedId }
+                    .mapKeys { (feedId, _) -> notificationFeeds[feedId]!! }
+                    .forEach { (feed, articles) -> notificationHelper.notify(feed, articles) }
+            }
+
+            // 4. Synchronize read/unread and starred/un-starred
+            val unreadArticleIds = feverAPI.getUnreadItems().unread_item_ids?.split(",")
+            val starredArticleIds = feverAPI.getSavedItems().saved_item_ids?.split(",")
+            val articleMeta = articleDao.queryMetadataAll(accountId)
+            for (meta: ArticleMeta in articleMeta) {
+                val articleId = meta.id.dollarLast()
+                val shouldBeUnread = unreadArticleIds?.contains(articleId)
+                val shouldBeStarred = starredArticleIds?.contains(articleId)
+                if (meta.isUnread != shouldBeUnread) {
+                    articleDao.markAsReadByArticleId(accountId, meta.id, shouldBeUnread ?: true)
+                }
+                if (meta.isStarred != shouldBeStarred) {
+                    articleDao.markAsStarredByArticleId(
+                        accountId,
+                        meta.id,
+                        shouldBeStarred ?: false,
+                    )
+                }
+            }
+
+            // Remove orphaned groups and feeds, after synchronizing the starred/un-starred
+            val groupIds = groups.map { it.id }
+            groupDao.queryAll(accountId).forEach {
+                if (!groupIds.contains(it.id)) {
+                    super.deleteGroup(it, true)
+                }
+            }
+
+            feedDao.queryAll(accountId).forEach {
+                if (!feedsGroupsMap.contains(it.id.dollarLast())) {
+                    super.deleteFeed(it, true)
+                }
+            }
+
+            Log.i("RLog", "onCompletion: ${System.currentTimeMillis() - preTime}")
+            accountService.update(
+                account.copy(
+                    updateAt = Date(),
+                    lastArticleId =
+                        if (lastSeenId.isNotEmpty()) {
+                            accountId.spacerDollar(lastSeenId)
+                        } else account.lastArticleId,
+                )
+            )
+            ListenableWorker.Result.success()
+        } catch (e: Exception) {
+            Log.e("RLog", "On sync exception: ${e.message}", e)
+            //                withContext(mainDispatcher) {
+            //                    context.showToast(e.message)
+            //                }
+            ListenableWorker.Result.failure()
         }
+    }
 
     override suspend fun markAsRead(
         groupId: String?,

@@ -6,9 +6,7 @@ import androidx.work.*
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import java.util.concurrent.TimeUnit
-import me.ash.reader.infrastructure.preference.SyncIntervalPreference
-import me.ash.reader.infrastructure.preference.SyncOnlyOnWiFiPreference
-import me.ash.reader.infrastructure.preference.SyncOnlyWhenChargingPreference
+import me.ash.reader.domain.model.account.Account
 import me.ash.reader.infrastructure.rss.ReaderCacheHelper
 
 @HiltWorker
@@ -24,30 +22,35 @@ constructor(
 
     override suspend fun doWork(): Result {
         val data = inputData
+        val accountId = data.getInt("accountId", -1)
+        require(accountId != -1)
         val feedId = data.getString("feedId")
         val groupId = data.getString("groupId")
 
-        return rssService.get().sync(feedId = feedId, groupId = groupId).also {
-            rssService.get().clearKeepArchivedArticles().forEach {
-                readerCacheHelper.deleteCacheFor(articleId = it.id)
+        return rssService
+            .get()
+            .sync(accountId = accountId, feedId = feedId, groupId = groupId)
+            .also {
+                rssService.get().clearKeepArchivedArticles().forEach {
+                    readerCacheHelper.deleteCacheFor(articleId = it.id)
+                }
+                workManager
+                    .beginUniqueWork(
+                        uniqueWorkName = POST_SYNC_WORK_NAME,
+                        existingWorkPolicy = ExistingWorkPolicy.KEEP,
+                        OneTimeWorkRequestBuilder<ReaderWorker>()
+                            .addTag(READER_TAG)
+                            .addTag(ONETIME_WORK_TAG)
+                            .setBackoffCriteria(
+                                backoffPolicy = BackoffPolicy.EXPONENTIAL,
+                                backoffDelay = 30,
+                                timeUnit = TimeUnit.SECONDS,
+                            )
+                            .build(),
+                    )
+                    .then(OneTimeWorkRequestBuilder<WidgetUpdateWorker>().build())
+                    .enqueue()
             }
-            workManager
-                .beginUniqueWork(
-                    uniqueWorkName = POST_SYNC_WORK_NAME,
-                    existingWorkPolicy = ExistingWorkPolicy.KEEP,
-                    OneTimeWorkRequestBuilder<ReaderWorker>()
-                        .addTag(READER_TAG)
-                        .addTag(ONETIME_WORK_TAG)
-                        .setBackoffCriteria(
-                            backoffPolicy = BackoffPolicy.EXPONENTIAL,
-                            backoffDelay = 30,
-                            timeUnit = TimeUnit.SECONDS,
-                        )
-                        .build(),
-                )
-                .then(OneTimeWorkRequestBuilder<WidgetUpdateWorker>().build())
-                .enqueue()
-        }
     }
 
     companion object {
@@ -86,12 +89,10 @@ constructor(
                 .enqueue()
         }
 
-        fun enqueuePeriodicWork(
-            workManager: WorkManager,
-            syncInterval: SyncIntervalPreference,
-            syncOnlyWhenCharging: SyncOnlyWhenChargingPreference,
-            syncOnlyOnWiFi: SyncOnlyOnWiFiPreference,
-        ) {
+        fun enqueuePeriodicWork(account: Account, workManager: WorkManager) {
+            val syncInterval = account.syncInterval
+            val syncOnlyWhenCharging = account.syncOnlyWhenCharging
+            val syncOnlyOnWiFi = account.syncOnlyOnWiFi
             val workState =
                 workManager
                     .getWorkInfosForUniqueWork(SYNC_WORK_NAME_PERIODIC)
@@ -122,6 +123,7 @@ constructor(
                         backoffDelay = 30,
                         timeUnit = TimeUnit.SECONDS,
                     )
+                    .setInputData(workDataOf("accountId" to account.id))
                     .addTag(SYNC_TAG)
                     .addTag(PERIODIC_WORK_TAG)
                     .setInitialDelay(syncInterval.value, TimeUnit.MINUTES)
