@@ -60,7 +60,9 @@ constructor(
 
     fun getAccounts(): Flow<List<Account>> = accountDao.queryAllAsFlow()
 
-    fun getAccountById(accountId: Int): Flow<Account?> = accountDao.queryAccount(accountId)
+    fun getAccountFlowById(accountId: Int): Flow<Account?> = accountDao.queryAccount(accountId)
+
+    suspend fun getAccountById(accountId: Int): Account? = accountDao.queryById(accountId)
 
     fun getCurrentAccount(): Account = runBlocking {
         currentAccountFlow.first { it != null } as Account

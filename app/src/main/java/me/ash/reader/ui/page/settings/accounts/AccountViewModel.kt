@@ -46,7 +46,7 @@ class AccountViewModel @Inject constructor(
 
     fun initData(accountId: Int) {
         viewModelScope.launch(ioDispatcher) {
-            _accountUiState.update { it.copy(selectedAccount = accountService.getAccountById(accountId)) }
+            _accountUiState.update { it.copy(selectedAccount = accountService.getAccountFlowById(accountId)) }
         }
     }
 

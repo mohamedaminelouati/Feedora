@@ -92,7 +92,11 @@ abstract class AbstractRssRepository(
         }
     }
 
-    abstract suspend fun sync(feedId: String?, groupId: String?): ListenableWorker.Result
+    abstract suspend fun sync(
+        accountId: Int,
+        feedId: String?,
+        groupId: String?
+    ): ListenableWorker.Result
 
     open suspend fun markAsRead(
         groupId: String?,

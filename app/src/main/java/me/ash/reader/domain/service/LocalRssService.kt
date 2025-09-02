@@ -14,6 +14,7 @@ import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
 import me.ash.reader.domain.data.SyncLogger
+import me.ash.reader.domain.model.account.AccountType
 import me.ash.reader.domain.model.feed.Feed
 import me.ash.reader.domain.model.feed.FeedWithArticle
 import me.ash.reader.domain.repository.ArticleDao
@@ -54,55 +55,61 @@ constructor(
         accountService,
     ) {
 
-    override suspend fun sync(feedId: String?, groupId: String?) = supervisorScope {
+    override suspend fun sync(
+        accountId: Int,
+        feedId: String?,
+        groupId: String?
+    ): ListenableWorker.Result = supervisorScope {
         return@supervisorScope runCatching {
-                val preTime = System.currentTimeMillis()
-                val preDate = Date(preTime)
-                val currentAccount = accountService.getCurrentAccount()
-                val accountId = currentAccount.id!!
-                val semaphore = Semaphore(16)
+            val preTime = System.currentTimeMillis()
+            val preDate = Date(preTime)
+            val currentAccount = accountService.getAccountById(accountId)!!
+            require(currentAccount.type == AccountType.Local) {
+                "Account type is invalid"
+            }
+            val semaphore = Semaphore(16)
 
-                val feedsToSync =
-                    when {
-                        feedId != null -> listOfNotNull(feedDao.queryById(feedId))
-                        groupId != null -> feedDao.queryByGroupId(accountId, groupId)
-                        else -> feedDao.queryAll(accountId)
-                    }
+            val feedsToSync =
+                when {
+                    feedId != null -> listOfNotNull(feedDao.queryById(feedId))
+                    groupId != null -> feedDao.queryByGroupId(accountId, groupId)
+                    else -> feedDao.queryAll(accountId)
+                }
 
-                feedsToSync
-                    .mapIndexed { _, currentFeed ->
-                        async(Dispatchers.IO) {
-                            semaphore.withPermit {
-                                val archivedArticles =
-                                    feedDao
-                                        .queryArchivedArticles(currentFeed.id)
-                                        .map { it.link }
-                                        .toSet()
-                                val fetchedFeed = syncFeed(currentFeed, preDate)
-                                val fetchedArticles =
-                                    fetchedFeed.articles.filterNot {
-                                        archivedArticles.contains(it.link)
-                                    }
-
-                                val newArticles =
-                                    articleDao.insertListIfNotExist(
-                                        articles = fetchedArticles,
-                                        feed = currentFeed,
-                                    )
-                                if (currentFeed.isNotification && newArticles.isNotEmpty()) {
-                                    notificationHelper.notify(
-                                        fetchedFeed.copy(articles = newArticles, feed = currentFeed)
-                                    )
+            feedsToSync
+                .mapIndexed { _, currentFeed ->
+                    async(Dispatchers.IO) {
+                        semaphore.withPermit {
+                            val archivedArticles =
+                                feedDao
+                                    .queryArchivedArticles(currentFeed.id)
+                                    .map { it.link }
+                                    .toSet()
+                            val fetchedFeed = syncFeed(currentFeed, preDate)
+                            val fetchedArticles =
+                                fetchedFeed.articles.filterNot {
+                                    archivedArticles.contains(it.link)
                                 }
+
+                            val newArticles =
+                                articleDao.insertListIfNotExist(
+                                    articles = fetchedArticles,
+                                    feed = currentFeed,
+                                )
+                            if (currentFeed.isNotification && newArticles.isNotEmpty()) {
+                                notificationHelper.notify(
+                                    fetchedFeed.copy(articles = newArticles, feed = currentFeed)
+                                )
                             }
                         }
                     }
-                    .awaitAll()
+                }
+                .awaitAll()
 
-                Timber.tag("RlOG").i("onCompletion: ${System.currentTimeMillis() - preTime}")
-                accountService.update(currentAccount.copy(updateAt = Date()))
-                ListenableWorker.Result.success()
-            }
+            Timber.tag("RlOG").i("onCompletion: ${System.currentTimeMillis() - preTime}")
+            accountService.update(currentAccount.copy(updateAt = Date()))
+            ListenableWorker.Result.success()
+        }
             .onFailure { syncLogger.log(it) }
             .getOrNull() ?: ListenableWorker.Result.retry()
     }
