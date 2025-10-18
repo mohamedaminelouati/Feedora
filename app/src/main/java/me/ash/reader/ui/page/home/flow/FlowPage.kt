@@ -59,7 +59,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.util.fastForEachIndexed
 import androidx.compose.ui.zIndex
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -518,15 +517,25 @@ fun FlowPage(
                     if (markAsReadOnScroll && filterState.filter.isUnread()) {
                         LaunchedEffect(listState.isScrollInProgress) {
                             if (!listState.isScrollInProgress) {
-                                val firstItemIndex = listState.firstVisibleItemIndex
+                                val firstItemKey =
+                                    listState.layoutInfo.visibleItemsInfo
+                                        .firstOrNull { it.contentType == CONTENT_TYPE_ARTICLE }
+                                        ?.key
                                 val items = mutableListOf<ArticleWithFeed>()
-                                if (firstItemIndex < pagingItems.itemCount) {
-                                    for (index in 0 until firstItemIndex) {
-                                        pagingItems.peek(index).let {
-                                            if (it is ArticleFlowItem.Article)
-                                                items.add(it.articleWithFeed)
+                                var found = false
+                                val itemCount = pagingItems.itemCount
+                                for (index in 0 until itemCount) {
+                                    pagingItems.peek(index).let {
+                                        if (it is ArticleFlowItem.Article) {
+                                            items.add(it.articleWithFeed)
+                                            if (it.articleWithFeed.article.id == firstItemKey) {
+                                                found = true
+                                                break
+                                            }
                                         }
                                     }
+                                }
+                                if (items.isNotEmpty() && found) {
                                     viewModel.diffMapHolder.updateDiff(
                                         articleWithFeed = items.toTypedArray(),
                                         isUnread = false,

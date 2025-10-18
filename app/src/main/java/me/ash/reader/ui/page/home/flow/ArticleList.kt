@@ -119,10 +119,10 @@ private fun key(item: ArticleFlowItem): String {
 
 private fun contentType(item: ArticleFlowItem): Int {
     return when (item) {
-        is ArticleFlowItem.Article -> ARTICLE
-        is ArticleFlowItem.Date -> DATE
+        is ArticleFlowItem.Article -> CONTENT_TYPE_ARTICLE
+        is ArticleFlowItem.Date -> CONTENT_TYPE_DATE_HEADER
     }
 }
 
-private const val ARTICLE = 1
-private const val DATE = 2
+const val CONTENT_TYPE_ARTICLE = 1
+const val CONTENT_TYPE_DATE_HEADER = 2
