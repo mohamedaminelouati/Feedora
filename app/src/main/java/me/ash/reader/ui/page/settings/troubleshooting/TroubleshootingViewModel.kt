@@ -24,7 +24,6 @@ import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.di.MainDispatcher
 import me.ash.reader.ui.ext.fromDataStoreToJSONString
 import me.ash.reader.ui.ext.fromJSONStringToDataStore
-import me.ash.reader.ui.ext.isProbableProtobuf
 
 @HiltViewModel
 class TroubleshootingViewModel
@@ -54,11 +53,11 @@ constructor(
     }
 
     fun tryImport(context: Context, byteArray: ByteArray) {
-        if (!byteArray.isProbableProtobuf()) {
-            showWarningDialog()
-        } else {
-            importPreferencesFromJSON(context, byteArray)
-        }
+        //        if (!byteArray.isProbableProtobuf()) {
+        //            showWarningDialog()
+        //        } else {
+        importPreferencesFromJSON(context, byteArray)
+        //        }
     }
 
     fun importPreferencesFromJSON(context: Context, byteArray: ByteArray) {
