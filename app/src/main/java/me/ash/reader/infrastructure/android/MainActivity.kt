@@ -26,6 +26,7 @@ import coil.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.reflect.Field
 import javax.inject.Inject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.ash.reader.domain.data.FilterStateUseCase
 import me.ash.reader.domain.service.AccountService
@@ -166,7 +167,10 @@ class MainActivity : AppCompatActivity() {
                                         backStack.removeLastOrNull()
                                     }
                                 }
-                                backStack.add(Reading(articleId = articleId))
+                                scope.launch {
+                                    delay(500L)
+                                    backStack.add(Reading(articleId = articleId))
+                                }
                             }
 
                             is LaunchAction.OpenArticleList -> {
