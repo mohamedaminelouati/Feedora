@@ -19,10 +19,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavEntry
-import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.LocalNavAnimatedContentScope
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import kotlinx.coroutines.delay
 import me.ash.reader.ui.motion.materialSharedAxisXIn
 import me.ash.reader.ui.motion.materialSharedAxisXOut
@@ -62,15 +62,14 @@ private const val INITIAL_OFFSET_FACTOR = 0.10f
     ExperimentalMaterial3AdaptiveApi::class,
 )
 @Composable
-fun AppEntry(backStack: NavBackStack) {
+fun AppEntry(backStack: NavBackStack<NavKey>) {
     val subscribeViewModel = hiltViewModel<SubscribeViewModel>()
 
     val onBack: () -> Unit = {
         if (backStack.size == 1) backStack[0] = Route.Feeds else backStack.removeLastOrNull()
     }
 
-    val scaffoldDirective =
-        calculatePaneScaffoldDirective(currentWindowAdaptiveInfo())
+    val scaffoldDirective = calculatePaneScaffoldDirective(currentWindowAdaptiveInfo())
 
     val navigator =
         rememberListDetailPaneScaffoldNavigator<ArticleData>(
@@ -84,8 +83,7 @@ fun AppEntry(backStack: NavBackStack) {
             backStack = backStack,
             entryDecorators =
                 listOf(
-                    rememberSceneSetupNavEntryDecorator(),
-                    rememberSavedStateNavEntryDecorator(),
+                    rememberSaveableStateHolderNavEntryDecorator(),
                     rememberViewModelStoreNavEntryDecorator(),
                 ),
             transitionSpec = {

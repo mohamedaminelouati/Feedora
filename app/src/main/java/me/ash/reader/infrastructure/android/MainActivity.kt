@@ -13,10 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.util.Consumer
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.profileinstaller.ProfileInstallerInitializer
 import androidx.work.WorkManager
@@ -24,6 +26,7 @@ import coil.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.reflect.Field
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 import me.ash.reader.domain.data.FilterStateUseCase
 import me.ash.reader.domain.service.AccountService
 import me.ash.reader.domain.service.WidgetUpdateWorker
@@ -132,8 +135,7 @@ class MainActivity : AppCompatActivity() {
                                     }
                             }
 
-                            val backStack =
-                                rememberNavBackStack<Route>(*startDestination.toTypedArray())
+                            val backStack = rememberNavBackStack(*startDestination.toTypedArray())
 
                             NewIntentHandlerEffect(backStack, subscribeViewModel)
                             AppEntry(backStack)
@@ -145,7 +147,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    fun NewIntentHandlerEffect(backStack: NavBackStack, subscribeViewModel: SubscribeViewModel) {
+    fun NewIntentHandlerEffect(
+        backStack: NavBackStack<NavKey>,
+        subscribeViewModel: SubscribeViewModel,
+    ) {
+        val scope = rememberCoroutineScope()
         DisposableEffect(backStack) {
             val listener =
                 Consumer<Intent> { intent ->
@@ -156,7 +162,9 @@ class MainActivity : AppCompatActivity() {
                                 filterUseCase.init(feedId, groupId)
                                 val readingIndex = backStack.indexOfFirst { it is Route.Reading }
                                 if (readingIndex != -1) {
-                                    backStack.removeRange(readingIndex, backStack.size)
+                                    repeat(backStack.size - readingIndex) {
+                                        backStack.removeLastOrNull()
+                                    }
                                 }
                                 backStack.add(Reading(articleId = articleId))
                             }
@@ -171,7 +179,9 @@ class MainActivity : AppCompatActivity() {
                                 filterUseCase.init(feedId, groupId)
                                 val readingIndex = backStack.indexOfFirst { it is Reading }
                                 if (readingIndex != -1) {
-                                    backStack.removeRange(readingIndex, backStack.size)
+                                    repeat(backStack.size - readingIndex) {
+                                        backStack.removeLastOrNull()
+                                    }
                                 }
                                 backStack.add(Reading(articleId = null))
                             }
@@ -180,10 +190,12 @@ class MainActivity : AppCompatActivity() {
                                 subscribeViewModel.handleSharedUrlFromIntent(action.url)
                                 val feedsIndex = backStack.indexOf(Route.Feeds)
                                 if (feedsIndex != -1) {
-                                    backStack.removeRange(feedsIndex + 1, backStack.size)
+                                    repeat(backStack.size - (feedsIndex + 1)) {
+                                        backStack.removeLastOrNull()
+                                    }
                                 } else {
                                     backStack.add(0, Route.Feeds)
-                                    backStack.removeRange(1, backStack.size)
+                                    repeat(backStack.size - 1) { backStack.removeLastOrNull() }
                                 }
                             }
                         }
