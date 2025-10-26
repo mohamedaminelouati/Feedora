@@ -11,6 +11,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.LocalBackgroundTextMeasurementExecutor
 import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.layout.AnimatedPane
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
+import java.util.concurrent.Executors
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -112,7 +114,6 @@ fun ArticleListReaderPage(
             NavigationAction.ExpandList -> ExpandedContentWidth
         }
 
-
     val animatedContentWidth by animateDpAsState(contentWidth)
     val animatedListAlpha by animateFloatAsState(listAlpha)
 
@@ -133,22 +134,27 @@ fun ArticleListReaderPage(
                 enterTransition = motionDataProvider.calculateEnterTransition(paneRole),
                 exitTransition = motionDataProvider.calculateExitTransition(paneRole),
             ) {
-                Box(modifier = Modifier.alpha(animatedListAlpha)) {
-                    FlowPage(
-                        sharedTransitionScope = sharedTransitionScope,
-                        animatedVisibilityScope = animatedVisibilityScope,
-                        viewModel = viewModel,
-                        onNavigateUp = onBack,
-                        isTwoPane = isTwoPane,
-                        navigateToArticle = { id, index ->
-                            scope.launch {
-                                navigator.navigateTo(
-                                    pane = ListDetailPaneScaffoldRole.Detail,
-                                    contentKey = ArticleData(articleId = id, listIndex = index),
-                                )
-                            }
-                        },
-                    )
+                CompositionLocalProvider(
+                    LocalBackgroundTextMeasurementExecutor provides
+                        Executors.newSingleThreadExecutor()
+                ) {
+                    Box(modifier = Modifier.alpha(animatedListAlpha)) {
+                        FlowPage(
+                            sharedTransitionScope = sharedTransitionScope,
+                            animatedVisibilityScope = animatedVisibilityScope,
+                            viewModel = viewModel,
+                            onNavigateUp = onBack,
+                            isTwoPane = isTwoPane,
+                            navigateToArticle = { id, index ->
+                                scope.launch {
+                                    navigator.navigateTo(
+                                        pane = ListDetailPaneScaffoldRole.Detail,
+                                        contentKey = ArticleData(articleId = id, listIndex = index),
+                                    )
+                                }
+                            },
+                        )
+                    }
                 }
             }
         },
