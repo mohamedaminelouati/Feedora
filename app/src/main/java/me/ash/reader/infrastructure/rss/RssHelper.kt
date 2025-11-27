@@ -50,8 +50,15 @@ constructor(
         return withContext(ioDispatcher) {
             val response = response(okHttpClient, feedLink)
             val contentType = response.header("Content-Type")
+            val httpContentType =
+                contentType?.let {
+                    if (it.contains("charset=", ignoreCase = true)) it
+                    else "$it; charset=UTF-8"
+                } ?: "text/xml; charset=UTF-8"
+
+
             response.body.byteStream().use { inputStream ->
-                SyndFeedInput().build(XmlReader(inputStream, contentType)).also {
+                    SyndFeedInput().build(XmlReader(inputStream, httpContentType)).also {
                     it.icon = SyndImageImpl()
                     it.icon.link = queryRssIconLink(feedLink)
                     it.icon.url = it.icon.link
@@ -120,10 +127,17 @@ constructor(
             val accountId = context.currentAccountId
             val response = response(okHttpClient, feed.url)
             val contentType = response.header("Content-Type")
+
+            val httpContentType =
+                contentType?.let {
+                    if (it.contains("charset=", ignoreCase = true)) it
+                    else "$it; charset=UTF-8"
+                } ?: "text/xml; charset=UTF-8"
+
             response.body.byteStream().use { inputStream ->
                 SyndFeedInput()
                     .apply { isPreserveWireFeed = true }
-                    .build(XmlReader(inputStream, contentType))
+                    .build(XmlReader(inputStream, httpContentType))
                     .entries
                     .asSequence()
                     .takeWhile { latestLink == null || latestLink != it.link }
