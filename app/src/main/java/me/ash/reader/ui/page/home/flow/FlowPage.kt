@@ -94,6 +94,7 @@ import me.ash.reader.ui.component.base.FeedbackIconButton
 import me.ash.reader.ui.component.base.RYExtensibleVisibility
 import me.ash.reader.ui.component.base.RYScaffold
 import me.ash.reader.ui.component.scrollbar.VerticalScrollIndicatorFactory
+import me.ash.reader.ui.component.scrollbar.drawVerticalScrollIndicator
 import me.ash.reader.ui.component.scrollbar.scrollIndicator
 import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.ext.openURL
@@ -636,7 +637,6 @@ fun FlowPage(
                             )
                             .also { currentPullToLoadState = it }
 
-                    val scrollIndicatorState = listState.scrollIndicatorState
                     Box(modifier = Modifier.fillMaxSize()) {
                         LazyColumn(
                             modifier =
@@ -662,13 +662,7 @@ fun FlowPage(
                                     )
                                     .nestedScroll(scrollBehavior.nestedScrollConnection)
                                     .fillMaxSize()
-                                    .scrollIndicator(
-                                        VerticalScrollIndicatorFactory(
-                                            thumbColor = MaterialTheme.colorScheme.primary
-                                        ),
-                                        scrollIndicatorState!!,
-                                        orientation = Orientation.Vertical,
-                                    ),
+                                    .drawVerticalScrollIndicator(listState),
                             state = listState,
                         ) {
                             ArticleList(

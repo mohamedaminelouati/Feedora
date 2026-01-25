@@ -3,7 +3,11 @@ package me.ash.reader.ui.component.scrollbar
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ScrollIndicatorState
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
@@ -14,16 +18,37 @@ import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.node.DelegatableNode
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+private val ThumbColor
+    @Composable get() = MaterialTheme.colorScheme.outline.copy(alpha = .5f)
+
+@Composable
+fun Modifier.drawVerticalScrollIndicator(scrollState: ScrollState): Modifier {
+    return this.scrollIndicator(
+        VerticalScrollIndicatorFactory(thumbColor = ThumbColor),
+        scrollState.scrollIndicatorState!!,
+        Orientation.Vertical,
+    )
+}
+
+@Composable
+fun Modifier.drawVerticalScrollIndicator(listState: LazyListState): Modifier {
+    return this.scrollIndicator(
+        VerticalScrollIndicatorFactory(thumbColor = ThumbColor),
+        listState.scrollIndicatorState!!,
+        Orientation.Vertical,
+    )
+}
+
 data class VerticalScrollIndicatorFactory(
     val thumbThickness: Dp = 4.dp,
-    val padding: Dp = 2.dp,
+    val padding: Dp = 0.dp,
     val thumbColor: Color = Color.Gray,
-    val thumbAlpha: Float = 0.5f,
 ) : ScrollIndicatorFactory {
     // The node is the core of the ScrollIndicator, handling the drawing logic.
     override fun createNode(
@@ -67,7 +92,12 @@ data class VerticalScrollIndicatorFactory(
                 val (topLeft, size) =
                     when (orientation) {
                         Orientation.Vertical -> {
-                            val x = size.width - thumbThicknessPx - paddingPx
+                            val x =
+                                if (layoutDirection == LayoutDirection.Rtl) {
+                                    paddingPx
+                                } else {
+                                    size.width - thumbThicknessPx - paddingPx
+                                }
                             Offset(x, thumbPosition) to Size(thumbThicknessPx, thumbLength)
                         }
                         Orientation.Horizontal -> {
@@ -82,7 +112,7 @@ data class VerticalScrollIndicatorFactory(
                     color = thumbColor,
                     topLeft = topLeft,
                     size = size,
-                    alpha = thumbAlpha * alpha.value,
+                    alpha = alpha.value,
                 )
             }
         }
