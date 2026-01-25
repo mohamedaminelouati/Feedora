@@ -312,15 +312,15 @@ constructor(
 
             val localItemIds = localAllItems.map { it.id.dollarLast() }.toSet()
 
-            launch {
-                val toBeStarredRemote = localStarredIds - remoteStarredIds.await()
-                if (toBeStarredRemote.isNotEmpty()) {
-                    googleReaderAPI.editTag(
-                        itemIds = toBeStarredRemote.toList(),
-                        mark = GoogleReaderAPI.Stream.Starred.tag,
-                    )
-                }
-            }
+//            launch {
+//                val toBeStarredRemote = localStarredIds - remoteStarredIds.await()
+//                if (toBeStarredRemote.isNotEmpty()) {
+//                    googleReaderAPI.editTag(
+//                        itemIds = toBeStarredRemote.toList(),
+//                        mark = GoogleReaderAPI.Stream.Starred.tag,
+//                    )
+//                }
+//            }
 
             launch {
                 val toBeStarredLocal =
@@ -334,16 +334,16 @@ constructor(
                     isStarred = true,
                 )
             }
-
-            launch {
-                val toBeReadRemote = localReadIds.intersect(remoteUnreadIds.await())
-                if (toBeReadRemote.isNotEmpty()) {
-                    googleReaderAPI.editTag(
-                        itemIds = toBeReadRemote.toList(),
-                        mark = GoogleReaderAPI.Stream.Read.tag,
-                    )
-                }
-            }
+//
+//            launch {
+//                val toBeReadRemote = localReadIds.intersect(remoteUnreadIds.await())
+//                if (toBeReadRemote.isNotEmpty()) {
+//                    googleReaderAPI.editTag(
+//                        itemIds = toBeReadRemote.toList(),
+//                        mark = GoogleReaderAPI.Stream.Read.tag,
+//                    )
+//                }
+//            }
 
             // 2. Fetch folder and subscription list
             val groupWithFeedsMap = async {
