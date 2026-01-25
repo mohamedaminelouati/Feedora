@@ -12,6 +12,7 @@ import androidx.compose.animation.core.animate
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -92,6 +93,8 @@ import me.ash.reader.ui.component.FilterBar
 import me.ash.reader.ui.component.base.FeedbackIconButton
 import me.ash.reader.ui.component.base.RYExtensibleVisibility
 import me.ash.reader.ui.component.base.RYScaffold
+import me.ash.reader.ui.component.scrollbar.VerticalScrollIndicatorFactory
+import me.ash.reader.ui.component.scrollbar.scrollIndicator
 import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.ext.openURL
 import me.ash.reader.ui.motion.Direction
@@ -633,6 +636,7 @@ fun FlowPage(
                             )
                             .also { currentPullToLoadState = it }
 
+                    val scrollIndicatorState = listState.scrollIndicatorState
                     Box(modifier = Modifier.fillMaxSize()) {
                         LazyColumn(
                             modifier =
@@ -657,7 +661,14 @@ fun FlowPage(
                                         },
                                     )
                                     .nestedScroll(scrollBehavior.nestedScrollConnection)
-                                    .fillMaxSize(),
+                                    .fillMaxSize()
+                                    .scrollIndicator(
+                                        VerticalScrollIndicatorFactory(
+                                            thumbColor = MaterialTheme.colorScheme.primary
+                                        ),
+                                        scrollIndicatorState!!,
+                                        orientation = Orientation.Vertical,
+                                    ),
                             state = listState,
                         ) {
                             ArticleList(
