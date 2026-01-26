@@ -14,7 +14,7 @@
     <string name="expand_less">Daralt</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d arşivlenen öge</item>
-        <item quantity="other">%1$d arşivlenen öge</item>
+        <item quantity="other">%1$d arşivlenen ögeler</item>
     </plurals>
     <plurals name="starred_desc">
         <item quantity="one">%1$d yıldızlanan öge</item>
@@ -42,7 +42,7 @@
     <string name="parse_full_content">Tam içeriği ayrıştır</string>
     <string name="all_parse_full_content_tips">\"%1$s\" grubundaki tüm makalelerin tam içerik ayrıştırılması</string>
     <string name="all_parse_full_content_toast">\"%1$s\" grubundaki tüm makalelerin tam içerik ayrıştırmasına izin verilir</string>
-    <string name="all_deny_parse_full_content_toast">Artık \"%1$s\" grubundaki tüm makalelerin tam içerik ayrıştırması yok</string>
+    <string name="all_deny_parse_full_content_toast">\"%1$s\" grubundaki tüm makalelerin tam içerik ayrıştırması reddedilir</string>
     <string name="clear_articles">Makaleleri temizle</string>
     <string name="clear_articles_in_feed_toast">\"%1$s\" beslemesindeki tüm arşivlenmiş makaleler temizlendi</string>
     <string name="clear_articles_in_group_toast">\"%1$s\" grubundaki tüm arşivlenmiş makaleler temizlendi</string>
@@ -309,8 +309,8 @@
     <string name="about">Hakkında</string>
     <string name="latest">En son</string>
     <string name="open_in_browser">Tarayıcıda aç</string>
-    <string name="all_open_in_browser_tips">\"%1$s\" grubundaki tüm makaleleri tarayıcı kullanarak aç</string>
-    <string name="all_open_in_browser_toast">\"%1$s\" grubundaki tüm makaleleri tarayıcı kullanarak aç</string>
+    <string name="all_open_in_browser_tips">\"%1$s\" grubundaki tüm makaleleri varsayılan tarayıcıyı kullanarak aç</string>
+    <string name="all_open_in_browser_toast">\"%1$s\" grubundaki tüm makaleleri varsayılan tarayıcıyı kullanarak açmaya izin verildi</string>
     <string name="become_a_sponsor">Sponsor olun</string>
     <string name="short_desc">Kısa</string>
     <string name="long_desc">Uzun</string>
@@ -329,4 +329,5 @@
     <string name="client_certificate">İstemci sertifikası (isteğe bağlı)</string>
     <string name="content_renderer">İçerik Oluşturucu</string>
     <string name="only_available_on_webview">Yalnızca WebView içerik işleyicisi kullanılırken kullanılabilir</string>
+    <string name="mark_as_read_on_scroll">Kaydırınca okundu olarak işaretle</string>
 </resources>

@@ -71,7 +71,7 @@
     <string name="earliest">Vecākos augšgalā</string>
     <string name="delete_group">Dzēst grupu</string>
     <string name="open_with">Atvērt %1$s</string>
-    <string name="tips_and_support_desc">Par lietotni, atvērtā pirmkoda licences</string>
+    <string name="tips_and_support_desc">Par lietotni, sponsors, atvērtā pirmkoda licences</string>
     <string name="tips_and_support">Padomi un atbalsts</string>
     <string name="basic_colors">Pamatkrāsas</string>
     <string name="primary_color_hint">Piemēram, #666666 vai 666666</string>
@@ -148,4 +148,26 @@
     <string name="go_to">Doties uz</string>
     <string name="refresh">Atsvaidzināt</string>
     <string name="back">Atpakaļ</string>
+    <plurals name="all_desc">
+        <item quantity="zero">%1$d arhivēti raksti</item>
+        <item quantity="one">%1$d arhivēts raksts</item>
+        <item quantity="other">%1$d arhivēti raksti</item>
+    </plurals>
+    <string name="already_subscribed">Jau abonēts</string>
+    <string name="clear">Attīrīt</string>
+    <string name="selected">Atlasīti</string>
+    <string name="all_allow_notification_tips">Atļaut visām ziņu plūsmām \"%1$s\" grupā sūtīt paziņojumus</string>
+    <string name="unsubscribe">Pārtraukt abonementu</string>
+    <string name="one_day">1 d.</string>
+    <string name="three_days">3 d.</string>
+    <string name="seven_days">7 d.</string>
+    <string name="accounts">Konti</string>
+    <string name="interaction">Lietojums</string>
+    <string name="welcome">Esiet sveicināti</string>
+    <string name="style">Stils</string>
+    <string name="other">Pārējie</string>
+    <string name="sponsor">Sponsors</string>
+    <string name="general">Vispārīgie</string>
+    <string name="bold">Treknraksts</string>
+    <string name="subhead">Apakšvirsraksts</string>
 </resources>
