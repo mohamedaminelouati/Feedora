@@ -535,11 +535,11 @@ fun FlowPage(
                                 for (index in 0 until itemCount) {
                                     pagingItems.peek(index).let {
                                         if (it is ArticleFlowItem.Article) {
-                                            items.add(it.articleWithFeed)
                                             if (it.articleWithFeed.article.id == firstItemKey) {
                                                 found = true
                                                 break
                                             }
+                                            items.add(it.articleWithFeed)
                                         }
                                     }
                                 }
