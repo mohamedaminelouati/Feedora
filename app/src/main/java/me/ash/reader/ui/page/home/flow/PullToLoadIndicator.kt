@@ -73,7 +73,7 @@ fun BoxScope.PullToLoadIndicator(
     LaunchedEffect(status) {
         when {
             canLoadNext && status == PulledUp -> {
-                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                hapticFeedback.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
             }
 
             else -> {}
