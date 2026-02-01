@@ -191,12 +191,12 @@ internal class ImageCandidates(val baseUrl: String, val srcSet: String, val absS
                             val descriptor = candidate.last()
                             when {
                                 descriptor.endsWith("w", ignoreCase = true) -> {
-                                    descriptor.substringBefore("w").toFloat() /
+                                    (descriptor.substringBefore("w").toFloatOrNull() ?: return@fold acc) /
                                         maxSize.width.pxOrElse { 1 }
                                 }
 
                                 descriptor.endsWith("x", ignoreCase = true) -> {
-                                    descriptor.substringBefore("x").toFloat() / pixelDensity
+                                    (descriptor.substringBefore("x").toFloatOrNull() ?: return@fold acc) / pixelDensity
                                 }
 
                                 else -> {
