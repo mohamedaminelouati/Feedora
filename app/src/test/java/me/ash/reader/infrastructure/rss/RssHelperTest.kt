@@ -201,4 +201,78 @@ class RssHelperTest {
         val decoded = String(bytes, charset)
         Assert.assertEquals(originalFrenchText, decoded)
     }
+
+    @Test
+    fun testHtmlFeedParserSample() {
+        val sampleHtml = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Linux News - Phoronix</title>
+                <meta name="description" content="Latest Linux updates">
+            </head>
+            <body>
+                <article>
+                    <header><a href="/news/gnome-test-1">GNOME Test Article 1</a></header>
+                    <p>Description for GNOME test article 1.</p>
+                    <div class="details">7 March 2026 - Resources 1.10.2</div>
+                </article>
+                <article>
+                    <header><a href="/news/gnome-test-2">GNOME Test Article 2</a></header>
+                    <p>Description for GNOME test article 2.</p>
+                    <div class="details">5 March 2026 - GNOME 50.rc</div>
+                </article>
+            </body>
+            </html>
+        """.trimIndent()
+
+        val feed = HtmlFeedParser.parse("https://www.phoronix.com/linux/GNOME", sampleHtml.toByteArray(Charsets.UTF_8))
+        Assert.assertNotNull(feed)
+        Assert.assertEquals(2, feed!!.entries.size)
+        Assert.assertEquals("GNOME Test Article 1", feed.entries[0].title)
+        Assert.assertEquals("https://www.phoronix.com/news/gnome-test-1", feed.entries[0].link)
+        Assert.assertEquals("Description for GNOME test article 1.", feed.entries[0].description.value)
+    }
+
+    @Test
+    fun testRealPhoronixCategoryGNOME() {
+        val client = okhttp3.OkHttpClient.Builder()
+            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
+            .build()
+        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
+        kotlinx.coroutines.runBlocking {
+            val result = helper.searchFeed("https://www.phoronix.com/linux/GNOME")
+            Assert.assertNotNull(result.feed)
+            Assert.assertTrue(result.feed.entries.isNotEmpty())
+            Assert.assertEquals("https://www.phoronix.com/linux/GNOME", result.feedLink)
+        }
+    }
+
+    @Test
+    fun testRealPhoronixCategoryMozilla() {
+        val client = okhttp3.OkHttpClient.Builder()
+            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
+            .build()
+        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
+        kotlinx.coroutines.runBlocking {
+            val result = helper.searchFeed("https://www.phoronix.com/linux/Mozilla")
+            Assert.assertNotNull(result.feed)
+            Assert.assertTrue(result.feed.entries.isNotEmpty())
+            Assert.assertEquals("https://www.phoronix.com/linux/Mozilla", result.feedLink)
+        }
+    }
+
+    @Test
+    fun testRealPhoronixCategoryKDE() {
+        val client = okhttp3.OkHttpClient.Builder()
+            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
+            .build()
+        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
+        kotlinx.coroutines.runBlocking {
+            val result = helper.searchFeed("https://www.phoronix.com/linux/KDE")
+            Assert.assertNotNull(result.feed)
+            Assert.assertTrue(result.feed.entries.isNotEmpty())
+            Assert.assertEquals("https://www.phoronix.com/linux/KDE", result.feedLink)
+        }
+    }
 }

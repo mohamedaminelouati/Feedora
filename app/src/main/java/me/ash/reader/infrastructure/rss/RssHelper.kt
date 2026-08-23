@@ -58,39 +58,83 @@ constructor(
             val directBody = directResponse.body.bytes()
             val directHttpContentType = toHttpContentType(directResponse.header("Content-Type"))
 
-            val parsedDirectFeed = if (directResponse.commonIsSuccessful) {
-                runCatching { parseFeed(directBody, directHttpContentType) }.getOrNull()
-            } else null
+            // 1. Try direct XML parse
+            val parsedDirectFeed =
+                if (directResponse.commonIsSuccessful) {
+                    runCatching { parseFeed(directBody, directHttpContentType) }.getOrNull()
+                } else null
 
-            val resolvedFeedLink =
-                if (parsedDirectFeed != null) feedLink
-                else discoverFeedLink(feedLink, directBody)
-                    ?: throw IOException(
-                        if (!directResponse.commonIsSuccessful) {
-                            "HTTP ${directResponse.code}: ${directResponse.message}"
-                        } else {
-                            "Unable to detect RSS feed URL"
-                        }
-                    )
-
-            val feed = parsedDirectFeed ?: run {
-                val discoveredResponse = response(okHttpClient, resolvedFeedLink)
-                if (!discoveredResponse.commonIsSuccessful) {
-                    throw IOException("HTTP ${discoveredResponse.code}: ${discoveredResponse.message}")
+            if (parsedDirectFeed != null) {
+                parsedDirectFeed.also {
+                    it.icon = SyndImageImpl()
+                    it.icon.link = queryRssIconLink(feedLink)
+                    it.icon.url = it.icon.link
                 }
-                parseFeed(
-                    discoveredResponse.body.bytes(),
-                    toHttpContentType(discoveredResponse.header("Content-Type")),
-                )
+                return@withContext SearchFeedResult(feed = parsedDirectFeed, feedLink = feedLink)
             }
 
-            feed.also {
-                it.icon = SyndImageImpl()
-                it.icon.link = queryRssIconLink(resolvedFeedLink)
-                it.icon.url = it.icon.link
+            // 2. If it's a specific sub-path category/topic URL (e.g. /linux/GNOME), check if HTML scraper extracts entries
+            val uri = runCatching { java.net.URI(feedLink) }.getOrNull()
+            val hasSpecificPath =
+                uri != null &&
+                    !uri.path.isNullOrBlank() &&
+                    uri.path.trim('/') !in listOf("", "index.html", "index.php", "index", "rss.php", "feed")
+            val charset = detectHtmlCharset(directResponse.header("Content-Type"), directBody)
+            val htmlFeed =
+                if (directResponse.commonIsSuccessful) {
+                    HtmlFeedParser.parse(feedLink, directBody, charset)
+                } else null
+
+            if (htmlFeed != null && hasSpecificPath) {
+                htmlFeed.also {
+                    it.icon = SyndImageImpl()
+                    it.icon.link = queryRssIconLink(feedLink)
+                    it.icon.url = it.icon.link
+                }
+                return@withContext SearchFeedResult(feed = htmlFeed, feedLink = feedLink)
             }
 
-            SearchFeedResult(feed = feed, feedLink = resolvedFeedLink)
+            // 3. Try standard RSS/Atom auto-discovery (<link rel="alternate" ...>)
+            val discoveredFeedLink = discoverFeedLink(feedLink, directBody)
+            if (discoveredFeedLink != null) {
+                val discoveredResponse = response(okHttpClient, discoveredFeedLink)
+                if (discoveredResponse.commonIsSuccessful) {
+                    val discoveredFeed =
+                        runCatching {
+                            parseFeed(
+                                discoveredResponse.body.bytes(),
+                                toHttpContentType(discoveredResponse.header("Content-Type")),
+                            )
+                        }.getOrNull()
+
+                    if (discoveredFeed != null) {
+                        discoveredFeed.also {
+                            it.icon = SyndImageImpl()
+                            it.icon.link = queryRssIconLink(discoveredFeedLink)
+                            it.icon.url = it.icon.link
+                        }
+                        return@withContext SearchFeedResult(feed = discoveredFeed, feedLink = discoveredFeedLink)
+                    }
+                }
+            }
+
+            // 4. Fallback to HTML feed scraper if available on homepage/root
+            if (htmlFeed != null) {
+                htmlFeed.also {
+                    it.icon = SyndImageImpl()
+                    it.icon.link = queryRssIconLink(feedLink)
+                    it.icon.url = it.icon.link
+                }
+                return@withContext SearchFeedResult(feed = htmlFeed, feedLink = feedLink)
+            }
+
+            throw IOException(
+                if (!directResponse.commonIsSuccessful) {
+                    "HTTP ${directResponse.code}: ${directResponse.message}"
+                } else {
+                    "Unable to detect RSS feed URL"
+                }
+            )
         }
     }
 
@@ -198,23 +242,45 @@ constructor(
                 return emptyList()
             }
             val contentType = response.header("Content-Type")
+            val bytes = response.body.bytes()
 
             val httpContentType =
                 contentType?.let {
-                    if (it.contains("charset=", ignoreCase = true)) it
+                    if (it.contains("charset=", ignoreCase = true)) it.replace(',', ';')
                     else "$it; charset=UTF-8"
                 } ?: "text/xml; charset=UTF-8"
 
-            response.body.byteStream().use { inputStream ->
-                SyndFeedInput()
-                    .apply { isPreserveWireFeed = true }
-                    .build(XmlReader(inputStream, httpContentType))
-                    .entries
+            // 1. Try parsing as standard RSS/Atom XML feed
+            val xmlArticles =
+                runCatching {
+                    ByteArrayInputStream(bytes).use { inputStream ->
+                        SyndFeedInput()
+                            .apply { isPreserveWireFeed = true }
+                            .build(XmlReader(inputStream, httpContentType))
+                            .entries
+                            .asSequence()
+                            .takeWhile { latestLink == null || latestLink != it.link }
+                            .map { buildArticleFromSyndEntry(feed, accountId, it, preDate) }
+                            .toList()
+                    }
+                }.getOrNull()
+
+            if (xmlArticles != null && xmlArticles.isNotEmpty()) {
+                return xmlArticles
+            }
+
+            // 2. Fallback to HTML Feed Scraper
+            val charset = detectHtmlCharset(contentType, bytes)
+            val htmlFeed = HtmlFeedParser.parse(feed.url, bytes, charset)
+            if (htmlFeed != null) {
+                return htmlFeed.entries
                     .asSequence()
                     .takeWhile { latestLink == null || latestLink != it.link }
                     .map { buildArticleFromSyndEntry(feed, accountId, it, preDate) }
                     .toList()
             }
+
+            xmlArticles ?: emptyList()
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e("RLog", "queryRssXml[${feed.name}]: ${e.message}")
