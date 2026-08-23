@@ -26,6 +26,8 @@ class AiSummaryServiceTest {
         Assert.assertFalse(AiLanguage.ENGLISH.isRtl)
         Assert.assertEquals("Français", AiLanguage.FRENCH.displayName)
         Assert.assertEquals("العربية", AiLanguage.ARABIC.displayName)
+        Assert.assertEquals("ar", AiLanguage.ARABIC.code)
+        Assert.assertEquals("fr", AiLanguage.FRENCH.code)
     }
 
     @Test
@@ -40,6 +42,48 @@ class AiSummaryServiceTest {
         Assert.assertEquals(AiSummaryStyle.KEY_POINTS, AiSummaryStyle.fromName("KEY_POINTS"))
         Assert.assertEquals(AiSummaryStyle.TLDR, AiSummaryStyle.fromName("tldr"))
         Assert.assertEquals(AiSummaryStyle.DETAILED, AiSummaryStyle.fromName("detailed"))
+    }
+
+    @Test
+    fun testTextRankSummarizerFrench() {
+        val sampleArticle = """
+            Linux est un système d'exploitation libre et open source mondialement réputé pour sa robustesse.
+            Il est utilisé sur la grande majorité des serveurs web, des supercalculateurs et des centres de données cloud.
+            La sécurité et la flexibilité du noyau Linux en font le choix numéro un des ingénieurs en informatique.
+            Les distributions comme Ubuntu, Fedora et Debian permettent aux utilisateurs d'adapter leur environnement de travail.
+            Enfin, la communauté mondiale continue de développer des fonctionnalités innovantes pour le futur du cloud computing.
+        """.trimIndent()
+
+        val summary = TextRankSummarizer.summarize("Linux et le Cloud", sampleArticle, AiSummaryStyle.KEY_POINTS)
+        Assert.assertTrue(summary.isNotBlank())
+        Assert.assertTrue(summary.contains("•"))
+    }
+
+    @Test
+    fun testSummarizeWithoutApiKeyWorks() {
+        val sampleArticle = """
+            Linux is an open-source operating system that powers the internet and most of modern cloud computing infrastructure.
+            Developers and system administrators choose Linux for its high reliability, security, and exceptional performance.
+            Major cloud providers including AWS, Google Cloud, and Microsoft Azure run primarily on Linux virtual machines.
+            The open collaboration model allows continuous innovation across computing architectures worldwide.
+        """.trimIndent()
+
+        kotlinx.coroutines.runBlocking {
+            // AUTO
+            val autoResult = aiSummaryService.summarize("Linux in Cloud", sampleArticle, AiLanguage.AUTO, AiSummaryStyle.KEY_POINTS)
+            Assert.assertTrue(autoResult.isSuccess)
+            Assert.assertTrue(autoResult.getOrThrow().isNotBlank())
+
+            // FRENCH translation
+            val frResult = aiSummaryService.summarize("Linux in Cloud", sampleArticle, AiLanguage.FRENCH, AiSummaryStyle.KEY_POINTS)
+            Assert.assertTrue(frResult.isSuccess)
+            Assert.assertTrue(frResult.getOrThrow().isNotBlank())
+
+            // ARABIC translation
+            val arResult = aiSummaryService.summarize("Linux in Cloud", sampleArticle, AiLanguage.ARABIC, AiSummaryStyle.KEY_POINTS)
+            Assert.assertTrue(arResult.isSuccess)
+            Assert.assertTrue(arResult.getOrThrow().isNotBlank())
+        }
     }
 
     @Test

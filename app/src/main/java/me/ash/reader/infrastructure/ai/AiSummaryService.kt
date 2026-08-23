@@ -1,6 +1,7 @@
 package me.ash.reader.infrastructure.ai
 
 import java.io.IOException
+import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -41,38 +42,36 @@ constructor(
         customModel: String? = null,
     ): Result<String> = withContext(ioDispatcher) {
         runCatching {
-            val plainText = extractPlainText(htmlOrTextContent).take(8000)
+            val plainText = extractPlainText(htmlOrTextContent).take(12000)
             if (plainText.isBlank()) {
-                throw IllegalArgumentException("Article content is empty")
+                throw IllegalArgumentException("Le contenu de l'article est vide.")
             }
 
-            val prompt = buildPrompt(title, plainText, language, style)
-
-            when {
-                // Custom or Groq / OpenAI-compatible endpoint
-                !customEndpoint.isNullOrBlank() -> {
-                    callOpenAiCompatible(customEndpoint, apiKey, customModel ?: "llama-3.3-70b-versatile", prompt)
+            // 1. If user provided a custom endpoint or valid API Key
+            if (!customEndpoint.isNullOrBlank() || !apiKey.isNullOrBlank()) {
+                val prompt = buildPrompt(title, plainText.take(6000), language, style)
+                return@runCatching when {
+                    !customEndpoint.isNullOrBlank() -> {
+                        callOpenAiCompatible(customEndpoint, apiKey, customModel ?: "llama-3.3-70b-versatile", prompt)
+                    }
+                    apiKey != null && (apiKey.startsWith("AIza") || apiKey.length == 39) -> {
+                        callGemini(apiKey, prompt)
+                    }
+                    apiKey != null && apiKey.startsWith("gsk_") -> {
+                        callOpenAiCompatible("https://api.groq.com/openai/v1/chat/completions", apiKey, "llama-3.3-70b-versatile", prompt)
+                    }
+                    else -> {
+                        callOpenAiCompatible(customEndpoint ?: "https://api.groq.com/openai/v1/chat/completions", apiKey, "llama-3.3-70b-versatile", prompt)
+                    }
                 }
+            }
 
-                // Google Gemini API
-                !apiKey.isNullOrBlank() && (apiKey.startsWith("AIza") || apiKey.length == 39) -> {
-                    callGemini(apiKey, prompt)
-                }
-
-                // Groq API Key
-                !apiKey.isNullOrBlank() && apiKey.startsWith("gsk_") -> {
-                    callOpenAiCompatible(
-                        "https://api.groq.com/openai/v1/chat/completions",
-                        apiKey,
-                        "llama-3.3-70b-versatile",
-                        prompt,
-                    )
-                }
-
-                // Default online / Free proxy
-                else -> {
-                    callDefaultOnline(prompt)
-                }
+            // 2. Default Zero-Key, 100% Free Online/Local Engine
+            val baseSummary = TextRankSummarizer.summarize(title, plainText, style)
+            if (language == AiLanguage.AUTO) {
+                baseSummary
+            } else {
+                translateSummary(baseSummary, language.code)
             }
         }.onFailure {
             Timber.e(it, "Summarization failed")
@@ -83,6 +82,42 @@ constructor(
         return runCatching {
             Jsoup.parse(content).text().trim()
         }.getOrDefault(content)
+    }
+
+    private fun translateSummary(text: String, targetLanguageCode: String): String {
+        if (text.isBlank() || targetLanguageCode == "auto") return text
+
+        return runCatching {
+            val encodedQuery = URLEncoder.encode(text, "UTF-8")
+            val url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=$targetLanguageCode&dt=t&q=$encodedQuery"
+
+            val request = Request.Builder()
+                .url(url)
+                .header("User-Agent", "Mozilla/5.0 (Android; Mobile; rv:128.0) Gecko/128.0 Firefox/128.0")
+                .build()
+
+            val response = client.newCall(request).execute()
+            val responseBody = response.body.string()
+
+            if (!response.isSuccessful || responseBody.isBlank()) {
+                return@runCatching text
+            }
+
+            val jsonArray = JSONArray(responseBody)
+            val sentencesArray = jsonArray.getJSONArray(0)
+            val translatedText = StringBuilder()
+
+            for (i in 0 until sentencesArray.length()) {
+                val sentence = sentencesArray.getJSONArray(i)
+                val part = sentence.optString(0)
+                if (!part.isNullOrBlank()) {
+                    translatedText.append(part)
+                }
+            }
+
+            val result = translatedText.toString().trim()
+            if (result.isNotBlank()) result else text
+        }.getOrDefault(text)
     }
 
     private fun buildPrompt(
@@ -98,7 +133,7 @@ constructor(
             Format instructions:
             - Write the entire summary ${language.promptInstruction}.
             - Structure the summary ${style.promptInstruction}.
-            - Do not include meta commentary or introductory filler like 'Here is the summary'. Start directly with the summary content.
+            - Do not include meta commentary or introductory filler. Start directly with the summary content.
             """.trimIndent()
 
         val userPrompt =
@@ -216,20 +251,5 @@ constructor(
         }
 
         throw IOException("No summary returned by Gemini")
-    }
-
-    private fun callDefaultOnline(prompt: Pair<String, String>): String {
-        // Online anonymous endpoint supporting OpenAI chat completions
-        val endpoints = listOf(
-            "https://api.groq.com/openai/v1/chat/completions",
-        )
-
-        // Try standard OpenAI format with fallback
-        return callOpenAiCompatible(
-            endpoints.first(),
-            null,
-            "llama-3.3-70b-versatile",
-            prompt,
-        )
     }
 }

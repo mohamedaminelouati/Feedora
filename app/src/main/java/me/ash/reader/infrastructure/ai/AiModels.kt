@@ -1,16 +1,21 @@
 package me.ash.reader.infrastructure.ai
 
-enum class AiLanguage(val displayName: String, val promptInstruction: String, val isRtl: Boolean = false) {
-    AUTO("Auto", "in the same language as the article"),
-    FRENCH("Français", "en langue française (Français)"),
-    ARABIC("العربية", "باللغة العربية الفصحى", isRtl = true),
-    ENGLISH("English", "in English"),
-    SPANISH("Español", "en español"),
-    GERMAN("Deutsch", "auf Deutsch"),
-    ITALIAN("Italiano", "in italiano"),
-    PORTUGUESE("Português", "em português"),
-    RUSSIAN("Русский", "на русском языке"),
-    CHINESE("中文", "用简体中文");
+enum class AiLanguage(
+    val displayName: String,
+    val promptInstruction: String,
+    val code: String,
+    val isRtl: Boolean = false,
+) {
+    AUTO("Auto", "in the same language as the article", "auto"),
+    FRENCH("Français", "en langue française (Français)", "fr"),
+    ARABIC("العربية", "باللغة العربية الفصحى", "ar", isRtl = true),
+    ENGLISH("English", "in English", "en"),
+    SPANISH("Español", "en español", "es"),
+    GERMAN("Deutsch", "auf Deutsch", "de"),
+    ITALIAN("Italiano", "in italiano", "it"),
+    PORTUGUESE("Português", "em português", "pt"),
+    RUSSIAN("Русский", "на русском языке", "ru"),
+    CHINESE("中文", "用简体中文", "zh-CN");
 
     companion object {
         fun fromName(name: String?): AiLanguage {
