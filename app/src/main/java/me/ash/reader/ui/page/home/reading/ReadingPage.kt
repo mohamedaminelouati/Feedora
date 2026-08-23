@@ -97,6 +97,7 @@ fun ReadingPage(
     //    }
 
     var bringToTop by remember { mutableStateOf(false) }
+    var showAiSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -112,6 +113,7 @@ fun ReadingPage(
                         navigationAction = navigationAction,
                         onNavButtonClick = onNavAction,
                         onNavigateToStylePage = onNavigateToStylePage,
+                        onSummarizeClick = { showAiSummaryBottomSheet = true },
                     )
                 }
 
@@ -354,6 +356,15 @@ fun ReadingPage(
                 )
             },
             onDismissRequest = { showFullScreenImageViewer = false },
+        )
+    }
+
+    if (showAiSummaryBottomSheet && readerState.articleId != null) {
+        val articleContent = readerState.content.text ?: readerState.title ?: ""
+        me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
+            title = readerState.title ?: "",
+            content = articleContent,
+            onDismissRequest = { showAiSummaryBottomSheet = false },
         )
     }
 }
