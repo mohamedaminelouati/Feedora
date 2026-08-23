@@ -4,7 +4,7 @@ import androidx.room.*
 import me.ash.reader.domain.model.group.Group
 
 /**
- * TODO: Add class description
+ * Feed Entity representing an RSS/Atom/HTML feed subscription.
  */
 @Entity(
     tableName = "feed",
@@ -35,7 +35,11 @@ data class Feed(
     val isFullContent: Boolean = false,
     @ColumnInfo(defaultValue = "0")
     val isBrowser: Boolean = false,
-    @Ignore val important: Int = 0
+    @ColumnInfo(defaultValue = "0")
+    val lastSyncTime: Long = 0L,
+    @ColumnInfo(defaultValue = "0")
+    val lastSyncStatus: Int = 0,
+    @Ignore val important: Int = 0,
 ) {
     constructor(
         id: String,
@@ -46,7 +50,9 @@ data class Feed(
         accountId: Int,
         isNotification: Boolean,
         isFullContent: Boolean,
-        isBrowser: Boolean
+        isBrowser: Boolean,
+        lastSyncTime: Long,
+        lastSyncStatus: Int,
     ) : this(
         id = id,
         name = name,
@@ -57,6 +63,8 @@ data class Feed(
         isNotification = isNotification,
         isFullContent = isFullContent,
         isBrowser = isBrowser,
-        important = 0
+        lastSyncTime = lastSyncTime,
+        lastSyncStatus = lastSyncStatus,
+        important = 0,
     )
 }

@@ -120,6 +120,14 @@ interface FeedDao {
 
     @Query(
         """
+        UPDATE feed SET lastSyncTime = :lastSyncTime, lastSyncStatus = :lastSyncStatus
+        WHERE id = :feedId
+        """
+    )
+    suspend fun updateSyncStatus(feedId: String, lastSyncTime: Long, lastSyncStatus: Int)
+
+    @Query(
+        """
         SELECT * FROM feed
         WHERE id in (:idList)
         """

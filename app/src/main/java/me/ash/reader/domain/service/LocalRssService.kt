@@ -80,26 +80,32 @@ constructor(
                 .mapIndexed { _, currentFeed ->
                     async(Dispatchers.IO) {
                         semaphore.withPermit {
-                            val archivedArticles =
-                                feedDao
-                                    .queryArchivedArticles(currentFeed.id)
-                                    .map { it.link }
-                                    .toSet()
-                            val fetchedFeed = syncFeed(currentFeed, preDate)
-                            val fetchedArticles =
-                                fetchedFeed.articles.filterNot {
-                                    archivedArticles.contains(it.link)
-                                }
+                            try {
+                                val archivedArticles =
+                                    feedDao
+                                        .queryArchivedArticles(currentFeed.id)
+                                        .map { it.link }
+                                        .toSet()
+                                val fetchedFeed = syncFeed(currentFeed, preDate)
+                                val fetchedArticles =
+                                    fetchedFeed.articles.filterNot {
+                                        archivedArticles.contains(it.link)
+                                    }
 
-                            val newArticles =
-                                articleDao.insertListIfNotExist(
-                                    articles = fetchedArticles,
-                                    feed = currentFeed,
-                                )
-                            if (currentFeed.isNotification && newArticles.isNotEmpty()) {
-                                notificationHelper.notify(
-                                    fetchedFeed.copy(articles = newArticles, feed = currentFeed)
-                                )
+                                val newArticles =
+                                    articleDao.insertListIfNotExist(
+                                        articles = fetchedArticles,
+                                        feed = currentFeed,
+                                    )
+                                if (currentFeed.isNotification && newArticles.isNotEmpty()) {
+                                    notificationHelper.notify(
+                                        fetchedFeed.copy(articles = newArticles, feed = currentFeed)
+                                    )
+                                }
+                                feedDao.updateSyncStatus(currentFeed.id, System.currentTimeMillis(), 1)
+                            } catch (e: Exception) {
+                                Timber.e(e, "Sync failed for feed: ${currentFeed.name}")
+                                feedDao.updateSyncStatus(currentFeed.id, System.currentTimeMillis(), 2)
                             }
                         }
                     }

@@ -71,6 +71,8 @@ abstract class AbstractRssRepository(
                 isBrowser = isBrowser,
                 isNotification = isNotification,
                 isFullContent = isFullContent,
+                lastSyncTime = System.currentTimeMillis(),
+                lastSyncStatus = 1,
             )
         val articles =
             searchedFeed.entries.map { rssHelper.buildArticleFromSyndEntry(feed, accountId, it) }
