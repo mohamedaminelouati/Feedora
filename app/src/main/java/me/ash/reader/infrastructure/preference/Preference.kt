@@ -33,6 +33,7 @@ fun Preferences.toSettings(): Settings {
         feedsTopBarTonalElevation = FeedsTopBarTonalElevationPreference.fromPreferences(this),
         feedsGroupListExpand = FeedsGroupListExpandPreference.fromPreferences(this),
         feedsGroupListTonalElevation = FeedsGroupListTonalElevationPreference.fromPreferences(this),
+        feedsShowSyncStatus = FeedsShowSyncStatusPreference.fromPreferences(this),
 
         // Flow page
         flowFilterBarStyle = FlowFilterBarStylePreference.fromPreferences(this),
@@ -73,6 +74,7 @@ fun Preferences.toSettings(): Settings {
         readingImageHorizontalPadding = ReadingImageHorizontalPaddingPreference.fromPreferences(this),
         readingImageRoundedCorners = ReadingImageRoundedCornersPreference.fromPreferences(this),
         readingImageMaximize = ReadingImageMaximizePreference.fromPreferences(this),
+        readingAiSummary = ReadingAiSummaryPreference.fromPreferences(this),
 
         // Interaction
         initialPage = InitialPagePreference.fromPreferences(this),

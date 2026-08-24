@@ -365,4 +365,8 @@
     <string name="group_configuration_description">اضبط \"%1$s\" للمحتوى في \"%2$s\"</string>
     <string name="notifications_desc">احصل على إشعارات عند توفر مقالات جديدة غير مقروءة</string>
     <string name="parse_full_content_desc">اجلب المقالات الكاملة من صفحات الوِب</string>
+    <string name="show_sync_status">إظهار حالة المزامنة</string>
+    <string name="show_sync_status_desc">عرض حالة وتاريخ ووقت آخر مزامنة تحت كل خلاصة</string>
+    <string name="reading_ai_summary">تلخيص المقالات بالذكاء الاصطناعي</string>
+    <string name="reading_ai_summary_desc">إظهار زر التلخيص الذكي في شريط أدوات القراءة</string>
 </resources>

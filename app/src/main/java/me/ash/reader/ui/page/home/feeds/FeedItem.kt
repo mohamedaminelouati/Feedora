@@ -40,6 +40,7 @@ import java.util.Date
 import java.util.Locale
 import kotlinx.coroutines.launch
 import me.ash.reader.domain.model.feed.Feed
+import me.ash.reader.infrastructure.preference.LocalFeedsShowSyncStatus
 import me.ash.reader.ui.component.FeedIcon
 import me.ash.reader.ui.component.base.RYExtensibleVisibility
 import me.ash.reader.ui.page.home.feeds.drawer.feed.FeedOptionViewModel
@@ -117,6 +118,7 @@ private fun FeedItemImpl(
         ) {
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 FeedIcon(feedName = feed.name, iconUrl = feed.icon, modifier = Modifier)
+                val showSyncStatus = LocalFeedsShowSyncStatus.current.value
                 Column(modifier = Modifier.padding(start = 12.dp, end = 6.dp)) {
                     Text(
                         text = feed.name,
@@ -133,24 +135,26 @@ private fun FeedItemImpl(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        val (statusText, statusColor) =
-                            formatSyncDateTime(feed.lastSyncTime, feed.lastSyncStatus)
-                        Box(
-                            modifier =
-                                Modifier.size(6.dp)
-                                    .clip(CircleShape)
-                                    .background(statusColor)
-                        )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Text(
-                            text = statusText,
-                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
-                            color = MaterialTheme.colorScheme.outline,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
+                    if (showSyncStatus) {
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            val (statusText, statusColor) =
+                                formatSyncDateTime(feed.lastSyncTime, feed.lastSyncStatus)
+                            Box(
+                                modifier =
+                                    Modifier.size(6.dp)
+                                        .clip(CircleShape)
+                                        .background(statusColor)
+                            )
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Text(
+                                text = statusText,
+                                style = MaterialTheme.typography.bodySmall.copy(fontSize = 11.sp),
+                                color = MaterialTheme.colorScheme.outline,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
                     }
                 }
             }

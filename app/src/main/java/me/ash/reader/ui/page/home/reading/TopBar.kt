@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import me.ash.reader.R
+import me.ash.reader.infrastructure.preference.LocalReadingAiSummary
 import me.ash.reader.infrastructure.preference.LocalReadingPageTonalElevation
 import me.ash.reader.infrastructure.preference.LocalSharedContent
 import me.ash.reader.infrastructure.preference.ReadingPageTonalElevationPreference
@@ -67,6 +68,7 @@ fun TopBar(
 ) {
     val context = LocalContext.current
     val sharedContent = LocalSharedContent.current
+    val readingAiSummary = LocalReadingAiSummary.current.value
     val isOutlined =
         LocalReadingPageTonalElevation.current == ReadingPageTonalElevationPreference.Outlined
 
@@ -124,13 +126,15 @@ fun TopBar(
                         }
                     },
                     actions = {
-                        FeedbackIconButton(
-                            modifier = Modifier.size(22.dp),
-                            imageVector = Icons.Outlined.Lightbulb,
-                            contentDescription = "Résumé IA",
-                            tint = MaterialTheme.colorScheme.onSurface,
-                        ) {
-                            onSummarizeClick()
+                        if (readingAiSummary) {
+                            FeedbackIconButton(
+                                modifier = Modifier.size(22.dp),
+                                imageVector = Icons.Outlined.Lightbulb,
+                                contentDescription = stringResource(R.string.reading_ai_summary),
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            ) {
+                                onSummarizeClick()
+                            }
                         }
                         FeedbackIconButton(
                             modifier = Modifier.size(22.dp),

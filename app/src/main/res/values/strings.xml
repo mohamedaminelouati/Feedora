@@ -386,4 +386,8 @@
     <string name="parse_full_content_desc">Fetch full articles from webpages</string>
     <string name="enable">Enable</string>
     <string name="disable">Disable</string>
+    <string name="show_sync_status">Show sync status</string>
+    <string name="show_sync_status_desc">Display last synchronization state, date and time under each feed</string>
+    <string name="reading_ai_summary">AI Article Summary</string>
+    <string name="reading_ai_summary_desc">Show AI summarization button in the reading toolbar</string>
 </resources>

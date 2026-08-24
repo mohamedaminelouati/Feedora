@@ -40,6 +40,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import me.ash.reader.R
 import me.ash.reader.infrastructure.preference.LocalPullToSwitchArticle
+import me.ash.reader.infrastructure.preference.LocalReadingAiSummary
 import me.ash.reader.infrastructure.preference.LocalReadingAutoHideToolbar
 import me.ash.reader.infrastructure.preference.LocalReadingBoldCharacters
 import me.ash.reader.infrastructure.preference.LocalReadingFonts
@@ -204,12 +205,24 @@ fun ReadingStylePage(
                         onClick = {},
                     ) {}
 
+                    val readingAiSummary = LocalReadingAiSummary.current
                     SettingItem(
                         title = stringResource(id = R.string.pull_to_switch_article),
                         onClick = { pullToSwitchArticle.toggle(context, scope) }) {
                         RYSwitch(activated = pullToSwitchArticle.value, onClick = {
                             pullToSwitchArticle.toggle(context, scope)
                         })
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.reading_ai_summary),
+                        desc = stringResource(R.string.reading_ai_summary_desc),
+                        onClick = {
+                            (!readingAiSummary).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = readingAiSummary.value) {
+                            (!readingAiSummary).put(context, scope)
+                        }
                     }
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),

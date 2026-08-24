@@ -28,6 +28,7 @@ data class Settings(
     val feedsTopBarTonalElevation: FeedsTopBarTonalElevationPreference = FeedsTopBarTonalElevationPreference.default,
     val feedsGroupListExpand: FeedsGroupListExpandPreference = FeedsGroupListExpandPreference.default,
     val feedsGroupListTonalElevation: FeedsGroupListTonalElevationPreference = FeedsGroupListTonalElevationPreference.default,
+    val feedsShowSyncStatus: FeedsShowSyncStatusPreference = FeedsShowSyncStatusPreference.default,
 
     // Flow page
     val flowFilterBarStyle: FlowFilterBarStylePreference = FlowFilterBarStylePreference.default,
@@ -66,6 +67,7 @@ data class Settings(
     val readingImageHorizontalPadding: Int = ReadingImageHorizontalPaddingPreference.default,
     val readingImageRoundedCorners: Int = ReadingImageRoundedCornersPreference.default,
     val readingImageMaximize: ReadingImageMaximizePreference = ReadingImageMaximizePreference.default,
+    val readingAiSummary: ReadingAiSummaryPreference = ReadingAiSummaryPreference.default,
 
     // Interaction
     val initialPage: InitialPagePreference = InitialPagePreference.default,

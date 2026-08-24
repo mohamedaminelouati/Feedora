@@ -356,4 +356,8 @@
     <string name="enable">Activer</string>
     <string name="disable">Désactiver</string>
     <string name="group_configuration_description">Configurer \"%1$s\" pour les flux dans \"%2$s\"</string>
+    <string name="show_sync_status">Afficher l\'état de synchronisation</string>
+    <string name="show_sync_status_desc">Afficher le statut, la date et l\'heure de la dernière synchronisation sous chaque flux</string>
+    <string name="reading_ai_summary">Résumé d\'article par IA</string>
+    <string name="reading_ai_summary_desc">Afficher le bouton de résumé intelligent dans la barre d\'outils de lecture</string>
 </resources>

@@ -146,6 +146,7 @@ sealed interface PreferencesKey {
         const val feedsTopBarTonalElevation = "feedsTopBarTonalElevation"
         const val feedsGroupListExpand = "feedsGroupListExpand"
         const val feedsGroupListTonalElevation = "feedsGroupListTonalElevation"
+        const val feedsShowSyncStatus = "feedsShowSyncStatus"
 
         // Flow page
         const val flowFilterBarStyle = "flowFilterBarStyle"
@@ -184,6 +185,7 @@ sealed interface PreferencesKey {
         const val readingImageMaximize = "readingImageMaximize"
         const val readingImageHorizontalPadding = "readingImageHorizontalPadding"
         const val readingImageRoundedCorners = "readingImageRoundedCorners"
+        const val readingAiSummary = "readingAiSummary"
 
         // Interaction
         const val initialPage = "initialPage"
@@ -225,6 +227,7 @@ sealed interface PreferencesKey {
                 IntKey(feedsTopBarTonalElevation),
                 BooleanKey(feedsGroupListExpand),
                 IntKey(feedsGroupListTonalElevation),
+                BooleanKey(feedsShowSyncStatus),
                 // Flow page
                 IntKey(flowFilterBarStyle),
                 IntKey(flowFilterBarPadding),
@@ -261,6 +264,7 @@ sealed interface PreferencesKey {
                 BooleanKey(readingImageMaximize),
                 IntKey(readingImageHorizontalPadding),
                 IntKey(readingImageRoundedCorners),
+                BooleanKey(readingAiSummary),
                 // Interaction
                 IntKey(initialPage),
                 IntKey(initialFilter),
@@ -308,6 +312,7 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val feedsTopBarTonalElevation = "feedsTopBarTonalElevation"
         const val feedsGroupListExpand = "feedsGroupListExpand"
         const val feedsGroupListTonalElevation = "feedsGroupListTonalElevation"
+        const val feedsShowSyncStatus = "feedsShowSyncStatus"
 
         // Flow page
         const val flowFilterBarStyle = "flowFilterBarStyle"
@@ -346,6 +351,7 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val readingImageMaximize = "readingImageMaximize"
         const val readingImageHorizontalPadding = "readingImageHorizontalPadding"
         const val readingImageRoundedCorners = "readingImageRoundedCorners"
+        const val readingAiSummary = "readingAiSummary"
 
         // Interaction
         const val initialPage = "initialPage"
@@ -404,6 +410,8 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                     DataStoreKey(booleanPreferencesKey(feedsGroupListExpand), Boolean::class.java),
                 feedsGroupListTonalElevation to
                     DataStoreKey(intPreferencesKey(feedsGroupListTonalElevation), Int::class.java),
+                feedsShowSyncStatus to
+                    DataStoreKey(booleanPreferencesKey(feedsShowSyncStatus), Boolean::class.java),
                 // Flow page
                 flowFilterBarStyle to
                     DataStoreKey(intPreferencesKey(flowFilterBarStyle), Int::class.java),
@@ -490,6 +498,8 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                     DataStoreKey(intPreferencesKey(readingImageHorizontalPadding), Int::class.java),
                 readingImageRoundedCorners to
                     DataStoreKey(intPreferencesKey(readingImageRoundedCorners), Int::class.java),
+                readingAiSummary to
+                    DataStoreKey(booleanPreferencesKey(readingAiSummary), Boolean::class.java),
                 // Interaction
                 initialPage to DataStoreKey(intPreferencesKey(initialPage), Int::class.java),
                 initialFilter to DataStoreKey(intPreferencesKey(initialFilter), Int::class.java),

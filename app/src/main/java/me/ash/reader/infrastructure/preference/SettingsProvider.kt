@@ -87,6 +87,7 @@ class SettingsProvider @Inject constructor(
             LocalFeedsFilterBarStyle provides settings.feedsFilterBarStyle,
             LocalFeedsFilterBarPadding provides settings.feedsFilterBarPadding,
             LocalFeedsFilterBarTonalElevation provides settings.feedsFilterBarTonalElevation,
+            LocalFeedsShowSyncStatus provides settings.feedsShowSyncStatus,
 
             // Flow page
             LocalFlowTopBarTonalElevation provides settings.flowTopBarTonalElevation,
@@ -125,6 +126,7 @@ class SettingsProvider @Inject constructor(
             LocalReadingImageHorizontalPadding provides settings.readingImageHorizontalPadding,
             LocalReadingImageRoundedCorners provides settings.readingImageRoundedCorners,
             LocalReadingImageMaximize provides settings.readingImageMaximize,
+            LocalReadingAiSummary provides settings.readingAiSummary,
 
             // Interaction
             LocalInitialPage provides settings.initialPage,

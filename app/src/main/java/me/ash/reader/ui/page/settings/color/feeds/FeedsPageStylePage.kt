@@ -105,6 +105,7 @@ fun FeedsPageStylePage(
 
                 // Group List
                 item {
+                    val showSyncStatus = LocalFeedsShowSyncStatus.current
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.group_list)
@@ -117,6 +118,17 @@ fun FeedsPageStylePage(
                     ) {
                         RYSwitch(activated = groupListExpand.value) {
                             (!groupListExpand).put(context, scope)
+                        }
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.show_sync_status),
+                        desc = stringResource(R.string.show_sync_status_desc),
+                        onClick = {
+                            (!showSyncStatus).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = showSyncStatus.value) {
+                            (!showSyncStatus).put(context, scope)
                         }
                     }
 /*                    SettingItem(
