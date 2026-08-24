@@ -1,15 +1,18 @@
 package me.ash.reader.domain.service
 
 import android.content.Context
+import androidx.datastore.preferences.core.Preferences
 import androidx.work.ListenableWorker
 import androidx.work.WorkManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Date
+import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
@@ -24,6 +27,8 @@ import me.ash.reader.infrastructure.android.NotificationHelper
 import me.ash.reader.infrastructure.di.DefaultDispatcher
 import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.rss.RssHelper
+import me.ash.reader.ui.ext.DataStoreKey
+import me.ash.reader.ui.ext.dataStore
 import timber.log.Timber
 
 private const val TAG = "LocalRssService"
@@ -76,6 +81,7 @@ constructor(
                     else -> feedDao.queryAll(accountId)
                 }
 
+            val totalNewArticlesCount = java.util.concurrent.atomic.AtomicInteger(0)
             feedsToSync
                 .mapIndexed { _, currentFeed ->
                     async(Dispatchers.IO) {
@@ -97,6 +103,7 @@ constructor(
                                         articles = fetchedArticles,
                                         feed = currentFeed,
                                     )
+                                totalNewArticlesCount.addAndGet(newArticles.size)
                                 if (currentFeed.isNotification && newArticles.isNotEmpty()) {
                                     notificationHelper.notify(
                                         fetchedFeed.copy(articles = newArticles, feed = currentFeed)
@@ -111,6 +118,16 @@ constructor(
                     }
                 }
                 .awaitAll()
+
+            val syncNotificationKey = androidx.datastore.preferences.core.booleanPreferencesKey(DataStoreKey.syncNotification)
+            val syncNotificationEnabled = runCatching {
+                val prefs = context.dataStore.data.first()
+                prefs[syncNotificationKey]
+            }.getOrNull() ?: true
+
+            if (syncNotificationEnabled && totalNewArticlesCount.get() > 0) {
+                notificationHelper.notifySyncSummary(totalNewArticlesCount.get())
+            }
 
             Timber.tag("RlOG").i("onCompletion: ${System.currentTimeMillis() - preTime}")
             accountService.update(currentAccount.copy(updateAt = Date()))

@@ -78,6 +78,54 @@ constructor(
         }
     }
 
+    suspend fun translateFullArticle(
+        htmlOrTextContent: String,
+        language: AiLanguage,
+    ): Result<String> = withContext(ioDispatcher) {
+        runCatching {
+            if (language == AiLanguage.AUTO) {
+                return@runCatching extractPlainText(htmlOrTextContent)
+            }
+            val doc = Jsoup.parse(htmlOrTextContent)
+            val elements = doc.select("p, h1, h2, h3, h4, h5, h6, li, blockquote")
+            val paragraphs = if (elements.isNotEmpty()) {
+                elements.map { it.text().trim() }.filter { it.isNotBlank() }
+            } else {
+                doc.text().split("\n").map { it.trim() }.filter { it.isNotBlank() }
+            }
+
+            if (paragraphs.isEmpty()) {
+                val plain = extractPlainText(htmlOrTextContent)
+                if (plain.isBlank()) return@runCatching ""
+                return@runCatching translateSummary(plain.take(5000), language.code)
+            }
+
+            val chunks = mutableListOf<String>()
+            var currentChunk = StringBuilder()
+            for (p in paragraphs) {
+                if (currentChunk.length + p.length > 1500 && currentChunk.isNotEmpty()) {
+                    chunks.add(currentChunk.toString())
+                    currentChunk = StringBuilder()
+                }
+                if (currentChunk.isNotEmpty()) {
+                    currentChunk.append("\n\n")
+                }
+                currentChunk.append(p)
+            }
+            if (currentChunk.isNotEmpty()) {
+                chunks.add(currentChunk.toString())
+            }
+
+            val translatedChunks = chunks.map { chunk ->
+                translateSummary(chunk, language.code)
+            }
+
+            translatedChunks.joinToString("\n\n")
+        }.onFailure {
+            Timber.e(it, "Translation failed")
+        }
+    }
+
     private fun extractPlainText(content: String): String {
         return runCatching {
             Jsoup.parse(content).text().trim()

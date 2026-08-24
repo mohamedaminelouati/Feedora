@@ -129,7 +129,7 @@ fun TopBar(
                         if (readingAiSummary) {
                             FeedbackIconButton(
                                 modifier = Modifier.size(22.dp),
-                                imageVector = Icons.Outlined.Lightbulb,
+                                painter = androidx.compose.ui.res.painterResource(R.drawable.ic_ai_summary),
                                 contentDescription = stringResource(R.string.reading_ai_summary),
                                 tint = MaterialTheme.colorScheme.onSurface,
                             ) {

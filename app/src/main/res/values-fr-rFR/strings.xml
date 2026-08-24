@@ -360,4 +360,17 @@
     <string name="show_sync_status_desc">Afficher le statut, la date et l\'heure de la dernière synchronisation sous chaque flux</string>
     <string name="reading_ai_summary">Résumé d\'article par IA</string>
     <string name="reading_ai_summary_desc">Afficher le bouton de résumé intelligent dans la barre d\'outils de lecture</string>
+    <plurals name="new_articles_count">
+        <item quantity="one">%1$d nouvel article ajouté</item>
+        <item quantity="other">%1$d nouveaux articles ajoutés</item>
+    </plurals>
+    <string name="sync_finished_title">Synchronisation terminée</string>
+    <string name="sync_notification">Notification de synchronisation</string>
+    <string name="sync_notification_desc">Afficher une notification avec le nombre d\'articles ajoutés</string>
+    <string name="restore_last_article">Reprendre la lecture de l\'article</string>
+    <string name="restore_last_article_desc">Rouvrir l\'article en cours de lecture au démarrage de l\'application</string>
+    <string name="restore_scroll_position">Mémoriser la position de défilement</string>
+    <string name="restore_scroll_position_desc">Restaurer la position dans « Tout » et « Non lus » à l\'ouverture</string>
+    <string name="full_translation">Traduction intégrale</string>
+    <string name="translate_article">Traduire l\'article</string>
 </resources>

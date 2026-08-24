@@ -139,6 +139,9 @@ class SettingsProvider @Inject constructor(
             LocalOpenLink provides settings.openLink,
             LocalOpenLinkSpecificBrowser provides settings.openLinkSpecificBrowser,
             LocalSharedContent provides settings.sharedContent,
+            LocalSyncNotification provides settings.syncNotification,
+            LocalRestoreLastArticle provides settings.restoreLastArticle,
+            LocalRestoreScrollPosition provides settings.restoreScrollPosition,
 
             // Languages
             LocalLanguages provides settings.languages,

@@ -65,10 +65,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.datastore.preferences.core.Preferences
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import me.ash.reader.R
 import me.ash.reader.domain.data.PagerData
@@ -84,6 +86,7 @@ import me.ash.reader.infrastructure.preference.LocalFlowTopBarTonalElevation
 import me.ash.reader.infrastructure.preference.LocalMarkAsReadOnScroll
 import me.ash.reader.infrastructure.preference.LocalOpenLink
 import me.ash.reader.infrastructure.preference.LocalOpenLinkSpecificBrowser
+import me.ash.reader.infrastructure.preference.LocalRestoreScrollPosition
 import me.ash.reader.infrastructure.preference.LocalSettings
 import me.ash.reader.infrastructure.preference.LocalSharedContent
 import me.ash.reader.infrastructure.preference.LocalSortUnreadArticles
@@ -96,8 +99,11 @@ import me.ash.reader.ui.component.base.RYScaffold
 import me.ash.reader.ui.component.scrollbar.VerticalScrollIndicatorFactory
 import me.ash.reader.ui.component.scrollbar.drawVerticalScrollIndicator
 import me.ash.reader.ui.component.scrollbar.scrollIndicator
+import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.collectAsStateValue
+import me.ash.reader.ui.ext.dataStore
 import me.ash.reader.ui.ext.openURL
+import me.ash.reader.ui.ext.put
 import me.ash.reader.ui.motion.Direction
 import me.ash.reader.ui.motion.sharedXAxisTransitionSlow
 import me.ash.reader.ui.motion.sharedYAxisTransitionExpressive
@@ -148,6 +154,52 @@ fun FlowPage(
     val filterUiState = pagerData.filterState
 
     val listState = rememberSaveable(pagerData, saver = LazyListState.Saver) { LazyListState(0, 0) }
+
+    val restoreScrollPosition = LocalRestoreScrollPosition.current.value
+
+    LaunchedEffect(pagerData) {
+        if (restoreScrollPosition && filterUiState.group == null && filterUiState.feed == null) {
+            val indexKey = if (filterUiState.filter.isAll()) {
+                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollIndexAll)
+            } else if (filterUiState.filter.isUnread()) {
+                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollIndexUnread)
+            } else {
+                null
+            }
+
+            val offsetKey = if (filterUiState.filter.isAll()) {
+                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetAll)
+            } else if (filterUiState.filter.isUnread()) {
+                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetUnread)
+            } else {
+                null
+            }
+
+            if (indexKey != null && offsetKey != null) {
+                val prefs = context.dataStore.data.first()
+                val savedIndex = prefs[indexKey] ?: 0
+                val savedOffset = prefs[offsetKey] ?: 0
+                if (savedIndex > 0 || savedOffset > 0) {
+                    listState.scrollToItem(savedIndex, savedOffset)
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(listState) {
+        if (restoreScrollPosition && filterUiState.group == null && filterUiState.feed == null) {
+            snapshotFlow { listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset }
+                .collect { (idx, off) ->
+                    if (filterUiState.filter.isAll()) {
+                        context.dataStore.put(DataStoreKey.scrollIndexAll, idx)
+                        context.dataStore.put(DataStoreKey.scrollOffsetAll, off)
+                    } else if (filterUiState.filter.isUnread()) {
+                        context.dataStore.put(DataStoreKey.scrollIndexUnread, idx)
+                        context.dataStore.put(DataStoreKey.scrollOffsetUnread, off)
+                    }
+                }
+        }
+    }
 
     val isTopBarElevated = topBarTonalElevation.value > 0
     val scrolledTopBarContainerColor =

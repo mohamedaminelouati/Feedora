@@ -390,4 +390,17 @@
     <string name="show_sync_status_desc">Display last synchronization state, date and time under each feed</string>
     <string name="reading_ai_summary">AI Article Summary</string>
     <string name="reading_ai_summary_desc">Show AI summarization button in the reading toolbar</string>
+    <plurals name="new_articles_count">
+        <item quantity="one">%1$d new article added</item>
+        <item quantity="other">%1$d new articles added</item>
+    </plurals>
+    <string name="sync_finished_title">Synchronization finished</string>
+    <string name="sync_notification">Sync Notification</string>
+    <string name="sync_notification_desc">Show notification with added articles count after sync</string>
+    <string name="restore_last_article">Resume Last Read Article</string>
+    <string name="restore_last_article_desc">Reopen the article you were reading upon app launch</string>
+    <string name="restore_scroll_position">Remember Scroll Position</string>
+    <string name="restore_scroll_position_desc">Restore list scroll position in All and Unread when opening app</string>
+    <string name="full_translation">Full Translation</string>
+    <string name="translate_article">Translate Article</string>
 </resources>

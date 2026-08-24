@@ -64,3 +64,50 @@ fun FeedbackIconButton(
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FeedbackIconButton(
+    modifier: Modifier = Modifier,
+    painter: androidx.compose.ui.graphics.painter.Painter,
+    contentDescription: String?,
+    tint: Color = LocalContentColor.current,
+    enabled: Boolean = true,
+    showBadge: Boolean = false,
+    isHaptic: Boolean? = true,
+    isSound: Boolean? = true,
+    onClick: () -> Unit = {},
+) {
+    val view = LocalView.current
+
+    BadgedBox(
+        badge = {
+            if (showBadge) {
+                Badge(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .clip(CircleShape),
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onError,
+                )
+            }
+        }
+    ) {
+        IconButton(
+            enabled = enabled,
+            onClick = {
+                if (isHaptic == true) view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+                if (isSound == true) view.playSoundEffect(SoundEffectConstants.CLICK)
+                onClick()
+            },
+        ) {
+            Icon(
+                modifier = modifier,
+                painter = painter,
+                contentDescription = contentDescription,
+                tint = tint,
+            )
+        }
+    }
+}
+

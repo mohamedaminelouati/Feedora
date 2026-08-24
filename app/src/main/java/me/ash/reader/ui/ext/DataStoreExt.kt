@@ -199,6 +199,14 @@ sealed interface PreferencesKey {
         const val openLink = "openLink"
         const val openLinkAppSpecificBrowser = "openLinkAppSpecificBrowser"
         const val sharedContent = "sharedContent"
+        const val syncNotification = "syncNotification"
+        const val restoreLastArticle = "restoreLastArticle"
+        const val lastReadingArticleId = "lastReadingArticleId"
+        const val restoreScrollPosition = "restoreScrollPosition"
+        const val scrollIndexAll = "scrollIndexAll"
+        const val scrollOffsetAll = "scrollOffsetAll"
+        const val scrollIndexUnread = "scrollIndexUnread"
+        const val scrollOffsetUnread = "scrollOffsetUnread"
 
         // Languages
         const val languages = "languages"
@@ -277,6 +285,14 @@ sealed interface PreferencesKey {
                 IntKey(openLink),
                 StringKey(openLinkAppSpecificBrowser),
                 IntKey(sharedContent),
+                BooleanKey(syncNotification),
+                BooleanKey(restoreLastArticle),
+                StringKey(lastReadingArticleId),
+                BooleanKey(restoreScrollPosition),
+                IntKey(scrollIndexAll),
+                IntKey(scrollOffsetAll),
+                IntKey(scrollIndexUnread),
+                IntKey(scrollOffsetUnread),
                 // Languages
                 IntKey(languages),
             )
@@ -365,6 +381,14 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val openLink = "openLink"
         const val openLinkAppSpecificBrowser = "openLinkAppSpecificBrowser"
         const val sharedContent = "sharedContent"
+        const val syncNotification = "syncNotification"
+        const val restoreLastArticle = "restoreLastArticle"
+        const val lastReadingArticleId = "lastReadingArticleId"
+        const val restoreScrollPosition = "restoreScrollPosition"
+        const val scrollIndexAll = "scrollIndexAll"
+        const val scrollOffsetAll = "scrollOffsetAll"
+        const val scrollIndexUnread = "scrollIndexUnread"
+        const val scrollOffsetUnread = "scrollOffsetUnread"
 
         // Languages
         const val languages = "languages"
@@ -521,6 +545,22 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                         String::class.java,
                     ),
                 sharedContent to DataStoreKey(intPreferencesKey(sharedContent), Int::class.java),
+                syncNotification to
+                    DataStoreKey(booleanPreferencesKey(syncNotification), Boolean::class.java),
+                restoreLastArticle to
+                    DataStoreKey(booleanPreferencesKey(restoreLastArticle), Boolean::class.java),
+                lastReadingArticleId to
+                    DataStoreKey(stringPreferencesKey(lastReadingArticleId), String::class.java),
+                restoreScrollPosition to
+                    DataStoreKey(booleanPreferencesKey(restoreScrollPosition), Boolean::class.java),
+                scrollIndexAll to
+                    DataStoreKey(intPreferencesKey(scrollIndexAll), Int::class.java),
+                scrollOffsetAll to
+                    DataStoreKey(intPreferencesKey(scrollOffsetAll), Int::class.java),
+                scrollIndexUnread to
+                    DataStoreKey(intPreferencesKey(scrollIndexUnread), Int::class.java),
+                scrollOffsetUnread to
+                    DataStoreKey(intPreferencesKey(scrollOffsetUnread), Int::class.java),
                 // Languages
                 languages to DataStoreKey(intPreferencesKey(languages), Int::class.java),
             )

@@ -32,15 +32,19 @@ import me.ash.reader.infrastructure.preference.LocalMarkAsReadOnScroll
 import me.ash.reader.infrastructure.preference.LocalOpenLink
 import me.ash.reader.infrastructure.preference.LocalOpenLinkSpecificBrowser
 import me.ash.reader.infrastructure.preference.LocalPullToSwitchArticle
+import me.ash.reader.infrastructure.preference.LocalRestoreLastArticle
+import me.ash.reader.infrastructure.preference.LocalRestoreScrollPosition
 import me.ash.reader.infrastructure.preference.LocalSettings
 import me.ash.reader.infrastructure.preference.LocalSharedContent
 import me.ash.reader.infrastructure.preference.LocalSortUnreadArticles
+import me.ash.reader.infrastructure.preference.LocalSyncNotification
 import me.ash.reader.infrastructure.preference.OpenLinkPreference
 import me.ash.reader.infrastructure.preference.PullToLoadNextFeedPreference
 import me.ash.reader.infrastructure.preference.SharedContentPreference
 import me.ash.reader.infrastructure.preference.SortUnreadArticlesPreference
 import me.ash.reader.infrastructure.preference.SwipeEndActionPreference
 import me.ash.reader.infrastructure.preference.SwipeStartActionPreference
+import me.ash.reader.infrastructure.preference.not
 import me.ash.reader.ui.component.base.DisplayText
 import me.ash.reader.ui.component.base.FeedbackIconButton
 import me.ash.reader.ui.component.base.RYScaffold
@@ -70,6 +74,10 @@ fun InteractionPage(
     val sharedContent = LocalSharedContent.current
     val settings = LocalSettings.current
     val pullToSwitchFeed = settings.pullToSwitchFeed
+
+    val syncNotification = LocalSyncNotification.current
+    val restoreLastArticle = LocalRestoreLastArticle.current
+    val restoreScrollPosition = LocalRestoreScrollPosition.current
 
     val scope = rememberCoroutineScope()
     val isOpenLinkSpecificBrowserItemEnabled = remember(openLink) {
@@ -120,6 +128,17 @@ fun InteractionPage(
                             initialFilterDialogVisible = true
                         },
                     ) {}
+                    SettingItem(
+                        title = stringResource(R.string.restore_last_article),
+                        desc = stringResource(R.string.restore_last_article_desc),
+                        onClick = {
+                            (!restoreLastArticle).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = restoreLastArticle.value) {
+                            (!restoreLastArticle).put(context, scope)
+                        }
+                    }
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Subtitle(
@@ -142,6 +161,17 @@ fun InteractionPage(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.article_list),
                     )
+                    SettingItem(
+                        title = stringResource(R.string.restore_scroll_position),
+                        desc = stringResource(R.string.restore_scroll_position_desc),
+                        onClick = {
+                            (!restoreScrollPosition).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = restoreScrollPosition.value) {
+                            (!restoreScrollPosition).put(context, scope)
+                        }
+                    }
                     SettingItem(
                         title = stringResource(R.string.swipe_to_start),
                         desc = swipeToStartAction.desc,
@@ -184,6 +214,24 @@ fun InteractionPage(
                             showPullToLoadDialog = true
                         },
                     )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.notifications),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.sync_notification),
+                        desc = stringResource(R.string.sync_notification_desc),
+                        onClick = {
+                            (!syncNotification).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = syncNotification.value) {
+                            (!syncNotification).put(context, scope)
+                        }
+                    }
 
                     Spacer(modifier = Modifier.height(24.dp))
 

@@ -108,6 +108,39 @@ constructor(
         }
     }
 
+    fun notifySyncSummary(newArticlesCount: Int) {
+        if (!notificationManager.areNotificationsEnabled()) return
+        if (newArticlesCount <= 0) return
+
+        val contentIntent =
+            PendingIntent.getActivity(
+                context,
+                1001,
+                Intent(context, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                },
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            )
+
+        val notificationText =
+            context.resources.getQuantityString(
+                R.plurals.new_articles_count,
+                newArticlesCount,
+                newArticlesCount,
+            )
+
+        val notification =
+            NotificationCompat.Builder(context, NotificationGroupName.ARTICLE_UPDATE)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(context.getString(R.string.sync_finished_title))
+                .setContentText(notificationText)
+                .setAutoCancel(true)
+                .setContentIntent(contentIntent)
+                .build()
+
+        notificationManager.notify(1001, notification)
+    }
+
     fun notify(feedWithArticle: FeedWithArticle) {
         notify(feedWithArticle.feed, feedWithArticle.articles)
     }

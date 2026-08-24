@@ -36,11 +36,18 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import java.util.concurrent.Executors
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import androidx.compose.ui.platform.LocalContext
+import androidx.datastore.preferences.core.Preferences
+import me.ash.reader.infrastructure.preference.LocalRestoreLastArticle
 import me.ash.reader.ui.component.reader.ExpandedContentWidth
 import me.ash.reader.ui.component.reader.LocalTextContentWidth
 import me.ash.reader.ui.component.reader.MediumContentWidth
+import me.ash.reader.ui.ext.DataStoreKey
+import me.ash.reader.ui.ext.dataStore
+import me.ash.reader.ui.ext.put
 import me.ash.reader.ui.page.home.flow.FlowPage
 import me.ash.reader.ui.page.home.reading.ReadingPage
 import timber.log.Timber
@@ -117,6 +124,24 @@ fun ArticleListReaderPage(
     val animatedContentWidth by animateDpAsState(contentWidth)
     val animatedListAlpha by animateFloatAsState(listAlpha)
 
+    val context = LocalContext.current
+    val restoreLastArticle = LocalRestoreLastArticle.current.value
+
+    LaunchedEffect(Unit) {
+        if (restoreLastArticle && navigator.currentDestination == null) {
+            val lastId = runCatching {
+                val prefs = context.dataStore.data.first()
+                prefs[androidx.datastore.preferences.core.stringPreferencesKey(DataStoreKey.lastReadingArticleId)]
+            }.getOrNull()
+            if (!lastId.isNullOrBlank()) {
+                navigator.navigateTo(
+                    pane = ListDetailPaneScaffoldRole.Detail,
+                    contentKey = ArticleData(articleId = lastId, listIndex = 0),
+                )
+            }
+        }
+    }
+
     NavigableListDetailPaneScaffold(
         navigator = navigator,
         modifier = modifier,
@@ -147,6 +172,10 @@ fun ArticleListReaderPage(
                             isTwoPane = isTwoPane,
                             navigateToArticle = { id, index ->
                                 scope.launch {
+                                    context.dataStore.put(
+                                        DataStoreKey.lastReadingArticleId,
+                                        id
+                                    )
                                     navigator.navigateTo(
                                         pane = ListDetailPaneScaffoldRole.Detail,
                                         contentKey = ArticleData(articleId = id, listIndex = index),

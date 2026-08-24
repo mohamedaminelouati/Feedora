@@ -88,6 +88,9 @@ fun Preferences.toSettings(): Settings {
         openLink = OpenLinkPreference.fromPreferences(this),
         openLinkSpecificBrowser = OpenLinkSpecificBrowserPreference.fromPreferences(this),
         sharedContent = SharedContentPreference.fromPreferences(this),
+        syncNotification = SyncNotificationPreference.fromPreferences(this),
+        restoreLastArticle = RestoreLastArticlePreference.fromPreferences(this),
+        restoreScrollPosition = RestoreScrollPositionPreference.fromPreferences(this),
 
         // Languages
         languages = LanguagesPreference.fromPreferences(this),

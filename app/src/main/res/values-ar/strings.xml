@@ -369,4 +369,21 @@
     <string name="show_sync_status_desc">عرض حالة وتاريخ ووقت آخر مزامنة تحت كل خلاصة</string>
     <string name="reading_ai_summary">تلخيص المقالات بالذكاء الاصطناعي</string>
     <string name="reading_ai_summary_desc">إظهار زر التلخيص الذكي في شريط أدوات القراءة</string>
+    <plurals name="new_articles_count">
+        <item quantity="zero">لم تتم إضافة أي مقال جديد</item>
+        <item quantity="one">تمت إضافة مقال جديد واحد</item>
+        <item quantity="two">تمت إضافة مقالين جديدين</item>
+        <item quantity="few">تمت إضافة %1$d مقالات جديدة</item>
+        <item quantity="many">تمت إضافة %1$d مقالاً جديداً</item>
+        <item quantity="other">تمت إضافة %1$d مقال جديد</item>
+    </plurals>
+    <string name="sync_finished_title">اكتملت المزامنة</string>
+    <string name="sync_notification">إشعار المزامنة</string>
+    <string name="sync_notification_desc">إظهار إشعار بعدد المقالات الجديدة المضافة بعد المزامنة</string>
+    <string name="restore_last_article">استئناف قراءة آخر مقال</string>
+    <string name="restore_last_article_desc">إعادة فتح المقال الذي كنت تقرأه عند تشغيل التطبيق</string>
+    <string name="restore_scroll_position">تذكر موضع التمرير</string>
+    <string name="restore_scroll_position_desc">استعادة موضع التمرير في قائمة «الكل» و«غير المقروءة» عند الفتح</string>
+    <string name="full_translation">الترجمة الكاملة</string>
+    <string name="translate_article">ترجمة المقال</string>
 </resources>
