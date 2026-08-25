@@ -212,6 +212,11 @@ sealed interface PreferencesKey {
         const val scrollIndexUnread = "scrollIndexUnread"
         const val scrollOffsetUnread = "scrollOffsetUnread"
 
+        // AI
+        const val aiSummaryLanguage = "aiSummaryLanguage"
+        const val aiSummaryStyle = "aiSummaryStyle"
+        const val aiTranslationLanguage = "aiTranslationLanguage"
+
         // Languages
         const val languages = "languages"
 
@@ -297,6 +302,10 @@ sealed interface PreferencesKey {
                 IntKey(scrollOffsetAll),
                 IntKey(scrollIndexUnread),
                 IntKey(scrollOffsetUnread),
+                // AI
+                StringKey(aiSummaryLanguage),
+                StringKey(aiSummaryStyle),
+                StringKey(aiTranslationLanguage),
                 // Languages
                 IntKey(languages),
             )
@@ -394,6 +403,11 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val scrollIndexUnread = "scrollIndexUnread"
         const val scrollOffsetUnread = "scrollOffsetUnread"
 
+        // AI
+        const val aiSummaryLanguage = "aiSummaryLanguage"
+        const val aiSummaryStyle = "aiSummaryStyle"
+        const val aiTranslationLanguage = "aiTranslationLanguage"
+
         // Languages
         const val languages = "languages"
 
@@ -439,7 +453,7 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                 feedsGroupListTonalElevation to
                     DataStoreKey(intPreferencesKey(feedsGroupListTonalElevation), Int::class.java),
                 feedsShowSyncStatus to
-                    DataStoreKey(booleanPreferencesKey(feedsShowSyncStatus), Boolean::class.java),
+                    DataStoreKey(intPreferencesKey(feedsShowSyncStatus), Int::class.java),
                 // Flow page
                 flowFilterBarStyle to
                     DataStoreKey(intPreferencesKey(flowFilterBarStyle), Int::class.java),
@@ -565,6 +579,13 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                     DataStoreKey(intPreferencesKey(scrollIndexUnread), Int::class.java),
                 scrollOffsetUnread to
                     DataStoreKey(intPreferencesKey(scrollOffsetUnread), Int::class.java),
+                // AI
+                aiSummaryLanguage to
+                    DataStoreKey(stringPreferencesKey(aiSummaryLanguage), String::class.java),
+                aiSummaryStyle to
+                    DataStoreKey(stringPreferencesKey(aiSummaryStyle), String::class.java),
+                aiTranslationLanguage to
+                    DataStoreKey(stringPreferencesKey(aiTranslationLanguage), String::class.java),
                 // Languages
                 languages to DataStoreKey(intPreferencesKey(languages), Int::class.java),
             )

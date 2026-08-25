@@ -195,9 +195,11 @@ fun ArticleListReaderPage(
                 val contentKey = navigator.currentDestination?.contentKey
                 LaunchedEffect(contentKey) {
                     if (contentKey == null) {
+                        context.dataStore.put(DataStoreKey.lastReadingArticleId, "")
                         delay(100L)
                         viewModel.clearReadingData()
                     } else {
+                        context.dataStore.put(DataStoreKey.lastReadingArticleId, contentKey.articleId)
                         viewModel.initData(
                             articleId = contentKey.articleId,
                             listIndex = contentKey.listIndex,
@@ -220,6 +222,9 @@ fun ArticleListReaderPage(
                         onNavAction = {
                             when (it) {
                                 NavigationAction.Close -> {
+                                    scope.launch {
+                                        context.dataStore.put(DataStoreKey.lastReadingArticleId, "")
+                                    }
                                     if (navigator.canNavigateBack(backBehavior)) {
                                         scope
                                             .launch { navigator.navigateBack(backBehavior) }

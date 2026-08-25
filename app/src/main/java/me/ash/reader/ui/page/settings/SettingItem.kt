@@ -87,14 +87,14 @@ fun SettingItem(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = title,
-                    maxLines = if (desc == null) 2 else 1,
+                    maxLines = 3,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp)
                 )
                 desc?.let {
                     Text(
                         text = it,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
+                        maxLines = 4,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }

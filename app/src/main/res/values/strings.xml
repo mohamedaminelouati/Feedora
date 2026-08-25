@@ -413,4 +413,7 @@
     <string name="copy">Copy</string>
     <string name="search_settings">Search settings</string>
     <string name="no_settings_found">No settings found</string>
+    <string name="sync_status_always">Always</string>
+    <string name="sync_status_errors_only">Errors only</string>
+    <string name="sync_status_never">Never</string>
 </resources>

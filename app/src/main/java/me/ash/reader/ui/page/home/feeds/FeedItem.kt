@@ -40,6 +40,7 @@ import java.util.Date
 import java.util.Locale
 import kotlinx.coroutines.launch
 import me.ash.reader.domain.model.feed.Feed
+import me.ash.reader.infrastructure.preference.FeedsShowSyncStatusPreference
 import me.ash.reader.infrastructure.preference.LocalFeedsShowSyncStatus
 import me.ash.reader.ui.component.FeedIcon
 import me.ash.reader.ui.component.base.RYExtensibleVisibility
@@ -118,7 +119,12 @@ private fun FeedItemImpl(
         ) {
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 FeedIcon(feedName = feed.name, iconUrl = feed.icon, modifier = Modifier)
-                val showSyncStatus = LocalFeedsShowSyncStatus.current.value
+                val syncStatusPref = LocalFeedsShowSyncStatus.current
+                val shouldShowSyncStatus = when (syncStatusPref) {
+                    FeedsShowSyncStatusPreference.Always -> true
+                    FeedsShowSyncStatusPreference.ErrorsOnly -> feed.lastSyncStatus == 2
+                    FeedsShowSyncStatusPreference.Never -> false
+                }
                 Column(modifier = Modifier.padding(start = 12.dp, end = 6.dp)) {
                     Text(
                         text = feed.name,
@@ -135,7 +141,7 @@ private fun FeedItemImpl(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
-                    if (showSyncStatus) {
+                    if (shouldShowSyncStatus) {
                         Spacer(modifier = Modifier.height(2.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             val (statusText, statusColor) =

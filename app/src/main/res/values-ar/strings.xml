@@ -395,5 +395,8 @@
     <string name="retry">إعادة المحاولة</string>
     <string name="copy">نسخ</string>
     <string name="search_settings">البحث في الإعدادات</string>
-    <string name="no_settings_found">لم يتم العثور على أي إعدادات</string>
+    <string name="no_settings_found">لم يتم العثور على إعدادات</string>
+    <string name="sync_status_always">دائماً</string>
+    <string name="sync_status_errors_only">عند وجود أخطاء فقط</string>
+    <string name="sync_status_never">أبداً</string>
 </resources>

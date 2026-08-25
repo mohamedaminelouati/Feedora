@@ -32,9 +32,11 @@ fun FeedsPageStylePage(
     val topBarTonalElevation = LocalFeedsTopBarTonalElevation.current
     val groupListExpand = LocalFeedsGroupListExpand.current
     val groupListTonalElevation = LocalFeedsGroupListTonalElevation.current
+    val showSyncStatus = LocalFeedsShowSyncStatus.current
 
     val scope = rememberCoroutineScope()
 
+    var showSyncStatusDialogVisible by remember { mutableStateOf(false) }
     var filterBarStyleDialogVisible by remember { mutableStateOf(false) }
     var filterBarPaddingDialogVisible by remember { mutableStateOf(false) }
     var filterBarTonalElevationDialogVisible by remember { mutableStateOf(false) }
@@ -105,7 +107,6 @@ fun FeedsPageStylePage(
 
                 // Group List
                 item {
-                    val showSyncStatus = LocalFeedsShowSyncStatus.current
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.group_list)
@@ -122,15 +123,11 @@ fun FeedsPageStylePage(
                     }
                     SettingItem(
                         title = stringResource(R.string.show_sync_status),
-                        desc = stringResource(R.string.show_sync_status_desc),
+                        desc = showSyncStatus.toDesc(),
                         onClick = {
-                            (!showSyncStatus).put(context, scope)
+                            showSyncStatusDialogVisible = true
                         },
-                    ) {
-                        RYSwitch(activated = showSyncStatus.value) {
-                            (!showSyncStatus).put(context, scope)
-                        }
-                    }
+                    ) {}
 /*                    SettingItem(
                         title = stringResource(R.string.tonal_elevation),
                         desc = "${groupListTonalElevation.value}dp",
@@ -238,6 +235,21 @@ fun FeedsPageStylePage(
         }
     ) {
         topBarTonalElevationDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = showSyncStatusDialogVisible,
+        title = stringResource(R.string.show_sync_status),
+        options = FeedsShowSyncStatusPreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(),
+                selected = it == showSyncStatus,
+            ) {
+                it.put(context, scope)
+            }
+        }
+    ) {
+        showSyncStatusDialogVisible = false
     }
 
 /*    RadioDialog(

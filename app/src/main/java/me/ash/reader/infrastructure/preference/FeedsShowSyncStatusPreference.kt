@@ -1,10 +1,14 @@
 package me.ash.reader.infrastructure.preference
 
 import android.content.Context
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.res.stringResource
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.intPreferencesKey
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import me.ash.reader.R
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.dataStore
 import me.ash.reader.ui.ext.put
@@ -12,9 +16,17 @@ import me.ash.reader.ui.ext.put
 val LocalFeedsShowSyncStatus =
     compositionLocalOf<FeedsShowSyncStatusPreference> { FeedsShowSyncStatusPreference.default }
 
-sealed class FeedsShowSyncStatusPreference(val value: Boolean) : Preference() {
-    data object ON : FeedsShowSyncStatusPreference(true)
-    data object OFF : FeedsShowSyncStatusPreference(false)
+sealed class FeedsShowSyncStatusPreference(val value: Int) : Preference() {
+    data object Always : FeedsShowSyncStatusPreference(0)
+    data object ErrorsOnly : FeedsShowSyncStatusPreference(1)
+    data object Never : FeedsShowSyncStatusPreference(2)
+
+    @Composable
+    fun toDesc(): String = when (this) {
+        Always -> stringResource(R.string.sync_status_always)
+        ErrorsOnly -> stringResource(R.string.sync_status_errors_only)
+        Never -> stringResource(R.string.sync_status_never)
+    }
 
     override fun put(context: Context, scope: CoroutineScope) {
         scope.launch {
@@ -26,20 +38,19 @@ sealed class FeedsShowSyncStatusPreference(val value: Boolean) : Preference() {
     }
 
     companion object {
-        val default = ON
-        val values = listOf(ON, OFF)
+        val default = Always
+        val values = listOf(Always, ErrorsOnly, Never)
 
-        fun fromPreferences(preferences: Preferences) =
-            when (preferences[DataStoreKey.keys[DataStoreKey.feedsShowSyncStatus]?.key as Preferences.Key<Boolean>]) {
-                true -> ON
-                false -> OFF
-                else -> default
-            }
+        fun fromValue(value: Int) = when (value) {
+            0 -> Always
+            1 -> ErrorsOnly
+            2 -> Never
+            else -> default
+        }
+
+        fun fromPreferences(preferences: Preferences): FeedsShowSyncStatusPreference {
+            val key = intPreferencesKey(DataStoreKey.feedsShowSyncStatus)
+            return preferences[key]?.let { fromValue(it) } ?: default
+        }
     }
 }
-
-operator fun FeedsShowSyncStatusPreference.not(): FeedsShowSyncStatusPreference =
-    when (value) {
-        true -> FeedsShowSyncStatusPreference.OFF
-        false -> FeedsShowSyncStatusPreference.ON
-    }

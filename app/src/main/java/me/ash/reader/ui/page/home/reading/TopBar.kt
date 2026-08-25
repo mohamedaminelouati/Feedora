@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.MenuOpen
+import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Share
@@ -65,6 +66,7 @@ fun TopBar(
     onNavButtonClick: (NavigationAction) -> Unit = {},
     onNavigateToStylePage: () -> Unit,
     onSummarizeClick: () -> Unit = {},
+    onTranslateClick: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val sharedContent = LocalSharedContent.current
@@ -130,10 +132,18 @@ fun TopBar(
                             FeedbackIconButton(
                                 modifier = Modifier.size(22.dp),
                                 painter = androidx.compose.ui.res.painterResource(R.drawable.ic_ai_summary),
-                                contentDescription = stringResource(R.string.reading_ai_summary),
+                                contentDescription = stringResource(R.string.ai_summary),
                                 tint = MaterialTheme.colorScheme.onSurface,
                             ) {
                                 onSummarizeClick()
+                            }
+                            FeedbackIconButton(
+                                modifier = Modifier.size(22.dp),
+                                imageVector = Icons.Outlined.Language,
+                                contentDescription = stringResource(R.string.ai_full_translation),
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            ) {
+                                onTranslateClick()
                             }
                         }
                         FeedbackIconButton(

@@ -77,6 +77,7 @@ import me.ash.reader.infrastructure.ai.AiSummaryStyle
 fun AiSummaryBottomSheet(
     title: String,
     content: String,
+    initialMode: AiFeatureMode = AiFeatureMode.SUMMARY,
     onDismissRequest: () -> Unit,
     viewModel: AiSummaryViewModel = hiltViewModel(),
 ) {
@@ -89,10 +90,8 @@ fun AiSummaryBottomSheet(
     val view = LocalView.current
     val clipboardManager = LocalClipboardManager.current
 
-    LaunchedEffect(title, content) {
-        if (uiState is AiSummaryUiState.Idle) {
-            viewModel.executeAction(title, content)
-        }
+    LaunchedEffect(title, content, initialMode) {
+        viewModel.initMode(initialMode, title, content)
     }
 
     ModalBottomSheet(

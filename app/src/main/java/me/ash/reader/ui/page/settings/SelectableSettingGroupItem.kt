@@ -73,7 +73,7 @@ fun SelectableSettingGroupItem(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = title,
-                    maxLines = if (desc == null) 2 else 1,
+                    maxLines = 3,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
                     color = if (selected) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.onSurface,
                 )
@@ -82,7 +82,7 @@ fun SelectableSettingGroupItem(
                         text = it,
                         color = if (selected) MaterialTheme.colorScheme.surface.copy(alpha = 0.7f)
                         else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                        maxLines = 1,
+                        maxLines = 4,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }

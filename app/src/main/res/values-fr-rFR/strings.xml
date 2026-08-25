@@ -352,7 +352,7 @@
     <string name="enabled">Activé</string>
     <string name="notifications_desc">Être notifié quand de nouveaux articles non lus sont disponible</string>
     <string name="open_in_browser_desc">Ouvrir les articles dans le navigateur</string>
-    <string name="parse_full_content_desc">Récupérer les articles complets depuis les pages wev</string>
+    <string name="parse_full_content_desc">Récupérer les articles complets depuis les pages web</string>
     <string name="enable">Activer</string>
     <string name="disable">Désactiver</string>
     <string name="group_configuration_description">Configurer \"%1$s\" pour les flux dans \"%2$s\"</string>
@@ -383,4 +383,7 @@
     <string name="copy">Copier</string>
     <string name="search_settings">Rechercher dans les paramètres</string>
     <string name="no_settings_found">Aucun paramètre trouvé</string>
+    <string name="sync_status_always">Toujours</string>
+    <string name="sync_status_errors_only">Uniquement en cas d\'erreur</string>
+    <string name="sync_status_never">Jamais</string>
 </resources>

@@ -101,6 +101,7 @@ fun ReadingPage(
 
     var bringToTop by remember { mutableStateOf(false) }
     var showAiSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var initialAiMode by rememberSaveable { mutableStateOf(me.ash.reader.ui.page.home.reading.ai.AiFeatureMode.SUMMARY) }
 
     LaunchedEffect(readerState.articleId) {
         val currentId = readerState.articleId
@@ -123,7 +124,14 @@ fun ReadingPage(
                         navigationAction = navigationAction,
                         onNavButtonClick = onNavAction,
                         onNavigateToStylePage = onNavigateToStylePage,
-                        onSummarizeClick = { showAiSummaryBottomSheet = true },
+                        onSummarizeClick = {
+                            initialAiMode = me.ash.reader.ui.page.home.reading.ai.AiFeatureMode.SUMMARY
+                            showAiSummaryBottomSheet = true
+                        },
+                        onTranslateClick = {
+                            initialAiMode = me.ash.reader.ui.page.home.reading.ai.AiFeatureMode.TRANSLATION
+                            showAiSummaryBottomSheet = true
+                        },
                     )
                 }
 
@@ -374,6 +382,7 @@ fun ReadingPage(
         me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
             title = readerState.title ?: "",
             content = articleContent,
+            initialMode = initialAiMode,
             onDismissRequest = { showAiSummaryBottomSheet = false },
         )
     }

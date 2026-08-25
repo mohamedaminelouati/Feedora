@@ -1,10 +1,5 @@
 package me.ash.reader.ui.page.settings
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -33,7 +28,6 @@ import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.TipsAndUpdates
 import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -93,7 +87,6 @@ fun SettingsPage(
     val skipVersion = LocalSkipVersionNumber.current
     val currentVersion by remember { mutableStateOf(context.getCurrentVersion()) }
 
-    var isSearchActive by rememberSaveable { mutableStateOf(false) }
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
     val accountsTitle = stringResource(R.string.accounts)
@@ -269,72 +262,50 @@ fun SettingsPage(
                 onClick = onBack,
             )
         },
-        actions = {
-            FeedbackIconButton(
-                imageVector = if (isSearchActive) Icons.Rounded.Close else Icons.Rounded.Search,
-                contentDescription = if (isSearchActive) {
-                    stringResource(R.string.close)
-                } else {
-                    stringResource(R.string.search_settings)
-                },
-                tint = MaterialTheme.colorScheme.onSurface,
-                onClick = {
-                    isSearchActive = !isSearchActive
-                    if (!isSearchActive) {
-                        searchQuery = ""
-                    }
-                },
-            )
-        },
         content = {
             LazyColumn {
                 item {
                     DisplayText(text = stringResource(R.string.settings), desc = "")
                 }
 
-                // Search Bar Field
+                // Permanent Search Bar Field
                 item {
-                    AnimatedVisibility(
-                        visible = isSearchActive,
-                        enter = fadeIn() + expandVertically(),
-                        exit = fadeOut() + shrinkVertically(),
-                    ) {
-                        OutlinedTextField(
-                            value = searchQuery,
-                            onValueChange = { searchQuery = it },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 8.dp),
-                            placeholder = { Text(stringResource(R.string.search_settings)) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Outlined.Search,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            },
-                            trailingIcon = {
-                                if (searchQuery.isNotEmpty()) {
-                                    IconButton(onClick = { searchQuery = "" }) {
-                                        Icon(
-                                            imageVector = Icons.Rounded.Close,
-                                            contentDescription = stringResource(R.string.close),
-                                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        )
-                                    }
+                    OutlinedTextField(
+                        value = searchQuery,
+                        onValueChange = { searchQuery = it },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp, vertical = 8.dp),
+                        placeholder = { Text(stringResource(R.string.search_settings)) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Search,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        },
+                        trailingIcon = {
+                            if (searchQuery.isNotEmpty()) {
+                                IconButton(onClick = { searchQuery = "" }) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Close,
+                                        contentDescription = stringResource(R.string.close),
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
                                 }
-                            },
-                            shape = RoundedCornerShape(24.dp),
-                            singleLine = true,
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
-                            ),
-                        )
-                    }
+                            }
+                        },
+                        shape = RoundedCornerShape(24.dp),
+                        singleLine = true,
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+                        ),
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
 
-                if (isSearchActive && searchQuery.isNotBlank()) {
+                if (searchQuery.isNotBlank()) {
                     if (filteredItems.isEmpty()) {
                         item {
                             Box(
@@ -413,7 +384,7 @@ fun SettingsPage(
                     item {
                         SelectableSettingGroupItem(
                             title = languagesTitle,
-                            desc = Locale.getDefault().toDisplayName(),
+                            desc = languagesDesc,
                             icon = Icons.Outlined.Language,
                             onClick = navigateToLanguages,
                         )
@@ -444,5 +415,5 @@ fun SettingsPage(
         },
     )
 
-    UpdateDialog()
+    UpdateDialog(updateViewModel = updateViewModel)
 }
