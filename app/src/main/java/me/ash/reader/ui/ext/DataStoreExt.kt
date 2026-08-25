@@ -40,6 +40,10 @@ val Context.initialPage: Int
     get() = this.dataStore.get(DataStoreKey.initialPage) ?: 0
 val Context.initialFilter: Int
     get() = this.dataStore.get(DataStoreKey.initialFilter) ?: 2
+val Context.restoreLastArticle: Boolean
+    get() = this.dataStore.get(DataStoreKey.restoreLastArticle) ?: false
+val Context.lastReadingArticleId: String
+    get() = this.dataStore.get(DataStoreKey.lastReadingArticleId) ?: ""
 
 val Context.languages: Int
     get() = this.dataStore.get(DataStoreKey.languages) ?: 0

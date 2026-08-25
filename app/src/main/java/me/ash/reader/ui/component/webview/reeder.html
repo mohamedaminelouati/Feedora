@@ -314,12 +314,12 @@ hr {
             <div id="readability-page-1" class="page">
                 <div>
                     <div>
-                        <img alt="AMD" src="https://www.phoronix.com/assets/categories/amd.webp" width="100" height="100">
+                        <img alt="AMD" src="https://example.com/assets/categories/amd.webp" width="100" height="100">
                     </div>
                     <p> At the start of the year </p>
-                    <a href="https://www.phoronix.com/news/AMD-XDNA-Linux-Driver-Ryzen-AI">AMD posted an open-source XDNA Linux driver to GitHub</a>
+                    <a href="https://example.com/news/AMD-XDNA-Linux-Driver-Ryzen-AI">AMD posted an open-source XDNA Linux driver to GitHub</a>
                     <p> for supporting the Ryzen API NPU IP found within their newest Ryzen mobile SoCs. It wasn't until last month though in mid-July that </p>
-                    <a href="https://www.phoronix.com/news/AMD-XDNA-Ryzen-AI-Driver-Patch">AMD began the process of submitting the driver for review</a>
+                    <a href="https://example.com/news/AMD-XDNA-Ryzen-AI-Driver-Patch">AMD began the process of submitting the driver for review</a>
                     <p> so that it can work its way toward the mainline Linux kernel within the "accel" accelerator subsystem. Today brings a second revision to that driver. </p>
                     <p> AMDXDNA v2 was posted a few minutes ago as the revised patches for supporting the AMD Ryzen AI NPUs. The v2 iteration has some minor code changes and some other minor work as a result of early code review collected over the past three weeks. </p>
                     <br>
@@ -336,9 +336,9 @@ hr {
                         <p> The driver is licensed under GPL-2.0 except for UAPI header which is licensed GPL-2.0 WITH Linux-syscall-note."</p>
                     </blockquote>
                     <p>So far the AMDXDNA Linux kernel driver has open-source user-space software supporting it of the Xilinx XRT and AMD AIE Plugin for IREE. Eventually the </p>
-                    <a href="https://www.phoronix.com/news/AMD-Unified-AI-Software-Stack">AMD Unified AI Software Stack</a>
+                    <a href="https://example.com/news/AMD-Unified-AI-Software-Stack">AMD Unified AI Software Stack</a>
                     <p> will come. </p>
-                    <p><a href="https://www.phoronix.com/image-viewer.php?id=2024&amp;image=amd_ryzen_ai_9_lrg" target="_blank"><img src="https://www.phoronix.net/image.php?id=2024&amp;image=amd_ryzen_ai_9_med" alt="AMD Ryzen AI badge"></a></p>
+                    <p><a href="https://example.com/image-viewer.php?id=2024&amp;image=amd_ryzen_ai_9_lrg" target="_blank"><img src="https://example.com/image.php?id=2024&amp;image=amd_ryzen_ai_9_med" alt="AMD Ryzen AI badge"></a></p>
                     <p>We'll see how the </p>
                     <a href="https://lore.kernel.org/dri-devel/20240805173959.3181199-1-lizhi.hou@amd.com/">v2 patches</a>
                     <p> are reviewed. Hopefully this AMDXDNA kernel driver will be deemed ready for merging the next cycle, which would be Linux 6.12 and also happens to be this year's Long Term Support (LTS) kernel. The Linux 6.12 merge window opens in September but the stable release won't be out until around late November, which sadly puts AMDXDNA out of reach for the likes of Ubuntu 24.10 for having out-of-the-box Ryzen AI NPU support. Long story short, hopefully in 2025 we'll be seeing a more robust and out-of-the-box AMD NPU/AI experience on Linux.</p>
@@ -346,11 +346,11 @@ hr {
                 <div>
                     <div>
                         <div>
-                            <img alt="VULKAN" src="https://www.phoronix.com/assets/categories/vulkan.webp" width="100" height="100">
+                            <img alt="VULKAN" src="https://example.com/assets/categories/vulkan.webp" width="100" height="100">
                         </div>
                         <p style="display: inline;" class="readability-styled"> The Broadcom V3DV driver living within the Mesa code-base that provides Vulkan API support most notably for Raspberry Pi 4 and Raspberry Pi 5 single board computers now advertises Vulkan 1.3! </p>
                         <p> Alejandro Piñeiro of Igalia saw his two month old merge request finally hit Mesa 24.3-devel today for exposing Vulkan 1.3 with the V3DV driver. This Vulkan 1.3 support has been successfully tested on both the Raspberry Pi 4 and Raspberry Pi 5 boards. </p>
-                        <p><img src="https://www.phoronix.net/image.php?id=2024&amp;image=v3dv_vulkan_13" alt="Vulkan 1.3 for V3DV"></p>
+                        <p><img src="https://example.com/image.php?id=2024&amp;image=v3dv_vulkan_13" alt="Vulkan 1.3 for V3DV"></p>
                         <p style="display: inline;" class="readability-styled">Just a small fix to correctly set the maxInlineUniformBlockSize and maxInlineUniformTotalSize properties was the last needed step before bumping the supported Vulkan API version. The code landed via </p>
                         <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/29476">this merge request</a>
                         <p style="display: inline;" class="readability-styled"> and is currently in the mainline Git code for Mesa 24.3. As it's just a small fix and bumping the version in the end, we'll see if this gets back-ported for the upcoming Mesa 24.2 release.</p>

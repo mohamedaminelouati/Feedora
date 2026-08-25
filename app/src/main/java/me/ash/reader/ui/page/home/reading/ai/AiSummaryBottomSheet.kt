@@ -51,6 +51,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -124,7 +125,11 @@ fun AiSummaryBottomSheet(
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
-                        text = if (currentMode == AiFeatureMode.SUMMARY) "Résumé IA" else "Traduction Intégrale",
+                        text = if (currentMode == AiFeatureMode.SUMMARY) {
+                            stringResource(R.string.ai_summary)
+                        } else {
+                            stringResource(R.string.ai_full_translation)
+                        },
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -137,7 +142,7 @@ fun AiSummaryBottomSheet(
                 }) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
-                        contentDescription = "Fermer",
+                        contentDescription = stringResource(R.string.close),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
@@ -145,7 +150,7 @@ fun AiSummaryBottomSheet(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Mode Tabs (Résumé vs Traduction)
+            // Mode Tabs (Summary vs Translation)
             TabRow(
                 selectedTabIndex = currentMode.ordinal,
                 containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
@@ -159,10 +164,14 @@ fun AiSummaryBottomSheet(
                         },
                         text = {
                             Text(
-                                text = mode.title,
+                                text = if (mode == AiFeatureMode.SUMMARY) {
+                                    stringResource(R.string.ai_summary)
+                                } else {
+                                    stringResource(R.string.ai_full_translation)
+                                },
                                 fontWeight = if (currentMode == mode) FontWeight.Bold else FontWeight.Normal,
                             )
-                        }
+                        },
                     )
                 }
             }
@@ -189,7 +198,7 @@ fun AiSummaryBottomSheet(
                                     modifier = Modifier.size(16.dp),
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("Langue : ${selectedLanguage.displayName}")
+                                Text(selectedLanguage.displayName)
                             }
                         },
                     )
@@ -197,6 +206,7 @@ fun AiSummaryBottomSheet(
                     DropdownMenu(
                         expanded = isLangMenuExpanded,
                         onDismissRequest = { isLangMenuExpanded = false },
+                        modifier = Modifier.heightIn(max = 350.dp),
                     ) {
                         val availableLanguages = if (currentMode == AiFeatureMode.TRANSLATION) {
                             AiLanguage.entries.filter { it != AiLanguage.AUTO }
@@ -239,7 +249,7 @@ fun AiSummaryBottomSheet(
                         FilterChip(
                             selected = false,
                             onClick = { isStyleMenuExpanded = true },
-                            label = { Text("Style : ${selectedStyle.displayName}") },
+                            label = { Text(selectedStyle.displayName) },
                         )
 
                         DropdownMenu(
@@ -311,10 +321,11 @@ fun AiSummaryBottomSheet(
                                     )
                                     Spacer(modifier = Modifier.height(14.dp))
                                     Text(
-                                        text = if (currentMode == AiFeatureMode.SUMMARY)
-                                            "Génération du résumé..."
-                                        else
-                                            "Traduction complète en cours...",
+                                        text = if (currentMode == AiFeatureMode.SUMMARY) {
+                                            stringResource(R.string.ai_generating_summary)
+                                        } else {
+                                            stringResource(R.string.ai_translating_article)
+                                        },
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     )
@@ -374,7 +385,7 @@ fun AiSummaryBottomSheet(
                                             viewModel.executeAction(title, content)
                                         }
                                     ) {
-                                        Text("Réessayer")
+                                        Text(stringResource(R.string.retry))
                                     }
                                 }
                             }
@@ -388,6 +399,7 @@ fun AiSummaryBottomSheet(
             // Action Buttons
             if (uiState is AiSummaryUiState.Success) {
                 val successResult = (uiState as AiSummaryUiState.Success).result
+                val copiedMsg = stringResource(R.string.copied_to_clipboard)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
@@ -405,7 +417,7 @@ fun AiSummaryBottomSheet(
                             modifier = Modifier.size(18.dp),
                         )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Régénérer")
+                        Text(stringResource(R.string.regenerate))
                     }
 
                     Spacer(modifier = Modifier.width(10.dp))
@@ -414,7 +426,7 @@ fun AiSummaryBottomSheet(
                         onClick = {
                             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                             clipboardManager.setText(AnnotatedString(successResult))
-                            Toast.makeText(context, "Copié dans le presse-papier !", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, copiedMsg, Toast.LENGTH_SHORT).show()
                         },
                     ) {
                         Icon(
@@ -423,7 +435,7 @@ fun AiSummaryBottomSheet(
                             modifier = Modifier.size(18.dp),
                         )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Copier")
+                        Text(stringResource(R.string.copy))
                     }
                 }
             }

@@ -40,6 +40,8 @@ import me.ash.reader.infrastructure.preference.SettingsProvider
 import me.ash.reader.ui.ext.initialPage
 import me.ash.reader.ui.ext.isFirstLaunch
 import me.ash.reader.ui.ext.languages
+import me.ash.reader.ui.ext.lastReadingArticleId
+import me.ash.reader.ui.ext.restoreLastArticle
 import me.ash.reader.ui.page.common.ExtraName
 import me.ash.reader.ui.page.home.feeds.subscribe.SubscribeViewModel
 import me.ash.reader.ui.page.nav3.AppEntry
@@ -104,6 +106,8 @@ class MainActivity : AppCompatActivity() {
                         AppTheme(useDarkTheme = LocalDarkTheme.current.isDarkTheme()) {
                             val isFirstLaunch = remember { isFirstLaunch }
                             val initialPage = remember { initialPage }
+                            val restoreLastArticle = remember { restoreLastArticle }
+                            val lastReadingArticleId = remember { lastReadingArticleId }
                             val launchAction = intent.getLaunchAction()
 
                             val startDestination = remember {
@@ -127,7 +131,9 @@ class MainActivity : AppCompatActivity() {
                                             listOf(Route.Feeds)
                                         }
                                         else -> {
-                                            if (
+                                            if (restoreLastArticle && lastReadingArticleId.isNotBlank()) {
+                                                listOf(Route.Feeds, Route.Reading(lastReadingArticleId))
+                                            } else if (
                                                 initialPage == InitialPagePreference.FlowPage.value
                                             ) {
                                                 listOf(Route.Feeds, Route.Reading(null))

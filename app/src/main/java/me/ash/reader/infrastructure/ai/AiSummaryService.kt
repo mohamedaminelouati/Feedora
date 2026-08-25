@@ -44,7 +44,7 @@ constructor(
         runCatching {
             val plainText = extractPlainText(htmlOrTextContent).take(12000)
             if (plainText.isBlank()) {
-                throw IllegalArgumentException("Le contenu de l'article est vide.")
+                throw IllegalArgumentException("Article content is empty.")
             }
 
             // 1. If user provided a custom endpoint or valid API Key

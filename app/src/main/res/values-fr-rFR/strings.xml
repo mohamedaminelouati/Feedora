@@ -373,4 +373,14 @@
     <string name="restore_scroll_position_desc">Restaurer la position dans « Tout » et « Non lus » à l\'ouverture</string>
     <string name="full_translation">Traduction intégrale</string>
     <string name="translate_article">Traduire l\'article</string>
+    <string name="ai_summary">Résumé IA</string>
+    <string name="ai_full_translation">Traduction intégrale</string>
+    <string name="ai_generating_summary">Génération du résumé…</string>
+    <string name="ai_translating_article">Traduction complète en cours…</string>
+    <string name="copied_to_clipboard">Copié dans le presse-papier !</string>
+    <string name="regenerate">Régénérer</string>
+    <string name="retry">Réessayer</string>
+    <string name="copy">Copier</string>
+    <string name="search_settings">Rechercher dans les paramètres</string>
+    <string name="no_settings_found">Aucun paramètre trouvé</string>
 </resources>

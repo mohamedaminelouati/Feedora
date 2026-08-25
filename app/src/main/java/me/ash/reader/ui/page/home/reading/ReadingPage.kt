@@ -48,7 +48,10 @@ import me.ash.reader.infrastructure.preference.LocalReadingAutoHideToolbar
 import me.ash.reader.infrastructure.preference.LocalReadingBoldCharacters
 import me.ash.reader.infrastructure.preference.LocalReadingTextLineHeight
 import me.ash.reader.infrastructure.preference.not
+import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.collectAsStateValue
+import me.ash.reader.ui.ext.dataStore
+import me.ash.reader.ui.ext.put
 import me.ash.reader.ui.ext.showToast
 import me.ash.reader.ui.page.adaptive.ArticleListReaderViewModel
 import me.ash.reader.ui.page.adaptive.NavigationAction
@@ -98,6 +101,13 @@ fun ReadingPage(
 
     var bringToTop by remember { mutableStateOf(false) }
     var showAiSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(readerState.articleId) {
+        val currentId = readerState.articleId
+        if (!currentId.isNullOrBlank()) {
+            context.dataStore.put(DataStoreKey.lastReadingArticleId, currentId)
+        }
+    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,

@@ -386,4 +386,14 @@
     <string name="restore_scroll_position_desc">استعادة موضع التمرير في قائمة «الكل» و«غير المقروءة» عند الفتح</string>
     <string name="full_translation">الترجمة الكاملة</string>
     <string name="translate_article">ترجمة المقال</string>
+    <string name="ai_summary">ملخص الذكاء الاصطناعي</string>
+    <string name="ai_full_translation">الترجمة الكاملة</string>
+    <string name="ai_generating_summary">جاري إنشاء الملخص…</string>
+    <string name="ai_translating_article">جاري ترجمة المقال بالكامل…</string>
+    <string name="copied_to_clipboard">تم النسخ إلى الحافظة!</string>
+    <string name="regenerate">إعادة إنشاء</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="copy">نسخ</string>
+    <string name="search_settings">البحث في الإعدادات</string>
+    <string name="no_settings_found">لم يتم العثور على أي إعدادات</string>
 </resources>

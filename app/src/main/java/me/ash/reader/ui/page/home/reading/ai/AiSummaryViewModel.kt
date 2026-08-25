@@ -14,14 +14,19 @@ import me.ash.reader.infrastructure.ai.AiSummaryService
 import me.ash.reader.infrastructure.ai.AiSummaryStyle
 
 enum class AiFeatureMode(val title: String) {
-    SUMMARY("Résumé"),
-    TRANSLATION("Traduction intégrale"),
+    SUMMARY("Summary"),
+    TRANSLATION("Full Translation"),
 }
 
 sealed interface AiSummaryUiState {
     data object Idle : AiSummaryUiState
     data object Loading : AiSummaryUiState
-    data class Success(val result: String, val language: AiLanguage, val isRtl: Boolean, val mode: AiFeatureMode) : AiSummaryUiState
+    data class Success(
+        val result: String,
+        val language: AiLanguage,
+        val isRtl: Boolean,
+        val mode: AiFeatureMode,
+    ) : AiSummaryUiState
     data class Error(val message: String) : AiSummaryUiState
 }
 
@@ -91,13 +96,13 @@ constructor(
                     },
                     onFailure = { error ->
                         _uiState.value = AiSummaryUiState.Error(
-                            message = error.localizedMessage ?: "Échec du résumé",
+                            message = error.localizedMessage ?: "Failed to generate summary",
                         )
                     },
                 )
             } else {
-                // Full translation mode: default to French if AUTO was selected
-                val targetLang = if (language == AiLanguage.AUTO) AiLanguage.FRENCH else language
+                // Full translation mode: default to English if AUTO was selected
+                val targetLang = if (language == AiLanguage.AUTO) AiLanguage.ENGLISH else language
                 aiSummaryService.translateFullArticle(
                     htmlOrTextContent = content,
                     language = targetLang,
@@ -112,7 +117,7 @@ constructor(
                     },
                     onFailure = { error ->
                         _uiState.value = AiSummaryUiState.Error(
-                            message = error.localizedMessage ?: "Échec de la traduction",
+                            message = error.localizedMessage ?: "Failed to translate article",
                         )
                     },
                 )

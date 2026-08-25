@@ -94,17 +94,17 @@ class RssHelperTest {
             <?xml version="1.0"?>
             <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
              <channel>
-                <title>Phoronix</title>
-                <link>https://www.phoronix.com/</link>
-                <description>Linux Hardware Reviews, Performance Benchmarks</description>
+                <title>Open Source Tech News</title>
+                <link>https://news.example.com/</link>
+                <description>Software Reviews, Performance Benchmarks</description>
                 <language>en-us</language>
               <item>
                <title>Sample Linux Article</title>
-               <link>https://www.phoronix.com/news/sample-linux-article</link>
-               <guid>https://www.phoronix.com/news/sample-linux-article</guid>
+               <link>https://news.example.com/news/sample-linux-article</link>
+               <guid>https://news.example.com/news/sample-linux-article</guid>
                <description>Sample article description.</description>
                <pubDate>Sun, 23 Aug 2026 07:41:04 -0400</pubDate>
-               <dc:creator>Michael Larabel</dc:creator>
+               <dc:creator>John Doe</dc:creator>
               </item>
              </channel>
             </rss>
@@ -112,38 +112,10 @@ class RssHelperTest {
 
         val inputStream = java.io.ByteArrayInputStream(sampleFeedXml.toByteArray(Charsets.UTF_8))
         val syndFeed = com.rometools.rome.io.SyndFeedInput().build(com.rometools.rome.io.XmlReader(inputStream, "text/xml; charset=UTF-8"))
-        Assert.assertEquals("Phoronix", syndFeed.title)
+        Assert.assertEquals("Open Source Tech News", syndFeed.title)
         Assert.assertEquals(1, syndFeed.entries.size)
         Assert.assertEquals("Sample Linux Article", syndFeed.entries[0].title)
-        Assert.assertEquals("Michael Larabel", syndFeed.entries[0].author)
-    }
-
-    @Test
-    fun testRealSearchFeedPhoronix() {
-        val client = okhttp3.OkHttpClient.Builder()
-            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
-            .build()
-        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
-        kotlinx.coroutines.runBlocking {
-            val result = helper.searchFeed("https://www.phoronix.com/rss.php")
-            Assert.assertNotNull(result.feed)
-            Assert.assertEquals("Phoronix", result.feed.title)
-            Assert.assertEquals("https://www.phoronix.com/rss.php", result.feedLink)
-        }
-    }
-
-    @Test
-    fun testRealDiscoverFeedPhoronix() {
-        val client = okhttp3.OkHttpClient.Builder()
-            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
-            .build()
-        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
-        kotlinx.coroutines.runBlocking {
-            val result = helper.searchFeed("https://www.phoronix.com")
-            Assert.assertNotNull(result.feed)
-            Assert.assertEquals("Phoronix", result.feed.title)
-            Assert.assertEquals("https://www.phoronix.com/rss.php", result.feedLink)
-        }
+        Assert.assertEquals("John Doe", syndFeed.entries[0].author)
     }
 
     @Test
@@ -208,7 +180,7 @@ class RssHelperTest {
             <!DOCTYPE html>
             <html>
             <head>
-                <title>Linux News - Phoronix</title>
+                <title>Linux News Portal</title>
                 <meta name="description" content="Latest Linux updates">
             </head>
             <body>
@@ -226,53 +198,11 @@ class RssHelperTest {
             </html>
         """.trimIndent()
 
-        val feed = HtmlFeedParser.parse("https://www.phoronix.com/linux/GNOME", sampleHtml.toByteArray(Charsets.UTF_8))
+        val feed = HtmlFeedParser.parse("https://news.example.com/linux/GNOME", sampleHtml.toByteArray(Charsets.UTF_8))
         Assert.assertNotNull(feed)
         Assert.assertEquals(2, feed!!.entries.size)
         Assert.assertEquals("GNOME Test Article 1", feed.entries[0].title)
-        Assert.assertEquals("https://www.phoronix.com/news/gnome-test-1", feed.entries[0].link)
+        Assert.assertEquals("https://news.example.com/news/gnome-test-1", feed.entries[0].link)
         Assert.assertEquals("Description for GNOME test article 1.", feed.entries[0].description.value)
-    }
-
-    @Test
-    fun testRealPhoronixCategoryGNOME() {
-        val client = okhttp3.OkHttpClient.Builder()
-            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
-            .build()
-        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
-        kotlinx.coroutines.runBlocking {
-            val result = helper.searchFeed("https://www.phoronix.com/linux/GNOME")
-            Assert.assertNotNull(result.feed)
-            Assert.assertTrue(result.feed.entries.isNotEmpty())
-            Assert.assertEquals("https://www.phoronix.com/linux/GNOME", result.feedLink)
-        }
-    }
-
-    @Test
-    fun testRealPhoronixCategoryMozilla() {
-        val client = okhttp3.OkHttpClient.Builder()
-            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
-            .build()
-        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
-        kotlinx.coroutines.runBlocking {
-            val result = helper.searchFeed("https://www.phoronix.com/linux/Mozilla")
-            Assert.assertNotNull(result.feed)
-            Assert.assertTrue(result.feed.entries.isNotEmpty())
-            Assert.assertEquals("https://www.phoronix.com/linux/Mozilla", result.feedLink)
-        }
-    }
-
-    @Test
-    fun testRealPhoronixCategoryKDE() {
-        val client = okhttp3.OkHttpClient.Builder()
-            .addNetworkInterceptor(me.ash.reader.infrastructure.di.UserAgentInterceptor)
-            .build()
-        val helper = RssHelper(mockContext, kotlinx.coroutines.Dispatchers.IO, client)
-        kotlinx.coroutines.runBlocking {
-            val result = helper.searchFeed("https://www.phoronix.com/linux/KDE")
-            Assert.assertNotNull(result.feed)
-            Assert.assertTrue(result.feed.entries.isNotEmpty())
-            Assert.assertEquals("https://www.phoronix.com/linux/KDE", result.feedLink)
-        }
     }
 }

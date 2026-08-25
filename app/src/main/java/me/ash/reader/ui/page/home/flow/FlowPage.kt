@@ -180,6 +180,9 @@ fun FlowPage(
                 val savedIndex = prefs[indexKey] ?: 0
                 val savedOffset = prefs[offsetKey] ?: 0
                 if (savedIndex > 0 || savedOffset > 0) {
+                    snapshotFlow { listState.layoutInfo.totalItemsCount }
+                        .filterNotNull()
+                        .first { it > savedIndex }
                     listState.scrollToItem(savedIndex, savedOffset)
                 }
             }
@@ -188,7 +191,14 @@ fun FlowPage(
 
     LaunchedEffect(listState) {
         if (restoreScrollPosition && filterUiState.group == null && filterUiState.feed == null) {
-            snapshotFlow { listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset }
+            snapshotFlow {
+                if (listState.isScrollInProgress) {
+                    listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+                } else {
+                    null
+                }
+            }
+                .filterNotNull()
                 .collect { (idx, off) ->
                     if (filterUiState.filter.isAll()) {
                         context.dataStore.put(DataStoreKey.scrollIndexAll, idx)
