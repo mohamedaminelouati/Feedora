@@ -151,14 +151,9 @@ fun FlowPage(
     if (flowUiState == null) return
 
     val pagerData: PagerData = flowUiState.pagerData
-
     val filterUiState = pagerData.filterState
 
-    val listState = rememberSaveable(pagerData, saver = LazyListState.Saver) { LazyListState(0, 0) }
-
-    val restoreScrollPosition = LocalRestoreScrollPosition.current.value
-
-    val listKey = remember(filterUiState) {
+    val listKey = remember(filterUiState.feed?.id, filterUiState.group?.id, filterUiState.filter) {
         when {
             filterUiState.feed != null -> "feed_${filterUiState.feed.id}_${filterUiState.filter.index}"
             filterUiState.group != null -> "group_${filterUiState.group.id}_${filterUiState.filter.index}"
@@ -168,8 +163,14 @@ fun FlowPage(
         }
     }
 
-    LaunchedEffect(pagerData) {
+    val listState = rememberSaveable(listKey, saver = LazyListState.Saver) { LazyListState(0, 0) }
+
+    val restoreScrollPosition = LocalRestoreScrollPosition.current.value
+    var isRestoringScroll by remember(listKey) { mutableStateOf(restoreScrollPosition) }
+
+    LaunchedEffect(listKey) {
         if (restoreScrollPosition) {
+            isRestoringScroll = true
             val indexKey = androidx.datastore.preferences.core.intPreferencesKey("scroll_idx_$listKey")
             val offsetKey = androidx.datastore.preferences.core.intPreferencesKey("scroll_off_$listKey")
 
@@ -178,18 +179,30 @@ fun FlowPage(
             val savedOffset = prefs[offsetKey] ?: (if (listKey == "all") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetAll)] ?: 0 else if (listKey == "unread") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetUnread)] ?: 0 else 0)
 
             if (savedIndex > 0 || savedOffset > 0) {
-                snapshotFlow { listState.layoutInfo.totalItemsCount }
-                    .filterNotNull()
-                    .first { it > savedIndex }
-                listState.scrollToItem(savedIndex, savedOffset)
+                kotlinx.coroutines.withTimeoutOrNull(2500L) {
+                    snapshotFlow { listState.layoutInfo.totalItemsCount }
+                        .filterNotNull()
+                        .first { it > 0 }
+                }
+                val totalCount = listState.layoutInfo.totalItemsCount
+                if (totalCount > 0) {
+                    val targetIndex = minOf(savedIndex, totalCount - 1)
+                    runCatching {
+                        listState.scrollToItem(targetIndex, savedOffset)
+                    }
+                }
             }
+            kotlinx.coroutines.delay(300L)
+            isRestoringScroll = false
+        } else {
+            isRestoringScroll = false
         }
     }
 
     LaunchedEffect(listState, listKey) {
         if (restoreScrollPosition) {
             snapshotFlow {
-                if (listState.isScrollInProgress) {
+                if (!isRestoringScroll && listState.isScrollInProgress) {
                     listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
                 } else {
                     null

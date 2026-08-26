@@ -102,6 +102,8 @@ fun ReadingPage(
     var bringToTop by remember { mutableStateOf(false) }
     var showAiSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showAiTranslationBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var aiSummarySessionKey by rememberSaveable { androidx.compose.runtime.mutableIntStateOf(0) }
+    var aiTranslationSessionKey by rememberSaveable { androidx.compose.runtime.mutableIntStateOf(0) }
 
     LaunchedEffect(readerState.articleId) {
         val currentId = readerState.articleId
@@ -125,9 +127,11 @@ fun ReadingPage(
                         onNavButtonClick = onNavAction,
                         onNavigateToStylePage = onNavigateToStylePage,
                         onSummarizeClick = {
+                            aiSummarySessionKey++
                             showAiSummaryBottomSheet = true
                         },
                         onTranslateClick = {
+                            aiTranslationSessionKey++
                             showAiTranslationBottomSheet = true
                         },
                     )
@@ -376,19 +380,23 @@ fun ReadingPage(
     }
 
     if (showAiSummaryBottomSheet && readerState.articleId != null) {
-        val articleContent = readerState.content.text ?: readerState.title ?: ""
-        me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
-            title = readerState.title ?: "",
-            content = articleContent,
-            onDismissRequest = { showAiSummaryBottomSheet = false },
-        )
+        androidx.compose.runtime.key(aiSummarySessionKey) {
+            val articleContent = readerState.content.text ?: readerState.title ?: ""
+            me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
+                title = readerState.title ?: "",
+                content = articleContent,
+                onDismissRequest = { showAiSummaryBottomSheet = false },
+            )
+        }
     }
 
     if (showAiTranslationBottomSheet && readerState.articleId != null) {
-        val articleContent = readerState.content.text ?: readerState.title ?: ""
-        me.ash.reader.ui.page.home.reading.ai.AiTranslationBottomSheet(
-            content = articleContent,
-            onDismissRequest = { showAiTranslationBottomSheet = false },
-        )
+        androidx.compose.runtime.key(aiTranslationSessionKey) {
+            val articleContent = readerState.content.text ?: readerState.title ?: ""
+            me.ash.reader.ui.page.home.reading.ai.AiTranslationBottomSheet(
+                content = articleContent,
+                onDismissRequest = { showAiTranslationBottomSheet = false },
+            )
+        }
     }
 }

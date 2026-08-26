@@ -118,6 +118,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.initial_page),
                         desc = initialPage.toDesc(context),
+                        highlightKey = DataStoreKey.initialPage,
                         onClick = {
                             initialPageDialogVisible = true
                         },
@@ -125,6 +126,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.initial_filter),
                         desc = initialFilter.toDesc(context),
+                        highlightKey = DataStoreKey.initialFilter,
                         onClick = {
                             initialFilterDialogVisible = true
                         },
@@ -149,6 +151,7 @@ fun InteractionPage(
                     )
                     SettingItem(
                         title = stringResource(R.string.hide_empty_groups),
+                        highlightKey = DataStoreKey.feedsGroupListExpand,
                         onClick = {
                             hideEmptyGroups.toggle(context, scope)
                         },
@@ -178,6 +181,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.swipe_to_start),
                         desc = swipeToStartAction.desc,
+                        highlightKey = DataStoreKey.swipeStartAction,
                         onClick = {
                             swipeStartDialogVisible = true
                         },
@@ -185,6 +189,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.swipe_to_end),
                         desc = swipeToEndAction.desc,
+                        highlightKey = DataStoreKey.swipeEndAction,
                         onClick = {
                             swipeEndDialogVisible = true
                         },
@@ -192,6 +197,7 @@ fun InteractionPage(
 
                     SettingItem(
                         title = stringResource(R.string.sort_unread_articles),
+                        highlightKey = DataStoreKey.flowSortUnreadArticles,
                         onClick = {
                             showSortUnreadArticlesDialog = true
                         },
@@ -201,6 +207,7 @@ fun InteractionPage(
 
                     SettingItem(
                         title = stringResource(R.string.mark_as_read_on_scroll),
+                        highlightKey = DataStoreKey.markAsReadOnScroll,
                         onClick = {
                             markAsReadOnScroll.toggle(context, scope)
                         },
@@ -246,6 +253,7 @@ fun InteractionPage(
                     )
                     SettingItem(
                         title = stringResource(id = R.string.pull_to_switch_article),
+                        highlightKey = DataStoreKey.pullToSwitchArticle,
                         onClick = { pullToSwitchArticle.toggle(context, scope) }) {
                         RYSwitch(activated = pullToSwitchArticle.value) {
                             pullToSwitchArticle.toggle(context, scope)
@@ -260,19 +268,18 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.initial_open_app),
                         desc = openLink.toDesc(context),
+                        highlightKey = DataStoreKey.openLink,
                         onClick = {
                             openLinkDialogVisible = true
                         },
                     ) {}
                     SettingItem(
+                        enabled = isOpenLinkSpecificBrowserItemEnabled,
                         title = stringResource(R.string.open_link_specific_browser),
                         desc = openLinkSpecificBrowser.toDesc(context),
-                        enabled = isOpenLinkSpecificBrowserItemEnabled,
+                        highlightKey = DataStoreKey.openLinkAppSpecificBrowser,
                         onClick = {
-
-                            if (isOpenLinkSpecificBrowserItemEnabled) {
-                                openLinkSpecificBrowserDialogVisible = true
-                            }
+                            openLinkSpecificBrowserDialogVisible = true
                         },
                     ) {}
                     Spacer(modifier = Modifier.height(24.dp))
@@ -284,6 +291,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.shared_content),
                         desc = sharedContent.toDesc(context),
+                        highlightKey = DataStoreKey.sharedContent,
                         onClick = {
                             sharedContentDialogVisible = true
                         },

@@ -64,6 +64,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.launch
 import me.ash.reader.R
 import me.ash.reader.infrastructure.ai.AiLanguage
 
@@ -74,6 +75,7 @@ fun AiTranslationBottomSheet(
     onDismissRequest: () -> Unit,
     viewModel: AiTranslationViewModel = hiltViewModel(),
 ) {
+    val coroutineScope = androidx.compose.runtime.rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val selectedLanguage by viewModel.selectedLanguage.collectAsStateWithLifecycle()
@@ -83,6 +85,15 @@ fun AiTranslationBottomSheet(
 
     LaunchedEffect(content) {
         viewModel.initTranslation(content)
+    }
+
+    val dismissSheet: () -> Unit = {
+        view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+        coroutineScope.launch {
+            sheetState.hide()
+        }.invokeOnCompletion {
+            onDismissRequest()
+        }
     }
 
     ModalBottomSheet(
@@ -118,10 +129,7 @@ fun AiTranslationBottomSheet(
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
-                IconButton(onClick = {
-                    view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                    onDismissRequest()
-                }) {
+                IconButton(onClick = dismissSheet) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = stringResource(R.string.close),
