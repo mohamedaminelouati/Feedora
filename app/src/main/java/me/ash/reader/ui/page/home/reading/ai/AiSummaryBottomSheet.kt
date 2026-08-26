@@ -85,7 +85,7 @@ fun AiSummaryBottomSheet(
             skipPartiallyExpanded = true,
             positionalThreshold = { with(density) { 56.dp.toPx() } },
             velocityThreshold = { with(density) { 125.dp.toPx() } },
-            initialValue = androidx.compose.material3.SheetValue.Hidden,
+            initialValue = androidx.compose.material3.SheetValue.Expanded,
             confirmValueChange = { true },
             skipHiddenState = false,
         )
