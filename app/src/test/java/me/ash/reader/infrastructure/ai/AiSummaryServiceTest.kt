@@ -45,17 +45,61 @@ class AiSummaryServiceTest {
     }
 
     @Test
-    fun testTextRankSummarizerFrench() {
+    fun testTextRankSummarizerArabic() {
         val sampleArticle = """
-            Linux est un système d'exploitation libre et open source mondialement réputé pour sa robustesse.
-            Il est utilisé sur la grande majorité des serveurs web, des supercalculateurs et des centres de données cloud.
-            La sécurité et la flexibilité du noyau Linux en font le choix numéro un des ingénieurs en informatique.
-            Les distributions comme Ubuntu, Fedora et Debian permettent aux utilisateurs d'adapter leur environnement de travail.
-            Enfin, la communauté mondiale continue de développer des fonctionnalités innovantes pour le futur du cloud computing.
+            يعتبر نظام لينكس من أكثر أنظمة التشغيل أمانا واعتمادية في العالم الحديث.
+            تعتمد عليه معظم الخوادم العملاقة ومراكز البيانات العالمية لتشغيل الحوسبة السحابية.
+            تتميز برمجيات المصدر المفتوح بإمكانية التطوير المستمر والتعاون بين المبرمجين حول العالم.
+            توفر توزيعات لينكس المختلفة بيئة عمل متكاملة للمطورين والمستخدمين على حد سواء.
+            إن المستقبل يحمل تطورات هائلة في مجال البرمجيات الحرة ودعم الذكاء الاصطناعي.
         """.trimIndent()
 
-        val summary = TextRankSummarizer.summarize("Linux et le Cloud", sampleArticle, AiSummaryStyle.KEY_POINTS)
+        val summary = TextRankSummarizer.summarize("لينكس والحوسبة السحابية", sampleArticle, AiSummaryStyle.KEY_POINTS)
         Assert.assertTrue(summary.isNotBlank())
         Assert.assertTrue(summary.contains("•"))
+    }
+
+    @Test
+    fun testTextRankSummarizerStyles() {
+        val sampleArticle = """
+            Android is a mobile operating system based on a modified version of the Linux kernel.
+            It is designed primarily for touchscreen mobile devices such as smartphones and tablets.
+            Android has been the best-selling OS worldwide on smartphones since 2011 and on tablets since 2013.
+            The source code has been used to develop variants of Android on a range of other electronics.
+            Google develops Android, which is free and open-source software with a massive ecosystem of apps.
+        """.trimIndent()
+
+        val keyPoints = TextRankSummarizer.summarize("Android OS", sampleArticle, AiSummaryStyle.KEY_POINTS)
+        val tldr = TextRankSummarizer.summarize("Android OS", sampleArticle, AiSummaryStyle.TLDR)
+        val detailed = TextRankSummarizer.summarize("Android OS", sampleArticle, AiSummaryStyle.DETAILED)
+
+        Assert.assertTrue(keyPoints.contains("•"))
+        Assert.assertFalse(tldr.contains("•"))
+        Assert.assertTrue(detailed.contains("1."))
+    }
+
+    @Test
+    fun testSummarizeEmptyContent() {
+        kotlinx.coroutines.runBlocking {
+            val result = aiSummaryService.summarize("Title", "")
+            Assert.assertTrue(result.isFailure)
+        }
+    }
+
+    @Test
+    fun testSummarizeSelectLanguage() {
+        kotlinx.coroutines.runBlocking {
+            val result = aiSummaryService.summarize("Title", "Some valid content for the article", AiLanguage.SELECT)
+            Assert.assertTrue(result.isFailure)
+        }
+    }
+
+    @Test
+    fun testTranslateFullArticleAuto() {
+        kotlinx.coroutines.runBlocking {
+            val result = aiSummaryService.translateFullArticle("<p>Hello World</p>", AiLanguage.AUTO)
+            Assert.assertTrue(result.isSuccess)
+            Assert.assertEquals("Hello World", result.getOrNull()?.trim())
+        }
     }
 }

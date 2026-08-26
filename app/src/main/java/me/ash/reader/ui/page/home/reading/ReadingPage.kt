@@ -61,7 +61,11 @@ import me.ash.reader.ui.page.home.reading.tts.TtsButton
 private const val UPWARD = 1
 private const val DOWNWARD = -1
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalMaterialApi::class,
+    androidx.compose.material3.ExperimentalMaterial3Api::class,
+)
 @Composable
 fun ReadingPage(
     //    navController: NavHostController,
@@ -102,8 +106,8 @@ fun ReadingPage(
     var bringToTop by remember { mutableStateOf(false) }
     var showAiSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showAiTranslationBottomSheet by rememberSaveable { mutableStateOf(false) }
-    var aiSummarySessionKey by rememberSaveable { androidx.compose.runtime.mutableIntStateOf(0) }
-    var aiTranslationSessionKey by rememberSaveable { androidx.compose.runtime.mutableIntStateOf(0) }
+    val aiSummarySheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val aiTranslationSheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     LaunchedEffect(readerState.articleId) {
         val currentId = readerState.articleId
@@ -128,13 +132,17 @@ fun ReadingPage(
                         onNavigateToStylePage = onNavigateToStylePage,
                         onSummarizeClick = {
                             showAiTranslationBottomSheet = false
-                            aiSummarySessionKey++
                             showAiSummaryBottomSheet = true
+                            coroutineScope.launch {
+                                aiSummarySheetState.show()
+                            }
                         },
                         onTranslateClick = {
                             showAiSummaryBottomSheet = false
-                            aiTranslationSessionKey++
                             showAiTranslationBottomSheet = true
+                            coroutineScope.launch {
+                                aiTranslationSheetState.show()
+                            }
                         },
                     )
                 }
@@ -382,23 +390,21 @@ fun ReadingPage(
     }
 
     if (showAiSummaryBottomSheet && readerState.articleId != null) {
-        androidx.compose.runtime.key(aiSummarySessionKey) {
-            val articleContent = readerState.content.text ?: readerState.title ?: ""
-            me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
-                title = readerState.title ?: "",
-                content = articleContent,
-                onDismissRequest = { showAiSummaryBottomSheet = false },
-            )
-        }
+        val articleContent = readerState.content.text ?: readerState.title ?: ""
+        me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
+            title = readerState.title ?: "",
+            content = articleContent,
+            sheetState = aiSummarySheetState,
+            onDismissRequest = { showAiSummaryBottomSheet = false },
+        )
     }
 
     if (showAiTranslationBottomSheet && readerState.articleId != null) {
-        androidx.compose.runtime.key(aiTranslationSessionKey) {
-            val articleContent = readerState.content.text ?: readerState.title ?: ""
-            me.ash.reader.ui.page.home.reading.ai.AiTranslationBottomSheet(
-                content = articleContent,
-                onDismissRequest = { showAiTranslationBottomSheet = false },
-            )
-        }
+        val articleContent = readerState.content.text ?: readerState.title ?: ""
+        me.ash.reader.ui.page.home.reading.ai.AiTranslationBottomSheet(
+            content = articleContent,
+            sheetState = aiTranslationSheetState,
+            onDismissRequest = { showAiTranslationBottomSheet = false },
+        )
     }
 }

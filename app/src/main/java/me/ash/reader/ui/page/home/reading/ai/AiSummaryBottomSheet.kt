@@ -77,19 +77,9 @@ fun AiSummaryBottomSheet(
     title: String,
     content: String,
     onDismissRequest: () -> Unit,
+    sheetState: androidx.compose.material3.SheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true),
     viewModel: AiSummaryViewModel = hiltViewModel(),
 ) {
-    val density = androidx.compose.ui.platform.LocalDensity.current
-    val sheetState = remember {
-        androidx.compose.material3.SheetState(
-            skipPartiallyExpanded = true,
-            positionalThreshold = { with(density) { 56.dp.toPx() } },
-            velocityThreshold = { with(density) { 125.dp.toPx() } },
-            initialValue = androidx.compose.material3.SheetValue.Expanded,
-            confirmValueChange = { true },
-            skipHiddenState = false,
-        )
-    }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val selectedLanguage by viewModel.selectedLanguage.collectAsStateWithLifecycle()
     val selectedStyle by viewModel.selectedStyle.collectAsStateWithLifecycle()
@@ -107,7 +97,9 @@ fun AiSummaryBottomSheet(
         scope.launch {
             sheetState.hide()
         }.invokeOnCompletion {
-            onDismissRequest()
+            if (!sheetState.isVisible) {
+                onDismissRequest()
+            }
         }
     }
 
