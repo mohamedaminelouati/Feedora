@@ -370,7 +370,7 @@
     <string name="restore_last_article">Reprendre la lecture de l\'article</string>
     <string name="restore_last_article_desc">Rouvrir l\'article en cours de lecture au démarrage de l\'application</string>
     <string name="restore_scroll_position">Mémoriser la position de défilement</string>
-    <string name="restore_scroll_position_desc">Restaurer la position dans « Tout » et « Non lus » à l\'ouverture</string>
+    <string name="restore_scroll_position_desc">Restaurer la position dans la liste à l\'ouverture</string>
     <string name="full_translation">Traduction intégrale</string>
     <string name="translate_article">Traduire l\'article</string>
     <string name="ai_summary">Résumé IA</string>
@@ -386,4 +386,9 @@
     <string name="sync_status_always">Toujours</string>
     <string name="sync_status_errors_only">Uniquement en cas d\'erreur</string>
     <string name="sync_status_never">Jamais</string>
+    <string name="summary_style_key_points">Points clés</string>
+    <string name="summary_style_tldr">En bref (TL;DR)</string>
+    <string name="summary_style_detailed">Détaillé</string>
+    <string name="ai_select_language">Sélectionner la langue…</string>
+    <string name="ai_select_language_prompt">Veuillez sélectionner une langue pour commencer.</string>
 </resources>

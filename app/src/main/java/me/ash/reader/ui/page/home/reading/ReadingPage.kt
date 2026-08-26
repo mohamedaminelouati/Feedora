@@ -101,7 +101,7 @@ fun ReadingPage(
 
     var bringToTop by remember { mutableStateOf(false) }
     var showAiSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
-    var initialAiMode by rememberSaveable { mutableStateOf(me.ash.reader.ui.page.home.reading.ai.AiFeatureMode.SUMMARY) }
+    var showAiTranslationBottomSheet by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(readerState.articleId) {
         val currentId = readerState.articleId
@@ -125,12 +125,10 @@ fun ReadingPage(
                         onNavButtonClick = onNavAction,
                         onNavigateToStylePage = onNavigateToStylePage,
                         onSummarizeClick = {
-                            initialAiMode = me.ash.reader.ui.page.home.reading.ai.AiFeatureMode.SUMMARY
                             showAiSummaryBottomSheet = true
                         },
                         onTranslateClick = {
-                            initialAiMode = me.ash.reader.ui.page.home.reading.ai.AiFeatureMode.TRANSLATION
-                            showAiSummaryBottomSheet = true
+                            showAiTranslationBottomSheet = true
                         },
                     )
                 }
@@ -382,8 +380,15 @@ fun ReadingPage(
         me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
             title = readerState.title ?: "",
             content = articleContent,
-            initialMode = initialAiMode,
             onDismissRequest = { showAiSummaryBottomSheet = false },
+        )
+    }
+
+    if (showAiTranslationBottomSheet && readerState.articleId != null) {
+        val articleContent = readerState.content.text ?: readerState.title ?: ""
+        me.ash.reader.ui.page.home.reading.ai.AiTranslationBottomSheet(
+            content = articleContent,
+            onDismissRequest = { showAiTranslationBottomSheet = false },
         )
     }
 }

@@ -56,7 +56,6 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -67,26 +66,23 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.ash.reader.R
 import me.ash.reader.infrastructure.ai.AiLanguage
-import me.ash.reader.infrastructure.ai.AiSummaryStyle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AiSummaryBottomSheet(
-    title: String,
+fun AiTranslationBottomSheet(
     content: String,
     onDismissRequest: () -> Unit,
     viewModel: AiSummaryViewModel = hiltViewModel(),
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val uiState by viewModel.summaryUiState.collectAsStateWithLifecycle()
-    val selectedLanguage by viewModel.summaryLanguage.collectAsStateWithLifecycle()
-    val selectedStyle by viewModel.summaryStyle.collectAsStateWithLifecycle()
+    val uiState by viewModel.translationUiState.collectAsStateWithLifecycle()
+    val selectedLanguage by viewModel.translationLanguage.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val view = LocalView.current
     val clipboardManager = LocalClipboardManager.current
 
-    LaunchedEffect(title, content) {
-        viewModel.initSummary(title, content)
+    LaunchedEffect(content) {
+        viewModel.initTranslation(content)
     }
 
     ModalBottomSheet(
@@ -109,14 +105,14 @@ fun AiSummaryBottomSheet(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_ai_summary),
+                        imageVector = Icons.Rounded.Language,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp),
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
-                        text = stringResource(R.string.ai_summary),
+                        text = stringResource(R.string.ai_full_translation),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -136,13 +132,12 @@ fun AiSummaryBottomSheet(
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            // Controls Row (Language & Style)
+            // Language Selector
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                // Language Dropdown
                 var isLangMenuExpanded by remember { mutableStateOf(false) }
                 Box {
                     FilterChip(
@@ -194,49 +189,7 @@ fun AiSummaryBottomSheet(
                                 onClick = {
                                     isLangMenuExpanded = false
                                     view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                                    viewModel.setSummaryLanguage(lang, title, content)
-                                },
-                            )
-                        }
-                    }
-                }
-
-                // Style Dropdown
-                var isStyleMenuExpanded by remember { mutableStateOf(false) }
-                Box {
-                    FilterChip(
-                        selected = true,
-                        onClick = { isStyleMenuExpanded = true },
-                        label = { Text(selectedStyle.toDisplayName()) },
-                    )
-
-                    DropdownMenu(
-                        expanded = isStyleMenuExpanded,
-                        onDismissRequest = { isStyleMenuExpanded = false },
-                    ) {
-                        AiSummaryStyle.entries.forEach { style ->
-                            DropdownMenuItem(
-                                text = {
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.SpaceBetween,
-                                        verticalAlignment = Alignment.CenterVertically,
-                                    ) {
-                                        Text(style.toDisplayName())
-                                        if (selectedStyle == style) {
-                                            Icon(
-                                                imageVector = Icons.Rounded.Check,
-                                                contentDescription = null,
-                                                modifier = Modifier.size(18.dp),
-                                                tint = MaterialTheme.colorScheme.primary,
-                                            )
-                                        }
-                                    }
-                                },
-                                onClick = {
-                                    isStyleMenuExpanded = false
-                                    view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                                    viewModel.setSummaryStyle(style, title, content)
+                                    viewModel.setTranslationLanguage(lang, content)
                                 },
                             )
                         }
@@ -250,7 +203,7 @@ fun AiSummaryBottomSheet(
             AnimatedContent(
                 targetState = uiState,
                 transitionSpec = { fadeIn() togetherWith fadeOut() },
-                label = "summary_body_content",
+                label = "translation_body_content",
             ) { state ->
                 when (state) {
                     is AiSummaryUiState.Idle -> {
@@ -300,7 +253,7 @@ fun AiSummaryBottomSheet(
                             )
                             Spacer(modifier = Modifier.height(16.dp))
                             Text(
-                                text = stringResource(R.string.ai_generating_summary),
+                                text = stringResource(R.string.ai_translating_article),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
@@ -312,7 +265,7 @@ fun AiSummaryBottomSheet(
                         CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                             Column {
                                 Surface(
-                                    modifier = Modifier.fillMaxWidth().heightIn(max = 380.dp),
+                                    modifier = Modifier.fillMaxWidth().heightIn(max = 420.dp),
                                     shape = RoundedCornerShape(16.dp),
                                     color = MaterialTheme.colorScheme.surface,
                                     tonalElevation = 2.dp,
@@ -346,7 +299,7 @@ fun AiSummaryBottomSheet(
                                     OutlinedButton(
                                         onClick = {
                                             view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                                            viewModel.generateSummary(title, content)
+                                            viewModel.translateArticle(content)
                                         },
                                     ) {
                                         Icon(
@@ -355,7 +308,7 @@ fun AiSummaryBottomSheet(
                                             modifier = Modifier.size(16.dp),
                                         )
                                         Spacer(modifier = Modifier.width(6.dp))
-                                        Text(stringResource(R.string.regenerate))
+                                        Text(stringResource(R.string.retry))
                                     }
 
                                     Spacer(modifier = Modifier.width(8.dp))
@@ -405,7 +358,7 @@ fun AiSummaryBottomSheet(
                             Spacer(modifier = Modifier.height(16.dp))
                             Button(onClick = {
                                 view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                                viewModel.generateSummary(title, content)
+                                viewModel.translateArticle(content)
                             }) {
                                 Text(stringResource(R.string.retry))
                             }

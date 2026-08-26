@@ -383,7 +383,7 @@
     <string name="restore_last_article">استئناف قراءة آخر مقال</string>
     <string name="restore_last_article_desc">إعادة فتح المقال الذي كنت تقرأه عند تشغيل التطبيق</string>
     <string name="restore_scroll_position">تذكر موضع التمرير</string>
-    <string name="restore_scroll_position_desc">استعادة موضع التمرير في قائمة «الكل» و«غير المقروءة» عند الفتح</string>
+    <string name="restore_scroll_position_desc">استعادة الموضع في القائمة عند الفتح</string>
     <string name="full_translation">الترجمة الكاملة</string>
     <string name="translate_article">ترجمة المقال</string>
     <string name="ai_summary">ملخص الذكاء الاصطناعي</string>
@@ -399,4 +399,9 @@
     <string name="sync_status_always">دائماً</string>
     <string name="sync_status_errors_only">عند وجود أخطاء فقط</string>
     <string name="sync_status_never">أبداً</string>
+    <string name="summary_style_key_points">النقاط الرئيسية</string>
+    <string name="summary_style_tldr">باختصار (TL;DR)</string>
+    <string name="summary_style_detailed">مفصّل</string>
+    <string name="ai_select_language">اختر اللغة…</string>
+    <string name="ai_select_language_prompt">يرجى اختيار لغة للبدء.</string>
 </resources>

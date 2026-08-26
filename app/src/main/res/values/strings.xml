@@ -400,7 +400,7 @@
     <string name="restore_last_article">Resume Last Read Article</string>
     <string name="restore_last_article_desc">Reopen the article you were reading upon app launch</string>
     <string name="restore_scroll_position">Remember Scroll Position</string>
-    <string name="restore_scroll_position_desc">Restore list scroll position in All and Unread when opening app</string>
+    <string name="restore_scroll_position_desc">Restore position in list on launch</string>
     <string name="full_translation">Full Translation</string>
     <string name="translate_article">Translate Article</string>
     <string name="ai_summary">AI Summary</string>
@@ -416,4 +416,9 @@
     <string name="sync_status_always">Always</string>
     <string name="sync_status_errors_only">Errors only</string>
     <string name="sync_status_never">Never</string>
+    <string name="summary_style_key_points">Key Points</string>
+    <string name="summary_style_tldr">TL;DR</string>
+    <string name="summary_style_detailed">Detailed</string>
+    <string name="ai_select_language">Select language…</string>
+    <string name="ai_select_language_prompt">Please select a language to begin.</string>
 </resources>

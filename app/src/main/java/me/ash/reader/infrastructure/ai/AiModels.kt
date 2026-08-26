@@ -1,16 +1,20 @@
 package me.ash.reader.infrastructure.ai
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import me.ash.reader.R
+
 enum class AiLanguage(
     val displayName: String,
     val promptInstruction: String,
     val code: String,
     val isRtl: Boolean = false,
 ) {
-    AUTO("Auto (Article Language)", "in the same language as the article", "auto"),
+    SELECT("Select language…", "", "select"),
+    AUTO("Auto (App Language)", "in the application's language", "auto"),
     ENGLISH("English", "in English", "en"),
     FRENCH("Français (French)", "in French", "fr"),
     ARABIC("العربية (Arabic)", "in Arabic", "ar", isRtl = true),
-    ARABIC_NORTH_LEVANTINE("العربية الشمالية الشامية (North Levantine Arabic)", "in North Levantine Arabic", "apc", isRtl = true),
     GERMAN("Deutsch (German)", "in German", "de"),
     SPANISH("Español (Spanish)", "in Spanish", "es"),
     ITALIAN("Italiano (Italian)", "in Italian", "it"),
@@ -68,6 +72,13 @@ enum class AiSummaryStyle(val displayName: String, val promptInstruction: String
         "Detailed",
         "in a structured, comprehensive summary with context, main points, and conclusions"
     );
+
+    @Composable
+    fun toDisplayName(): String = when (this) {
+        KEY_POINTS -> stringResource(R.string.summary_style_key_points)
+        TLDR -> stringResource(R.string.summary_style_tldr)
+        DETAILED -> stringResource(R.string.summary_style_detailed)
+    }
 
     companion object {
         fun fromName(name: String?): AiSummaryStyle {

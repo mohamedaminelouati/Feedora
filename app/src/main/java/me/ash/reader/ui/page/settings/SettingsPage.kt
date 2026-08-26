@@ -34,6 +34,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -276,7 +277,13 @@ fun SettingsPage(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 24.dp, vertical = 8.dp),
-                        placeholder = { Text(stringResource(R.string.search_settings)) },
+                        placeholder = {
+                            Text(
+                                text = stringResource(R.string.search_settings),
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Outlined.Search,
@@ -297,6 +304,7 @@ fun SettingsPage(
                         },
                         shape = RoundedCornerShape(24.dp),
                         singleLine = true,
+                        maxLines = 1,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
                             unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
