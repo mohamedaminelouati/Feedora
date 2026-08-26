@@ -75,7 +75,6 @@ fun AiTranslationBottomSheet(
     onDismissRequest: () -> Unit,
     viewModel: AiTranslationViewModel = hiltViewModel(),
 ) {
-    val coroutineScope = androidx.compose.runtime.rememberCoroutineScope()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val selectedLanguage by viewModel.selectedLanguage.collectAsStateWithLifecycle()
@@ -89,11 +88,7 @@ fun AiTranslationBottomSheet(
 
     val dismissSheet: () -> Unit = {
         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-        coroutineScope.launch {
-            sheetState.hide()
-        }.invokeOnCompletion {
-            onDismissRequest()
-        }
+        onDismissRequest()
     }
 
     ModalBottomSheet(

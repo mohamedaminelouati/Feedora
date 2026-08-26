@@ -37,11 +37,17 @@ import me.ash.reader.infrastructure.preference.InitialPagePreference
 import me.ash.reader.infrastructure.preference.LanguagesPreference
 import me.ash.reader.infrastructure.preference.LocalDarkTheme
 import me.ash.reader.infrastructure.preference.SettingsProvider
+import me.ash.reader.domain.model.general.Filter
 import me.ash.reader.ui.ext.initialPage
 import me.ash.reader.ui.ext.isFirstLaunch
 import me.ash.reader.ui.ext.languages
+import me.ash.reader.ui.ext.lastListFeedId
+import me.ash.reader.ui.ext.lastListFilterIndex
+import me.ash.reader.ui.ext.lastListGroupId
+import me.ash.reader.ui.ext.lastListIsActive
 import me.ash.reader.ui.ext.lastReadingArticleId
 import me.ash.reader.ui.ext.restoreLastArticle
+import me.ash.reader.ui.ext.restoreScrollPosition
 import me.ash.reader.ui.page.common.ExtraName
 import me.ash.reader.ui.page.home.feeds.subscribe.SubscribeViewModel
 import me.ash.reader.ui.page.nav3.AppEntry
@@ -108,6 +114,11 @@ class MainActivity : AppCompatActivity() {
                             val initialPage = remember { initialPage }
                             val restoreLastArticle = remember { restoreLastArticle }
                             val lastReadingArticleId = remember { lastReadingArticleId }
+                            val restoreScrollPosition = remember { restoreScrollPosition }
+                            val lastListIsActive = remember { lastListIsActive }
+                            val lastListFeedId = remember { lastListFeedId }
+                            val lastListGroupId = remember { lastListGroupId }
+                            val lastListFilterIndex = remember { lastListFilterIndex }
                             val launchAction = intent.getLaunchAction()
 
                             val startDestination = remember {
@@ -133,6 +144,14 @@ class MainActivity : AppCompatActivity() {
                                         else -> {
                                             if (restoreLastArticle && lastReadingArticleId.isNotBlank()) {
                                                 listOf(Route.Feeds, Route.Reading(lastReadingArticleId))
+                                            } else if (restoreScrollPosition && lastListIsActive) {
+                                                val filter = Filter.values.find { it.index == lastListFilterIndex } ?: Filter.All
+                                                filterUseCase.init(
+                                                    feedId = lastListFeedId.takeIf { it.isNotBlank() },
+                                                    groupId = lastListGroupId.takeIf { it.isNotBlank() },
+                                                    filter = filter,
+                                                )
+                                                listOf(Route.Feeds, Route.Reading(null))
                                             } else if (
                                                 initialPage == InitialPagePreference.FlowPage.value
                                             ) {

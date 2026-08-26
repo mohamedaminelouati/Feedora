@@ -44,6 +44,16 @@ val Context.restoreLastArticle: Boolean
     get() = this.dataStore.get(DataStoreKey.restoreLastArticle) ?: false
 val Context.lastReadingArticleId: String
     get() = this.dataStore.get(DataStoreKey.lastReadingArticleId) ?: ""
+val Context.lastListFeedId: String
+    get() = this.dataStore.get(DataStoreKey.lastListFeedId) ?: ""
+val Context.lastListGroupId: String
+    get() = this.dataStore.get(DataStoreKey.lastListGroupId) ?: ""
+val Context.lastListFilterIndex: Int
+    get() = this.dataStore.get(DataStoreKey.lastListFilterIndex) ?: -1
+val Context.lastListIsActive: Boolean
+    get() = this.dataStore.get(DataStoreKey.lastListIsActive) ?: false
+val Context.restoreScrollPosition: Boolean
+    get() = this.dataStore.get(DataStoreKey.restoreScrollPosition) ?: true
 
 val Context.languages: Int
     get() = this.dataStore.get(DataStoreKey.languages) ?: 0
@@ -397,6 +407,10 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val syncNotification = "syncNotification"
         const val restoreLastArticle = "restoreLastArticle"
         const val lastReadingArticleId = "lastReadingArticleId"
+        const val lastListFeedId = "lastListFeedId"
+        const val lastListGroupId = "lastListGroupId"
+        const val lastListFilterIndex = "lastListFilterIndex"
+        const val lastListIsActive = "lastListIsActive"
         const val restoreScrollPosition = "restoreScrollPosition"
         const val scrollIndexAll = "scrollIndexAll"
         const val scrollOffsetAll = "scrollOffsetAll"
@@ -569,6 +583,14 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                     DataStoreKey(booleanPreferencesKey(restoreLastArticle), Boolean::class.java),
                 lastReadingArticleId to
                     DataStoreKey(stringPreferencesKey(lastReadingArticleId), String::class.java),
+                lastListFeedId to
+                    DataStoreKey(stringPreferencesKey(lastListFeedId), String::class.java),
+                lastListGroupId to
+                    DataStoreKey(stringPreferencesKey(lastListGroupId), String::class.java),
+                lastListFilterIndex to
+                    DataStoreKey(intPreferencesKey(lastListFilterIndex), Int::class.java),
+                lastListIsActive to
+                    DataStoreKey(booleanPreferencesKey(lastListIsActive), Boolean::class.java),
                 restoreScrollPosition to
                     DataStoreKey(booleanPreferencesKey(restoreScrollPosition), Boolean::class.java),
                 scrollIndexAll to

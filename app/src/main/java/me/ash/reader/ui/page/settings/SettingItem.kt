@@ -16,6 +16,8 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -65,6 +67,7 @@ fun SettingItem(
 ) {
     val tonalPalettes = LocalTonalPalettes.current
     val interactionSource = remember { MutableInteractionSource() }
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
 
     val activeHighlight = SettingsHighlightManager.highlightKey
     val isTarget = highlightKey != null && activeHighlight == highlightKey
@@ -85,7 +88,11 @@ fun SettingItem(
     LaunchedEffect(isTarget) {
         if (isTarget) {
             isBlinking = true
-            delay(2200L)
+            delay(100L)
+            runCatching {
+                bringIntoViewRequester.bringIntoView()
+            }
+            delay(2400L)
             isBlinking = false
             SettingsHighlightManager.clear()
         }
@@ -99,6 +106,7 @@ fun SettingItem(
 
     Surface(
         modifier = modifier
+            .bringIntoViewRequester(bringIntoViewRequester)
             .background(backgroundColor)
             .clickable(enabled = enabled, interactionSource = interactionSource) { onClick() }
             .alpha(if (enabled) 1f else 0.5f),

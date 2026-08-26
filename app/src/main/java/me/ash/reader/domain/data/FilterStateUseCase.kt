@@ -46,11 +46,11 @@ constructor(
         _filterUiState.update { filterState }
     }
 
-    fun init(feedId: String?, groupId: String?) {
+    fun init(feedId: String?, groupId: String?, filter: Filter = Filter.Unread) {
         coroutineScope.launch {
             val feed = feedId?.let { feedDao.queryById(it) }
             val group = groupId?.let { groupDao.queryById(it) }
-            updateFilterState(feed = feed, group = group, filter = Filter.Unread)
+            updateFilterState(feed = feed, group = group, filter = filter)
         }
     }
 }

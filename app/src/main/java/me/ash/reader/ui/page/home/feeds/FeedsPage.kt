@@ -38,6 +38,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -87,6 +88,10 @@ import me.ash.reader.ui.page.home.feeds.subscribe.SubscribeDialog
 import me.ash.reader.ui.page.home.feeds.subscribe.SubscribeViewModel
 import me.ash.reader.ui.page.settings.accounts.AccountViewModel
 
+import androidx.datastore.preferences.core.edit
+import me.ash.reader.ui.ext.DataStoreKey
+import me.ash.reader.ui.ext.dataStore
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
 fun FeedsPage(
@@ -105,6 +110,12 @@ fun FeedsPage(
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        context.dataStore.edit { preferences ->
+            preferences[androidx.datastore.preferences.core.booleanPreferencesKey(DataStoreKey.lastListIsActive)] = false
+        }
+    }
     val hapticFeedback = LocalHapticFeedback.current
     val topBarTonalElevation = LocalFeedsTopBarTonalElevation.current
     val groupListTonalElevation = LocalFeedsGroupListTonalElevation.current

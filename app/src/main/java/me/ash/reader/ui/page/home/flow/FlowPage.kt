@@ -179,10 +179,10 @@ fun FlowPage(
             val savedOffset = prefs[offsetKey] ?: (if (listKey == "all") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetAll)] ?: 0 else if (listKey == "unread") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetUnread)] ?: 0 else 0)
 
             if (savedIndex > 0 || savedOffset > 0) {
-                kotlinx.coroutines.withTimeoutOrNull(2500L) {
+                kotlinx.coroutines.withTimeoutOrNull(3000L) {
                     snapshotFlow { listState.layoutInfo.totalItemsCount }
                         .filterNotNull()
-                        .first { it > 0 }
+                        .first { it > savedIndex }
                 }
                 val totalCount = listState.layoutInfo.totalItemsCount
                 if (totalCount > 0) {
@@ -192,10 +192,21 @@ fun FlowPage(
                     }
                 }
             }
-            kotlinx.coroutines.delay(300L)
+            kotlinx.coroutines.delay(400L)
             isRestoringScroll = false
         } else {
             isRestoringScroll = false
+        }
+    }
+
+    LaunchedEffect(listKey, filterUiState) {
+        if (restoreScrollPosition) {
+            context.dataStore.edit { preferences ->
+                preferences[androidx.datastore.preferences.core.stringPreferencesKey(DataStoreKey.lastListFeedId)] = filterUiState.feed?.id ?: ""
+                preferences[androidx.datastore.preferences.core.stringPreferencesKey(DataStoreKey.lastListGroupId)] = filterUiState.group?.id ?: ""
+                preferences[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.lastListFilterIndex)] = filterUiState.filter.index
+                preferences[androidx.datastore.preferences.core.booleanPreferencesKey(DataStoreKey.lastListIsActive)] = true
+            }
         }
     }
 
