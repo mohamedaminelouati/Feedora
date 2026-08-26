@@ -147,39 +147,25 @@ constructor(
     private fun translateText(text: String, targetLanguageCode: String): String {
         if (text.isBlank() || targetLanguageCode == "auto" || targetLanguageCode == "select") return text
 
-        // Primary: Google Translate GTX (POST)
+        // Primary: Google Mobile Web Translate (High Accuracy, No Captcha Block)
         val primaryResult = runCatching {
-            val formBody = FormBody.Builder()
-                .add("q", text)
-                .build()
-
-            val url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=$targetLanguageCode&dt=t"
+            val encodedQuery = java.net.URLEncoder.encode(text, "UTF-8")
+            val url = "https://translate.google.com/m?sl=auto&tl=$targetLanguageCode&q=$encodedQuery"
 
             val request = Request.Builder()
                 .url(url)
-                .post(formBody)
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
+                .get()
+                .header("User-Agent", "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Mobile Safari/537.36")
                 .build()
 
             val response = client.newCall(request).execute()
             val responseBody = response.body.string()
 
             if (response.isSuccessful && responseBody.isNotBlank()) {
-                val jsonArray = JSONArray(responseBody)
-                val sentencesArray = jsonArray.optJSONArray(0)
-                if (sentencesArray != null) {
-                    val sb = StringBuilder()
-                    for (i in 0 until sentencesArray.length()) {
-                        val sentence = sentencesArray.optJSONArray(i)
-                        if (sentence != null) {
-                            val part = sentence.optString(0)
-                            if (!part.isNullOrBlank() && part != "null") {
-                                sb.append(part)
-                            }
-                        }
-                    }
-                    val res = sb.toString().trim()
-                    if (res.isNotBlank()) return@runCatching res
+                val doc = Jsoup.parse(responseBody)
+                val result = doc.select("div.result-container").text().trim()
+                if (result.isNotBlank()) {
+                    return@runCatching result
                 }
             }
             null
@@ -189,39 +175,26 @@ constructor(
             return primaryResult
         }
 
-        // Secondary fallback: Google Translate dict-chrome-ex (POST)
+        // Secondary fallback: MyMemory API
         val secondaryResult = runCatching {
-            val formBody = FormBody.Builder()
-                .add("q", text)
-                .build()
-
-            val url = "https://translate.googleapis.com/translate_a/single?client=dict-chrome-ex&sl=auto&tl=$targetLanguageCode&dt=t"
+            val encodedQuery = java.net.URLEncoder.encode(text, "UTF-8")
+            val url = "https://api.mymemory.translated.net/get?q=$encodedQuery&langpair=auto|$targetLanguageCode"
 
             val request = Request.Builder()
                 .url(url)
-                .post(formBody)
-                .header("User-Agent", "Mozilla/5.0 (Android; Mobile; rv:128.0) Gecko/128.0 Firefox/128.0")
+                .get()
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
                 .build()
 
             val response = client.newCall(request).execute()
             val responseBody = response.body.string()
 
             if (response.isSuccessful && responseBody.isNotBlank()) {
-                val jsonArray = JSONArray(responseBody)
-                val sentencesArray = jsonArray.optJSONArray(0)
-                if (sentencesArray != null) {
-                    val sb = StringBuilder()
-                    for (i in 0 until sentencesArray.length()) {
-                        val sentence = sentencesArray.optJSONArray(i)
-                        if (sentence != null) {
-                            val part = sentence.optString(0)
-                            if (!part.isNullOrBlank() && part != "null") {
-                                sb.append(part)
-                            }
-                        }
-                    }
-                    val res = sb.toString().trim()
-                    if (res.isNotBlank()) return@runCatching res
+                val json = JSONObject(responseBody)
+                val responseData = json.optJSONObject("responseData")
+                val translated = responseData?.optString("translatedText")
+                if (!translated.isNullOrBlank() && !translated.contains("MYMEMORY WARNING")) {
+                    return@runCatching translated.trim()
                 }
             }
             null

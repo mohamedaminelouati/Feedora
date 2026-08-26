@@ -49,6 +49,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -75,7 +76,17 @@ fun AiTranslationBottomSheet(
     onDismissRequest: () -> Unit,
     viewModel: AiTranslationViewModel = hiltViewModel(),
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val density = androidx.compose.ui.platform.LocalDensity.current
+    val sheetState = remember {
+        androidx.compose.material3.SheetState(
+            skipPartiallyExpanded = true,
+            positionalThreshold = { with(density) { 56.dp.toPx() } },
+            velocityThreshold = { with(density) { 125.dp.toPx() } },
+            initialValue = androidx.compose.material3.SheetValue.Hidden,
+            confirmValueChange = { true },
+            skipHiddenState = false,
+        )
+    }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val selectedLanguage by viewModel.selectedLanguage.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -86,9 +97,14 @@ fun AiTranslationBottomSheet(
         viewModel.initTranslation(content)
     }
 
+    val scope = rememberCoroutineScope()
     val dismissSheet: () -> Unit = {
         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-        onDismissRequest()
+        scope.launch {
+            sheetState.hide()
+        }.invokeOnCompletion {
+            onDismissRequest()
+        }
     }
 
     ModalBottomSheet(

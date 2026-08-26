@@ -127,10 +127,12 @@ fun ReadingPage(
                         onNavButtonClick = onNavAction,
                         onNavigateToStylePage = onNavigateToStylePage,
                         onSummarizeClick = {
+                            showAiTranslationBottomSheet = false
                             aiSummarySessionKey++
                             showAiSummaryBottomSheet = true
                         },
                         onTranslateClick = {
+                            showAiSummaryBottomSheet = false
                             aiTranslationSessionKey++
                             showAiTranslationBottomSheet = true
                         },
