@@ -78,9 +78,9 @@ fun AiSummaryBottomSheet(
     viewModel: AiSummaryViewModel = hiltViewModel(),
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val uiState by viewModel.summaryUiState.collectAsStateWithLifecycle()
-    val selectedLanguage by viewModel.summaryLanguage.collectAsStateWithLifecycle()
-    val selectedStyle by viewModel.summaryStyle.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val selectedLanguage by viewModel.selectedLanguage.collectAsStateWithLifecycle()
+    val selectedStyle by viewModel.selectedStyle.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val view = LocalView.current
     val clipboardManager = LocalClipboardManager.current
@@ -194,7 +194,7 @@ fun AiSummaryBottomSheet(
                                 onClick = {
                                     isLangMenuExpanded = false
                                     view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                                    viewModel.setSummaryLanguage(lang, title, content)
+                                    viewModel.setLanguage(lang, title, content)
                                 },
                             )
                         }
@@ -236,7 +236,7 @@ fun AiSummaryBottomSheet(
                                 onClick = {
                                     isStyleMenuExpanded = false
                                     view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                                    viewModel.setSummaryStyle(style, title, content)
+                                    viewModel.setStyle(style, title, content)
                                 },
                             )
                         }

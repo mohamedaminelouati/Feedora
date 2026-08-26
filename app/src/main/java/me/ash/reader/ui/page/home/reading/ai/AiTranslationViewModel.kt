@@ -16,27 +16,14 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import me.ash.reader.infrastructure.ai.AiLanguage
 import me.ash.reader.infrastructure.ai.AiSummaryService
-import me.ash.reader.infrastructure.ai.AiSummaryStyle
 import me.ash.reader.infrastructure.preference.LanguagesPreference
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.dataStore
 import me.ash.reader.ui.ext.languages
 import me.ash.reader.ui.ext.put
 
-sealed interface AiSummaryUiState {
-    data object Idle : AiSummaryUiState
-    data object SelectLanguagePrompt : AiSummaryUiState
-    data object Loading : AiSummaryUiState
-    data class Success(
-        val result: String,
-        val language: AiLanguage,
-        val isRtl: Boolean,
-    ) : AiSummaryUiState
-    data class Error(val message: String) : AiSummaryUiState
-}
-
 @HiltViewModel
-class AiSummaryViewModel
+class AiTranslationViewModel
 @Inject
 constructor(
     @ApplicationContext private val context: Context,
@@ -49,22 +36,15 @@ constructor(
     private val _selectedLanguage = MutableStateFlow(AiLanguage.AUTO)
     val selectedLanguage: StateFlow<AiLanguage> = _selectedLanguage.asStateFlow()
 
-    private val _selectedStyle = MutableStateFlow(AiSummaryStyle.KEY_POINTS)
-    val selectedStyle: StateFlow<AiSummaryStyle> = _selectedStyle.asStateFlow()
-
     private var activeJob: Job? = null
 
     init {
         viewModelScope.launch {
             runCatching {
                 val prefs = context.dataStore.data.first()
-                val savedSummaryLang = prefs[stringPreferencesKey(DataStoreKey.aiSummaryLanguage)]
-                if (!savedSummaryLang.isNullOrBlank()) {
-                    _selectedLanguage.value = AiLanguage.fromName(savedSummaryLang)
-                }
-                val savedStyle = prefs[stringPreferencesKey(DataStoreKey.aiSummaryStyle)]
-                if (!savedStyle.isNullOrBlank()) {
-                    _selectedStyle.value = AiSummaryStyle.fromName(savedStyle)
+                val savedTransLang = prefs[stringPreferencesKey(DataStoreKey.aiTranslationLanguage)]
+                if (!savedTransLang.isNullOrBlank()) {
+                    _selectedLanguage.value = AiLanguage.fromName(savedTransLang)
                 }
             }
         }
@@ -82,41 +62,29 @@ constructor(
         }.getOrDefault(AiLanguage.ENGLISH)
     }
 
-    fun initSummary(title: String, content: String) {
+    fun initTranslation(content: String) {
         if (_selectedLanguage.value == AiLanguage.SELECT) {
             _uiState.value = AiSummaryUiState.SelectLanguagePrompt
         } else {
-            generateSummary(title, content)
+            translateArticle(content)
         }
     }
 
-    fun setLanguage(language: AiLanguage, title: String, content: String) {
+    fun setLanguage(language: AiLanguage, content: String) {
         _selectedLanguage.value = language
         viewModelScope.launch {
             runCatching {
-                context.dataStore.put(DataStoreKey.aiSummaryLanguage, language.name)
+                context.dataStore.put(DataStoreKey.aiTranslationLanguage, language.name)
             }
         }
         if (language == AiLanguage.SELECT) {
             _uiState.value = AiSummaryUiState.SelectLanguagePrompt
         } else {
-            generateSummary(title, content)
+            translateArticle(content)
         }
     }
 
-    fun setStyle(style: AiSummaryStyle, title: String, content: String) {
-        _selectedStyle.value = style
-        viewModelScope.launch {
-            runCatching {
-                context.dataStore.put(DataStoreKey.aiSummaryStyle, style.name)
-            }
-        }
-        if (_selectedLanguage.value != AiLanguage.SELECT) {
-            generateSummary(title, content)
-        }
-    }
-
-    fun generateSummary(title: String, content: String) {
+    fun translateArticle(content: String) {
         val language = _selectedLanguage.value
         if (language == AiLanguage.SELECT) {
             _uiState.value = AiSummaryUiState.SelectLanguagePrompt
@@ -127,24 +95,21 @@ constructor(
         _uiState.value = AiSummaryUiState.Loading
 
         activeJob = viewModelScope.launch {
-            val style = _selectedStyle.value
             val effectiveLanguage = resolveEffectiveLanguage(language)
-            aiSummaryService.summarize(
-                title = title,
+            aiSummaryService.translateFullArticle(
                 htmlOrTextContent = content,
-                language = if (language == AiLanguage.AUTO) language else effectiveLanguage,
-                style = style,
+                language = effectiveLanguage,
             ).fold(
-                onSuccess = { summary ->
+                onSuccess = { translated ->
                     _uiState.value = AiSummaryUiState.Success(
-                        result = summary,
+                        result = translated,
                         language = effectiveLanguage,
                         isRtl = effectiveLanguage.isRtl,
                     )
                 },
                 onFailure = { error ->
                     _uiState.value = AiSummaryUiState.Error(
-                        message = error.localizedMessage ?: "Failed to generate summary",
+                        message = error.localizedMessage ?: "Failed to translate article",
                     )
                 },
             )

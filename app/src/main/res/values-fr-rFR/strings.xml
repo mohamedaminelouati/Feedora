@@ -381,7 +381,7 @@
     <string name="regenerate">Régénérer</string>
     <string name="retry">Réessayer</string>
     <string name="copy">Copier</string>
-    <string name="search_settings">Rechercher dans les paramètres</string>
+    <string name="search_settings">Chercher dans les paramètres</string>
     <string name="no_settings_found">Aucun paramètre trouvé</string>
     <string name="sync_status_always">Toujours</string>
     <string name="sync_status_errors_only">Uniquement en cas d\'erreur</string>

@@ -99,6 +99,7 @@ import me.ash.reader.ui.component.base.RYScaffold
 import me.ash.reader.ui.component.scrollbar.VerticalScrollIndicatorFactory
 import me.ash.reader.ui.component.scrollbar.drawVerticalScrollIndicator
 import me.ash.reader.ui.component.scrollbar.scrollIndicator
+import androidx.datastore.preferences.core.edit
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.ext.dataStore
@@ -157,40 +158,36 @@ fun FlowPage(
 
     val restoreScrollPosition = LocalRestoreScrollPosition.current.value
 
+    val listKey = remember(filterUiState) {
+        when {
+            filterUiState.feed != null -> "feed_${filterUiState.feed.id}_${filterUiState.filter.index}"
+            filterUiState.group != null -> "group_${filterUiState.group.id}_${filterUiState.filter.index}"
+            filterUiState.filter.isStarred() -> "starred"
+            filterUiState.filter.isUnread() -> "unread"
+            else -> "all"
+        }
+    }
+
     LaunchedEffect(pagerData) {
-        if (restoreScrollPosition && filterUiState.group == null && filterUiState.feed == null) {
-            val indexKey = if (filterUiState.filter.isAll()) {
-                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollIndexAll)
-            } else if (filterUiState.filter.isUnread()) {
-                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollIndexUnread)
-            } else {
-                null
-            }
+        if (restoreScrollPosition) {
+            val indexKey = androidx.datastore.preferences.core.intPreferencesKey("scroll_idx_$listKey")
+            val offsetKey = androidx.datastore.preferences.core.intPreferencesKey("scroll_off_$listKey")
 
-            val offsetKey = if (filterUiState.filter.isAll()) {
-                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetAll)
-            } else if (filterUiState.filter.isUnread()) {
-                androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetUnread)
-            } else {
-                null
-            }
+            val prefs = context.dataStore.data.first()
+            val savedIndex = prefs[indexKey] ?: (if (listKey == "all") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollIndexAll)] ?: 0 else if (listKey == "unread") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollIndexUnread)] ?: 0 else 0)
+            val savedOffset = prefs[offsetKey] ?: (if (listKey == "all") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetAll)] ?: 0 else if (listKey == "unread") prefs[androidx.datastore.preferences.core.intPreferencesKey(DataStoreKey.scrollOffsetUnread)] ?: 0 else 0)
 
-            if (indexKey != null && offsetKey != null) {
-                val prefs = context.dataStore.data.first()
-                val savedIndex = prefs[indexKey] ?: 0
-                val savedOffset = prefs[offsetKey] ?: 0
-                if (savedIndex > 0 || savedOffset > 0) {
-                    snapshotFlow { listState.layoutInfo.totalItemsCount }
-                        .filterNotNull()
-                        .first { it > savedIndex }
-                    listState.scrollToItem(savedIndex, savedOffset)
-                }
+            if (savedIndex > 0 || savedOffset > 0) {
+                snapshotFlow { listState.layoutInfo.totalItemsCount }
+                    .filterNotNull()
+                    .first { it > savedIndex }
+                listState.scrollToItem(savedIndex, savedOffset)
             }
         }
     }
 
-    LaunchedEffect(listState) {
-        if (restoreScrollPosition && filterUiState.group == null && filterUiState.feed == null) {
+    LaunchedEffect(listState, listKey) {
+        if (restoreScrollPosition) {
             snapshotFlow {
                 if (listState.isScrollInProgress) {
                     listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
@@ -200,12 +197,11 @@ fun FlowPage(
             }
                 .filterNotNull()
                 .collect { (idx, off) ->
-                    if (filterUiState.filter.isAll()) {
-                        context.dataStore.put(DataStoreKey.scrollIndexAll, idx)
-                        context.dataStore.put(DataStoreKey.scrollOffsetAll, off)
-                    } else if (filterUiState.filter.isUnread()) {
-                        context.dataStore.put(DataStoreKey.scrollIndexUnread, idx)
-                        context.dataStore.put(DataStoreKey.scrollOffsetUnread, off)
+                    val indexKey = androidx.datastore.preferences.core.intPreferencesKey("scroll_idx_$listKey")
+                    val offsetKey = androidx.datastore.preferences.core.intPreferencesKey("scroll_off_$listKey")
+                    context.dataStore.edit { preferences ->
+                        preferences[indexKey] = idx
+                        preferences[offsetKey] = off
                     }
                 }
         }

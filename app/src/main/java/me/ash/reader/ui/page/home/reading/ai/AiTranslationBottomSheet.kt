@@ -72,11 +72,11 @@ import me.ash.reader.infrastructure.ai.AiLanguage
 fun AiTranslationBottomSheet(
     content: String,
     onDismissRequest: () -> Unit,
-    viewModel: AiSummaryViewModel = hiltViewModel(),
+    viewModel: AiTranslationViewModel = hiltViewModel(),
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    val uiState by viewModel.translationUiState.collectAsStateWithLifecycle()
-    val selectedLanguage by viewModel.translationLanguage.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val selectedLanguage by viewModel.selectedLanguage.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val view = LocalView.current
     val clipboardManager = LocalClipboardManager.current
@@ -189,7 +189,7 @@ fun AiTranslationBottomSheet(
                                 onClick = {
                                     isLangMenuExpanded = false
                                     view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-                                    viewModel.setTranslationLanguage(lang, content)
+                                    viewModel.setLanguage(lang, content)
                                 },
                             )
                         }

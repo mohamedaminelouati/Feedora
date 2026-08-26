@@ -52,6 +52,7 @@ import me.ash.reader.ui.component.base.RYSwitch
 import me.ash.reader.ui.component.base.RadioDialog
 import me.ash.reader.ui.component.base.RadioDialogOption
 import me.ash.reader.ui.component.base.Subtitle
+import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.getBrowserAppList
 import me.ash.reader.ui.page.settings.SettingItem
 import me.ash.reader.ui.theme.palette.onLight
@@ -131,6 +132,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.restore_last_article),
                         desc = stringResource(R.string.restore_last_article_desc),
+                        highlightKey = DataStoreKey.restoreLastArticle,
                         onClick = {
                             (!restoreLastArticle).put(context, scope)
                         },
@@ -164,6 +166,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.restore_scroll_position),
                         desc = stringResource(R.string.restore_scroll_position_desc),
+                        highlightKey = DataStoreKey.restoreScrollPosition,
                         onClick = {
                             (!restoreScrollPosition).put(context, scope)
                         },
@@ -210,6 +213,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.pull_from_bottom),
                         desc = pullToSwitchFeed.description(),
+                        highlightKey = DataStoreKey.pullToLoadNextFeed,
                         onClick = {
                             showPullToLoadDialog = true
                         },
@@ -224,6 +228,7 @@ fun InteractionPage(
                     SettingItem(
                         title = stringResource(R.string.sync_notification),
                         desc = stringResource(R.string.sync_notification_desc),
+                        highlightKey = DataStoreKey.syncNotification,
                         onClick = {
                             (!syncNotification).put(context, scope)
                         },

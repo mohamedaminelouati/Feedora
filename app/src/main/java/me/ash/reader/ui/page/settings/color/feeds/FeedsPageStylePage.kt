@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import me.ash.reader.R
 import me.ash.reader.infrastructure.preference.*
 import me.ash.reader.ui.component.base.*
+import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.page.settings.SettingItem
 import me.ash.reader.ui.theme.palette.onLight
 
@@ -124,6 +125,7 @@ fun FeedsPageStylePage(
                     SettingItem(
                         title = stringResource(R.string.show_sync_status),
                         desc = showSyncStatus.toDesc(),
+                        highlightKey = DataStoreKey.feedsShowSyncStatus,
                         onClick = {
                             showSyncStatusDialogVisible = true
                         },

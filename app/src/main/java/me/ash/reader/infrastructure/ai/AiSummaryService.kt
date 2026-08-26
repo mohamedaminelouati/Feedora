@@ -141,7 +141,8 @@ constructor(
     private fun translateText(text: String, targetLanguageCode: String): String {
         if (text.isBlank() || targetLanguageCode == "auto" || targetLanguageCode == "select") return text
 
-        return runCatching {
+        // Primary: Google Translate GTX (POST)
+        val primaryResult = runCatching {
             val formBody = FormBody.Builder()
                 .add("q", text)
                 .build()
@@ -157,25 +158,70 @@ constructor(
             val response = client.newCall(request).execute()
             val responseBody = response.body.string()
 
-            if (!response.isSuccessful || responseBody.isBlank()) {
-                return@runCatching text
-            }
-
-            val jsonArray = JSONArray(responseBody)
-            val sentencesArray = jsonArray.getJSONArray(0)
-            val translatedText = StringBuilder()
-
-            for (i in 0 until sentencesArray.length()) {
-                val sentence = sentencesArray.getJSONArray(i)
-                val part = sentence.optString(0)
-                if (!part.isNullOrBlank()) {
-                    translatedText.append(part)
+            if (response.isSuccessful && responseBody.isNotBlank()) {
+                val jsonArray = JSONArray(responseBody)
+                val sentencesArray = jsonArray.optJSONArray(0)
+                if (sentencesArray != null) {
+                    val sb = StringBuilder()
+                    for (i in 0 until sentencesArray.length()) {
+                        val sentence = sentencesArray.optJSONArray(i)
+                        if (sentence != null) {
+                            val part = sentence.optString(0)
+                            if (!part.isNullOrBlank() && part != "null") {
+                                sb.append(part)
+                            }
+                        }
+                    }
+                    val res = sb.toString().trim()
+                    if (res.isNotBlank()) return@runCatching res
                 }
             }
+            null
+        }.getOrNull()
 
-            val result = translatedText.toString().trim()
-            if (result.isNotBlank()) result else text
-        }.getOrDefault(text)
+        if (!primaryResult.isNullOrBlank()) {
+            return primaryResult
+        }
+
+        // Secondary fallback: Google Translate dict-chrome-ex (POST)
+        val secondaryResult = runCatching {
+            val formBody = FormBody.Builder()
+                .add("q", text)
+                .build()
+
+            val url = "https://translate.googleapis.com/translate_a/single?client=dict-chrome-ex&sl=auto&tl=$targetLanguageCode&dt=t"
+
+            val request = Request.Builder()
+                .url(url)
+                .post(formBody)
+                .header("User-Agent", "Mozilla/5.0 (Android; Mobile; rv:128.0) Gecko/128.0 Firefox/128.0")
+                .build()
+
+            val response = client.newCall(request).execute()
+            val responseBody = response.body.string()
+
+            if (response.isSuccessful && responseBody.isNotBlank()) {
+                val jsonArray = JSONArray(responseBody)
+                val sentencesArray = jsonArray.optJSONArray(0)
+                if (sentencesArray != null) {
+                    val sb = StringBuilder()
+                    for (i in 0 until sentencesArray.length()) {
+                        val sentence = sentencesArray.optJSONArray(i)
+                        if (sentence != null) {
+                            val part = sentence.optString(0)
+                            if (!part.isNullOrBlank() && part != "null") {
+                                sb.append(part)
+                            }
+                        }
+                    }
+                    val res = sb.toString().trim()
+                    if (res.isNotBlank()) return@runCatching res
+                }
+            }
+            null
+        }.getOrNull()
+
+        return secondaryResult ?: text
     }
 
     private fun buildPrompt(

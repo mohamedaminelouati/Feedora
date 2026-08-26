@@ -58,6 +58,7 @@ import me.ash.reader.ui.component.base.Banner
 import me.ash.reader.ui.component.base.DisplayText
 import me.ash.reader.ui.component.base.FeedbackIconButton
 import me.ash.reader.ui.component.base.RYScaffold
+import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.getCurrentVersion
 import me.ash.reader.ui.page.settings.tips.UpdateDialog
 import me.ash.reader.ui.page.settings.tips.UpdateViewModel
@@ -178,7 +179,10 @@ fun SettingsPage(
                 category = interactionTitle,
                 icon = Icons.Outlined.Notifications,
                 keywords = listOf("sync", "notification", "alerts", "new articles", "count"),
-                onClick = navigateToInteraction,
+                onClick = {
+                    SettingsHighlightManager.highlight(DataStoreKey.syncNotification)
+                    navigateToInteraction()
+                },
             ),
             SettingSearchItem(
                 title = restoreLastArticleTitle,
@@ -186,7 +190,10 @@ fun SettingsPage(
                 category = interactionTitle,
                 icon = Icons.Outlined.History,
                 keywords = listOf("resume", "last article", "startup", "reopen", "reading"),
-                onClick = navigateToInteraction,
+                onClick = {
+                    SettingsHighlightManager.highlight(DataStoreKey.restoreLastArticle)
+                    navigateToInteraction()
+                },
             ),
             SettingSearchItem(
                 title = restoreScrollPositionTitle,
@@ -194,15 +201,21 @@ fun SettingsPage(
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("scroll", "position", "remember", "all", "unread", "list"),
-                onClick = navigateToInteraction,
+                onClick = {
+                    SettingsHighlightManager.highlight(DataStoreKey.restoreScrollPosition)
+                    navigateToInteraction()
+                },
             ),
             SettingSearchItem(
                 title = syncStatusTitle,
                 description = syncStatusDesc,
-                category = interactionTitle,
+                category = colorAndStyleTitle,
                 icon = Icons.Outlined.Sync,
-                keywords = listOf("sync status", "last sync", "date", "time", "feeds"),
-                onClick = navigateToInteraction,
+                keywords = listOf("sync status", "last sync", "date", "time", "feeds", "error"),
+                onClick = {
+                    SettingsHighlightManager.highlight(DataStoreKey.feedsShowSyncStatus)
+                    navigateToColorAndStyle()
+                },
             ),
             SettingSearchItem(
                 title = pullToSwitchTitle,
@@ -210,7 +223,10 @@ fun SettingsPage(
                 category = interactionTitle,
                 icon = Icons.Outlined.Swipe,
                 keywords = listOf("pull", "swipe", "next feed", "bottom", "load"),
-                onClick = navigateToInteraction,
+                onClick = {
+                    SettingsHighlightManager.highlight(DataStoreKey.pullToLoadNextFeed)
+                    navigateToInteraction()
+                },
             ),
             SettingSearchItem(
                 title = languagesTitle,
