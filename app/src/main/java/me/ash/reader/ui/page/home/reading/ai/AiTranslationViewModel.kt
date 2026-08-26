@@ -19,6 +19,7 @@ import me.ash.reader.infrastructure.ai.AiSummaryService
 import me.ash.reader.infrastructure.preference.LanguagesPreference
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.dataStore
+import me.ash.reader.ui.ext.get
 import me.ash.reader.ui.ext.languages
 import me.ash.reader.ui.ext.put
 
@@ -33,22 +34,15 @@ constructor(
     private val _uiState = MutableStateFlow<AiSummaryUiState>(AiSummaryUiState.Idle)
     val uiState: StateFlow<AiSummaryUiState> = _uiState.asStateFlow()
 
-    private val _selectedLanguage = MutableStateFlow(AiLanguage.AUTO)
+    private val _selectedLanguage = MutableStateFlow(
+        context.dataStore.get<String>(DataStoreKey.aiTranslationLanguage)
+            ?.takeIf { it.isNotBlank() }
+            ?.let { AiLanguage.fromName(it) }
+            ?: AiLanguage.AUTO
+    )
     val selectedLanguage: StateFlow<AiLanguage> = _selectedLanguage.asStateFlow()
 
     private var activeJob: Job? = null
-
-    init {
-        viewModelScope.launch {
-            runCatching {
-                val prefs = context.dataStore.data.first()
-                val savedTransLang = prefs[stringPreferencesKey(DataStoreKey.aiTranslationLanguage)]
-                if (!savedTransLang.isNullOrBlank()) {
-                    _selectedLanguage.value = AiLanguage.fromName(savedTransLang)
-                }
-            }
-        }
-    }
 
     fun resolveEffectiveLanguage(language: AiLanguage): AiLanguage {
         if (language != AiLanguage.AUTO && language != AiLanguage.SELECT) return language

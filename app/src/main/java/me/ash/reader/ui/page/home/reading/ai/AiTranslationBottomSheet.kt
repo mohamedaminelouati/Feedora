@@ -82,7 +82,7 @@ fun AiTranslationBottomSheet(
     val view = LocalView.current
     val clipboardManager = LocalClipboardManager.current
 
-    LaunchedEffect(content) {
+    LaunchedEffect(Unit) {
         viewModel.initTranslation(content)
     }
 

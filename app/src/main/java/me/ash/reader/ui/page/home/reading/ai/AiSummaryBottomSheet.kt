@@ -86,7 +86,7 @@ fun AiSummaryBottomSheet(
     val view = LocalView.current
     val clipboardManager = LocalClipboardManager.current
 
-    LaunchedEffect(title, content) {
+    LaunchedEffect(Unit) {
         viewModel.initSummary(title, content)
     }
 

@@ -17,6 +17,9 @@ import org.json.JSONObject
 import org.jsoup.Jsoup
 import timber.log.Timber
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+
 @Singleton
 class AiSummaryService
 @Inject
@@ -26,8 +29,9 @@ constructor(
 ) {
     private val client =
         okHttpClient.newBuilder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(6, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .writeTimeout(6, TimeUnit.SECONDS)
             .build()
 
     private val jsonMediaType = "application/json; charset=utf-8".toMediaType()
@@ -122,11 +126,13 @@ constructor(
                 chunks.add(currentChunk.toString())
             }
 
-            val translatedChunks = chunks.map { chunk ->
-                translateText(chunk, language.code)
+            val deferredTranslations = chunks.map { chunk ->
+                async(ioDispatcher) {
+                    translateText(chunk, language.code)
+                }
             }
 
-            translatedChunks.joinToString("\n\n")
+            deferredTranslations.awaitAll().joinToString("\n\n")
         }.onFailure {
             Timber.e(it, "Translation failed")
         }
