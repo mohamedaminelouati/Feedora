@@ -73,13 +73,7 @@ constructor(
                 }
             }
 
-            // 2. Default Zero-Key True Generative AI Synthesis (GPT-4o-mini / LLaMA via DuckDuckGo AI)
-            val zeroKeyAiSummary = callDuckDuckGoAi(title, plainText, language, style)
-            if (!zeroKeyAiSummary.isNullOrBlank()) {
-                return@runCatching zeroKeyAiSummary
-            }
-
-            // 3. Fallback: Local NLP TextRank Engine + Multilingual Translation
+            // 2. Default Zero-Key Local NLP TextRank Engine + Multilingual Translation
             val baseSummary = TextRankSummarizer.summarize(title, plainText, style)
             if (language == AiLanguage.AUTO) {
                 baseSummary
@@ -338,88 +332,5 @@ constructor(
             }
         }
         throw IOException("No summary generated from Gemini.")
-    }
-
-    private fun callDuckDuckGoAi(
-        title: String,
-        content: String,
-        language: AiLanguage,
-        style: AiSummaryStyle,
-    ): String? {
-        return runCatching {
-            val userAgent =
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
-
-            // Step 1: Request VQD token from DuckDuckGo DuckChat
-            val statusRequest =
-                Request.Builder()
-                    .url("https://duckduckgo.com/duckchat/v1/status")
-                    .get()
-                    .header("x-vqd-accept", "1")
-                    .header("User-Agent", userAgent)
-                    .build()
-
-            val statusResponse = client.newCall(statusRequest).execute()
-            val vqd = statusResponse.header("x-vqd-4") ?: return@runCatching null
-
-            // Step 2: Build prompt for true generative AI synthesis
-            val prompt = buildPrompt(title, content.take(6000), language, style)
-
-            val jsonBody =
-                JSONObject().apply {
-                    put("model", "gpt-4o-mini")
-                    put(
-                        "messages",
-                        JSONArray().apply {
-                            put(
-                                JSONObject().apply {
-                                    put("role", "system")
-                                    put("content", prompt.first)
-                                }
-                            )
-                            put(
-                                JSONObject().apply {
-                                    put("role", "user")
-                                    put("content", prompt.second)
-                                }
-                            )
-                        },
-                    )
-                }
-
-            val chatRequest =
-                Request.Builder()
-                    .url("https://duckduckgo.com/duckchat/v1/chat")
-                    .post(jsonBody.toString().toRequestBody(jsonMediaType))
-                    .header("x-vqd-4", vqd)
-                    .header("User-Agent", userAgent)
-                    .header("Accept", "text/event-stream")
-                    .build()
-
-            val chatResponse = client.newCall(chatRequest).execute()
-            if (!chatResponse.isSuccessful) return@runCatching null
-
-            val responseStream = chatResponse.body.byteStream()
-            val reader = responseStream.bufferedReader()
-            val fullText = StringBuilder()
-
-            reader.forEachLine { line ->
-                if (line.startsWith("data: ")) {
-                    val data = line.removePrefix("data: ").trim()
-                    if (data != "[DONE]") {
-                        runCatching {
-                            val chunkJson = JSONObject(data)
-                            val message = chunkJson.optString("message")
-                            if (!message.isNullOrEmpty()) {
-                                fullText.append(message)
-                            }
-                        }
-                    }
-                }
-            }
-
-            val result = fullText.toString().trim()
-            if (result.isNotBlank()) result else null
-        }.getOrNull()
     }
 }

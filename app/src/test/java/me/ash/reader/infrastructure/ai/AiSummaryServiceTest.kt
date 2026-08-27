@@ -1,7 +1,9 @@
 package me.ash.reader.infrastructure.ai
 
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
