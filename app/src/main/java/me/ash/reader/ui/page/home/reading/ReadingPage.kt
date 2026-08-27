@@ -133,16 +133,10 @@ fun ReadingPage(
                         onSummarizeClick = {
                             showAiTranslationBottomSheet = false
                             showAiSummaryBottomSheet = true
-                            coroutineScope.launch {
-                                aiSummarySheetState.show()
-                            }
                         },
                         onTranslateClick = {
                             showAiSummaryBottomSheet = false
                             showAiTranslationBottomSheet = true
-                            coroutineScope.launch {
-                                aiTranslationSheetState.show()
-                            }
                         },
                     )
                 }
