@@ -367,8 +367,10 @@
     <string name="parse_full_content_desc">اجلب المقالات الكاملة من صفحات الوِب</string>
     <string name="show_sync_status">إظهار حالة المزامنة</string>
     <string name="show_sync_status_desc">عرض حالة وتاريخ ووقت آخر مزامنة تحت كل خلاصة</string>
-    <string name="reading_ai_summary">تلخيص المقالات بالذكاء الاصطناعي</string>
-    <string name="reading_ai_summary_desc">إظهار زر التلخيص الذكي في شريط أدوات القراءة</string>
+    <string name="reading_ai_summary">تلخيص المقال</string>
+    <string name="reading_ai_summary_desc">إظهار زر التلخيص في شريط أدوات القراءة لفتحه في المتصفح</string>
+    <string name="summarizer_engine">محرك التلخيص</string>
+    <string name="no_link_available">لا يوجد رابط متاح لهذا المقال</string>
     <plurals name="new_articles_count">
         <item quantity="zero">لم تتم إضافة أي مقال جديد</item>
         <item quantity="one">تمت إضافة مقال جديد واحد</item>

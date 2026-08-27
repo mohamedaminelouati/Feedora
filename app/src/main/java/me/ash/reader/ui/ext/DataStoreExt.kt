@@ -200,6 +200,7 @@ sealed interface PreferencesKey {
         const val readingImageHorizontalPadding = "readingImageHorizontalPadding"
         const val readingImageRoundedCorners = "readingImageRoundedCorners"
         const val readingAiSummary = "readingAiSummary"
+        const val summarizerEngine = "summarizerEngine"
 
         // Interaction
         const val initialPage = "initialPage"
@@ -292,6 +293,7 @@ sealed interface PreferencesKey {
                 IntKey(readingImageHorizontalPadding),
                 IntKey(readingImageRoundedCorners),
                 BooleanKey(readingAiSummary),
+                IntKey(summarizerEngine),
                 // Interaction
                 IntKey(initialPage),
                 IntKey(initialFilter),
@@ -391,6 +393,7 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val readingImageHorizontalPadding = "readingImageHorizontalPadding"
         const val readingImageRoundedCorners = "readingImageRoundedCorners"
         const val readingAiSummary = "readingAiSummary"
+        const val summarizerEngine = "summarizerEngine"
 
         // Interaction
         const val initialPage = "initialPage"
@@ -556,6 +559,8 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                     DataStoreKey(intPreferencesKey(readingImageRoundedCorners), Int::class.java),
                 readingAiSummary to
                     DataStoreKey(booleanPreferencesKey(readingAiSummary), Boolean::class.java),
+                summarizerEngine to
+                    DataStoreKey(intPreferencesKey(summarizerEngine), Int::class.java),
                 // Interaction
                 initialPage to DataStoreKey(intPreferencesKey(initialPage), Int::class.java),
                 initialFilter to DataStoreKey(intPreferencesKey(initialFilter), Int::class.java),

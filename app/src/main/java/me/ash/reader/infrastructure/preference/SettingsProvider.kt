@@ -127,6 +127,7 @@ class SettingsProvider @Inject constructor(
             LocalReadingImageRoundedCorners provides settings.readingImageRoundedCorners,
             LocalReadingImageMaximize provides settings.readingImageMaximize,
             LocalReadingAiSummary provides settings.readingAiSummary,
+            LocalSummarizerEngine provides settings.summarizerEngine,
 
             // Interaction
             LocalInitialPage provides settings.initialPage,

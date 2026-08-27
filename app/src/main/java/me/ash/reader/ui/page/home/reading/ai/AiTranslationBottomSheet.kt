@@ -217,7 +217,7 @@ fun AiTranslationBottomSheet(
                 label = "translation_body_content",
             ) { state ->
                 when (state) {
-                    is AiSummaryUiState.Idle -> {
+                    is AiTranslationUiState.Idle -> {
                         Box(
                             modifier = Modifier.fillMaxWidth().height(180.dp),
                             contentAlignment = Alignment.Center,
@@ -230,7 +230,7 @@ fun AiTranslationBottomSheet(
                         }
                     }
 
-                    is AiSummaryUiState.SelectLanguagePrompt -> {
+                    is AiTranslationUiState.SelectLanguagePrompt -> {
                         Column(
                             modifier = Modifier.fillMaxWidth().height(180.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -251,7 +251,7 @@ fun AiTranslationBottomSheet(
                         }
                     }
 
-                    is AiSummaryUiState.Loading -> {
+                    is AiTranslationUiState.Loading -> {
                         Column(
                             modifier = Modifier.fillMaxWidth().height(220.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -271,7 +271,7 @@ fun AiTranslationBottomSheet(
                         }
                     }
 
-                    is AiSummaryUiState.Success -> {
+                    is AiTranslationUiState.Success -> {
                         val layoutDirection = if (state.isRtl) LayoutDirection.Rtl else LayoutDirection.Ltr
                         CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
                             Column {
@@ -348,7 +348,7 @@ fun AiTranslationBottomSheet(
                         }
                     }
 
-                    is AiSummaryUiState.Error -> {
+                    is AiTranslationUiState.Error -> {
                         Column(
                             modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,

@@ -58,31 +58,3 @@ enum class AiLanguage(
         }
     }
 }
-
-enum class AiSummaryStyle(val displayName: String, val promptInstruction: String) {
-    KEY_POINTS(
-        "Key Points",
-        "under 3 to 5 concise bullet points with key takeaways"
-    ),
-    TLDR(
-        "TL;DR",
-        "in a brief 2-sentence TL;DR summary"
-    ),
-    DETAILED(
-        "Detailed",
-        "in a structured, comprehensive summary with context, main points, and conclusions"
-    );
-
-    @Composable
-    fun toDisplayName(): String = when (this) {
-        KEY_POINTS -> stringResource(R.string.summary_style_key_points)
-        TLDR -> stringResource(R.string.summary_style_tldr)
-        DETAILED -> stringResource(R.string.summary_style_detailed)
-    }
-
-    companion object {
-        fun fromName(name: String?): AiSummaryStyle {
-            return entries.firstOrNull { it.name.equals(name, ignoreCase = true) } ?: KEY_POINTS
-        }
-    }
-}

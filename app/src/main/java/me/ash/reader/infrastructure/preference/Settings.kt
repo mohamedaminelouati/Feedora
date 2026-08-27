@@ -68,6 +68,7 @@ data class Settings(
     val readingImageRoundedCorners: Int = ReadingImageRoundedCornersPreference.default,
     val readingImageMaximize: ReadingImageMaximizePreference = ReadingImageMaximizePreference.default,
     val readingAiSummary: ReadingAiSummaryPreference = ReadingAiSummaryPreference.default,
+    val summarizerEngine: SummarizerEnginePreference = SummarizerEnginePreference.default,
 
     // Interaction
     val initialPage: InitialPagePreference = InitialPagePreference.default,

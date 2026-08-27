@@ -1,7 +1,6 @@
 package me.ash.reader.ui.page.home.reading.ai
 
 import android.content.Context
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +11,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import me.ash.reader.infrastructure.ai.AiLanguage
 import me.ash.reader.infrastructure.ai.AiSummaryService
@@ -23,6 +21,18 @@ import me.ash.reader.ui.ext.get
 import me.ash.reader.ui.ext.languages
 import me.ash.reader.ui.ext.put
 
+sealed interface AiTranslationUiState {
+    data object Idle : AiTranslationUiState
+    data object SelectLanguagePrompt : AiTranslationUiState
+    data object Loading : AiTranslationUiState
+    data class Success(
+        val result: String,
+        val language: AiLanguage,
+        val isRtl: Boolean,
+    ) : AiTranslationUiState
+    data class Error(val message: String) : AiTranslationUiState
+}
+
 @HiltViewModel
 class AiTranslationViewModel
 @Inject
@@ -31,8 +41,8 @@ constructor(
     private val aiSummaryService: AiSummaryService,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<AiSummaryUiState>(AiSummaryUiState.Idle)
-    val uiState: StateFlow<AiSummaryUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<AiTranslationUiState>(AiTranslationUiState.Idle)
+    val uiState: StateFlow<AiTranslationUiState> = _uiState.asStateFlow()
 
     private val _selectedLanguage = MutableStateFlow(
         context.dataStore.get<String>(DataStoreKey.aiTranslationLanguage)
@@ -58,7 +68,7 @@ constructor(
 
     fun initTranslation(content: String) {
         if (_selectedLanguage.value == AiLanguage.SELECT) {
-            _uiState.value = AiSummaryUiState.SelectLanguagePrompt
+            _uiState.value = AiTranslationUiState.SelectLanguagePrompt
         } else {
             translateArticle(content)
         }
@@ -72,7 +82,7 @@ constructor(
             }
         }
         if (language == AiLanguage.SELECT) {
-            _uiState.value = AiSummaryUiState.SelectLanguagePrompt
+            _uiState.value = AiTranslationUiState.SelectLanguagePrompt
         } else {
             translateArticle(content)
         }
@@ -81,12 +91,12 @@ constructor(
     fun translateArticle(content: String) {
         val language = _selectedLanguage.value
         if (language == AiLanguage.SELECT) {
-            _uiState.value = AiSummaryUiState.SelectLanguagePrompt
+            _uiState.value = AiTranslationUiState.SelectLanguagePrompt
             return
         }
 
         activeJob?.cancel()
-        _uiState.value = AiSummaryUiState.Loading
+        _uiState.value = AiTranslationUiState.Loading
 
         activeJob = viewModelScope.launch {
             val effectiveLanguage = resolveEffectiveLanguage(language)
@@ -95,14 +105,14 @@ constructor(
                 language = effectiveLanguage,
             ).fold(
                 onSuccess = { translated ->
-                    _uiState.value = AiSummaryUiState.Success(
+                    _uiState.value = AiTranslationUiState.Success(
                         result = translated,
                         language = effectiveLanguage,
                         isRtl = effectiveLanguage.isRtl,
                     )
                 },
                 onFailure = { error ->
-                    _uiState.value = AiSummaryUiState.Error(
+                    _uiState.value = AiTranslationUiState.Error(
                         message = error.localizedMessage ?: "Failed to translate article",
                     )
                 },

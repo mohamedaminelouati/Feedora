@@ -35,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.isSpecified
@@ -47,6 +48,7 @@ import me.ash.reader.infrastructure.preference.LocalPullToSwitchArticle
 import me.ash.reader.infrastructure.preference.LocalReadingAutoHideToolbar
 import me.ash.reader.infrastructure.preference.LocalReadingBoldCharacters
 import me.ash.reader.infrastructure.preference.LocalReadingTextLineHeight
+import me.ash.reader.infrastructure.preference.LocalSummarizerEngine
 import me.ash.reader.infrastructure.preference.not
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.collectAsStateValue
@@ -77,6 +79,8 @@ fun ReadingPage(
 ) {
     val context = LocalContext.current
     val hapticFeedback = LocalHapticFeedback.current
+    val uriHandler = LocalUriHandler.current
+    val summarizerEngine = LocalSummarizerEngine.current
     val isPullToSwitchArticleEnabled = LocalPullToSwitchArticle.current.value
     val readingUiState = viewModel.readingUiState.collectAsStateValue()
     val readerState = viewModel.readerStateStateFlow.collectAsStateValue()
@@ -104,9 +108,7 @@ fun ReadingPage(
     //    }
 
     var bringToTop by remember { mutableStateOf(false) }
-    var showAiSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showAiTranslationBottomSheet by rememberSaveable { mutableStateOf(false) }
-    val aiSummarySheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val aiTranslationSheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     LaunchedEffect(readerState.articleId) {
@@ -131,11 +133,15 @@ fun ReadingPage(
                         onNavButtonClick = onNavAction,
                         onNavigateToStylePage = onNavigateToStylePage,
                         onSummarizeClick = {
-                            showAiTranslationBottomSheet = false
-                            showAiSummaryBottomSheet = true
+                            val link = readerState.link
+                            if (!link.isNullOrBlank()) {
+                                val summaryUrl = summarizerEngine.buildSummaryUrl(link)
+                                uriHandler.openUri(summaryUrl)
+                            } else {
+                                context.showToast(context.getString(R.string.no_link_available))
+                            }
                         },
                         onTranslateClick = {
-                            showAiSummaryBottomSheet = false
                             showAiTranslationBottomSheet = true
                         },
                     )
@@ -380,16 +386,6 @@ fun ReadingPage(
                 )
             },
             onDismissRequest = { showFullScreenImageViewer = false },
-        )
-    }
-
-    if (showAiSummaryBottomSheet && readerState.articleId != null) {
-        val articleContent = readerState.content.text ?: readerState.title ?: ""
-        me.ash.reader.ui.page.home.reading.ai.AiSummaryBottomSheet(
-            title = readerState.title ?: "",
-            content = articleContent,
-            sheetState = aiSummarySheetState,
-            onDismissRequest = { showAiSummaryBottomSheet = false },
         )
     }
 

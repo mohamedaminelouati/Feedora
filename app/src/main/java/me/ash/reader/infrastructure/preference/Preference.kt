@@ -75,6 +75,7 @@ fun Preferences.toSettings(): Settings {
         readingImageRoundedCorners = ReadingImageRoundedCornersPreference.fromPreferences(this),
         readingImageMaximize = ReadingImageMaximizePreference.fromPreferences(this),
         readingAiSummary = ReadingAiSummaryPreference.fromPreferences(this),
+        summarizerEngine = SummarizerEnginePreference.fromPreferences(this),
 
         // Interaction
         initialPage = InitialPagePreference.fromPreferences(this),

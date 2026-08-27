@@ -41,6 +41,8 @@ import androidx.compose.ui.unit.dp
 import me.ash.reader.R
 import me.ash.reader.infrastructure.preference.LocalPullToSwitchArticle
 import me.ash.reader.infrastructure.preference.LocalReadingAiSummary
+import me.ash.reader.infrastructure.preference.LocalSummarizerEngine
+import me.ash.reader.infrastructure.preference.SummarizerEnginePreference
 import me.ash.reader.infrastructure.preference.LocalReadingAutoHideToolbar
 import me.ash.reader.infrastructure.preference.LocalReadingBoldCharacters
 import me.ash.reader.infrastructure.preference.LocalReadingFonts
@@ -85,10 +87,12 @@ fun ReadingStylePage(
     val pullToSwitchArticle = LocalPullToSwitchArticle.current
     val renderer = LocalReadingRenderer.current
     val boldCharacters = LocalReadingBoldCharacters.current
+    val summarizerEngine = LocalSummarizerEngine.current
 
     var tonalElevationDialogVisible by remember { mutableStateOf(false) }
     var rendererDialogVisible by remember { mutableStateOf(false) }
     var fontsDialogVisible by remember { mutableStateOf(false) }
+    var summarizerEngineDialogVisible by remember { mutableStateOf(false) }
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
@@ -224,6 +228,15 @@ fun ReadingStylePage(
                             (!readingAiSummary).put(context, scope)
                         }
                     }
+                    if (readingAiSummary.value) {
+                        SettingItem(
+                            title = stringResource(R.string.summarizer_engine),
+                            desc = summarizerEngine.toDesc(context),
+                            onClick = {
+                                summarizerEngineDialogVisible = true
+                            },
+                        ) {}
+                    }
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.toolbars)
@@ -328,5 +341,20 @@ fun ReadingStylePage(
         }
     ) {
         fontsDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = summarizerEngineDialogVisible,
+        title = stringResource(R.string.summarizer_engine),
+        options = SummarizerEnginePreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(context),
+                selected = it == summarizerEngine,
+            ) {
+                it.put(context, scope)
+            }
+        }
+    ) {
+        summarizerEngineDialogVisible = false
     }
 }
