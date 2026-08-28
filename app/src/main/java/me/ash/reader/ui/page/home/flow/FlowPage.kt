@@ -28,12 +28,18 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ViewList
 import androidx.compose.material.icons.rounded.DoneAll
+import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -82,7 +88,9 @@ import me.ash.reader.infrastructure.preference.LocalFlowArticleListTonalElevatio
 import me.ash.reader.infrastructure.preference.LocalFlowFilterBarPadding
 import me.ash.reader.infrastructure.preference.LocalFlowFilterBarStyle
 import me.ash.reader.infrastructure.preference.LocalFlowFilterBarTonalElevation
+import me.ash.reader.infrastructure.preference.LocalFlowLayout
 import me.ash.reader.infrastructure.preference.LocalFlowTopBarTonalElevation
+import me.ash.reader.infrastructure.preference.not
 import me.ash.reader.infrastructure.preference.LocalMarkAsReadOnScroll
 import me.ash.reader.infrastructure.preference.LocalOpenLink
 import me.ash.reader.infrastructure.preference.LocalOpenLinkSpecificBrowser
@@ -163,7 +171,9 @@ fun FlowPage(
         }
     }
 
+    val flowLayout = LocalFlowLayout.current
     val listState = rememberSaveable(listKey, saver = LazyListState.Saver) { LazyListState(0, 0) }
+    val gridState = rememberSaveable(listKey, saver = LazyGridState.Saver) { LazyGridState(0, 0) }
 
     val restoreScrollPosition = LocalRestoreScrollPosition.current.value
     var isRestoringScroll by remember(listKey) { mutableStateOf(restoreScrollPosition) }
@@ -515,6 +525,25 @@ fun FlowPage(
                                         }
                                 }
                             }
+                            FeedbackIconButton(
+                                imageVector =
+                                    if (flowLayout.isGrid()) {
+                                        Icons.AutoMirrored.Rounded.ViewList
+                                    } else {
+                                        Icons.Rounded.GridView
+                                    },
+                                contentDescription =
+                                    stringResource(
+                                        if (flowLayout.isGrid()) {
+                                            R.string.switch_to_list_view
+                                        } else {
+                                            R.string.switch_to_grid_view
+                                        }
+                                    ),
+                                tint = MaterialTheme.colorScheme.onSurface,
+                            ) {
+                                (!flowLayout).put(context, scope)
+                            }
                         },
                         colors =
                             TopAppBarDefaults.topAppBarColors(
@@ -720,69 +749,137 @@ fun FlowPage(
                             .also { currentPullToLoadState = it }
 
                     Box(modifier = Modifier.fillMaxSize()) {
-                        LazyColumn(
-                            modifier =
-                                Modifier.pullToLoad(
-                                        state = pullToLoadState,
-                                        enabled = true,
-                                        contentOffsetY = { fraction ->
-                                            if (fraction > 0f) {
-                                                (fraction * ContentOffsetMultiple * 1.5f)
-                                                    .dp
-                                                    .roundToPx()
-                                            } else {
-                                                (fraction * ContentOffsetMultiple * 2f)
-                                                    .dp
-                                                    .roundToPx()
-                                            }
-                                        },
-                                        onScroll = {
-                                            if (it < -10f) {
-                                                markAsRead = false
-                                            }
-                                        },
-                                    )
-                                    .nestedScroll(scrollBehavior.nestedScrollConnection)
-                                    .fillMaxSize()
-                                    .drawVerticalScrollIndicator(listState),
-                            state = listState,
-                        ) {
-                            ArticleList(
-                                pagingItems = pagingItems,
-                                diffMap = viewModel.diffMapHolder.diffMap,
-                                isShowFeedIcon = articleListFeedIcon.value,
-                                isShowStickyHeader = articleListDateStickyHeader.value,
-                                articleListTonalElevation = articleListTonalElevation.value,
-                                isSwipeEnabled = { listState.isScrollInProgress },
-                                onClick = { articleWithFeed, index ->
-                                    if (articleWithFeed.feed.isBrowser) {
-                                        viewModel.diffMapHolder.updateDiff(
-                                            articleWithFeed,
-                                            isUnread = false,
+                        if (flowLayout.isGrid()) {
+                            LazyVerticalGrid(
+                                columns = GridCells.Adaptive(minSize = 160.dp),
+                                modifier =
+                                    Modifier.pullToLoad(
+                                            state = pullToLoadState,
+                                            enabled = true,
+                                            contentOffsetY = { fraction ->
+                                                if (fraction > 0f) {
+                                                    (fraction * ContentOffsetMultiple * 1.5f)
+                                                        .dp
+                                                        .roundToPx()
+                                                } else {
+                                                    (fraction * ContentOffsetMultiple * 2f)
+                                                        .dp
+                                                        .roundToPx()
+                                                }
+                                            },
+                                            onScroll = {
+                                                if (it < -10f) {
+                                                    markAsRead = false
+                                                }
+                                            },
                                         )
-                                        context.openURL(
-                                            articleWithFeed.article.link,
-                                            openLink,
-                                            openLinkSpecificBrowser,
-                                        )
-                                    } else {
-                                        navigateToArticle(articleWithFeed.article.id, index)
-                                    }
-                                },
-                                onToggleStarred = onToggleStarred,
-                                onToggleRead = onToggleRead,
-                                onMarkAboveAsRead = onMarkAboveAsRead,
-                                onMarkBelowAsRead = onMarkBelowAsRead,
-                                onShare = onShare,
-                            )
-                            item {
-                                Spacer(modifier = Modifier.height(128.dp))
-                                Spacer(
-                                    modifier =
-                                        Modifier.windowInsetsBottomHeight(
-                                            WindowInsets.navigationBars
-                                        )
+                                        .nestedScroll(scrollBehavior.nestedScrollConnection)
+                                        .fillMaxSize()
+                                        .padding(horizontal = 8.dp),
+                                state = gridState,
+                            ) {
+                                ArticleGrid(
+                                    pagingItems = pagingItems,
+                                    diffMap = viewModel.diffMapHolder.diffMap,
+                                    isShowFeedIcon = articleListFeedIcon.value,
+                                    articleListTonalElevation = articleListTonalElevation.value,
+                                    isMenuEnabled = true,
+                                    onClick = { articleWithFeed, index ->
+                                        if (articleWithFeed.feed.isBrowser) {
+                                            viewModel.diffMapHolder.updateDiff(
+                                                articleWithFeed,
+                                                isUnread = false,
+                                            )
+                                            context.openURL(
+                                                articleWithFeed.article.link,
+                                                openLink,
+                                                openLinkSpecificBrowser,
+                                            )
+                                        } else {
+                                            navigateToArticle(articleWithFeed.article.id, index)
+                                        }
+                                    },
+                                    onToggleStarred = onToggleStarred,
+                                    onToggleRead = onToggleRead,
+                                    onMarkAboveAsRead = onMarkAboveAsRead,
+                                    onMarkBelowAsRead = onMarkBelowAsRead,
+                                    onShare = onShare,
                                 )
+                                item(span = { GridItemSpan(maxLineSpan) }) {
+                                    Spacer(modifier = Modifier.height(128.dp))
+                                    Spacer(
+                                        modifier =
+                                            Modifier.windowInsetsBottomHeight(
+                                                WindowInsets.navigationBars
+                                            )
+                                    )
+                                }
+                            }
+                        } else {
+                            LazyColumn(
+                                modifier =
+                                    Modifier.pullToLoad(
+                                            state = pullToLoadState,
+                                            enabled = true,
+                                            contentOffsetY = { fraction ->
+                                                if (fraction > 0f) {
+                                                    (fraction * ContentOffsetMultiple * 1.5f)
+                                                        .dp
+                                                        .roundToPx()
+                                                } else {
+                                                    (fraction * ContentOffsetMultiple * 2f)
+                                                        .dp
+                                                        .roundToPx()
+                                                }
+                                            },
+                                            onScroll = {
+                                                if (it < -10f) {
+                                                    markAsRead = false
+                                                }
+                                            },
+                                        )
+                                        .nestedScroll(scrollBehavior.nestedScrollConnection)
+                                        .fillMaxSize()
+                                        .drawVerticalScrollIndicator(listState),
+                                state = listState,
+                            ) {
+                                ArticleList(
+                                    pagingItems = pagingItems,
+                                    diffMap = viewModel.diffMapHolder.diffMap,
+                                    isShowFeedIcon = articleListFeedIcon.value,
+                                    isShowStickyHeader = articleListDateStickyHeader.value,
+                                    articleListTonalElevation = articleListTonalElevation.value,
+                                    isSwipeEnabled = { listState.isScrollInProgress },
+                                    onClick = { articleWithFeed, index ->
+                                        if (articleWithFeed.feed.isBrowser) {
+                                            viewModel.diffMapHolder.updateDiff(
+                                                articleWithFeed,
+                                                isUnread = false,
+                                            )
+                                            context.openURL(
+                                                articleWithFeed.article.link,
+                                                openLink,
+                                                openLinkSpecificBrowser,
+                                            )
+                                        } else {
+                                            navigateToArticle(articleWithFeed.article.id, index)
+                                        }
+                                    },
+                                    onToggleStarred = onToggleStarred,
+                                    onToggleRead = onToggleRead,
+                                    onMarkAboveAsRead = onMarkAboveAsRead,
+                                    onMarkBelowAsRead = onMarkBelowAsRead,
+                                    onShare = onShare,
+                                )
+                                item {
+                                    Spacer(modifier = Modifier.height(128.dp))
+                                    Spacer(
+                                        modifier =
+                                            Modifier.windowInsetsBottomHeight(
+                                                WindowInsets.navigationBars
+                                            )
+                                    )
+                                }
                             }
                         }
                     }
@@ -808,8 +905,14 @@ fun FlowPage(
                         viewModel.changeFilter(filterUiState.copy(filter = it))
                     } else {
                         scope.launch {
-                            if (listState.firstVisibleItemIndex != 0) {
-                                listState.animateScrollToItem(0)
+                            if (flowLayout.isGrid()) {
+                                if (gridState.firstVisibleItemIndex != 0) {
+                                    gridState.animateScrollToItem(0)
+                                }
+                            } else {
+                                if (listState.firstVisibleItemIndex != 0) {
+                                    listState.animateScrollToItem(0)
+                                }
                             }
                         }
                     }

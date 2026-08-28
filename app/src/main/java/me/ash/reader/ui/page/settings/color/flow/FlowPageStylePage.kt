@@ -39,6 +39,7 @@ fun FlowPageStylePage(
     val articleListTonalElevation = LocalFlowArticleListTonalElevation.current
     val articleListReadIndicator = LocalFlowArticleListReadIndicator.current
     val sortUnreadArticles = LocalSortUnreadArticles.current
+    val flowLayout = LocalFlowLayout.current
 
     val settings = LocalSettings.current
     val pullToSwitchFeed = settings.pullToSwitchFeed
@@ -53,6 +54,7 @@ fun FlowPageStylePage(
     var articleListReadIndicatorDialogVisible by remember { mutableStateOf(false) }
     var showArticleListDescDialog by remember { mutableStateOf(false) }
     var showPullToLoadDialog by remember { mutableStateOf(false) }
+    var showFlowLayoutDialog by remember { mutableStateOf(false) }
 
     var showSortUnreadArticlesDialog by remember { mutableStateOf(false) }
 
@@ -129,6 +131,13 @@ fun FlowPageStylePage(
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.article_list)
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.article_layout),
+                        desc = flowLayout.toDesc(context),
+                        onClick = {
+                            showFlowLayoutDialog = true
+                        },
                     )
                     SettingItem(
                         title = stringResource(R.string.feed_favicons),
@@ -396,6 +405,22 @@ fun FlowPageStylePage(
         },
         onDismissRequest = {
             showPullToLoadDialog = false
+        }
+    )
+
+    RadioDialog(
+        visible = showFlowLayoutDialog,
+        title = stringResource(R.string.article_layout),
+        options = FlowLayoutPreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(context),
+                selected = it == flowLayout,
+            ) {
+                it.put(context, scope)
+            }
+        },
+        onDismissRequest = {
+            showFlowLayoutDialog = false
         }
     )
 }

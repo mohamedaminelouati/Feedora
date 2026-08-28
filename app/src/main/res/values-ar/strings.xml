@@ -466,4 +466,9 @@
     <string name="cloud_restore_success">تمت الاستعادة السحابية بنجاح</string>
     <string name="cloud_restore_failed">فشلت الاستعادة السحابية</string>
     <string name="cloud_delete_success">تم حذف النسخة الاحتياطية البعيدة</string>
+    <string name="article_layout">طريقة عرض المقالات</string>
+    <string name="layout_list">قائمة</string>
+    <string name="layout_grid">شبكة</string>
+    <string name="switch_to_grid_view">التبديل إلى عرض الشبكة</string>
+    <string name="switch_to_list_view">التبديل إلى عرض القائمة</string>
 </resources>

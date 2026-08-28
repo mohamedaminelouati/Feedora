@@ -369,6 +369,7 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val flowArticleListTonalElevation = "flowArticleListTonalElevation"
         const val flowArticleListReadIndicator = "flowArticleListReadStatusIndicator"
         const val flowSortUnreadArticles = "flowArticleListSortUnreadArticles"
+        const val flowLayout = "flowLayout"
 
         // Reading page
         const val readingRenderer = "readingRender"
@@ -510,6 +511,8 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                         booleanPreferencesKey(flowSortUnreadArticles),
                         Boolean::class.java,
                     ),
+                flowLayout to
+                    DataStoreKey(intPreferencesKey(flowLayout), Int::class.java),
                 // Reading page
                 readingRenderer to
                     DataStoreKey(intPreferencesKey(readingRenderer), Int::class.java),

@@ -453,4 +453,9 @@
     <string name="cloud_restore_success">Restauration cloud terminée avec succès</string>
     <string name="cloud_restore_failed">Échec de la restauration cloud</string>
     <string name="cloud_delete_success">Sauvegarde distante supprimée</string>
+    <string name="article_layout">Disposition des articles</string>
+    <string name="layout_list">Liste</string>
+    <string name="layout_grid">Grille</string>
+    <string name="switch_to_grid_view">Passer en vue grille</string>
+    <string name="switch_to_list_view">Passer en vue liste</string>
 </resources>
