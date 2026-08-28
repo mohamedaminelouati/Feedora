@@ -439,6 +439,7 @@
     <string name="export_preferences">Export settings only</string>
     <string name="import_preferences">Import settings only</string>
     <string name="backup_export_success">Backup exported successfully</string>
+    <string name="backup_export_failed">Failed to export backup</string>
     <string name="backup_import_success">Backup imported successfully</string>
     <string name="backup_import_failed">Failed to import backup</string>
 </resources>

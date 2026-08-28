@@ -422,6 +422,7 @@
     <string name="export_preferences">تصدير الإعدادات فقط</string>
     <string name="import_preferences">استيراد الإعدادات فقط</string>
     <string name="backup_export_success">تم تصدير النسخة الاحتياطية بنجاح</string>
+    <string name="backup_export_failed">فشل تصدير النسخة الاحتياطية</string>
     <string name="backup_import_success">تم استيراد النسخة الاحتياطية بنجاح</string>
     <string name="backup_import_failed">فشل استيراد النسخة الاحتياطية</string>
 </resources>

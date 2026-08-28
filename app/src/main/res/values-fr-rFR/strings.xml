@@ -409,6 +409,7 @@
     <string name="export_preferences">Exporter uniquement les préférences</string>
     <string name="import_preferences">Importer uniquement les préférences</string>
     <string name="backup_export_success">Sauvegarde exportée avec succès</string>
+    <string name="backup_export_failed">Échec de l\'exportation de la sauvegarde</string>
     <string name="backup_import_success">Sauvegarde importée avec succès</string>
     <string name="backup_import_failed">Échec de l\'importation de la sauvegarde</string>
 </resources>

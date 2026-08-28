@@ -80,14 +80,12 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
     val fullBackupExportLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { result ->
             result?.let { uri ->
-                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    viewModel.exportFullBackup(context, outputStream) { res ->
-                        res.onSuccess {
-                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                            context.showToast(context.getString(R.string.backup_export_success))
-                        }.onFailure {
-                            context.showToast(context.getString(R.string.backup_import_failed))
-                        }
+                viewModel.exportFullBackup(context, uri) { res ->
+                    res.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_export_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_export_failed))
                     }
                 }
             }
@@ -96,14 +94,12 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
     val fullBackupImportLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { resultUri ->
             resultUri?.let { uri ->
-                context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    viewModel.importBackup(context, inputStream) { importResult ->
-                        importResult.onSuccess {
-                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                            context.showToast(context.getString(R.string.backup_import_success))
-                        }.onFailure {
-                            context.showToast(context.getString(R.string.backup_import_failed))
-                        }
+                viewModel.importBackup(context, uri) { importResult ->
+                    importResult.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_import_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_import_failed))
                     }
                 }
             }
@@ -112,14 +108,12 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
     val preferencesExportLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { result ->
             result?.let { uri ->
-                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    viewModel.exportPreferencesAsJSON(context, outputStream) { res ->
-                        res.onSuccess {
-                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                            context.showToast(context.getString(R.string.backup_export_success))
-                        }.onFailure {
-                            context.showToast(context.getString(R.string.backup_import_failed))
-                        }
+                viewModel.exportPreferencesAsJSON(context, uri) { res ->
+                    res.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_export_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_export_failed))
                     }
                 }
             }
@@ -128,14 +122,12 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
     val preferencesImportLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { resultUri ->
             resultUri?.let { uri ->
-                context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    viewModel.importPreferences(context, inputStream) { res ->
-                        res.onSuccess {
-                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
-                            context.showToast(context.getString(R.string.backup_import_success))
-                        }.onFailure {
-                            context.showToast(context.getString(R.string.backup_import_failed))
-                        }
+                viewModel.importPreferences(context, uri) { res ->
+                    res.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_import_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_import_failed))
                     }
                 }
             }

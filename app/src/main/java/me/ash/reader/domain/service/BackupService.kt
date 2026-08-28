@@ -12,6 +12,7 @@ import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import java.io.BufferedReader
 import java.io.BufferedWriter
@@ -314,6 +315,7 @@ constructor(
             var articlesCount = 0
             var hasPreferences = false
             var isFullBackup = false
+            val legacyPreferencesMap = mutableMapOf<String, Any?>()
 
             jsonReader.beginObject()
             while (jsonReader.hasNext()) {
@@ -416,7 +418,21 @@ constructor(
                         }
                     }
                     else -> {
-                        jsonReader.skipValue()
+                        val value: Any? = when (jsonReader.peek()) {
+                            JsonToken.BOOLEAN -> jsonReader.nextBoolean()
+                            JsonToken.NUMBER -> {
+                                val numStr = jsonReader.nextString()
+                                numStr.toLongOrNull() ?: numStr.toDoubleOrNull() ?: numStr
+                            }
+                            JsonToken.STRING -> jsonReader.nextString()
+                            else -> {
+                                jsonReader.skipValue()
+                                null
+                            }
+                        }
+                        if (value != null) {
+                            legacyPreferencesMap[fieldName] = value
+                        }
                     }
                 }
             }
@@ -431,6 +447,14 @@ constructor(
                     hasPreferences = hasPreferences,
                 )
             } else {
+                if (legacyPreferencesMap.isNotEmpty()) {
+                    runCatching {
+                        val prefJson = gson.toJson(legacyPreferencesMap)
+                        prefJson.fromJSONStringToDataStore(context)
+                    }.onFailure {
+                        Timber.w(it, "Failed to restore legacy preferences")
+                    }
+                }
                 BackupImportResult.PreferencesOnly
             }
         }.onFailure {

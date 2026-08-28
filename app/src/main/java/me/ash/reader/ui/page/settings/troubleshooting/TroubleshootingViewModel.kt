@@ -1,12 +1,11 @@
 package me.ash.reader.ui.page.settings.troubleshooting
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.io.InputStream
-import java.io.OutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.ash.reader.domain.data.Log
 import me.ash.reader.domain.data.SyncLogger
 import me.ash.reader.domain.service.AccountService
@@ -26,6 +26,7 @@ import me.ash.reader.infrastructure.di.ApplicationScope
 import me.ash.reader.infrastructure.di.DefaultDispatcher
 import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.di.MainDispatcher
+import timber.log.Timber
 
 @HiltViewModel
 class TroubleshootingViewModel
@@ -57,53 +58,85 @@ constructor(
 
     fun importBackup(
         context: Context,
-        inputStream: InputStream,
+        uri: Uri,
         onComplete: (Result<BackupImportResult>) -> Unit = {},
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             _troubleshootingUiState.update { it.copy(isLoading = true) }
-            val result = backupService.importBackup(context, inputStream)
+            val result = runCatching {
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    backupService.importBackup(context, inputStream).getOrThrow()
+                } ?: throw IllegalStateException("Cannot open input stream for $uri")
+            }.onFailure {
+                Timber.e(it, "Failed to import backup from $uri")
+            }
             _troubleshootingUiState.update { it.copy(isLoading = false) }
-            onComplete(result)
+            withContext(mainDispatcher) {
+                onComplete(result)
+            }
         }
     }
 
     fun importPreferences(
         context: Context,
-        inputStream: InputStream,
+        uri: Uri,
         onComplete: (Result<Unit>) -> Unit = {},
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             _troubleshootingUiState.update { it.copy(isLoading = true) }
-            val result = backupService.importPreferencesOnly(context, inputStream)
+            val result = runCatching {
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    backupService.importPreferencesOnly(context, inputStream).getOrThrow()
+                } ?: throw IllegalStateException("Cannot open input stream for $uri")
+            }.onFailure {
+                Timber.e(it, "Failed to import preferences from $uri")
+            }
             _troubleshootingUiState.update { it.copy(isLoading = false) }
-            onComplete(result)
+            withContext(mainDispatcher) {
+                onComplete(result)
+            }
         }
     }
 
     fun exportFullBackup(
         context: Context,
-        outputStream: OutputStream,
+        uri: Uri,
         onComplete: (Result<Unit>) -> Unit = {},
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             _troubleshootingUiState.update { it.copy(isLoading = true) }
-            val result = runCatching { backupService.exportFullBackup(context, outputStream) }
+            val result = runCatching {
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    backupService.exportFullBackup(context, outputStream)
+                } ?: throw IllegalStateException("Cannot open output stream for $uri")
+            }.onFailure {
+                Timber.e(it, "Failed to export full backup to $uri")
+            }
             _troubleshootingUiState.update { it.copy(isLoading = false) }
-            onComplete(result)
+            withContext(mainDispatcher) {
+                onComplete(result)
+            }
         }
     }
 
     fun exportPreferencesAsJSON(
         context: Context,
-        outputStream: OutputStream,
+        uri: Uri,
         onComplete: (Result<Unit>) -> Unit = {},
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             _troubleshootingUiState.update { it.copy(isLoading = true) }
-            val result = runCatching { backupService.exportPreferencesOnly(context, outputStream) }
+            val result = runCatching {
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    backupService.exportPreferencesOnly(context, outputStream)
+                } ?: throw IllegalStateException("Cannot open output stream for $uri")
+            }.onFailure {
+                Timber.e(it, "Failed to export preferences to $uri")
+            }
             _troubleshootingUiState.update { it.copy(isLoading = false) }
-            onComplete(result)
+            withContext(mainDispatcher) {
+                onComplete(result)
+            }
         }
     }
 
