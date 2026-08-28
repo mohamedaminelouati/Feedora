@@ -69,6 +69,8 @@ data class Settings(
     val readingImageMaximize: ReadingImageMaximizePreference = ReadingImageMaximizePreference.default,
     val readingAiSummary: ReadingAiSummaryPreference = ReadingAiSummaryPreference.default,
     val summarizerEngine: SummarizerEnginePreference = SummarizerEnginePreference.default,
+    val summarizerLanguage: SummarizerLanguagePreference = SummarizerLanguagePreference.default,
+    val summarizerStyle: SummarizerStylePreference = SummarizerStylePreference.default,
 
     // Interaction
     val initialPage: InitialPagePreference = InitialPagePreference.default,

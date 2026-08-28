@@ -76,6 +76,8 @@ fun Preferences.toSettings(): Settings {
         readingImageMaximize = ReadingImageMaximizePreference.fromPreferences(this),
         readingAiSummary = ReadingAiSummaryPreference.fromPreferences(this),
         summarizerEngine = SummarizerEnginePreference.fromPreferences(this),
+        summarizerLanguage = SummarizerLanguagePreference.fromPreferences(this),
+        summarizerStyle = SummarizerStylePreference.fromPreferences(this),
 
         // Interaction
         initialPage = InitialPagePreference.fromPreferences(this),

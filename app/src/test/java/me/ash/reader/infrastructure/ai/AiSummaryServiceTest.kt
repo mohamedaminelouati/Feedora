@@ -24,17 +24,33 @@ class AiSummaryServiceTest {
     fun testSummarizerEngineUrls() {
         val testUrl = "https://example.com/article/123"
 
+        val chatGptFrenchKeyPoints = SummarizerEnginePreference.ChatGPT.buildSummaryUrl(
+            articleUrl = testUrl,
+            language = AiLanguage.FRENCH,
+            style = AiSummaryStyle.KEY_POINTS,
+        )
+        Assert.assertTrue(chatGptFrenchKeyPoints.contains("chatgpt.com/?q="))
+        Assert.assertTrue(chatGptFrenchKeyPoints.contains("points"))
+
+        val perplexityArabicTldr = SummarizerEnginePreference.Perplexity.buildSummaryUrl(
+            articleUrl = testUrl,
+            language = AiLanguage.ARABIC,
+            style = AiSummaryStyle.TLDR,
+        )
+        Assert.assertTrue(perplexityArabicTldr.contains("perplexity.ai/search?q="))
+
+        val claudeEnglishDetailed = SummarizerEnginePreference.Claude.buildSummaryUrl(
+            articleUrl = testUrl,
+            language = AiLanguage.ENGLISH,
+            style = AiSummaryStyle.DETAILED,
+        )
+        Assert.assertTrue(claudeEnglishDetailed.contains("claude.ai/new?q="))
+
         val smryUrl = SummarizerEnginePreference.Smry.buildSummaryUrl(testUrl)
         Assert.assertEquals("https://smry.ai/example.com/article/123", smryUrl)
 
         val kagiUrl = SummarizerEnginePreference.Kagi.buildSummaryUrl(testUrl)
         Assert.assertTrue(kagiUrl.contains("kagi.com/summarizer?url="))
-
-        val perplexityUrl = SummarizerEnginePreference.Perplexity.buildSummaryUrl(testUrl)
-        Assert.assertTrue(perplexityUrl.contains("perplexity.ai/search?q="))
-
-        val chatGptUrl = SummarizerEnginePreference.ChatGPT.buildSummaryUrl(testUrl)
-        Assert.assertTrue(chatGptUrl.contains("chatgpt.com/?q="))
     }
 
     @Test
@@ -53,6 +69,18 @@ class AiSummaryServiceTest {
         Assert.assertEquals(AiLanguage.FRENCH, AiLanguage.fromName("FRENCH"))
         Assert.assertEquals(AiLanguage.ARABIC, AiLanguage.fromName("arabic"))
         Assert.assertEquals(AiLanguage.AUTO, AiLanguage.fromName("unknown"))
+    }
+
+    @Test
+    fun testAiSummaryStylePrompt() {
+        val promptFr = AiSummaryStyle.KEY_POINTS.toPrompt(AiLanguage.FRENCH)
+        Assert.assertTrue(promptFr.contains("français"))
+
+        val promptAr = AiSummaryStyle.TLDR.toPrompt(AiLanguage.ARABIC)
+        Assert.assertTrue(promptAr.contains("العربية"))
+
+        val promptEn = AiSummaryStyle.DETAILED.toPrompt(AiLanguage.ENGLISH)
+        Assert.assertTrue(promptEn.contains("English"))
     }
 
     @Test

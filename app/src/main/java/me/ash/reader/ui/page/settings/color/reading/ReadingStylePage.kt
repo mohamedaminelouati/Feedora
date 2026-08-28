@@ -39,10 +39,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import me.ash.reader.R
+import me.ash.reader.infrastructure.ai.AiLanguage
 import me.ash.reader.infrastructure.preference.LocalPullToSwitchArticle
 import me.ash.reader.infrastructure.preference.LocalReadingAiSummary
 import me.ash.reader.infrastructure.preference.LocalSummarizerEngine
+import me.ash.reader.infrastructure.preference.LocalSummarizerLanguage
+import me.ash.reader.infrastructure.preference.LocalSummarizerStyle
 import me.ash.reader.infrastructure.preference.SummarizerEnginePreference
+import me.ash.reader.infrastructure.preference.SummarizerLanguagePreference
+import me.ash.reader.infrastructure.preference.SummarizerStylePreference
 import me.ash.reader.infrastructure.preference.LocalReadingAutoHideToolbar
 import me.ash.reader.infrastructure.preference.LocalReadingBoldCharacters
 import me.ash.reader.infrastructure.preference.LocalReadingFonts
@@ -88,11 +93,15 @@ fun ReadingStylePage(
     val renderer = LocalReadingRenderer.current
     val boldCharacters = LocalReadingBoldCharacters.current
     val summarizerEngine = LocalSummarizerEngine.current
+    val summarizerLanguage = LocalSummarizerLanguage.current
+    val summarizerStyle = LocalSummarizerStyle.current
 
     var tonalElevationDialogVisible by remember { mutableStateOf(false) }
     var rendererDialogVisible by remember { mutableStateOf(false) }
     var fontsDialogVisible by remember { mutableStateOf(false) }
     var summarizerEngineDialogVisible by remember { mutableStateOf(false) }
+    var summarizerLanguageDialogVisible by remember { mutableStateOf(false) }
+    var summarizerStyleDialogVisible by remember { mutableStateOf(false) }
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
@@ -236,6 +245,20 @@ fun ReadingStylePage(
                                 summarizerEngineDialogVisible = true
                             },
                         ) {}
+                        SettingItem(
+                            title = stringResource(R.string.summarizer_language),
+                            desc = summarizerLanguage.toDesc(context),
+                            onClick = {
+                                summarizerLanguageDialogVisible = true
+                            },
+                        ) {}
+                        SettingItem(
+                            title = stringResource(R.string.summarizer_style),
+                            desc = summarizerStyle.toDesc(context),
+                            onClick = {
+                                summarizerStyleDialogVisible = true
+                            },
+                        ) {}
                     }
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
@@ -356,5 +379,35 @@ fun ReadingStylePage(
         }
     ) {
         summarizerEngineDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = summarizerLanguageDialogVisible,
+        title = stringResource(R.string.summarizer_language),
+        options = SummarizerLanguagePreference.values.map {
+            RadioDialogOption(
+                text = it.displayName,
+                selected = it == summarizerLanguage.language,
+            ) {
+                SummarizerLanguagePreference(it).put(context, scope)
+            }
+        }
+    ) {
+        summarizerLanguageDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = summarizerStyleDialogVisible,
+        title = stringResource(R.string.summarizer_style),
+        options = SummarizerStylePreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(context),
+                selected = it == summarizerStyle,
+            ) {
+                it.put(context, scope)
+            }
+        }
+    ) {
+        summarizerStyleDialogVisible = false
     }
 }

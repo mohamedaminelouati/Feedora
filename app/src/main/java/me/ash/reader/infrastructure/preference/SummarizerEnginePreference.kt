@@ -7,7 +7,8 @@ import androidx.datastore.preferences.core.Preferences
 import java.net.URLEncoder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import me.ash.reader.R
+import me.ash.reader.infrastructure.ai.AiLanguage
+import me.ash.reader.infrastructure.ai.AiSummaryStyle
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.DataStoreKey.Companion.summarizerEngine
 import me.ash.reader.ui.ext.dataStore
@@ -17,10 +18,11 @@ val LocalSummarizerEngine =
     compositionLocalOf<SummarizerEnginePreference> { SummarizerEnginePreference.default }
 
 sealed class SummarizerEnginePreference(val value: Int) : Preference() {
-    data object Smry : SummarizerEnginePreference(0)
-    data object Kagi : SummarizerEnginePreference(1)
-    data object Perplexity : SummarizerEnginePreference(2)
-    data object ChatGPT : SummarizerEnginePreference(3)
+    data object ChatGPT : SummarizerEnginePreference(0)
+    data object Perplexity : SummarizerEnginePreference(1)
+    data object Claude : SummarizerEnginePreference(2)
+    data object Smry : SummarizerEnginePreference(3)
+    data object Kagi : SummarizerEnginePreference(4)
 
     override fun put(context: Context, scope: CoroutineScope) {
         scope.launch {
@@ -34,15 +36,35 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
     @Stable
     fun toDesc(context: Context): String =
         when (this) {
+            ChatGPT -> "ChatGPT Web"
+            Perplexity -> "Perplexity AI"
+            Claude -> "Claude Web"
             Smry -> "Smry.ai"
             Kagi -> "Kagi Summarizer"
-            Perplexity -> "Perplexity AI"
-            ChatGPT -> "ChatGPT Web"
         }
 
-    fun buildSummaryUrl(articleUrl: String): String {
+    fun buildSummaryUrl(
+        articleUrl: String,
+        language: AiLanguage = AiLanguage.AUTO,
+        style: AiSummaryStyle = AiSummaryStyle.KEY_POINTS,
+    ): String {
         val cleanUrl = articleUrl.trim()
+        val prompt = style.toPrompt(language)
+        val fullQuery = "$prompt $cleanUrl"
+
         return when (this) {
+            ChatGPT -> {
+                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
+                "https://chatgpt.com/?q=$encoded"
+            }
+            Perplexity -> {
+                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
+                "https://www.perplexity.ai/search?q=$encoded"
+            }
+            Claude -> {
+                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
+                "https://claude.ai/new?q=$encoded"
+            }
             Smry -> {
                 val noProtocol = cleanUrl.removePrefix("https://").removePrefix("http://")
                 "https://smry.ai/$noProtocol"
@@ -51,27 +73,20 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
                 val encoded = runCatching { URLEncoder.encode(cleanUrl, "UTF-8") }.getOrDefault(cleanUrl)
                 "https://kagi.com/summarizer?url=$encoded"
             }
-            Perplexity -> {
-                val query = runCatching { URLEncoder.encode("Summarize: $cleanUrl", "UTF-8") }.getOrDefault(cleanUrl)
-                "https://www.perplexity.ai/search?q=$query"
-            }
-            ChatGPT -> {
-                val query = runCatching { URLEncoder.encode("Summarize this article: $cleanUrl", "UTF-8") }.getOrDefault(cleanUrl)
-                "https://chatgpt.com/?q=$query"
-            }
         }
     }
 
     companion object {
-        val default: SummarizerEnginePreference = Smry
-        val values = listOf(Smry, Kagi, Perplexity, ChatGPT)
+        val default: SummarizerEnginePreference = ChatGPT
+        val values = listOf(ChatGPT, Perplexity, Claude, Smry, Kagi)
 
         fun fromPreferences(preferences: Preferences): SummarizerEnginePreference =
             when (preferences[DataStoreKey.keys[summarizerEngine]?.key as Preferences.Key<Int>]) {
-                0 -> Smry
-                1 -> Kagi
-                2 -> Perplexity
-                3 -> ChatGPT
+                0 -> ChatGPT
+                1 -> Perplexity
+                2 -> Claude
+                3 -> Smry
+                4 -> Kagi
                 else -> default
             }
     }

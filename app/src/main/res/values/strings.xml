@@ -391,6 +391,8 @@
     <string name="reading_ai_summary">Article Summary</string>
     <string name="reading_ai_summary_desc">Show summary button in reading toolbar to open in browser</string>
     <string name="summarizer_engine">Summarizer Engine</string>
+    <string name="summarizer_language">Summary Language</string>
+    <string name="summarizer_style">Summary Format / Style</string>
     <string name="no_link_available">No link available for this article</string>
     <plurals name="new_articles_count">
         <item quantity="one">%1$d new article added</item>

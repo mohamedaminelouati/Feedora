@@ -49,6 +49,8 @@ import me.ash.reader.infrastructure.preference.LocalReadingAutoHideToolbar
 import me.ash.reader.infrastructure.preference.LocalReadingBoldCharacters
 import me.ash.reader.infrastructure.preference.LocalReadingTextLineHeight
 import me.ash.reader.infrastructure.preference.LocalSummarizerEngine
+import me.ash.reader.infrastructure.preference.LocalSummarizerLanguage
+import me.ash.reader.infrastructure.preference.LocalSummarizerStyle
 import me.ash.reader.infrastructure.preference.not
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.collectAsStateValue
@@ -81,6 +83,8 @@ fun ReadingPage(
     val hapticFeedback = LocalHapticFeedback.current
     val uriHandler = LocalUriHandler.current
     val summarizerEngine = LocalSummarizerEngine.current
+    val summarizerLanguage = LocalSummarizerLanguage.current
+    val summarizerStyle = LocalSummarizerStyle.current
     val isPullToSwitchArticleEnabled = LocalPullToSwitchArticle.current.value
     val readingUiState = viewModel.readingUiState.collectAsStateValue()
     val readerState = viewModel.readerStateStateFlow.collectAsStateValue()
@@ -135,7 +139,11 @@ fun ReadingPage(
                         onSummarizeClick = {
                             val link = readerState.link
                             if (!link.isNullOrBlank()) {
-                                val summaryUrl = summarizerEngine.buildSummaryUrl(link)
+                                val summaryUrl = summarizerEngine.buildSummaryUrl(
+                                    articleUrl = link,
+                                    language = summarizerLanguage.language,
+                                    style = summarizerStyle.style,
+                                )
                                 uriHandler.openUri(summaryUrl)
                             } else {
                                 context.showToast(context.getString(R.string.no_link_available))

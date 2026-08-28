@@ -370,6 +370,8 @@
     <string name="reading_ai_summary">تلخيص المقال</string>
     <string name="reading_ai_summary_desc">إظهار زر التلخيص في شريط أدوات القراءة لفتحه في المتصفح</string>
     <string name="summarizer_engine">محرك التلخيص</string>
+    <string name="summarizer_language">لغة التلخيص</string>
+    <string name="summarizer_style">نمط التلخيص</string>
     <string name="no_link_available">لا يوجد رابط متاح لهذا المقال</string>
     <plurals name="new_articles_count">
         <item quantity="zero">لم تتم إضافة أي مقال جديد</item>

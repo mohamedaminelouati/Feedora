@@ -128,6 +128,8 @@ class SettingsProvider @Inject constructor(
             LocalReadingImageMaximize provides settings.readingImageMaximize,
             LocalReadingAiSummary provides settings.readingAiSummary,
             LocalSummarizerEngine provides settings.summarizerEngine,
+            LocalSummarizerLanguage provides settings.summarizerLanguage,
+            LocalSummarizerStyle provides settings.summarizerStyle,
 
             // Interaction
             LocalInitialPage provides settings.initialPage,
