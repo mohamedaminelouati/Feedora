@@ -21,22 +21,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.ReportGmailerrorred
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.ClipEntry
@@ -58,7 +53,6 @@ import me.ash.reader.infrastructure.preference.OpenLinkPreference
 import me.ash.reader.ui.component.base.Banner
 import me.ash.reader.ui.component.base.DisplayText
 import me.ash.reader.ui.component.base.FeedbackIconButton
-import me.ash.reader.ui.component.base.RYDialog
 import me.ash.reader.ui.component.base.RYScaffold
 import me.ash.reader.ui.component.base.Subtitle
 import me.ash.reader.ui.ext.DateFormat
@@ -66,6 +60,7 @@ import me.ash.reader.ui.ext.MimeType
 import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.ext.getCurrentVersion
 import me.ash.reader.ui.ext.openURL
+import me.ash.reader.ui.ext.showToast
 import me.ash.reader.ui.ext.toString
 import me.ash.reader.ui.page.settings.SettingItem
 import me.ash.reader.ui.theme.palette.onLight
@@ -77,30 +72,48 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
     val hapticFeedback = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
     val uiState = viewModel.troubleshootingUiState.collectAsStateValue()
-    var byteArray by remember { mutableStateOf(ByteArray(0)) }
 
     val syncLogList = remember { mutableStateListOf<Log>() }
 
     LaunchedEffect(viewModel) { viewModel.getSyncLogs().let { syncLogList.addAll(it) } }
 
-    val exportLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) {
-            result ->
-            viewModel.exportPreferencesAsJSON(context) { byteArray ->
-                result?.let { uri ->
+    val fullBackupExportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { result ->
+            result?.let { uri ->
+                viewModel.exportFullBackup(context) { bytes ->
                     context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        outputStream.write(byteArray)
+                        outputStream.write(bytes)
                     }
+                    context.showToast(context.getString(R.string.backup_export_success))
                 }
             }
         }
 
-    val importLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) {
-            it?.let { uri ->
+    val preferencesExportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { result ->
+            result?.let { uri ->
+                viewModel.exportPreferencesAsJSON(context) { bytes ->
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        outputStream.write(bytes)
+                    }
+                    context.showToast(context.getString(R.string.backup_export_success))
+                }
+            }
+        }
+
+    val backupImportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { resultUri ->
+            resultUri?.let { uri ->
                 context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    byteArray = inputStream.readBytes()
-                    viewModel.tryImport(context, byteArray)
+                    val bytes = inputStream.readBytes()
+                    viewModel.importBackup(context, bytes) { importResult ->
+                        importResult.onSuccess {
+                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                            context.showToast(context.getString(R.string.backup_import_success))
+                        }.onFailure {
+                            context.showToast(context.getString(R.string.backup_import_failed))
+                        }
+                    }
                 }
             }
         }
@@ -152,15 +165,20 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                     Spacer(modifier = Modifier.height(24.dp))
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.app_preferences),
+                        text = stringResource(R.string.backup_and_restore),
                     )
                     SettingItem(
-                        title = stringResource(R.string.import_from_json),
-                        onClick = { importLauncher.launch(arrayOf(MimeType.ANY)) },
+                        title = stringResource(R.string.export_full_backup),
+                        desc = stringResource(R.string.export_full_backup_desc),
+                        onClick = { fullBackupFileLauncher(context, fullBackupExportLauncher) },
                     ) {}
                     SettingItem(
-                        title = stringResource(R.string.export_as_json),
-                        onClick = { preferenceFileLauncher(context, exportLauncher) },
+                        title = stringResource(R.string.import_full_backup),
+                        onClick = { backupImportLauncher.launch(arrayOf(MimeType.ANY)) },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.export_preferences),
+                        onClick = { preferenceFileLauncher(context, preferencesExportLauncher) },
                     ) {}
                     Spacer(modifier = Modifier.height(24.dp))
                 }
@@ -213,33 +231,16 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
             }
         },
     )
+}
 
-    RYDialog(
-        visible = uiState.warningDialogVisible,
-        onDismissRequest = { viewModel.hideWarningDialog() },
-        icon = {
-            Icon(
-                imageVector = Icons.Outlined.ReportGmailerrorred,
-                contentDescription = stringResource(R.string.import_from_json),
-            )
-        },
-        title = { Text(text = stringResource(R.string.import_from_json)) },
-        text = { Text(text = stringResource(R.string.invalid_json_file_warning)) },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    viewModel.hideWarningDialog()
-                    viewModel.importPreferencesFromJSON(context, byteArray)
-                }
-            ) {
-                Text(text = stringResource(R.string.confirm))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = { viewModel.hideWarningDialog() }) {
-                Text(text = stringResource(R.string.cancel))
-            }
-        },
+private fun fullBackupFileLauncher(
+    context: Context,
+    launcher: ManagedActivityResultLauncher<String, Uri?>,
+) {
+    launcher.launch(
+        "Read-You-" +
+            "${context.getCurrentVersion()}-full-backup-" +
+            "${Date().toString(DateFormat.YYYY_MM_DD_DASH_HH_MM_SS_DASH)}.json"
     )
 }
 

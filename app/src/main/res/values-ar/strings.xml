@@ -415,4 +415,13 @@
     <string name="sync_status_yesterday">أمس عند %1$s</string>
     <string name="sync_status_success_prefix">تمت المزامنة: %1$s</string>
     <string name="sync_status_failed_prefix">فشلت المزامنة: %1$s</string>
+    <string name="backup_and_restore">النسخ الاحتياطي والاستعادة</string>
+    <string name="export_full_backup">تصدير جميع البيانات والإعدادات</string>
+    <string name="export_full_backup_desc">يتضمن جميع المقالات (المفضلة، غير المقروءة، الكل)، والخلاصات، والمجموعات، والحسابات، والإعدادات</string>
+    <string name="import_full_backup">استيراد جميع البيانات والإعدادات</string>
+    <string name="export_preferences">تصدير الإعدادات فقط</string>
+    <string name="import_preferences">استيراد الإعدادات فقط</string>
+    <string name="backup_export_success">تم تصدير النسخة الاحتياطية بنجاح</string>
+    <string name="backup_import_success">تم استيراد النسخة الاحتياطية بنجاح</string>
+    <string name="backup_import_failed">فشل استيراد النسخة الاحتياطية</string>
 </resources>

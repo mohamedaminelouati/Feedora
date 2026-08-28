@@ -890,6 +890,13 @@ interface ArticleDao {
     )
     fun queryLatestUnreadArticleFlow(accountId: Int, limit: Int): Flow<List<ArticleWithFeed>>
 
+    @Query(
+        """
+        SELECT * FROM article
+        """
+    )
+    suspend fun queryAllArticles(): List<Article>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg article: Article)
 
@@ -898,6 +905,9 @@ interface ArticleDao {
 
     @Insert
     suspend fun insertList(articles: List<Article>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllArticles(articles: List<Article>)
 
     @Delete
     suspend fun delete(vararg article: Article)

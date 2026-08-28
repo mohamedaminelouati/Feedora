@@ -402,4 +402,13 @@
     <string name="sync_status_yesterday">Hier à %1$s</string>
     <string name="sync_status_success_prefix">Synchro : %1$s</string>
     <string name="sync_status_failed_prefix">Échec : %1$s</string>
+    <string name="backup_and_restore">Sauvegarde &amp; Restauration</string>
+    <string name="export_full_backup">Exporter toutes les données &amp; préférences</string>
+    <string name="export_full_backup_desc">Inclut tous les articles (favoris, non lus, tous), flux, groupes, comptes et préférences</string>
+    <string name="import_full_backup">Importer toutes les données &amp; préférences</string>
+    <string name="export_preferences">Exporter uniquement les préférences</string>
+    <string name="import_preferences">Importer uniquement les préférences</string>
+    <string name="backup_export_success">Sauvegarde exportée avec succès</string>
+    <string name="backup_import_success">Sauvegarde importée avec succès</string>
+    <string name="backup_import_failed">Échec de l\'importation de la sauvegarde</string>
 </resources>

@@ -66,8 +66,18 @@ interface GroupDao {
     )
     suspend fun queryAll(accountId: Int): List<Group>
 
+    @Query(
+        """
+        SELECT * FROM `group`
+        """
+    )
+    suspend fun queryAllGroups(): List<Group>
+
     @Insert
     suspend fun insertAll(groups: List<Group>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllGroups(groups: List<Group>)
 
     @Update
     suspend fun updateAll(groups: List<Group>)

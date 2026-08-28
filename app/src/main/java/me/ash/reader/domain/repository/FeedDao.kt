@@ -169,9 +169,18 @@ interface FeedDao {
     )
     suspend fun queryByLink(accountId: Int, url: String): List<Feed>
 
+    @Query(
+        """
+        SELECT * FROM feed
+        """
+    )
+    suspend fun queryAllFeeds(): List<Feed>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insert(vararg feed: Feed)
 
     @Insert suspend fun insertList(feeds: List<Feed>): List<Long>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertAllFeeds(feeds: List<Feed>)
 
     @Update suspend fun update(vararg feed: Feed)
 
@@ -208,7 +217,16 @@ interface FeedDao {
             .let { updateAll(it) }
     }
 
-    @Insert suspend fun insertArchivedArticles(links: List<ArchivedArticle>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertArchivedArticles(links: List<ArchivedArticle>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertAllArchivedArticles(links: List<ArchivedArticle>)
+
+    @Query(
+        """
+        SELECT * FROM archived_article
+        """
+    )
+    suspend fun queryAllArchivedArticles(): List<ArchivedArticle>
 
     @Query(
         """

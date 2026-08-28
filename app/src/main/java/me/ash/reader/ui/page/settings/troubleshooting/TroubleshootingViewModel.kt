@@ -16,14 +16,14 @@ import kotlinx.coroutines.launch
 import me.ash.reader.domain.data.Log
 import me.ash.reader.domain.data.SyncLogger
 import me.ash.reader.domain.service.AccountService
+import me.ash.reader.domain.service.BackupImportResult
+import me.ash.reader.domain.service.BackupService
 import me.ash.reader.domain.service.OpmlService
 import me.ash.reader.domain.service.RssService
 import me.ash.reader.infrastructure.di.ApplicationScope
 import me.ash.reader.infrastructure.di.DefaultDispatcher
 import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.di.MainDispatcher
-import me.ash.reader.ui.ext.fromDataStoreToJSONString
-import me.ash.reader.ui.ext.fromJSONStringToDataStore
 
 @HiltViewModel
 class TroubleshootingViewModel
@@ -32,6 +32,7 @@ constructor(
     private val accountService: AccountService,
     private val rssService: RssService,
     private val opmlService: OpmlService,
+    private val backupService: BackupService,
     @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher,
     @MainDispatcher private val mainDispatcher: CoroutineDispatcher,
@@ -52,21 +53,32 @@ constructor(
         _troubleshootingUiState.update { it.copy(warningDialogVisible = false) }
     }
 
-    fun tryImport(context: Context, byteArray: ByteArray) {
-        //        if (!byteArray.isProbableProtobuf()) {
-        //            showWarningDialog()
-        //        } else {
-        importPreferencesFromJSON(context, byteArray)
-        //        }
+    fun importBackup(
+        context: Context,
+        byteArray: ByteArray,
+        onComplete: (Result<BackupImportResult>) -> Unit = {},
+    ) {
+        viewModelScope.launch {
+            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val result = backupService.importBackup(context, byteArray)
+            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            onComplete(result)
+        }
     }
 
-    fun importPreferencesFromJSON(context: Context, byteArray: ByteArray) {
-        viewModelScope.launch(ioDispatcher) { String(byteArray).fromJSONStringToDataStore(context) }
+    fun exportFullBackup(context: Context, callback: (ByteArray) -> Unit = {}) {
+        viewModelScope.launch {
+            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val bytes = backupService.exportFullBackup(context)
+            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            callback(bytes)
+        }
     }
 
     fun exportPreferencesAsJSON(context: Context, callback: (ByteArray) -> Unit = {}) {
-        viewModelScope.launch(ioDispatcher) {
-            callback(context.fromDataStoreToJSONString().toByteArray())
+        viewModelScope.launch {
+            val bytes = backupService.exportPreferencesOnly(context)
+            callback(bytes)
         }
     }
 
