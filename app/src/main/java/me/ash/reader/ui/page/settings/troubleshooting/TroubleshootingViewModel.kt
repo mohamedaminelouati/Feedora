@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.InputStream
+import java.io.OutputStream
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -55,30 +57,53 @@ constructor(
 
     fun importBackup(
         context: Context,
-        byteArray: ByteArray,
+        inputStream: InputStream,
         onComplete: (Result<BackupImportResult>) -> Unit = {},
     ) {
         viewModelScope.launch {
             _troubleshootingUiState.update { it.copy(isLoading = true) }
-            val result = backupService.importBackup(context, byteArray)
+            val result = backupService.importBackup(context, inputStream)
             _troubleshootingUiState.update { it.copy(isLoading = false) }
             onComplete(result)
         }
     }
 
-    fun exportFullBackup(context: Context, callback: (ByteArray) -> Unit = {}) {
+    fun importPreferences(
+        context: Context,
+        inputStream: InputStream,
+        onComplete: (Result<Unit>) -> Unit = {},
+    ) {
         viewModelScope.launch {
             _troubleshootingUiState.update { it.copy(isLoading = true) }
-            val bytes = backupService.exportFullBackup(context)
+            val result = backupService.importPreferencesOnly(context, inputStream)
             _troubleshootingUiState.update { it.copy(isLoading = false) }
-            callback(bytes)
+            onComplete(result)
         }
     }
 
-    fun exportPreferencesAsJSON(context: Context, callback: (ByteArray) -> Unit = {}) {
+    fun exportFullBackup(
+        context: Context,
+        outputStream: OutputStream,
+        onComplete: (Result<Unit>) -> Unit = {},
+    ) {
         viewModelScope.launch {
-            val bytes = backupService.exportPreferencesOnly(context)
-            callback(bytes)
+            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val result = runCatching { backupService.exportFullBackup(context, outputStream) }
+            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            onComplete(result)
+        }
+    }
+
+    fun exportPreferencesAsJSON(
+        context: Context,
+        outputStream: OutputStream,
+        onComplete: (Result<Unit>) -> Unit = {},
+    ) {
+        viewModelScope.launch {
+            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val result = runCatching { backupService.exportPreferencesOnly(context, outputStream) }
+            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            onComplete(result)
         }
     }
 

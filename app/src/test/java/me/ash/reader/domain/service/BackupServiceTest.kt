@@ -1,6 +1,8 @@
 package me.ash.reader.domain.service
 
 import android.content.Context
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import java.util.Date
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -20,6 +22,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.verify
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
@@ -53,7 +56,7 @@ class BackupServiceTest {
     }
 
     @Test
-    fun testImportFullBackupJson() = runBlocking {
+    fun testImportFullBackupStream() = runBlocking {
         val context: Context = mock()
 
         val fullBackupJson = """
@@ -108,7 +111,8 @@ class BackupServiceTest {
             }
         """.trimIndent()
 
-        val result = backupService.importBackup(context, fullBackupJson.toByteArray(Charsets.UTF_8))
+        val inputStream = ByteArrayInputStream(fullBackupJson.toByteArray(Charsets.UTF_8))
+        val result = backupService.importBackup(context, inputStream)
 
         assertTrue(result.isSuccess)
         val importResult = result.getOrNull()
@@ -125,5 +129,22 @@ class BackupServiceTest {
         verify(groupDao).insertAllGroups(any())
         verify(feedDao).insertAllFeeds(any())
         verify(articleDao).insertAllArticles(any())
+    }
+
+    @Test
+    fun testImportPreferencesOnlyStream() = runBlocking {
+        val context: Context = mock()
+
+        val prefJson = """
+            {
+              "darkTheme": 1,
+              "dynamicColor": true
+            }
+        """.trimIndent()
+
+        val inputStream = ByteArrayInputStream(prefJson.toByteArray(Charsets.UTF_8))
+        val result = backupService.importPreferencesOnly(context, inputStream)
+
+        assertTrue(result.isSuccess)
     }
 }

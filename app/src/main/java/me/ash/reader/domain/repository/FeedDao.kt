@@ -230,6 +230,21 @@ interface FeedDao {
 
     @Query(
         """
+        SELECT COUNT(*) FROM archived_article
+        """
+    )
+    suspend fun countAllArchivedArticles(): Int
+
+    @Query(
+        """
+        SELECT * FROM archived_article
+        LIMIT :limit OFFSET :offset
+        """
+    )
+    suspend fun queryArchivedArticlesPaged(limit: Int, offset: Int): List<ArchivedArticle>
+
+    @Query(
+        """
         SELECT * FROM archived_article
         WHERE feedId = :feedId
         """

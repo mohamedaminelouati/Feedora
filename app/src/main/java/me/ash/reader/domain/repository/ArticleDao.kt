@@ -897,6 +897,22 @@ interface ArticleDao {
     )
     suspend fun queryAllArticles(): List<Article>
 
+    @Query(
+        """
+        SELECT COUNT(*) FROM article
+        """
+    )
+    suspend fun countAllArticles(): Int
+
+    @Query(
+        """
+        SELECT * FROM article
+        ORDER BY date DESC
+        LIMIT :limit OFFSET :offset
+        """
+    )
+    suspend fun queryArticlesPaged(limit: Int, offset: Int): List<Article>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg article: Article)
 

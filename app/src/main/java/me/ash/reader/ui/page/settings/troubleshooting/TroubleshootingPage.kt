@@ -80,11 +80,31 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
     val fullBackupExportLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { result ->
             result?.let { uri ->
-                viewModel.exportFullBackup(context) { bytes ->
-                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        outputStream.write(bytes)
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    viewModel.exportFullBackup(context, outputStream) { res ->
+                        res.onSuccess {
+                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                            context.showToast(context.getString(R.string.backup_export_success))
+                        }.onFailure {
+                            context.showToast(context.getString(R.string.backup_import_failed))
+                        }
                     }
-                    context.showToast(context.getString(R.string.backup_export_success))
+                }
+            }
+        }
+
+    val fullBackupImportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { resultUri ->
+            resultUri?.let { uri ->
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    viewModel.importBackup(context, inputStream) { importResult ->
+                        importResult.onSuccess {
+                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                            context.showToast(context.getString(R.string.backup_import_success))
+                        }.onFailure {
+                            context.showToast(context.getString(R.string.backup_import_failed))
+                        }
+                    }
                 }
             }
         }
@@ -92,22 +112,25 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
     val preferencesExportLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { result ->
             result?.let { uri ->
-                viewModel.exportPreferencesAsJSON(context) { bytes ->
-                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        outputStream.write(bytes)
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    viewModel.exportPreferencesAsJSON(context, outputStream) { res ->
+                        res.onSuccess {
+                            hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                            context.showToast(context.getString(R.string.backup_export_success))
+                        }.onFailure {
+                            context.showToast(context.getString(R.string.backup_import_failed))
+                        }
                     }
-                    context.showToast(context.getString(R.string.backup_export_success))
                 }
             }
         }
 
-    val backupImportLauncher =
+    val preferencesImportLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { resultUri ->
             resultUri?.let { uri ->
                 context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    val bytes = inputStream.readBytes()
-                    viewModel.importBackup(context, bytes) { importResult ->
-                        importResult.onSuccess {
+                    viewModel.importPreferences(context, inputStream) { res ->
+                        res.onSuccess {
                             hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
                             context.showToast(context.getString(R.string.backup_import_success))
                         }.onFailure {
@@ -161,8 +184,10 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                 }
+
+                // Section 1: Full Backup & Restore
                 item {
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.backup_and_restore),
@@ -174,7 +199,20 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                     ) {}
                     SettingItem(
                         title = stringResource(R.string.import_full_backup),
-                        onClick = { backupImportLauncher.launch(arrayOf(MimeType.ANY)) },
+                        onClick = { fullBackupImportLauncher.launch(arrayOf(MimeType.ANY)) },
+                    ) {}
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+
+                // Section 2: App Preferences Only
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.app_preferences),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.import_preferences),
+                        onClick = { preferencesImportLauncher.launch(arrayOf(MimeType.ANY)) },
                     ) {}
                     SettingItem(
                         title = stringResource(R.string.export_preferences),
@@ -182,6 +220,7 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                     ) {}
                     Spacer(modifier = Modifier.height(24.dp))
                 }
+
                 item {
                     Subtitle(modifier = Modifier.padding(horizontal = 24.dp), text = "Worker infos")
                 }

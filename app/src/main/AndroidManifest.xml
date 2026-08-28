@@ -33,6 +33,7 @@
     <application
         android:name=".infrastructure.android.AndroidApp"
         android:allowBackup="true"
+        android:largeHeap="true"
         android:enableOnBackInvokedCallback="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/read_you"
