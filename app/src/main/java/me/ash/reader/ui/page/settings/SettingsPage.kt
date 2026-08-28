@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.BugReport
+import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.FormatBold
 import androidx.compose.material.icons.outlined.History
@@ -82,6 +83,7 @@ fun SettingsPage(
     navigateToInteraction: () -> Unit,
     navigateToLanguages: () -> Unit,
     navigateToTroubleshooting: () -> Unit,
+    navigateToCloudBackup: () -> Unit,
     navigateToTipsAndSupport: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -113,6 +115,8 @@ fun SettingsPage(
     val languagesDesc = Locale.getDefault().toDisplayName()
     val troubleshootingTitle = stringResource(R.string.troubleshooting)
     val troubleshootingDesc = stringResource(R.string.troubleshooting_desc)
+    val cloudBackupTitle = stringResource(R.string.cloud_backup)
+    val cloudBackupDesc = stringResource(R.string.cloud_backup_desc)
     val tipsAndSupportTitle = stringResource(R.string.tips_and_support)
     val tipsAndSupportDesc = stringResource(R.string.tips_and_support_desc)
 
@@ -399,8 +403,16 @@ fun SettingsPage(
                 description = troubleshootingDesc,
                 category = troubleshootingTitle,
                 icon = Icons.Outlined.BugReport,
-                keywords = listOf("logs", "cache", "clean", "error", "debug", "backup", "restore", "database"),
+                keywords = listOf("logs", "cache", "clean", "error", "debug", "database"),
                 onClick = navigateToTroubleshooting,
+            ),
+            SettingSearchItem(
+                title = cloudBackupTitle,
+                description = cloudBackupDesc,
+                category = cloudBackupTitle,
+                icon = Icons.Outlined.CloudUpload,
+                keywords = listOf("cloud", "backup", "restore", "webdav", "nextcloud", "ftp", "ftps", "sftp", "server", "sync"),
+                onClick = navigateToCloudBackup,
             ),
             SettingSearchItem(
                 title = tipsAndSupportTitle,
@@ -577,6 +589,14 @@ fun SettingsPage(
                             desc = troubleshootingDesc,
                             icon = Icons.Outlined.BugReport,
                             onClick = navigateToTroubleshooting,
+                        )
+                    }
+                    item {
+                        SelectableSettingGroupItem(
+                            title = cloudBackupTitle,
+                            desc = cloudBackupDesc,
+                            icon = Icons.Outlined.CloudUpload,
+                            onClick = navigateToCloudBackup,
                         )
                     }
                     item {

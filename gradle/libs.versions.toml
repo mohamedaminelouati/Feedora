@@ -59,6 +59,8 @@ material3Adaptive = "1.3.0-alpha06"
 navigationevent = "1.0.0-beta01"
 composeBomStable = "2025.10.01"
 composeBomAlpha = "2025.10.01"
+commonsNet = "3.10.0"
+jsch = "0.2.23"
 
 [libraries]
 # AboutLibraries
@@ -131,6 +133,8 @@ lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewm
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 navigationevent = { module = "androidx.navigationevent:navigationevent", version.ref = "navigationevent" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationCore" }
+commons-net = { group = "commons-net", name = "commons-net", version.ref = "commonsNet" }
+jsch = { group = "com.github.mwiede", name = "jsch", version.ref = "jsch" }
 
 
 compose-material3-adaptive-navigation = { module = "androidx.compose.material3.adaptive:adaptive-navigation", version.ref = "material3Adaptive" }

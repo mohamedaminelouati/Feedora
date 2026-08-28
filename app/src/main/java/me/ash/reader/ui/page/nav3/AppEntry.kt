@@ -49,6 +49,7 @@ import me.ash.reader.ui.page.settings.color.reading.ReadingTitlePage
 import me.ash.reader.ui.page.settings.color.reading.ReadingVideoPage
 import me.ash.reader.ui.page.settings.interaction.InteractionPage
 import me.ash.reader.ui.page.settings.languages.LanguagesPage
+import me.ash.reader.ui.page.settings.cloudbackup.CloudBackupPage
 import me.ash.reader.ui.page.settings.tips.LicenseListPage
 import me.ash.reader.ui.page.settings.tips.TipsAndSupportPage
 import me.ash.reader.ui.page.settings.troubleshooting.TroubleshootingPage
@@ -187,6 +188,7 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                                 navigateToTroubleshooting = {
                                     backStack.add(Route.Troubleshooting)
                                 },
+                                navigateToCloudBackup = { backStack.add(Route.CloudBackup) },
                                 navigateToTipsAndSupport = { backStack.add(Route.TipsAndSupport) },
                             )
                         }
@@ -265,6 +267,7 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                     Route.Interaction -> NavEntry(key) { InteractionPage(onBack = onBack) }
                     Route.Languages -> NavEntry(key) { LanguagesPage(onBack = onBack) }
                     Route.Troubleshooting -> NavEntry(key) { TroubleshootingPage(onBack = onBack) }
+                    Route.CloudBackup -> NavEntry(key) { CloudBackupPage(onBack = onBack) }
                     Route.TipsAndSupport ->
                         NavEntry(key) {
                             TipsAndSupportPage(

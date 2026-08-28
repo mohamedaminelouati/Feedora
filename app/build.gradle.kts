@@ -197,6 +197,8 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.commons.net)
+    implementation(libs.jsch)
 
     // Testing
     testImplementation(libs.junit)
