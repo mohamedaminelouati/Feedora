@@ -39,18 +39,22 @@ class AiSummaryServiceTest {
         )
         Assert.assertTrue(perplexityArabicTldr.contains("perplexity.ai/search?q="))
 
-        val claudeEnglishDetailed = SummarizerEnginePreference.Claude.buildSummaryUrl(
+        val duckAiEnglishDetailed = SummarizerEnginePreference.DuckAi.buildSummaryUrl(
             articleUrl = testUrl,
             language = AiLanguage.ENGLISH,
             style = AiSummaryStyle.DETAILED,
         )
-        Assert.assertTrue(claudeEnglishDetailed.contains("claude.ai/new?q="))
+        Assert.assertTrue(duckAiEnglishDetailed.contains("duck.ai/?q="))
+
+        val protonLumoUrl = SummarizerEnginePreference.ProtonLumo.buildSummaryUrl(
+            articleUrl = testUrl,
+            language = AiLanguage.FRENCH,
+            style = AiSummaryStyle.KEY_POINTS,
+        )
+        Assert.assertTrue(protonLumoUrl.contains("lumo.proton.me/guest/?q="))
 
         val smryUrl = SummarizerEnginePreference.Smry.buildSummaryUrl(testUrl)
         Assert.assertEquals("https://smry.ai/example.com/article/123", smryUrl)
-
-        val kagiUrl = SummarizerEnginePreference.Kagi.buildSummaryUrl(testUrl)
-        Assert.assertTrue(kagiUrl.contains("kagi.com/summarizer?url="))
     }
 
     @Test

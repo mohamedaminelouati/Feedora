@@ -60,9 +60,9 @@ enum class AiLanguage(
 }
 
 enum class AiSummaryStyle(val displayName: String) {
-    KEY_POINTS("Points clés / Bullet points"),
-    TLDR("Court / TL;DR"),
-    DETAILED("Détaillé / Long");
+    KEY_POINTS("Key Points"),
+    TLDR("TL;DR"),
+    DETAILED("Detailed");
 
     fun toPrompt(language: AiLanguage): String {
         return when (language) {

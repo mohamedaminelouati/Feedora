@@ -425,4 +425,6 @@
     <string name="summary_style_detailed">Detailed</string>
     <string name="ai_select_language">Select language…</string>
     <string name="ai_select_language_prompt">Please select a language to begin.</string>
+    <string name="open_summary_in_browser">Open Summary in Browser</string>
+    <string name="article_summary">Article Summary</string>
 </resources>

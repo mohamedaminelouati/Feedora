@@ -20,9 +20,9 @@ val LocalSummarizerEngine =
 sealed class SummarizerEnginePreference(val value: Int) : Preference() {
     data object ChatGPT : SummarizerEnginePreference(0)
     data object Perplexity : SummarizerEnginePreference(1)
-    data object Claude : SummarizerEnginePreference(2)
-    data object Smry : SummarizerEnginePreference(3)
-    data object Kagi : SummarizerEnginePreference(4)
+    data object DuckAi : SummarizerEnginePreference(2)
+    data object ProtonLumo : SummarizerEnginePreference(3)
+    data object Smry : SummarizerEnginePreference(4)
 
     override fun put(context: Context, scope: CoroutineScope) {
         scope.launch {
@@ -36,11 +36,11 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
     @Stable
     fun toDesc(context: Context): String =
         when (this) {
-            ChatGPT -> "ChatGPT Web"
+            ChatGPT -> "ChatGPT"
             Perplexity -> "Perplexity AI"
-            Claude -> "Claude Web"
+            DuckAi -> "Duck.ai"
+            ProtonLumo -> "Proton Lumo"
             Smry -> "Smry.ai"
-            Kagi -> "Kagi Summarizer"
         }
 
     fun buildSummaryUrl(
@@ -61,32 +61,32 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
                 val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
                 "https://www.perplexity.ai/search?q=$encoded"
             }
-            Claude -> {
+            DuckAi -> {
                 val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
-                "https://claude.ai/new?q=$encoded"
+                "https://duck.ai/?q=$encoded"
+            }
+            ProtonLumo -> {
+                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
+                "https://lumo.proton.me/guest/?q=$encoded"
             }
             Smry -> {
                 val noProtocol = cleanUrl.removePrefix("https://").removePrefix("http://")
                 "https://smry.ai/$noProtocol"
-            }
-            Kagi -> {
-                val encoded = runCatching { URLEncoder.encode(cleanUrl, "UTF-8") }.getOrDefault(cleanUrl)
-                "https://kagi.com/summarizer?url=$encoded"
             }
         }
     }
 
     companion object {
         val default: SummarizerEnginePreference = ChatGPT
-        val values = listOf(ChatGPT, Perplexity, Claude, Smry, Kagi)
+        val values = listOf(ChatGPT, Perplexity, DuckAi, ProtonLumo, Smry)
 
         fun fromPreferences(preferences: Preferences): SummarizerEnginePreference =
             when (preferences[DataStoreKey.keys[summarizerEngine]?.key as Preferences.Key<Int>]) {
                 0 -> ChatGPT
                 1 -> Perplexity
-                2 -> Claude
-                3 -> Smry
-                4 -> Kagi
+                2 -> DuckAi
+                3 -> ProtonLumo
+                4 -> Smry
                 else -> default
             }
     }

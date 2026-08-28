@@ -112,7 +112,9 @@ fun ReadingPage(
     //    }
 
     var bringToTop by remember { mutableStateOf(false) }
+    var showSummaryBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showAiTranslationBottomSheet by rememberSaveable { mutableStateOf(false) }
+    val summarySheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val aiTranslationSheetState = androidx.compose.material3.rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     LaunchedEffect(readerState.articleId) {
@@ -137,17 +139,7 @@ fun ReadingPage(
                         onNavButtonClick = onNavAction,
                         onNavigateToStylePage = onNavigateToStylePage,
                         onSummarizeClick = {
-                            val link = readerState.link
-                            if (!link.isNullOrBlank()) {
-                                val summaryUrl = summarizerEngine.buildSummaryUrl(
-                                    articleUrl = link,
-                                    language = summarizerLanguage.language,
-                                    style = summarizerStyle.style,
-                                )
-                                uriHandler.openUri(summaryUrl)
-                            } else {
-                                context.showToast(context.getString(R.string.no_link_available))
-                            }
+                            showSummaryBottomSheet = true
                         },
                         onTranslateClick = {
                             showAiTranslationBottomSheet = true
@@ -394,6 +386,14 @@ fun ReadingPage(
                 )
             },
             onDismissRequest = { showFullScreenImageViewer = false },
+        )
+    }
+
+    if (showSummaryBottomSheet && readerState.articleId != null) {
+        me.ash.reader.ui.page.home.reading.ai.ArticleSummaryBottomSheet(
+            articleLink = readerState.link ?: "",
+            sheetState = summarySheetState,
+            onDismissRequest = { showSummaryBottomSheet = false },
         )
     }
 

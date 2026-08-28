@@ -395,4 +395,6 @@
     <string name="summary_style_detailed">Détaillé</string>
     <string name="ai_select_language">Sélectionner la langue…</string>
     <string name="ai_select_language_prompt">Veuillez sélectionner une langue pour commencer.</string>
+    <string name="open_summary_in_browser">Ouvrir le résumé dans le navigateur</string>
+    <string name="article_summary">Résumé de l\'article</string>
 </resources>
