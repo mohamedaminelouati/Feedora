@@ -88,6 +88,9 @@ import me.ash.reader.ui.theme.palette.safeHexToColor
 fun ColorAndStylePage(
     onBack: () -> Unit,
     navigateToDarkTheme: () -> Unit,
+    navigateToFeedsPageStyle: () -> Unit,
+    navigateToFlowPageStyle: () -> Unit,
+    navigateToReadingPageStyle: () -> Unit,
 ) {
     val context = LocalContext.current
     val darkTheme = LocalDarkTheme.current
@@ -186,7 +189,7 @@ fun ColorAndStylePage(
                 item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.appearance),
+                        text = stringResource(R.string.theme_and_colors),
                     )
                     SettingItem(
                         title = stringResource(R.string.dark_theme),
@@ -206,6 +209,24 @@ fun ColorAndStylePage(
                         onClick = { fontsDialogVisible = true },
                     ) {}
                     Spacer(modifier = Modifier.height(24.dp))
+                }
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.presentation_and_layout),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.feeds_page),
+                        onClick = navigateToFeedsPageStyle,
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.flow_page),
+                        onClick = navigateToFlowPageStyle,
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.reading_page),
+                        onClick = navigateToReadingPageStyle,
+                    ) {}
                 }
                 item {
                     Spacer(modifier = Modifier.height(24.dp))

@@ -82,7 +82,6 @@ fun SettingsPage(
     navigateToAccounts: () -> Unit,
     navigateToCloudBackup: () -> Unit,
     navigateToColorAndStyle: () -> Unit,
-    navigateToPagesStyle: () -> Unit,
     navigateToInteraction: () -> Unit,
     navigateToLanguages: () -> Unit,
     navigateToTroubleshooting: () -> Unit,
@@ -97,10 +96,10 @@ fun SettingsPage(
 
     val accountsTitle = stringResource(R.string.accounts)
     val accountsDesc = stringResource(R.string.accounts_desc)
+    val backupAndDataTitle = stringResource(R.string.backup_and_data)
+    val backupAndDataDesc = stringResource(R.string.backup_and_data_desc)
     val colorAndStyleTitle = stringResource(R.string.color_and_style)
     val colorAndStyleDesc = stringResource(R.string.color_and_style_desc)
-    val pagesLayoutStyleTitle = stringResource(R.string.pages_layout_and_display)
-    val pagesLayoutStyleDesc = stringResource(R.string.pages_layout_and_display_desc)
     val darkThemeTitle = stringResource(R.string.dark_theme)
     val boldCharactersTitle = stringResource(R.string.bold_characters)
     val boldCharactersDesc = stringResource(R.string.bold_characters_preview)
@@ -119,8 +118,6 @@ fun SettingsPage(
     val languagesDesc = Locale.getDefault().toDisplayName()
     val troubleshootingTitle = stringResource(R.string.troubleshooting)
     val troubleshootingDesc = stringResource(R.string.troubleshooting_desc)
-    val cloudBackupTitle = stringResource(R.string.cloud_backup)
-    val cloudBackupDesc = stringResource(R.string.cloud_backup_desc)
     val tipsAndSupportTitle = stringResource(R.string.tips_and_support)
     val tipsAndSupportDesc = stringResource(R.string.tips_and_support_desc)
 
@@ -140,8 +137,8 @@ fun SettingsPage(
 
     val allSearchableItems = remember(
         accountsTitle,
+        backupAndDataTitle,
         colorAndStyleTitle,
-        pagesLayoutStyleTitle,
         darkThemeTitle,
         boldCharactersTitle,
         interactionTitle,
@@ -175,60 +172,60 @@ fun SettingsPage(
                 onClick = navigateToAccounts,
             ),
             SettingSearchItem(
+                title = backupAndDataTitle,
+                description = backupAndDataDesc,
+                category = backupAndDataTitle,
+                icon = Icons.Outlined.CloudUpload,
+                keywords = listOf("backup", "cloud", "webdav", "ftp", "sftp", "ftps", "sauvegarde", "données", "cache", "json", "restaurer"),
+                onClick = navigateToCloudBackup,
+            ),
+            SettingSearchItem(
                 title = colorAndStyleTitle,
                 description = colorAndStyleDesc,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.Palette,
-                keywords = listOf("theme", "colors", "dark", "light", "appearance", "font", "style", "ui", "couleur", "apparence", "police"),
+                keywords = listOf("theme", "colors", "dark", "light", "appearance", "font", "style", "ui", "couleur", "apparence", "police", "grid", "grille", "liste"),
                 onClick = navigateToColorAndStyle,
-            ),
-            SettingSearchItem(
-                title = pagesLayoutStyleTitle,
-                description = pagesLayoutStyleDesc,
-                category = pagesLayoutStyleTitle,
-                icon = Icons.Outlined.Dashboard,
-                keywords = listOf("layout", "display", "pages", "feeds", "flow", "reading", "grid", "list", "disposition", "mise en page"),
-                onClick = navigateToPagesStyle,
             ),
             SettingSearchItem(
                 title = darkThemeTitle,
                 description = colorAndStyleTitle,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.DarkMode,
-                keywords = listOf("dark", "night", "amoled", "black", "theme", "mode"),
+                keywords = listOf("dark", "night", "amoled", "black", "theme", "mode", "oled"),
                 onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
                 title = boldCharactersTitle,
                 description = boldCharactersDesc,
-                category = pagesLayoutStyleTitle,
+                category = colorAndStyleTitle,
                 icon = Icons.Outlined.FormatBold,
                 keywords = listOf("bold", "bionic", "reading", "characters", "text"),
-                onClick = navigateToPagesStyle,
+                onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
                 title = feedsPageStyleTitle,
-                description = pagesLayoutStyleTitle,
-                category = pagesLayoutStyleTitle,
-                icon = Icons.Outlined.Dashboard,
+                description = colorAndStyleTitle,
+                category = colorAndStyleTitle,
+                icon = Icons.Outlined.Palette,
                 keywords = listOf("feeds", "feed", "page", "groups", "expand", "elevation", "favicons"),
-                onClick = navigateToPagesStyle,
+                onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
                 title = flowPageStyleTitle,
-                description = pagesLayoutStyleTitle,
-                category = pagesLayoutStyleTitle,
-                icon = Icons.Outlined.Dashboard,
+                description = colorAndStyleTitle,
+                category = colorAndStyleTitle,
+                icon = Icons.Outlined.Palette,
                 keywords = listOf("flow", "stream", "articles", "images", "date", "title", "header", "sticky", "grid", "grille"),
-                onClick = navigateToPagesStyle,
+                onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
                 title = readingPageStyleTitle,
-                description = pagesLayoutStyleTitle,
-                category = pagesLayoutStyleTitle,
-                icon = Icons.Outlined.Dashboard,
+                description = colorAndStyleTitle,
+                category = colorAndStyleTitle,
+                icon = Icons.Outlined.Palette,
                 keywords = listOf("reading", "reader", "font", "size", "line height", "text", "alignment", "ai"),
-                onClick = navigateToPagesStyle,
+                onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
                 title = interactionTitle,
@@ -420,14 +417,6 @@ fun SettingsPage(
                 onClick = navigateToTroubleshooting,
             ),
             SettingSearchItem(
-                title = cloudBackupTitle,
-                description = cloudBackupDesc,
-                category = cloudBackupTitle,
-                icon = Icons.Outlined.CloudUpload,
-                keywords = listOf("cloud", "backup", "restore", "webdav", "nextcloud", "ftp", "ftps", "sftp", "server", "sync"),
-                onClick = navigateToCloudBackup,
-            ),
-            SettingSearchItem(
                 title = tipsAndSupportTitle,
                 description = tipsAndSupportDesc,
                 category = tipsAndSupportTitle,
@@ -574,8 +563,8 @@ fun SettingsPage(
                     }
                     item {
                         SelectableSettingGroupItem(
-                            title = cloudBackupTitle,
-                            desc = cloudBackupDesc,
+                            title = backupAndDataTitle,
+                            desc = backupAndDataDesc,
                             icon = Icons.Outlined.CloudUpload,
                             onClick = navigateToCloudBackup,
                         )
@@ -586,14 +575,6 @@ fun SettingsPage(
                             desc = colorAndStyleDesc,
                             icon = Icons.Outlined.Palette,
                             onClick = navigateToColorAndStyle,
-                        )
-                    }
-                    item {
-                        SelectableSettingGroupItem(
-                            title = pagesLayoutStyleTitle,
-                            desc = pagesLayoutStyleDesc,
-                            icon = Icons.Outlined.Dashboard,
-                            onClick = navigateToPagesStyle,
                         )
                     }
                     item {

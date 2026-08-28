@@ -1,20 +1,26 @@
 package me.ash.reader.ui.page.settings.cloudbackup
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import me.ash.reader.R
 import me.ash.reader.domain.service.BackupImportResult
+import me.ash.reader.domain.service.BackupService
 import me.ash.reader.domain.service.CloudBackupService
 import me.ash.reader.domain.service.CloudBackupWorker
+import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.preference.CloudBackupFrequency
 import me.ash.reader.infrastructure.preference.CloudBackupPreferencesManager
 import me.ash.reader.infrastructure.preference.CloudBackupSettings
@@ -36,7 +42,9 @@ data class CloudBackupUiState(
 class CloudBackupViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val cloudBackupService: CloudBackupService,
+    private val backupService: BackupService,
     private val preferencesManager: CloudBackupPreferencesManager,
+    @IODispatcher private val ioDispatcher: CoroutineDispatcher,
     val workManager: WorkManager,
 ) : ViewModel() {
 
@@ -272,6 +280,109 @@ class CloudBackupViewModel @Inject constructor(
                     isTestSuccess = null,
                 )
             }
+        }
+    }
+
+    fun exportFullBackup(
+        context: Context,
+        uri: Uri,
+        onComplete: (Result<Unit>) -> Unit = {},
+    ) {
+        viewModelScope.launch(ioDispatcher) {
+            val title = context.getString(R.string.exporting_backup)
+            _uiState.update {
+                it.copy(
+                    progressState = BackupProgress(isVisible = true, progress = 0.05f, title = title, message = "")
+                )
+            }
+            val result = runCatching {
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    backupService.exportFullBackup(
+                        context = context,
+                        outputStream = outputStream,
+                        onProgress = { prog, msg ->
+                            _uiState.update {
+                                it.copy(progressState = it.progressState.copy(progress = prog, message = msg))
+                            }
+                        }
+                    )
+                } ?: throw IllegalStateException("Cannot open output stream for $uri")
+            }
+            _uiState.update { it.copy(progressState = BackupProgress()) }
+            withContext(ioDispatcher) {
+                onComplete(result)
+            }
+        }
+    }
+
+    fun importFullBackup(
+        context: Context,
+        uri: Uri,
+        onComplete: (Result<BackupImportResult>) -> Unit = {},
+    ) {
+        viewModelScope.launch(ioDispatcher) {
+            val title = context.getString(R.string.importing_backup)
+            _uiState.update {
+                it.copy(
+                    progressState = BackupProgress(isVisible = true, progress = 0.05f, title = title, message = "")
+                )
+            }
+            val result = runCatching {
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    backupService.importBackup(
+                        context = context,
+                        inputStream = inputStream,
+                        onProgress = { prog, msg ->
+                            _uiState.update {
+                                it.copy(progressState = it.progressState.copy(progress = prog, message = msg))
+                            }
+                        }
+                    ).getOrThrow()
+                } ?: throw IllegalStateException("Cannot open input stream for $uri")
+            }
+            _uiState.update { it.copy(progressState = BackupProgress()) }
+            withContext(ioDispatcher) {
+                onComplete(result)
+            }
+        }
+    }
+
+    fun exportPreferences(
+        context: Context,
+        uri: Uri,
+        onComplete: (Result<Unit>) -> Unit = {},
+    ) {
+        viewModelScope.launch(ioDispatcher) {
+            val result = runCatching {
+                context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    backupService.exportPreferencesOnly(context, outputStream)
+                } ?: throw IllegalStateException("Cannot open output stream for $uri")
+            }
+            onComplete(result)
+        }
+    }
+
+    fun importPreferences(
+        context: Context,
+        uri: Uri,
+        onComplete: (Result<Unit>) -> Unit = {},
+    ) {
+        viewModelScope.launch(ioDispatcher) {
+            val result = runCatching {
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    backupService.importPreferencesOnly(context, inputStream).getOrThrow()
+                } ?: throw IllegalStateException("Cannot open input stream for $uri")
+            }
+            onComplete(result)
+        }
+    }
+
+    fun clearCache(context: Context, onComplete: () -> Unit) {
+        viewModelScope.launch(ioDispatcher) {
+            runCatching {
+                context.cacheDir.deleteRecursively()
+            }
+            onComplete()
         }
     }
 }

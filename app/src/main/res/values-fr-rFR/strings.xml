@@ -475,9 +475,11 @@
     <string name="clear_server_config_desc">Effacer les identifiants et désactiver la sauvegarde cloud</string>
     <string name="clear_server_config_confirm">Voulez-vous vraiment effacer les paramètres de connexion du serveur distant et désactiver la sauvegarde automatique ?</string>
     <string name="clear_server_config_success">Configuration du serveur supprimée</string>
-    <string name="pages_layout_and_display">Disposition des pages</string>
-    <string name="pages_layout_and_display_desc">Personnaliser la page des flux, la liste des articles et la lecture</string>
-    <string name="feeds_page_style_desc">Dossiers, indicateur de synchro, filtres</string>
-    <string name="flow_page_style_desc">Grille / Liste, favicons, images, dates</string>
-    <string name="reading_page_style_desc">Moteur de lecture, résumé IA, typographie</string>
+    <string name="backup_and_data">Sauvegardes &amp; Données</string>
+    <string name="backup_and_data_desc">Sauvegardes cloud et locale, préférences, cache</string>
+    <string name="theme_and_colors">Thème &amp; Couleurs</string>
+    <string name="presentation_and_layout">Présentation des pages &amp; Cartes</string>
+    <string name="clear_cache">Vider le cache</string>
+    <string name="clear_cache_desc">Effacer les images et données temporaires</string>
+    <string name="clear_cache_success">Cache vidé avec succès</string>
 </resources>

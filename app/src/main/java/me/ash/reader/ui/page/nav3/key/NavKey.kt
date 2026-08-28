@@ -36,9 +36,6 @@ sealed interface Route : NavKey {
 
     @Serializable data object DarkTheme : Route
 
-    // Pages Layout & Style
-    @Serializable data object PagesStyle : Route
-
     @Serializable data object FeedsPageStyle : Route
 
     @Serializable data object FlowPageStyle : Route

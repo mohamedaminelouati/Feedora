@@ -39,7 +39,6 @@ import me.ash.reader.ui.page.settings.accounts.AccountsPage
 import me.ash.reader.ui.page.settings.accounts.AddAccountsPage
 import me.ash.reader.ui.page.settings.color.ColorAndStylePage
 import me.ash.reader.ui.page.settings.color.DarkThemePage
-import me.ash.reader.ui.page.settings.color.PagesStylePage
 import me.ash.reader.ui.page.settings.color.feeds.FeedsPageStylePage
 import me.ash.reader.ui.page.settings.color.flow.FlowPageStylePage
 import me.ash.reader.ui.page.settings.color.reading.BoldCharactersPage
@@ -185,7 +184,6 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                                 navigateToAccounts = { backStack.add(Route.Accounts) },
                                 navigateToCloudBackup = { backStack.add(Route.CloudBackup) },
                                 navigateToColorAndStyle = { backStack.add(Route.ColorAndStyle) },
-                                navigateToPagesStyle = { backStack.add(Route.PagesStyle) },
                                 navigateToInteraction = { backStack.add(Route.Interaction) },
                                 navigateToLanguages = { backStack.add(Route.Languages) },
                                 navigateToTroubleshooting = {
@@ -229,12 +227,6 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                             ColorAndStylePage(
                                 onBack = onBack,
                                 navigateToDarkTheme = { backStack.add(Route.DarkTheme) },
-                            )
-                        }
-                    Route.PagesStyle ->
-                        NavEntry(key) {
-                            PagesStylePage(
-                                onBack = onBack,
                                 navigateToFeedsPageStyle = { backStack.add(Route.FeedsPageStyle) },
                                 navigateToFlowPageStyle = { backStack.add(Route.FlowPageStyle) },
                                 navigateToReadingPageStyle = {

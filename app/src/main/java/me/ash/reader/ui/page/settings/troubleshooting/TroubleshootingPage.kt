@@ -243,40 +243,8 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
-                // Section 1: Full Backup & Restore
                 item {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Subtitle(
-                        modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.local_backup_restore),
-                    )
-                    SettingItem(
-                        title = stringResource(R.string.export_full_backup),
-                        desc = stringResource(R.string.export_full_backup_desc),
-                        onClick = { fullBackupFileLauncher(context, fullBackupExportLauncher) },
-                    ) {}
-                    SettingItem(
-                        title = stringResource(R.string.import_full_backup),
-                        onClick = { fullBackupImportLauncher.launch(arrayOf(MimeType.ANY)) },
-                    ) {}
-                    Spacer(modifier = Modifier.height(16.dp))
-                }
-
-                // Section 2: App Preferences Only
-                item {
-                    Subtitle(
-                        modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.app_preferences),
-                    )
-                    SettingItem(
-                        title = stringResource(R.string.import_preferences),
-                        onClick = { preferencesImportLauncher.launch(arrayOf(MimeType.ANY)) },
-                    ) {}
-                    SettingItem(
-                        title = stringResource(R.string.export_preferences),
-                        onClick = { preferenceFileLauncher(context, preferencesExportLauncher) },
-                    ) {}
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Subtitle(modifier = Modifier.padding(horizontal = 24.dp), text = stringResource(R.string.diagnostics_and_reports))
                 }
 
                 item {

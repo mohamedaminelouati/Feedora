@@ -488,9 +488,11 @@
     <string name="clear_server_config_desc">إزالة بيانات اعتماد الخادم وإعادة ضبط النسخ الاحتياطي السحابي</string>
     <string name="clear_server_config_confirm">هل أنت متأكد من رغبتك في مسح إعدادات خادم النسخ الاحتياطي السحابي وتعطيل النسخ الاحتياطي التلقائي؟</string>
     <string name="clear_server_config_success">تم مسح إعدادات الخادم</string>
-    <string name="pages_layout_and_display">تنسيق الصفحات والعرض</string>
-    <string name="pages_layout_and_display_desc">تخصيص صفحة الخلاصات وقائمة المقالات وصفحة القراءة</string>
-    <string name="feeds_page_style_desc">المجلدات، مؤشر المزامنة، شريط التصفية</string>
-    <string name="flow_page_style_desc">عرض الشبكة / القائمة، الأيقونات، الصور، التواريخ</string>
-    <string name="reading_page_style_desc">محرك القراءة، ملخص الذكاء الاصطناعي، الخطوط</string>
+    <string name="backup_and_data">النسخ الاحتياطي والبيانات</string>
+    <string name="backup_and_data_desc">النسخ الاحتياطي السحابي والمحلي، التفضيلات، الذاكرة المؤقتة</string>
+    <string name="theme_and_colors">السمة والألوان</string>
+    <string name="presentation_and_layout">تنسيق الصفحات والبطاقات</string>
+    <string name="clear_cache">مسح الذاكرة المؤقتة</string>
+    <string name="clear_cache_desc">مسح الصور والبيانات المؤقتة</string>
+    <string name="clear_cache_success">تم مسح الذاكرة المؤقتة بنجاح</string>
 </resources>

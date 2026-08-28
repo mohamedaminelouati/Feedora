@@ -70,6 +70,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.net.Uri
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import me.ash.reader.R
 import me.ash.reader.infrastructure.preference.CloudBackupFrequency
 import me.ash.reader.infrastructure.remote.RemoteBackupFile
@@ -78,8 +82,12 @@ import me.ash.reader.ui.component.base.DisplayText
 import me.ash.reader.ui.component.base.FeedbackIconButton
 import me.ash.reader.ui.component.base.RYScaffold
 import me.ash.reader.ui.component.base.Subtitle
+import me.ash.reader.ui.ext.DateFormat
+import me.ash.reader.ui.ext.MimeType
 import me.ash.reader.ui.ext.collectAsStateValue
+import me.ash.reader.ui.ext.getCurrentVersion
 import me.ash.reader.ui.ext.showToast
+import me.ash.reader.ui.ext.toString
 import me.ash.reader.ui.page.settings.SettingItem
 import me.ash.reader.ui.theme.palette.onLight
 
@@ -102,6 +110,62 @@ fun CloudBackupPage(
 
     var fileToRestore by remember { mutableStateOf<RemoteBackupFile?>(null) }
     var fileToDelete by remember { mutableStateOf<RemoteBackupFile?>(null) }
+
+    val fullBackupExportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { uri ->
+            uri?.let {
+                viewModel.exportFullBackup(context, it) { res ->
+                    res.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_export_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_export_failed))
+                    }
+                }
+            }
+        }
+
+    val fullBackupImportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri?.let {
+                viewModel.importFullBackup(context, it) { res ->
+                    res.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_import_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_import_failed))
+                    }
+                }
+            }
+        }
+
+    val preferencesExportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.JSON)) { uri ->
+            uri?.let {
+                viewModel.exportPreferences(context, it) { res ->
+                    res.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_export_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_export_failed))
+                    }
+                }
+            }
+        }
+
+    val preferencesImportLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri?.let {
+                viewModel.importPreferences(context, it) { res ->
+                    res.onSuccess {
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.backup_import_success))
+                    }.onFailure {
+                        context.showToast(context.getString(R.string.backup_import_failed))
+                    }
+                }
+            }
+        }
 
     // Progress Dialog
     if (uiState.progressState.isVisible) {
@@ -402,8 +466,8 @@ fun CloudBackupPage(
             LazyColumn {
                 item {
                     DisplayText(
-                        text = stringResource(R.string.cloud_backup),
-                        desc = stringResource(R.string.cloud_backup_desc),
+                        text = stringResource(R.string.backup_and_data),
+                        desc = stringResource(R.string.backup_and_data_desc),
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
@@ -412,7 +476,7 @@ fun CloudBackupPage(
                 item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.server_settings),
+                        text = stringResource(R.string.cloud_backup),
                     )
                     Spacer(modifier = Modifier.height(8.dp))
 
@@ -682,12 +746,89 @@ fun CloudBackupPage(
                     }
                 }
 
+                // Section 4: Full Backup & Restore (Local)
+                item {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.local_backup_restore),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.export_full_backup),
+                        desc = stringResource(R.string.export_full_backup_desc),
+                        onClick = { fullBackupFileLauncher(context, fullBackupExportLauncher) },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.import_full_backup),
+                        onClick = { fullBackupImportLauncher.launch(arrayOf(MimeType.ANY)) },
+                    ) {}
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+
+                // Section 5: App Preferences Only
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.app_preferences),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.import_preferences),
+                        onClick = { preferencesImportLauncher.launch(arrayOf(MimeType.ANY)) },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.export_preferences),
+                        onClick = { preferenceFileLauncher(context, preferencesExportLauncher) },
+                    ) {}
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+
+                // Section 6: Storage & Cache
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.storage_and_cache),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.clear_cache),
+                        desc = stringResource(R.string.clear_cache_desc),
+                        onClick = {
+                            viewModel.clearCache(context) {
+                                hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                                context.showToast(context.getString(R.string.clear_cache_success))
+                            }
+                        },
+                    ) {}
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
                 }
             }
         }
+    )
+}
+
+private fun fullBackupFileLauncher(
+    context: Context,
+    launcher: ManagedActivityResultLauncher<String, Uri?>,
+) {
+    launcher.launch(
+        "Read-You-" +
+            "${context.getCurrentVersion()}-full-backup-" +
+            "${Date().toString(DateFormat.YYYY_MM_DD_DASH_HH_MM_SS_DASH)}.json"
+    )
+}
+
+private fun preferenceFileLauncher(
+    context: Context,
+    launcher: ManagedActivityResultLauncher<String, Uri?>,
+) {
+    launcher.launch(
+        "Read-You-" +
+            "${context.getCurrentVersion()}-settings-" +
+            "${Date().toString(DateFormat.YYYY_MM_DD_DASH_HH_MM_SS_DASH)}.json"
     )
 }
 

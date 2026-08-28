@@ -505,9 +505,11 @@
     <string name="clear_server_config_desc">Remove server credentials and reset cloud backup</string>
     <string name="clear_server_config_confirm">Are you sure you want to clear the cloud backup server configuration and disable automatic backups?</string>
     <string name="clear_server_config_success">Server configuration cleared</string>
-    <string name="pages_layout_and_display">Layout &amp; Display</string>
-    <string name="pages_layout_and_display_desc">Feeds, Articles list, and Reading page appearance</string>
-    <string name="feeds_page_style_desc">Folders, sync status, filter bar</string>
-    <string name="flow_page_style_desc">Grid / List layout, favicons, images, dates</string>
-    <string name="reading_page_style_desc">Reader engine, AI summary, typography</string>
+    <string name="backup_and_data">Backups &amp; Data</string>
+    <string name="backup_and_data_desc">Cloud &amp; local backup, preferences, cache</string>
+    <string name="theme_and_colors">Theme &amp; Colors</string>
+    <string name="presentation_and_layout">Page Layouts &amp; Display</string>
+    <string name="clear_cache">Clear cache</string>
+    <string name="clear_cache_desc">Clear cached images and articles</string>
+    <string name="clear_cache_success">Cache cleared successfully</string>
 </resources>
