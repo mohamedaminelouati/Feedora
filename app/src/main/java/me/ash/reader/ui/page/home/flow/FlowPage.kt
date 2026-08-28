@@ -178,7 +178,7 @@ fun FlowPage(
     val restoreScrollPosition = LocalRestoreScrollPosition.current.value
     var isRestoringScroll by remember(listKey) { mutableStateOf(restoreScrollPosition) }
 
-    LaunchedEffect(listKey) {
+    LaunchedEffect(listKey, flowLayout) {
         if (restoreScrollPosition) {
             isRestoringScroll = true
             val indexKey = androidx.datastore.preferences.core.intPreferencesKey("scroll_idx_$listKey")
@@ -190,15 +190,19 @@ fun FlowPage(
 
             if (savedIndex > 0 || savedOffset > 0) {
                 kotlinx.coroutines.withTimeoutOrNull(3000L) {
-                    snapshotFlow { listState.layoutInfo.totalItemsCount }
+                    snapshotFlow { if (flowLayout.isGrid()) gridState.layoutInfo.totalItemsCount else listState.layoutInfo.totalItemsCount }
                         .filterNotNull()
                         .first { it > savedIndex }
                 }
-                val totalCount = listState.layoutInfo.totalItemsCount
+                val totalCount = if (flowLayout.isGrid()) gridState.layoutInfo.totalItemsCount else listState.layoutInfo.totalItemsCount
                 if (totalCount > 0) {
                     val targetIndex = minOf(savedIndex, totalCount - 1)
                     runCatching {
-                        listState.scrollToItem(targetIndex, savedOffset)
+                        if (flowLayout.isGrid()) {
+                            gridState.scrollToItem(targetIndex, savedOffset)
+                        } else {
+                            listState.scrollToItem(targetIndex, savedOffset)
+                        }
                     }
                 }
             }
@@ -220,13 +224,21 @@ fun FlowPage(
         }
     }
 
-    LaunchedEffect(listState, listKey) {
+    LaunchedEffect(listState, gridState, flowLayout, listKey) {
         if (restoreScrollPosition) {
             snapshotFlow {
-                if (!isRestoringScroll && listState.isScrollInProgress) {
-                    listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+                if (flowLayout.isGrid()) {
+                    if (!isRestoringScroll && gridState.isScrollInProgress) {
+                        gridState.firstVisibleItemIndex to gridState.firstVisibleItemScrollOffset
+                    } else {
+                        null
+                    }
                 } else {
-                    null
+                    if (!isRestoringScroll && listState.isScrollInProgress) {
+                        listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset
+                    } else {
+                        null
+                    }
                 }
             }
                 .filterNotNull()
@@ -263,8 +275,14 @@ fun FlowPage(
     val settleSpec = remember { spring<Float>(dampingRatio = Spring.DampingRatioLowBouncy) }
 
     val lastVisibleIndex =
-        remember(listState) {
-            snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
+        remember(listState, gridState, flowLayout) {
+            snapshotFlow {
+                if (flowLayout.isGrid()) {
+                    gridState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                } else {
+                    listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+                }
+            }
                 .filterNotNull()
         }
 
@@ -485,8 +503,14 @@ fun FlowPage(
                                     } else {
                                         scope
                                             .launch {
-                                                if (listState.firstVisibleItemIndex != 0) {
-                                                    listState.animateScrollToItem(0)
+                                                if (flowLayout.isGrid()) {
+                                                    if (gridState.firstVisibleItemIndex != 0) {
+                                                        gridState.animateScrollToItem(0)
+                                                    }
+                                                } else {
+                                                    if (listState.firstVisibleItemIndex != 0) {
+                                                        listState.animateScrollToItem(0)
+                                                    }
                                                 }
                                             }
                                             .invokeOnCompletion {
@@ -511,8 +535,14 @@ fun FlowPage(
                                 } else {
                                     scope
                                         .launch {
-                                            if (listState.firstVisibleItemIndex != 0) {
-                                                listState.animateScrollToItem(0)
+                                            if (flowLayout.isGrid()) {
+                                                if (gridState.firstVisibleItemIndex != 0) {
+                                                    gridState.animateScrollToItem(0)
+                                                }
+                                            } else {
+                                                if (listState.firstVisibleItemIndex != 0) {
+                                                    listState.animateScrollToItem(0)
+                                                }
                                             }
                                         }
                                         .invokeOnCompletion {

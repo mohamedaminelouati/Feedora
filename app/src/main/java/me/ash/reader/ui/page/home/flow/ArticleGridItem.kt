@@ -94,8 +94,8 @@ fun ArticleGridItem(
     val itemShape = RoundedCornerShape(16.dp)
     val readAlpha = when (articleListReadIndicator) {
         FlowArticleReadIndicatorPreference.None -> 1f
-        FlowArticleReadIndicatorPreference.AllRead -> if (isUnread) 1f else 0.55f
-        FlowArticleReadIndicatorPreference.ExcludingStarred -> if (isUnread || article.isStarred) 1f else 0.55f
+        FlowArticleReadIndicatorPreference.AllRead -> if (isUnread) 1f else 0.5f
+        FlowArticleReadIndicatorPreference.ExcludingStarred -> if (isUnread || article.isStarred) 1f else 0.5f
     }
 
     Surface(
@@ -147,52 +147,53 @@ fun ArticleGridItem(
                     .padding(12.dp)
             ) {
                 // Feed Header (Icon + Name + Badges)
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
+                if (articleListFeedIcon.value || articleListFeedName.value || article.isStarred || isUnread) {
                     Row(
-                        modifier = Modifier.weight(1f, fill = false),
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        if (articleListFeedIcon.value) {
-                            FeedIcon(
-                                feedName = feed.name,
-                                iconUrl = feed.icon,
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
+                        Row(
+                            modifier = Modifier.weight(1f, fill = false),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            if (articleListFeedIcon.value) {
+                                FeedIcon(
+                                    feedName = feed.name,
+                                    iconUrl = feed.icon,
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                            }
+                            if (articleListFeedName.value) {
+                                Text(
+                                    text = feed.name,
+                                    color = MaterialTheme.colorScheme.tertiary,
+                                    style = MaterialTheme.typography.labelSmall,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                )
+                            }
                         }
-                        if (articleListFeedName.value) {
-                            Text(
-                                text = feed.name,
-                                color = MaterialTheme.colorScheme.tertiary,
-                                style = MaterialTheme.typography.labelSmall,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
-                    }
 
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        if (article.isStarred) {
-                            StarredIcon()
-                            Spacer(modifier = Modifier.width(4.dp))
-                        }
-                        if (isUnread) {
-                            Icon(
-                                modifier = Modifier.size(10.dp),
-                                imageVector = Icons.Rounded.FiberManualRecord,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
-                            )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            if (article.isStarred) {
+                                StarredIcon()
+                                Spacer(modifier = Modifier.width(4.dp))
+                            }
+                            if (isUnread) {
+                                Icon(
+                                    modifier = Modifier.size(10.dp),
+                                    imageVector = Icons.Rounded.FiberManualRecord,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary,
+                                )
+                            }
                         }
                     }
+                    Spacer(modifier = Modifier.height(6.dp))
                 }
-
-                Spacer(modifier = Modifier.height(6.dp))
 
                 // Article Title
                 Text(
@@ -201,14 +202,16 @@ fun ArticleGridItem(
                     style = MaterialTheme.typography.titleSmall
                         .applyTextDirection(article.title.requiresBidi())
                         .merge(fontWeight = FontWeight.Bold, lineHeight = 18.sp),
-                    maxLines = 3,
+                    maxLines = if (articleListDesc != FlowArticleListDescPreference.NONE) 2 else 4,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth(),
                 )
 
                 // Short Description
-                val hasDesc = articleListDesc != FlowArticleListDescPreference.NONE && article.shortDescription.isNotBlank()
-                if (hasDesc) {
+                if (
+                    articleListDesc != FlowArticleListDescPreference.NONE &&
+                    article.shortDescription.isNotBlank()
+                ) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = article.shortDescription,
@@ -216,7 +219,11 @@ fun ArticleGridItem(
                         style = MaterialTheme.typography.bodySmall
                             .applyTextDirection(article.shortDescription.requiresBidi())
                             .merge(lineHeight = 16.sp),
-                        maxLines = if (articleListDesc == FlowArticleListDescPreference.LONG) 3 else 2,
+                        maxLines = when (articleListDesc) {
+                            FlowArticleListDescPreference.LONG -> 4
+                            FlowArticleListDescPreference.SHORT -> 2
+                            else -> 2
+                        },
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth(),
                     )
