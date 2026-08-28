@@ -156,11 +156,11 @@ fun ReadingStylePage(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                // General
+                // Display & Reading Engine
                 item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.general)
+                        text = stringResource(R.string.reading_display_engine)
                     )
                     SettingItem(
                         title = stringResource(R.string.content_renderer),
@@ -200,19 +200,22 @@ fun ReadingStylePage(
                         }
                     }
                     SettingItem(
-                        title = stringResource(R.string.rearrange_buttons),
-                        enabled = false,
-                        onClick = {},
-                    ) {}
-
-                    val readingAiSummary = LocalReadingAiSummary.current
-                    SettingItem(
                         title = stringResource(id = R.string.pull_to_switch_article),
                         onClick = { pullToSwitchArticle.toggle(context, scope) }) {
                         RYSwitch(activated = pullToSwitchArticle.value, onClick = {
                             pullToSwitchArticle.toggle(context, scope)
                         })
                     }
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                // AI Reading Assistant
+                item {
+                    val readingAiSummary = LocalReadingAiSummary.current
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.reading_ai_assistant)
+                    )
                     SettingItem(
                         title = stringResource(R.string.reading_ai_summary),
                         desc = stringResource(R.string.reading_ai_summary_desc),
@@ -224,26 +227,14 @@ fun ReadingStylePage(
                             (!readingAiSummary).put(context, scope)
                         }
                     }
-                    Subtitle(
-                        modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.toolbars)
-                    )
-                    SettingItem(
-                        title = stringResource(R.string.tonal_elevation),
-                        desc = "${tonalElevation.value}dp",
-                        onClick = {
-                            tonalElevationDialogVisible = true
-                        },
-                    ) {}
-
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                // Advanced
+                // Typography & Media
                 item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.advanced)
+                        text = stringResource(R.string.reading_typography_media)
                     )
                     SettingItem(
                         title = stringResource(R.string.title),
@@ -270,6 +261,23 @@ fun ReadingStylePage(
                         enabled = false,
                         onClick = navigateToReadingPageVideo,
                     ) {}
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                // Toolbars
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.toolbars)
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.tonal_elevation),
+                        desc = "${tonalElevation.value}dp",
+                        onClick = {
+                            tonalElevationDialogVisible = true
+                        },
+                    ) {}
+                    Spacer(modifier = Modifier.height(24.dp))
                 }
 
                 item {

@@ -126,11 +126,11 @@ fun FlowPageStylePage(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                // Article List
+                // Display Format
                 item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.article_list)
+                        text = stringResource(R.string.display_format)
                     )
                     SettingItem(
                         title = stringResource(R.string.article_layout),
@@ -138,6 +138,15 @@ fun FlowPageStylePage(
                         onClick = {
                             showFlowLayoutDialog = true
                         },
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                // Card Elements
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.card_elements)
                     )
                     SettingItem(
                         title = stringResource(R.string.feed_favicons),
@@ -186,6 +195,15 @@ fun FlowPageStylePage(
                             (!articleListTime).put(context, scope)
                         }
                     }
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                // Reading & Indicators
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.reading_indicators)
+                    )
                     SettingItem(
                         title = stringResource(R.string.article_date_sticky_header),
                         onClick = {

@@ -162,22 +162,11 @@ fun InteractionPage(
                     }
                     Spacer(modifier = Modifier.height(24.dp))
 
+                    // Swipe Gestures
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.article_list),
+                        text = stringResource(R.string.swipe_gestures),
                     )
-                    SettingItem(
-                        title = stringResource(R.string.restore_scroll_position),
-                        desc = stringResource(R.string.restore_scroll_position_desc),
-                        highlightKey = DataStoreKey.restoreScrollPosition,
-                        onClick = {
-                            (!restoreScrollPosition).put(context, scope)
-                        },
-                    ) {
-                        RYSwitch(activated = restoreScrollPosition.value) {
-                            (!restoreScrollPosition).put(context, scope)
-                        }
-                    }
                     SettingItem(
                         title = stringResource(R.string.swipe_to_start),
                         desc = swipeToStartAction.desc,
@@ -194,17 +183,25 @@ fun InteractionPage(
                             swipeEndDialogVisible = true
                         },
                     ) {}
+                    Spacer(modifier = Modifier.height(24.dp))
 
+                    // Scrolling & Navigation
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.scrolling_navigation),
+                    )
                     SettingItem(
-                        title = stringResource(R.string.sort_unread_articles),
-                        highlightKey = DataStoreKey.flowSortUnreadArticles,
+                        title = stringResource(R.string.restore_scroll_position),
+                        desc = stringResource(R.string.restore_scroll_position_desc),
+                        highlightKey = DataStoreKey.restoreScrollPosition,
                         onClick = {
-                            showSortUnreadArticlesDialog = true
+                            (!restoreScrollPosition).put(context, scope)
                         },
-                        desc = sortUnreadArticles.description()
                     ) {
+                        RYSwitch(activated = restoreScrollPosition.value) {
+                            (!restoreScrollPosition).put(context, scope)
+                        }
                     }
-
                     SettingItem(
                         title = stringResource(R.string.mark_as_read_on_scroll),
                         highlightKey = DataStoreKey.markAsReadOnScroll,
@@ -216,7 +213,15 @@ fun InteractionPage(
                             markAsReadOnScroll.toggle(context, scope)
                         }
                     }
-
+                    SettingItem(
+                        title = stringResource(R.string.sort_unread_articles),
+                        highlightKey = DataStoreKey.flowSortUnreadArticles,
+                        onClick = {
+                            showSortUnreadArticlesDialog = true
+                        },
+                        desc = sortUnreadArticles.description()
+                    ) {
+                    }
                     SettingItem(
                         title = stringResource(R.string.pull_from_bottom),
                         desc = pullToSwitchFeed.description(),
@@ -225,9 +230,17 @@ fun InteractionPage(
                             showPullToLoadDialog = true
                         },
                     )
-
+                    SettingItem(
+                        title = stringResource(id = R.string.pull_to_switch_article),
+                        highlightKey = DataStoreKey.pullToSwitchArticle,
+                        onClick = { pullToSwitchArticle.toggle(context, scope) }) {
+                        RYSwitch(activated = pullToSwitchArticle.value) {
+                            pullToSwitchArticle.toggle(context, scope)
+                        }
+                    }
                     Spacer(modifier = Modifier.height(24.dp))
 
+                    // Notifications
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.notifications),
@@ -244,26 +257,12 @@ fun InteractionPage(
                             (!syncNotification).put(context, scope)
                         }
                     }
-
                     Spacer(modifier = Modifier.height(24.dp))
 
+                    // External Links & Sharing
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.reading_page),
-                    )
-                    SettingItem(
-                        title = stringResource(id = R.string.pull_to_switch_article),
-                        highlightKey = DataStoreKey.pullToSwitchArticle,
-                        onClick = { pullToSwitchArticle.toggle(context, scope) }) {
-                        RYSwitch(activated = pullToSwitchArticle.value) {
-                            pullToSwitchArticle.toggle(context, scope)
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    Subtitle(
-                        modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.external_links),
+                        text = stringResource(R.string.external_links_sharing),
                     )
                     SettingItem(
                         title = stringResource(R.string.initial_open_app),
@@ -282,12 +281,6 @@ fun InteractionPage(
                             openLinkSpecificBrowserDialogVisible = true
                         },
                     ) {}
-                    Spacer(modifier = Modifier.height(24.dp))
-
-                    Subtitle(
-                        modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.share),
-                    )
                     SettingItem(
                         title = stringResource(R.string.shared_content),
                         desc = sharedContent.toDesc(context),

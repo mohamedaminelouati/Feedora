@@ -471,4 +471,17 @@
     <string name="layout_grid">شبكة</string>
     <string name="switch_to_grid_view">التبديل إلى عرض الشبكة</string>
     <string name="switch_to_list_view">التبديل إلى عرض القائمة</string>
+    <string name="display_format">تنسيق العرض</string>
+    <string name="card_elements">عناصر البطاقة</string>
+    <string name="reading_indicators">القراءة والمؤشرات</string>
+    <string name="reading_display_engine">محرك العرض والقراءة</string>
+    <string name="reading_typography_media">الخطوط والوسائط</string>
+    <string name="reading_ai_assistant">مساعد القراءة بالذكاء الاصطناعي</string>
+    <string name="swipe_gestures">إيماءات السحب</string>
+    <string name="scrolling_navigation">التمرير والتنقل</string>
+    <string name="external_links_sharing">الروابط الخارجية والمشاركة</string>
+    <string name="diagnostics_and_reports">التشخيص والتقارير</string>
+    <string name="local_backup_restore">النسخ الاحتياطي والاستعادة المحلية</string>
+    <string name="storage_and_cache">التخزين والذاكرة المؤقتة</string>
+    <string name="sync_logs">سجلات المزامنة</string>
 </resources>

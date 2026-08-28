@@ -488,4 +488,17 @@
     <string name="layout_grid">Grid</string>
     <string name="switch_to_grid_view">Switch to grid view</string>
     <string name="switch_to_list_view">Switch to list view</string>
+    <string name="display_format">Display Format</string>
+    <string name="card_elements">Card Elements</string>
+    <string name="reading_indicators">Reading &amp; Indicators</string>
+    <string name="reading_display_engine">Rendering &amp; Display</string>
+    <string name="reading_typography_media">Typography &amp; Media</string>
+    <string name="reading_ai_assistant">AI Reading Assistant</string>
+    <string name="swipe_gestures">Swipe Gestures</string>
+    <string name="scrolling_navigation">Scrolling &amp; Navigation</string>
+    <string name="external_links_sharing">External Links &amp; Sharing</string>
+    <string name="diagnostics_and_reports">Diagnostics &amp; Reports</string>
+    <string name="local_backup_restore">Local Backup &amp; Restore</string>
+    <string name="storage_and_cache">Storage &amp; Cache</string>
+    <string name="sync_logs">Sync Logs</string>
 </resources>

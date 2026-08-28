@@ -561,6 +561,14 @@ fun SettingsPage(
                     }
                     item {
                         SelectableSettingGroupItem(
+                            title = cloudBackupTitle,
+                            desc = cloudBackupDesc,
+                            icon = Icons.Outlined.CloudUpload,
+                            onClick = navigateToCloudBackup,
+                        )
+                    }
+                    item {
+                        SelectableSettingGroupItem(
                             title = colorAndStyleTitle,
                             desc = colorAndStyleDesc,
                             icon = Icons.Outlined.Palette,
@@ -589,14 +597,6 @@ fun SettingsPage(
                             desc = troubleshootingDesc,
                             icon = Icons.Outlined.BugReport,
                             onClick = navigateToTroubleshooting,
-                        )
-                    }
-                    item {
-                        SelectableSettingGroupItem(
-                            title = cloudBackupTitle,
-                            desc = cloudBackupDesc,
-                            icon = Icons.Outlined.CloudUpload,
-                            onClick = navigateToCloudBackup,
                         )
                     }
                     item {

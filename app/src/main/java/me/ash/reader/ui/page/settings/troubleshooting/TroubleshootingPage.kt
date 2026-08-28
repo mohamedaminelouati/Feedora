@@ -248,7 +248,7 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                     Spacer(modifier = Modifier.height(8.dp))
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.backup_and_restore),
+                        text = stringResource(R.string.local_backup_restore),
                     )
                     SettingItem(
                         title = stringResource(R.string.export_full_backup),
@@ -280,7 +280,7 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                 }
 
                 item {
-                    Subtitle(modifier = Modifier.padding(horizontal = 24.dp), text = "Worker infos")
+                    Subtitle(modifier = Modifier.padding(horizontal = 24.dp), text = stringResource(R.string.sync_logs))
                 }
                 items(onetimeWorkerInfos) {
                     WorkInfo(
@@ -300,7 +300,7 @@ fun TroubleshootingPage(onBack: () -> Unit, viewModel: TroubleshootingViewModel 
                     item {
                         Subtitle(
                             modifier = Modifier.padding(horizontal = 24.dp).padding(top = 24.dp),
-                            text = "Sync errors",
+                            text = stringResource(R.string.sync_logs),
                         )
                     }
                     items(syncLogList) { SyncLogItem(log = it) }

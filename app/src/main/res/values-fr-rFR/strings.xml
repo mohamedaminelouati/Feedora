@@ -458,4 +458,17 @@
     <string name="layout_grid">Grille</string>
     <string name="switch_to_grid_view">Passer en vue grille</string>
     <string name="switch_to_list_view">Passer en vue liste</string>
+    <string name="display_format">Format d\'affichage</string>
+    <string name="card_elements">Éléments visuels des cartes</string>
+    <string name="reading_indicators">Lecture &amp; Indicateurs</string>
+    <string name="reading_display_engine">Moteur d\'affichage &amp; Lecture</string>
+    <string name="reading_typography_media">Typographie &amp; Médias</string>
+    <string name="reading_ai_assistant">Assistant de lecture IA</string>
+    <string name="swipe_gestures">Gestes de glissement (Swipe)</string>
+    <string name="scrolling_navigation">Défilement &amp; Navigation</string>
+    <string name="external_links_sharing">Liens externes &amp; Partage</string>
+    <string name="diagnostics_and_reports">Diagnostic &amp; Signalement</string>
+    <string name="local_backup_restore">Sauvegarde &amp; Restauration locale</string>
+    <string name="storage_and_cache">Stockage &amp; Cache</string>
+    <string name="sync_logs">Journaux de synchronisation</string>
 </resources>
