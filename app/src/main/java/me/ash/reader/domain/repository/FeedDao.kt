@@ -3,7 +3,6 @@ package me.ash.reader.domain.repository
 import androidx.room.*
 import me.ash.reader.domain.model.article.ArchivedArticle
 import me.ash.reader.domain.model.feed.Feed
-import timber.log.Timber
 
 @Dao
 interface FeedDao {
@@ -210,7 +209,6 @@ interface FeedDao {
                 if (updated == existing) {
                     null
                 } else {
-                    Timber.d("Update ${new.name}")
                     updated
                 }
             }

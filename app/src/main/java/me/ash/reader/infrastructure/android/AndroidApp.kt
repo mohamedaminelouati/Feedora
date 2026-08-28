@@ -31,7 +31,6 @@ import me.ash.reader.ui.ext.del
 import me.ash.reader.ui.ext.getLatestApk
 import me.ash.reader.ui.ext.isGitHub
 import okhttp3.OkHttpClient
-import timber.log.Timber
 
 /** The Application class, where the Dagger components is generated. */
 @HiltAndroidApp
@@ -97,9 +96,6 @@ class AndroidApp : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         CrashHandler(this)
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
         applicationScope.launch {
             accountInit()
             workerInit()

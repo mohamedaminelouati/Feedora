@@ -30,7 +30,7 @@ data class SummarizerLanguagePreference(val language: AiLanguage) : Preference()
 
     companion object {
         val default = SummarizerLanguagePreference(AiLanguage.AUTO)
-        val values = AiLanguage.entries.filter { it != AiLanguage.SELECT }.toList()
+        val values = listOf(AiLanguage.AUTO) + (AiLanguage.entries.filter { it != AiLanguage.AUTO && it != AiLanguage.SELECT }.sortedBy { it.displayName })
 
         fun fromPreferences(preferences: Preferences): SummarizerLanguagePreference {
             val name = preferences[DataStoreKey.keys[aiSummaryLanguage]?.key as Preferences.Key<String>]

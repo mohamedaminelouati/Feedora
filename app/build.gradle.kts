@@ -198,8 +198,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
 
-    implementation(libs.timber)
-
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)

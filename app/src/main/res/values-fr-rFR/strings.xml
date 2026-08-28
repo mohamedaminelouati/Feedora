@@ -408,6 +408,10 @@
     <string name="import_full_backup">Importer toutes les données &amp; préférences</string>
     <string name="export_preferences">Exporter uniquement les préférences</string>
     <string name="import_preferences">Importer uniquement les préférences</string>
+    <string name="exporting_backup">Exportation de la sauvegarde…</string>
+    <string name="importing_backup">Importation de la sauvegarde…</string>
+    <string name="exporting_articles">Exportation des articles…</string>
+    <string name="importing_articles">Restauration des articles…</string>
     <string name="backup_export_success">Sauvegarde exportée avec succès</string>
     <string name="backup_export_failed">Échec de l\'exportation de la sauvegarde</string>
     <string name="backup_import_success">Sauvegarde importée avec succès</string>

@@ -12,47 +12,52 @@ enum class AiLanguage(
 ) {
     SELECT("Select language…", "", "select"),
     AUTO("Auto (App Language)", "in the application's language", "auto"),
-    FRENCH("Français (French)", "en français", "fr"),
     ARABIC("العربية (Arabic)", "باللغة العربية", "ar", isRtl = true),
-    ENGLISH("English", "in English", "en"),
-    SPANISH("Español (Spanish)", "en español", "es"),
-    GERMAN("Deutsch (German)", "auf Deutsch", "de"),
-    ITALIAN("Italiano (Italian)", "in italiano", "it"),
-    PORTUGUESE("Português (Portuguese)", "em português", "pt"),
-    PORTUGUESE_BRAZIL("Português do Brasil", "em português do Brasil", "pt-BR"),
-    RUSSIAN("Русский (Russian)", "на русском", "ru"),
-    CHINESE_SIMPLIFIED("简体中文 (Chinese Simplified)", "用简体中文", "zh-CN"),
-    CHINESE_TRADITIONAL("繁體中文 (Chinese Traditional)", "用繁體中文", "zh-TW"),
-    JAPANESE("日本語 (Japanese)", "日本語で", "ja"),
-    HINDI("हिन्दी (Hindi)", "हिन्दी में", "hi"),
-    HEBREW("עברית (Hebrew)", "בעברית", "he", isRtl = true),
-    PERSIAN("فارسی (Persian)", "به زبان فارسی", "fa", isRtl = true),
-    TURKISH("Türkçe (Turkish)", "Türkçe olarak", "tr"),
-    POLISH("Polski (Polish)", "po polsku", "pl"),
-    DUTCH("Nederlands (Dutch)", "in het Nederlands", "nl"),
-    UKRAINIAN("Українська (Ukrainian)", "українською", "uk"),
-    CZECH("Čeština (Czech)", "v češtině", "cs"),
-    SWEDISH("Svenska (Swedish)", "på svenska", "sv"),
-    DANISH("Dansk (Danish)", "på dansk", "da"),
-    NORWEGIAN_BOKMAL("Norsk Bokmål (Norwegian)", "på norsk", "nb"),
-    INDONESIAN("Bahasa Indonesia (Indonesian)", "dalam bahasa Indonesia", "id"),
-    VIETNAMESE("Tiếng Việt (Vietnamese)", "bằng tiếng Việt", "vi"),
-    ROMANIAN("Română (Romanian)", "în română", "ro"),
-    HUNGARIAN("Magyar (Hungarian)", "magyarul", "hu"),
+    ARABIC_NORTH_LEVANTINE("العربية الشامية (North Levantine Arabic)", "باللهجة الشامية", "apc", isRtl = true),
+    BASQUE("Euskara (Basque)", "euskaraz", "eu"),
     BULGARIAN("Български (Bulgarian)", "на български", "bg"),
     CATALAN("Català (Catalan)", "en català", "ca"),
+    CHINESE_SIMPLIFIED("简体中文 (Chinese Simplified)", "用简体中文", "zh-CN"),
+    CHINESE_TRADITIONAL("繁體中文 (Chinese Traditional)", "用繁體中文", "zh-TW"),
+    CZECH("Čeština (Czech)", "v češtině", "cs"),
+    DANISH("Dansk (Danish)", "på dansk", "da"),
+    DUTCH("Nederlands (Dutch)", "in het Nederlands", "nl"),
+    ENGLISH("English", "in English", "en"),
+    ESPERANTO("Esperanto", "en Esperanto", "eo"),
+    ESTONIAN("Eesti (Estonian)", "eesti keeles", "et"),
+    FILIPINO("Filipino", "sa Filipino", "fil"),
+    FRENCH("Français (French)", "en français", "fr"),
+    GALICIAN("Galego (Galician)", "en galego", "gl"),
+    GERMAN("Deutsch (German)", "auf Deutsch", "de"),
+    HEBREW("עברית (Hebrew)", "בעברית", "he", isRtl = true),
+    HINDI("हिन्दी (Hindi)", "हिन्दी में", "hi"),
+    HUNGARIAN("Magyar (Hungarian)", "magyarul", "hu"),
+    INDONESIAN("Bahasa Indonesia (Indonesian)", "dalam bahasa Indonesia", "id"),
+    ITALIAN("Italiano (Italian)", "in italiano", "it"),
+    JAPANESE("日本語 (Japanese)", "日本語で", "ja"),
+    KANNADA("ಕನ್ನಡ (Kannada)", "ಕನ್ನಡದಲ್ಲಿ", "kn"),
+    NORWEGIAN_BOKMAL("Norsk Bokmål (Norwegian)", "på norsk", "nb"),
+    PERSIAN("فارسی (Persian)", "به زبان فارسی", "fa", isRtl = true),
+    POLISH("Polski (Polish)", "po polsku", "pl"),
+    PORTUGUESE("Português (Portuguese)", "em português", "pt"),
+    PORTUGUESE_BRAZIL("Português do Brasil", "em português do Brasil", "pt-BR"),
+    ROMANIAN("Română (Romanian)", "în română", "ro"),
+    RUSSIAN("Русский (Russian)", "на русском", "ru"),
+    SERBIAN("Српски (Serbian)", "на српском", "sr"),
     SLOVAK("Slovenčina (Slovak)", "v slovenčine", "sk"),
     SLOVENIAN("Slovenščina (Slovenian)", "v slovenščini", "sl"),
-    SERBIAN("Српски (Serbian)", "на српском", "sr"),
-    ESTONIAN("Eesti (Estonian)", "eesti keeles", "et"),
-    GALICIAN("Galego (Galician)", "en galego", "gl"),
-    BASQUE("Euskara (Basque)", "euskaraz", "eu"),
-    FILIPINO("Filipino", "sa Filipino", "fil"),
-    ESPERANTO("Esperanto", "en Esperanto", "eo"),
-    KANNADA("ಕನ್ನಡ (Kannada)", "ಕನ್ನಡದಲ್ಲಿ", "kn"),
-    TAMIL("தமிழ் (Tamil)", "தமிழில்", "ta");
+    SPANISH("Español (Spanish)", "en español", "es"),
+    SWEDISH("Svenska (Swedish)", "på svenska", "sv"),
+    TAMIL("தமிழ் (Tamil)", "தமிழில்", "ta"),
+    TURKISH("Türkçe (Turkish)", "Türkçe olarak", "tr"),
+    UKRAINIAN("Українська (Ukrainian)", "українською", "uk"),
+    VIETNAMESE("Tiếng Việt (Vietnamese)", "bằng tiếng Việt", "vi");
 
     companion object {
+        val sortedEntries: List<AiLanguage> by lazy {
+            listOf(SELECT, AUTO) + (entries.filter { it != SELECT && it != AUTO }.sortedBy { it.displayName })
+        }
+
         fun fromName(name: String?): AiLanguage {
             return entries.firstOrNull { it.name.equals(name, ignoreCase = true) } ?: AUTO
         }
@@ -66,7 +71,7 @@ enum class AiSummaryStyle(val displayName: String) {
 
     fun toPrompt(language: AiLanguage): String {
         return when (language) {
-            AiLanguage.ARABIC -> when (this) {
+            AiLanguage.ARABIC, AiLanguage.ARABIC_NORTH_LEVANTINE -> when (this) {
                 KEY_POINTS -> "لخص هذا المقال باللغة العربية في شكل نقاط رئيسية موجزة ومفيدة:"
                 TLDR -> "لخص هذا المقال باللغة العربية باختصار شديد في جملتين أو ثلاث (TL;DR):"
                 DETAILED -> "قدم تلخيصاً مفصلاً وشاملاً لهذا المقال باللغة العربية يوضح جميع النقاط الأساسية:"

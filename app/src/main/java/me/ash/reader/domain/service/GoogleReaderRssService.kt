@@ -58,7 +58,6 @@ import me.ash.reader.ui.ext.decodeHTML
 import me.ash.reader.ui.ext.dollarLast
 import me.ash.reader.ui.ext.isFuture
 import me.ash.reader.ui.ext.spacerDollar
-import timber.log.Timber
 
 private const val TAG = "GoogleReaderRssService"
 
@@ -512,7 +511,6 @@ constructor(
             accountService.update(account.copy(updateAt = Date()))
             ListenableWorker.Result.success()
         } catch (e: Exception) {
-            Timber.tag("RLog").e(e, "On sync exception: ${e.message}")
             syncLogger.log(e)
             //                withContext(mainDispatcher) {
             //                    context.showToast(e.message) todo: find a good way to
@@ -664,7 +662,6 @@ constructor(
             }
 
             articleDao.insert(*items.toTypedArray())
-            Timber.i("onCompletion: ${System.currentTimeMillis() - preTime}")
 
             ListenableWorker.Result.success()
         }

@@ -46,7 +46,6 @@ import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.preference.PullToLoadNextFeedPreference
 import me.ash.reader.infrastructure.preference.SettingsProvider
 import me.ash.reader.infrastructure.rss.ReaderCacheHelper
-import timber.log.Timber
 
 private const val TAG = "FlowViewModel"
 
@@ -444,8 +443,6 @@ constructor(
                 }
             }
         }
-
-        Timber.d("$previousArticle, $nextArticle, $listIndex")
         return copy(nextArticle = nextArticle, previousArticle = previousArticle, listIndex = index)
     }
 

@@ -175,7 +175,7 @@ fun AiTranslationBottomSheet(
                         onDismissRequest = { isLangMenuExpanded = false },
                         modifier = Modifier.heightIn(max = 350.dp),
                     ) {
-                        AiLanguage.entries.forEach { lang ->
+                        AiLanguage.sortedEntries.forEach { lang ->
                             DropdownMenuItem(
                                 text = {
                                     Row(

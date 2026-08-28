@@ -29,7 +29,6 @@ import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.rss.RssHelper
 import me.ash.reader.ui.ext.DataStoreKey
 import me.ash.reader.ui.ext.dataStore
-import timber.log.Timber
 
 private const val TAG = "LocalRssService"
 
@@ -111,7 +110,6 @@ constructor(
                                 }
                                 feedDao.updateSyncStatus(currentFeed.id, System.currentTimeMillis(), 1)
                             } catch (e: Exception) {
-                                Timber.e(e, "Sync failed for feed: ${currentFeed.name}")
                                 feedDao.updateSyncStatus(currentFeed.id, System.currentTimeMillis(), 2)
                             }
                         }
@@ -129,7 +127,6 @@ constructor(
                 notificationHelper.notifySyncSummary(totalNewArticlesCount.get())
             }
 
-            Timber.tag("RlOG").i("onCompletion: ${System.currentTimeMillis() - preTime}")
             accountService.update(currentAccount.copy(updateAt = Date()))
             ListenableWorker.Result.success()
         }

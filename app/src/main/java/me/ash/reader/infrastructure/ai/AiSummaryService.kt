@@ -12,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import org.jsoup.Jsoup
-import timber.log.Timber
 
 @Singleton
 class AiSummaryService
@@ -76,8 +75,6 @@ constructor(
             }
 
             deferredTranslations.awaitAll().joinToString("\n\n")
-        }.onFailure {
-            Timber.e(it, "Translation failed")
         }
     }
 

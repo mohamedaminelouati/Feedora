@@ -42,7 +42,6 @@ import kotlinx.coroutines.withContext
 import me.ash.reader.R
 import me.ash.reader.infrastructure.android.MainActivity
 import me.ash.reader.ui.ext.collectAsStateValue
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ArticleCardWidgetReceiver : GlanceAppWidgetReceiver() {
@@ -82,7 +81,6 @@ class ArticleCardWidget() : GlanceAppWidget() {
                     }
                 }
             }
-            .onFailure { Timber.e(it) }
     }
 
     @SuppressLint("RestrictedApi")

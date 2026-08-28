@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.ash.reader.R
 import me.ash.reader.domain.data.Log
 import me.ash.reader.domain.data.SyncLogger
 import me.ash.reader.domain.service.AccountService
@@ -26,7 +27,19 @@ import me.ash.reader.infrastructure.di.ApplicationScope
 import me.ash.reader.infrastructure.di.DefaultDispatcher
 import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.infrastructure.di.MainDispatcher
-import timber.log.Timber
+
+data class BackupProgress(
+    val isVisible: Boolean = false,
+    val progress: Float = 0f,
+    val title: String = "",
+    val message: String = "",
+)
+
+data class TroubleshootingUiState(
+    val isLoading: Boolean = false,
+    val warningDialogVisible: Boolean = false,
+    val progressState: BackupProgress = BackupProgress(),
+)
 
 @HiltViewModel
 class TroubleshootingViewModel
@@ -62,15 +75,29 @@ constructor(
         onComplete: (Result<BackupImportResult>) -> Unit = {},
     ) {
         viewModelScope.launch(ioDispatcher) {
-            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val title = context.getString(R.string.importing_backup)
+            _troubleshootingUiState.update {
+                it.copy(
+                    isLoading = true,
+                    progressState = BackupProgress(isVisible = true, progress = 0.05f, title = title, message = "")
+                )
+            }
             val result = runCatching {
                 context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    backupService.importBackup(context, inputStream).getOrThrow()
+                    backupService.importBackup(
+                        context = context,
+                        inputStream = inputStream,
+                        onProgress = { prog, msg ->
+                            _troubleshootingUiState.update {
+                                it.copy(progressState = it.progressState.copy(progress = prog, message = msg))
+                            }
+                        }
+                    ).getOrThrow()
                 } ?: throw IllegalStateException("Cannot open input stream for $uri")
-            }.onFailure {
-                Timber.e(it, "Failed to import backup from $uri")
             }
-            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            _troubleshootingUiState.update {
+                it.copy(isLoading = false, progressState = BackupProgress())
+            }
             withContext(mainDispatcher) {
                 onComplete(result)
             }
@@ -83,15 +110,21 @@ constructor(
         onComplete: (Result<Unit>) -> Unit = {},
     ) {
         viewModelScope.launch(ioDispatcher) {
-            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val title = context.getString(R.string.import_preferences)
+            _troubleshootingUiState.update {
+                it.copy(
+                    isLoading = true,
+                    progressState = BackupProgress(isVisible = true, progress = 0.5f, title = title, message = "")
+                )
+            }
             val result = runCatching {
                 context.contentResolver.openInputStream(uri)?.use { inputStream ->
                     backupService.importPreferencesOnly(context, inputStream).getOrThrow()
                 } ?: throw IllegalStateException("Cannot open input stream for $uri")
-            }.onFailure {
-                Timber.e(it, "Failed to import preferences from $uri")
             }
-            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            _troubleshootingUiState.update {
+                it.copy(isLoading = false, progressState = BackupProgress())
+            }
             withContext(mainDispatcher) {
                 onComplete(result)
             }
@@ -104,15 +137,29 @@ constructor(
         onComplete: (Result<Unit>) -> Unit = {},
     ) {
         viewModelScope.launch(ioDispatcher) {
-            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val title = context.getString(R.string.exporting_backup)
+            _troubleshootingUiState.update {
+                it.copy(
+                    isLoading = true,
+                    progressState = BackupProgress(isVisible = true, progress = 0.02f, title = title, message = "")
+                )
+            }
             val result = runCatching {
                 context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    backupService.exportFullBackup(context, outputStream)
+                    backupService.exportFullBackup(
+                        context = context,
+                        outputStream = outputStream,
+                        onProgress = { prog, msg ->
+                            _troubleshootingUiState.update {
+                                it.copy(progressState = it.progressState.copy(progress = prog, message = msg))
+                            }
+                        }
+                    )
                 } ?: throw IllegalStateException("Cannot open output stream for $uri")
-            }.onFailure {
-                Timber.e(it, "Failed to export full backup to $uri")
             }
-            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            _troubleshootingUiState.update {
+                it.copy(isLoading = false, progressState = BackupProgress())
+            }
             withContext(mainDispatcher) {
                 onComplete(result)
             }
@@ -125,15 +172,21 @@ constructor(
         onComplete: (Result<Unit>) -> Unit = {},
     ) {
         viewModelScope.launch(ioDispatcher) {
-            _troubleshootingUiState.update { it.copy(isLoading = true) }
+            val title = context.getString(R.string.export_preferences)
+            _troubleshootingUiState.update {
+                it.copy(
+                    isLoading = true,
+                    progressState = BackupProgress(isVisible = true, progress = 0.5f, title = title, message = "")
+                )
+            }
             val result = runCatching {
                 context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                     backupService.exportPreferencesOnly(context, outputStream)
                 } ?: throw IllegalStateException("Cannot open output stream for $uri")
-            }.onFailure {
-                Timber.e(it, "Failed to export preferences to $uri")
             }
-            _troubleshootingUiState.update { it.copy(isLoading = false) }
+            _troubleshootingUiState.update {
+                it.copy(isLoading = false, progressState = BackupProgress())
+            }
             withContext(mainDispatcher) {
                 onComplete(result)
             }
@@ -144,8 +197,3 @@ constructor(
 
     fun clearSyncLogs() = viewModelScope.launch { syncLogger.clear() }
 }
-
-data class TroubleshootingUiState(
-    val isLoading: Boolean = false,
-    val warningDialogVisible: Boolean = false,
-)

@@ -50,7 +50,6 @@ import me.ash.reader.ui.ext.dataStore
 import me.ash.reader.ui.ext.put
 import me.ash.reader.ui.page.home.flow.FlowPage
 import me.ash.reader.ui.page.home.reading.ReadingPage
-import timber.log.Timber
 
 @Parcelize data class ArticleData(val articleId: String, val listIndex: Int? = null) : Parcelable
 
@@ -107,7 +106,6 @@ fun ArticleListReaderPage(
     var listAlpha by rememberSaveable { mutableFloatStateOf(1f) }
 
     LaunchedEffect(isTwoPane) {
-        Timber.d("isTwoPane: $isTwoPane")
         if (!isTwoPane) {
             listAlpha = 1f
             paneExpansionState.animateTo(expandedAnchor)

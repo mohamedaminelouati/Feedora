@@ -438,6 +438,10 @@
     <string name="import_full_backup">Import all data &amp; settings</string>
     <string name="export_preferences">Export settings only</string>
     <string name="import_preferences">Import settings only</string>
+    <string name="exporting_backup">Exporting backup…</string>
+    <string name="importing_backup">Importing backup…</string>
+    <string name="exporting_articles">Exporting articles…</string>
+    <string name="importing_articles">Restoring articles…</string>
     <string name="backup_export_success">Backup exported successfully</string>
     <string name="backup_export_failed">Failed to export backup</string>
     <string name="backup_import_success">Backup imported successfully</string>

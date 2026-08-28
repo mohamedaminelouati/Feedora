@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.ash.reader.infrastructure.di.ApplicationScope
-import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -46,7 +45,6 @@ class TextToSpeechManager @Inject constructor(
                 TextToSpeech.SUCCESS -> {}
                 else -> {
                     state = State.Error
-                    Timber.e("TextToSpeech initialization failed $it")
                 }
             }
         })

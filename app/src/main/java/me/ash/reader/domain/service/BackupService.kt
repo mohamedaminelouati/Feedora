@@ -47,7 +47,6 @@ import me.ash.reader.infrastructure.preference.SyncOnlyWhenChargingPreference
 import me.ash.reader.ui.ext.fromDataStoreToJSONString
 import me.ash.reader.ui.ext.fromJSONStringToDataStore
 import me.ash.reader.ui.ext.getCurrentVersion
-import timber.log.Timber
 
 sealed interface BackupImportResult {
     data class Full(
@@ -208,14 +207,16 @@ constructor(
             .registerTypeAdapter(SyncOnlyOnWiFiPreference::class.java, SyncOnlyOnWiFiAdapter())
             .registerTypeAdapter(SyncOnlyWhenChargingPreference::class.java, SyncOnlyWhenChargingAdapter())
             .registerTypeAdapter(KeepArchivedPreference::class.java, KeepArchivedAdapter())
-            .setPrettyPrinting()
             .create()
 
-    suspend fun exportFullBackup(context: Context, outputStream: OutputStream) = withContext(ioDispatcher) {
-        val writer = BufferedWriter(OutputStreamWriter(outputStream, Charsets.UTF_8), 65536)
-        val jsonWriter = JsonWriter(writer).apply {
-            setIndent("  ")
-        }
+    suspend fun exportFullBackup(
+        context: Context,
+        outputStream: OutputStream,
+        onProgress: suspend (progress: Float, status: String) -> Unit = { _, _ -> },
+    ) = withContext(ioDispatcher) {
+        onProgress(0.02f, "Initializing…")
+        val writer = BufferedWriter(OutputStreamWriter(outputStream, Charsets.UTF_8), 131072)
+        val jsonWriter = JsonWriter(writer)
 
         jsonWriter.beginObject()
         jsonWriter.name("version").value(1)
@@ -223,6 +224,7 @@ constructor(
         jsonWriter.name("timestamp").value(System.currentTimeMillis())
 
         // 1. Preferences
+        onProgress(0.05f, "Preferences…")
         jsonWriter.name("preferences")
         val prefJson = context.fromDataStoreToJSONString()
         val prefMapType = object : TypeToken<Map<String, Any?>>() {}.type
@@ -230,6 +232,7 @@ constructor(
         gson.toJson(preferencesMap, prefMapType, jsonWriter)
 
         // 2. Accounts
+        onProgress(0.08f, "Accounts…")
         jsonWriter.name("accounts")
         jsonWriter.beginArray()
         val accounts = accountDao.queryAll()
@@ -239,6 +242,7 @@ constructor(
         jsonWriter.endArray()
 
         // 3. Groups
+        onProgress(0.10f, "Groups…")
         jsonWriter.name("groups")
         jsonWriter.beginArray()
         val groups = groupDao.queryAllGroups()
@@ -248,6 +252,7 @@ constructor(
         jsonWriter.endArray()
 
         // 4. Feeds
+        onProgress(0.12f, "Feeds…")
         jsonWriter.name("feeds")
         jsonWriter.beginArray()
         val feeds = feedDao.queryAllFeeds()
@@ -256,12 +261,17 @@ constructor(
         }
         jsonWriter.endArray()
 
-        // 5. Articles (Paged to prevent any OOM)
+        // 5. Articles (Paged in batches of 1000 to maximize performance while preventing OOM)
         jsonWriter.name("articles")
         jsonWriter.beginArray()
         val totalArticles = articleDao.countAllArticles()
-        val articlePageSize = 200
+        val articlePageSize = 1000
         var articleOffset = 0
+
+        if (totalArticles == 0) {
+            onProgress(0.90f, "0 article")
+        }
+
         while (articleOffset < totalArticles) {
             val chunk = articleDao.queryArticlesPaged(articlePageSize, articleOffset)
             if (chunk.isEmpty()) break
@@ -270,14 +280,17 @@ constructor(
             }
             jsonWriter.flush()
             articleOffset += chunk.size
+            val currentProgress = 0.12f + 0.78f * (articleOffset.toFloat() / maxOf(1, totalArticles))
+            onProgress(currentProgress, "$articleOffset / $totalArticles")
         }
         jsonWriter.endArray()
 
-        // 6. Archived Articles (Paged to prevent any OOM)
+        // 6. Archived Articles (Paged in batches of 1000)
+        onProgress(0.92f, "Archives…")
         jsonWriter.name("archivedArticles")
         jsonWriter.beginArray()
         val totalArchived = feedDao.countAllArchivedArticles()
-        val archivedPageSize = 500
+        val archivedPageSize = 1000
         var archivedOffset = 0
         while (archivedOffset < totalArchived) {
             val chunk = feedDao.queryArchivedArticlesPaged(archivedPageSize, archivedOffset)
@@ -293,18 +306,24 @@ constructor(
         jsonWriter.endObject()
         jsonWriter.flush()
         writer.flush()
+        onProgress(1.0f, "Done")
     }
 
     suspend fun exportPreferencesOnly(context: Context, outputStream: OutputStream) = withContext(ioDispatcher) {
-        val writer = BufferedWriter(OutputStreamWriter(outputStream, Charsets.UTF_8))
+        val writer = BufferedWriter(OutputStreamWriter(outputStream, Charsets.UTF_8), 32768)
         val prefJson = context.fromDataStoreToJSONString()
         writer.write(prefJson)
         writer.flush()
     }
 
-    suspend fun importBackup(context: Context, inputStream: InputStream): Result<BackupImportResult> = withContext(ioDispatcher) {
+    suspend fun importBackup(
+        context: Context,
+        inputStream: InputStream,
+        onProgress: suspend (progress: Float, status: String) -> Unit = { _, _ -> },
+    ): Result<BackupImportResult> = withContext(ioDispatcher) {
         runCatching {
-            val reader = BufferedReader(InputStreamReader(inputStream, Charsets.UTF_8), 65536)
+            onProgress(0.05f, "Reading backup…")
+            val reader = BufferedReader(InputStreamReader(inputStream, Charsets.UTF_8), 131072)
             val jsonReader = JsonReader(reader).apply {
                 isLenient = true
             }
@@ -328,17 +347,17 @@ constructor(
                     "preferences" -> {
                         isFullBackup = true
                         hasPreferences = true
+                        onProgress(0.10f, "Preferences…")
                         val prefMapType = object : TypeToken<Map<String, Any?>>() {}.type
                         val preferencesMap: Map<String, Any?> = gson.fromJson(jsonReader, prefMapType)
                         runCatching {
                             val prefJson = gson.toJson(preferencesMap)
                             prefJson.fromJSONStringToDataStore(context)
-                        }.onFailure {
-                            Timber.w(it, "Failed to restore preferences from backup")
                         }
                     }
                     "accounts" -> {
                         isFullBackup = true
+                        onProgress(0.15f, "Accounts…")
                         jsonReader.beginArray()
                         val batch = mutableListOf<Account>()
                         while (jsonReader.hasNext()) {
@@ -353,6 +372,7 @@ constructor(
                     }
                     "groups" -> {
                         isFullBackup = true
+                        onProgress(0.20f, "Groups…")
                         jsonReader.beginArray()
                         val batch = mutableListOf<Group>()
                         while (jsonReader.hasNext()) {
@@ -367,6 +387,7 @@ constructor(
                     }
                     "feeds" -> {
                         isFullBackup = true
+                        onProgress(0.25f, "Feeds…")
                         jsonReader.beginArray()
                         val batch = mutableListOf<Feed>()
                         while (jsonReader.hasNext()) {
@@ -383,13 +404,15 @@ constructor(
                         isFullBackup = true
                         jsonReader.beginArray()
                         val batch = mutableListOf<Article>()
+                        val batchSize = 1000
                         while (jsonReader.hasNext()) {
                             val art: Article = gson.fromJson(jsonReader, Article::class.java)
                             batch.add(art)
-                            if (batch.size >= 200) {
+                            if (batch.size >= batchSize) {
                                 articleDao.insertAllArticles(batch)
                                 articlesCount += batch.size
                                 batch.clear()
+                                onProgress(0.30f + (articlesCount % 10000) * 0.00005f, "$articlesCount articles")
                             }
                         }
                         jsonReader.endArray()
@@ -398,6 +421,7 @@ constructor(
                             articlesCount += batch.size
                             batch.clear()
                         }
+                        onProgress(0.85f, "$articlesCount articles restored")
                     }
                     "archivedArticles" -> {
                         isFullBackup = true
@@ -406,7 +430,7 @@ constructor(
                         while (jsonReader.hasNext()) {
                             val arch: ArchivedArticle = gson.fromJson(jsonReader, ArchivedArticle::class.java)
                             batch.add(arch)
-                            if (batch.size >= 500) {
+                            if (batch.size >= 1000) {
                                 feedDao.insertAllArchivedArticles(batch)
                                 batch.clear()
                             }
@@ -438,6 +462,8 @@ constructor(
             }
             jsonReader.endObject()
 
+            onProgress(1.0f, "Done")
+
             if (isFullBackup) {
                 BackupImportResult.Full(
                     accountsCount = accountsCount,
@@ -451,14 +477,10 @@ constructor(
                     runCatching {
                         val prefJson = gson.toJson(legacyPreferencesMap)
                         prefJson.fromJSONStringToDataStore(context)
-                    }.onFailure {
-                        Timber.w(it, "Failed to restore legacy preferences")
                     }
                 }
                 BackupImportResult.PreferencesOnly
             }
-        }.onFailure {
-            Timber.e(it, "Failed to import backup")
         }
     }
 
@@ -477,12 +499,8 @@ constructor(
             }
             runCatching {
                 prefJson.fromJSONStringToDataStore(context)
-            }.onFailure {
-                Timber.w(it, "Failed to write preferences to DataStore")
             }
             Unit
-        }.onFailure {
-            Timber.e(it, "Failed to import preferences")
         }
     }
 }

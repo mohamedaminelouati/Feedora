@@ -62,7 +62,6 @@ sealed class LanguagesPreference(val value: Int) : Preference() {
     data object Slovak : LanguagesPreference(39)
     data object Tamil : LanguagesPreference(40)
 
-
     override fun put(context: Context, scope: CoroutineScope) {
         scope.launch {
             context.dataStore.put(
@@ -74,15 +73,15 @@ sealed class LanguagesPreference(val value: Int) : Preference() {
 
     @Composable
     fun toDesc(): String {
-        return when (this) {
+        val name = when (this) {
             ChineseTraditional -> stringResource(id = R.string.chinese_traditional)
             ChineseSimplified -> stringResource(id = R.string.chinese_simplified)
             else -> {
                 this.toLocale().toDisplayName()
             }
         }
+        return name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
-
 
     fun toLocale(): Locale? = when (this) {
         UseDeviceLanguages -> null
@@ -132,56 +131,62 @@ sealed class LanguagesPreference(val value: Int) : Preference() {
         toLocale()?.let { LocaleListCompat.create(it) } ?: LocaleListCompat.getEmptyLocaleList()
 
     companion object {
-
         val default = UseDeviceLanguages
 
-        val values = listOf(
-            UseDeviceLanguages,
-            Arabic,
-            ArabicNorthLevantine,
+        private val allLanguages = listOf(
+            English,
+            ChineseSimplified,
+            German,
+            French,
+            Czech,
+            Italian,
+            Hindi,
+            Spanish,
+            Polish,
+            Russian,
             Basque,
+            Indonesian,
+            ChineseTraditional,
+            Arabic,
             Bulgarian,
             Catalan,
-            ChineseSimplified,
-            ChineseTraditional,
-            Czech,
             Danish,
             Dutch,
-            English,
             Esperanto,
-            Estonian,
             Filipino,
-            French,
-            Galician,
-            German,
             Hebrew,
-            Hindi,
             Hungarian,
-            Indonesian,
-            Italian,
             Japanese,
             Kannada,
             NorwegianBokmal,
             Persian,
-            Polish,
             Portuguese,
             PortugueseBrazil,
             Romanian,
-            Russian,
             Serbian,
-            Slovak,
             Slovenian,
-            Spanish,
             Swedish,
-            Tamil,
             Turkish,
             Ukrainian,
-            Vietnamese
+            Vietnamese,
+            ArabicNorthLevantine,
+            Estonian,
+            Galician,
+            Slovak,
+            Tamil,
         )
+
+        val values: List<LanguagesPreference> by lazy {
+            listOf(UseDeviceLanguages) + allLanguages.sortedBy { pref ->
+                val loc = pref.toLocale()
+                loc?.getDisplayName(loc)?.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                } ?: ""
+            }
+        }
 
         fun fromPreferences(preferences: Preferences): LanguagesPreference =
             fromValue(preferences[DataStoreKey.keys[languages]?.key as Preferences.Key<Int>] ?: 0)
-
 
         fun fromValue(value: Int): LanguagesPreference = when (value) {
             0 -> UseDeviceLanguages
@@ -231,11 +236,11 @@ sealed class LanguagesPreference(val value: Int) : Preference() {
         fun setLocale(preference: LanguagesPreference) {
             AppCompatDelegate.setApplicationLocales(preference.toLocaleList())
         }
-
     }
 }
 
 @Composable
-fun Locale?.toDisplayName(): String = this?.getDisplayName(this) ?: stringResource(
-    id = R.string.use_device_languages
-)
+fun Locale?.toDisplayName(): String {
+    val name = this?.getDisplayName(this) ?: stringResource(id = R.string.use_device_languages)
+    return name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+}

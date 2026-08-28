@@ -421,6 +421,10 @@
     <string name="import_full_backup">استيراد جميع البيانات والإعدادات</string>
     <string name="export_preferences">تصدير الإعدادات فقط</string>
     <string name="import_preferences">استيراد الإعدادات فقط</string>
+    <string name="exporting_backup">جارٍ تصدير النسخة الاحتياطية…</string>
+    <string name="importing_backup">جارٍ استيراد النسخة الاحتياطية…</string>
+    <string name="exporting_articles">جارٍ تصدير المقالات…</string>
+    <string name="importing_articles">جارٍ استعادة المقالات…</string>
     <string name="backup_export_success">تم تصدير النسخة الاحتياطية بنجاح</string>
     <string name="backup_export_failed">فشل تصدير النسخة الاحتياطية</string>
     <string name="backup_import_success">تم استيراد النسخة الاحتياطية بنجاح</string>

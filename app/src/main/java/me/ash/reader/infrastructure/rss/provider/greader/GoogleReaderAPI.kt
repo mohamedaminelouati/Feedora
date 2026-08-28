@@ -25,7 +25,6 @@ import okhttp3.FormBody
 import okhttp3.Request
 import okhttp3.executeAsync
 import okio.IOException
-import timber.log.Timber
 
 private const val TAG = "GoogleReaderAPI"
 
@@ -153,7 +152,6 @@ private constructor(
     private val retryConfig =
         RetryConfig(
             onRetry = {
-                Timber.e(it)
                 clearAuthData()
             }
         )

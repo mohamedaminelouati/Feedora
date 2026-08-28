@@ -25,7 +25,6 @@ import me.ash.reader.infrastructure.di.ApplicationScope
 import me.ash.reader.infrastructure.di.IODispatcher
 import me.ash.reader.ui.page.common.ExtraName
 import me.ash.reader.ui.page.common.NotificationGroupName
-import timber.log.Timber
 
 class NotificationHelper
 @Inject
@@ -51,8 +50,6 @@ constructor(
         if (articles.isEmpty()) return
         if (!feed.isNotification) return
         coroutineScope.launch {
-            Timber.d("notify ${feed.name} for ${articles.size} articles")
-
             val favIcon =
                 withContext(ioDispatcher) {
                     feed.icon?.let { icon ->
