@@ -326,12 +326,20 @@ constructor(
             if (articleWithFeed.feed.isFullContent) {
                 val fullContent =
                     readerCacheHelper.readFullContent(articleWithFeed.article.id).getOrNull()
-                if (fullContent != null) ReaderState.FullContent(fullContent)
-                else {
+                if (fullContent != null) {
+                    ReaderState.FullContent(fullContent)
+                } else {
                     renderFullContent()
-                    ReaderState.Loading
+                    val description = articleWithFeed.article.rawDescription
+                    if (!description.isNullOrBlank()) {
+                        ReaderState.Description(description)
+                    } else {
+                        ReaderState.Loading
+                    }
                 }
-            } else ReaderState.Description(articleWithFeed.article.rawDescription)
+            } else {
+                ReaderState.Description(articleWithFeed.article.rawDescription)
+            }
 
         return copy(content = contentState)
     }
@@ -345,10 +353,11 @@ constructor(
     }
 
     fun renderFullContent() {
+        val article = currentArticle ?: return
         val fetchJob =
             viewModelScope.launch {
                 readerCacheHelper
-                    .readOrFetchFullContent(currentArticle!!)
+                    .readOrFetchFullContent(article)
                     .onSuccess { content ->
                         _readerState.update {
                             it.copy(content = ReaderState.FullContent(content = content))
@@ -356,13 +365,18 @@ constructor(
                     }
                     .onFailure { th ->
                         _readerState.update {
-                            it.copy(content = ReaderState.Error(th.message.toString()))
+                            val fallback = article.rawDescription
+                            if (!fallback.isNullOrBlank()) {
+                                it.copy(content = ReaderState.Description(content = fallback))
+                            } else {
+                                it.copy(content = ReaderState.Error(th.message.toString()))
+                            }
                         }
                     }
             }
         viewModelScope.launch {
             delay(100L)
-            if (fetchJob.isActive) {
+            if (fetchJob.isActive && _readerState.value.content is ReaderState.Loading) {
                 setLoading()
             }
         }

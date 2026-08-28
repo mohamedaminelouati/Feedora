@@ -18,11 +18,11 @@ val LocalSummarizerEngine =
     compositionLocalOf<SummarizerEnginePreference> { SummarizerEnginePreference.default }
 
 sealed class SummarizerEnginePreference(val value: Int) : Preference() {
-    data object ChatGPT : SummarizerEnginePreference(0)
-    data object Perplexity : SummarizerEnginePreference(1)
-    data object DuckAi : SummarizerEnginePreference(2)
-    data object ProtonLumo : SummarizerEnginePreference(3)
-    data object Smry : SummarizerEnginePreference(4)
+    data object ProtonLumo : SummarizerEnginePreference(0)
+    data object DuckAi : SummarizerEnginePreference(1)
+    data object Smry : SummarizerEnginePreference(2)
+    data object Perplexity : SummarizerEnginePreference(3)
+    data object ChatGPT : SummarizerEnginePreference(4)
 
     override fun put(context: Context, scope: CoroutineScope) {
         scope.launch {
@@ -36,11 +36,11 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
     @Stable
     fun toDesc(context: Context): String =
         when (this) {
-            ChatGPT -> "ChatGPT"
-            Perplexity -> "Perplexity AI"
-            DuckAi -> "Duck.ai"
             ProtonLumo -> "Proton Lumo"
+            DuckAi -> "Duck.ai"
             Smry -> "Smry.ai"
+            Perplexity -> "Perplexity AI"
+            ChatGPT -> "ChatGPT"
         }
 
     fun buildSummaryUrl(
@@ -53,40 +53,40 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
         val fullQuery = "$prompt $cleanUrl"
 
         return when (this) {
-            ChatGPT -> {
-                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
-                "https://chatgpt.com/?q=$encoded"
-            }
-            Perplexity -> {
-                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
-                "https://www.perplexity.ai/search?q=$encoded"
-            }
-            DuckAi -> {
-                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
-                "https://duck.ai/?q=$encoded"
-            }
             ProtonLumo -> {
                 val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
                 "https://lumo.proton.me/guest/?q=$encoded"
+            }
+            DuckAi -> {
+                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
+                "https://duckduckgo.com/?q=$encoded&ia=chat"
             }
             Smry -> {
                 val noProtocol = cleanUrl.removePrefix("https://").removePrefix("http://")
                 "https://smry.ai/$noProtocol"
             }
+            Perplexity -> {
+                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
+                "https://www.perplexity.ai/search?q=$encoded"
+            }
+            ChatGPT -> {
+                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
+                "https://chatgpt.com/?q=$encoded"
+            }
         }
     }
 
     companion object {
-        val default: SummarizerEnginePreference = ChatGPT
-        val values = listOf(ChatGPT, Perplexity, DuckAi, ProtonLumo, Smry)
+        val default: SummarizerEnginePreference = ProtonLumo
+        val values = listOf(ProtonLumo, DuckAi, Smry, Perplexity, ChatGPT)
 
         fun fromPreferences(preferences: Preferences): SummarizerEnginePreference =
             when (preferences[DataStoreKey.keys[summarizerEngine]?.key as Preferences.Key<Int>]) {
-                0 -> ChatGPT
-                1 -> Perplexity
-                2 -> DuckAi
-                3 -> ProtonLumo
-                4 -> Smry
+                0 -> ProtonLumo
+                1 -> DuckAi
+                2 -> Smry
+                3 -> Perplexity
+                4 -> ChatGPT
                 else -> default
             }
     }

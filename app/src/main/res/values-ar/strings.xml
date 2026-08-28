@@ -410,4 +410,9 @@
     <string name="ai_select_language_prompt">يرجى اختيار لغة للبدء.</string>
     <string name="open_summary_in_browser">فتح التلخيص في المتصفح</string>
     <string name="article_summary">تلخيص المقال</string>
+    <string name="sync_status_unsynced">غير متزامن</string>
+    <string name="sync_status_today">اليوم عند %1$s</string>
+    <string name="sync_status_yesterday">أمس عند %1$s</string>
+    <string name="sync_status_success_prefix">تمت المزامنة: %1$s</string>
+    <string name="sync_status_failed_prefix">فشلت المزامنة: %1$s</string>
 </resources>

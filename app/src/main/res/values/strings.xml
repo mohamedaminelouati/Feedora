@@ -427,4 +427,9 @@
     <string name="ai_select_language_prompt">Please select a language to begin.</string>
     <string name="open_summary_in_browser">Open Summary in Browser</string>
     <string name="article_summary">Article Summary</string>
+    <string name="sync_status_unsynced">Not synced</string>
+    <string name="sync_status_today">Today at %1$s</string>
+    <string name="sync_status_yesterday">Yesterday at %1$s</string>
+    <string name="sync_status_success_prefix">Synced: %1$s</string>
+    <string name="sync_status_failed_prefix">Failed: %1$s</string>
 </resources>

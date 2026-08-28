@@ -39,6 +39,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import kotlinx.coroutines.launch
+import me.ash.reader.R
 import me.ash.reader.domain.model.feed.Feed
 import me.ash.reader.infrastructure.preference.FeedsShowSyncStatusPreference
 import me.ash.reader.infrastructure.preference.LocalFeedsShowSyncStatus
@@ -54,9 +55,9 @@ private fun contentPadding(isLastItem: Boolean): PaddingValues =
         PaddingValues(14.dp)
     }
 
-private fun formatSyncDateTime(lastSyncTime: Long, lastSyncStatus: Int): Pair<String, Color> {
+private fun formatSyncDateTime(context: Context, lastSyncTime: Long, lastSyncStatus: Int): Pair<String, Color> {
     if (lastSyncTime <= 0L || lastSyncStatus == 0) {
-        return Pair("Non synchronisé", Color(0xFF9E9E9E))
+        return Pair(context.getString(R.string.sync_status_unsynced), Color(0xFF9E9E9E))
     }
 
     val syncDate = Date(lastSyncTime)
@@ -71,11 +72,11 @@ private fun formatSyncDateTime(lastSyncTime: Long, lastSyncStatus: Int): Pair<St
         when {
             calSync.get(Calendar.YEAR) == calNow.get(Calendar.YEAR) &&
                 calSync.get(Calendar.DAY_OF_YEAR) == calNow.get(Calendar.DAY_OF_YEAR) -> {
-                "Aujourd'hui à $timeStr"
+                context.getString(R.string.sync_status_today, timeStr)
             }
             calSync.get(Calendar.YEAR) == calNow.get(Calendar.YEAR) &&
                 calSync.get(Calendar.DAY_OF_YEAR) == calNow.get(Calendar.DAY_OF_YEAR) - 1 -> {
-                "Hier à $timeStr"
+                context.getString(R.string.sync_status_yesterday, timeStr)
             }
             else -> {
                 val dateFormatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
@@ -84,9 +85,9 @@ private fun formatSyncDateTime(lastSyncTime: Long, lastSyncStatus: Int): Pair<St
         }
 
     return if (lastSyncStatus == 1) {
-        Pair("Synchro : $dateStr", Color(0xFF4CAF50))
+        Pair(context.getString(R.string.sync_status_success_prefix, dateStr), Color(0xFF4CAF50))
     } else {
-        Pair("Échec : $dateStr", Color(0xFFF44336))
+        Pair(context.getString(R.string.sync_status_failed_prefix, dateStr), Color(0xFFF44336))
     }
 }
 
@@ -99,6 +100,7 @@ private fun FeedItemImpl(
     onClick: () -> Unit = {},
     onLongClick: () -> Unit = {},
 ) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
     Row(
         modifier =
@@ -145,7 +147,7 @@ private fun FeedItemImpl(
                         Spacer(modifier = Modifier.height(2.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             val (statusText, statusColor) =
-                                formatSyncDateTime(feed.lastSyncTime, feed.lastSyncStatus)
+                                formatSyncDateTime(context, feed.lastSyncTime, feed.lastSyncStatus)
                             Box(
                                 modifier =
                                     Modifier.size(6.dp)

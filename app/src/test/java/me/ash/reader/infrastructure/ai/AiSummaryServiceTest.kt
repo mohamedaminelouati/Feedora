@@ -44,7 +44,7 @@ class AiSummaryServiceTest {
             language = AiLanguage.ENGLISH,
             style = AiSummaryStyle.DETAILED,
         )
-        Assert.assertTrue(duckAiEnglishDetailed.contains("duck.ai/?q="))
+        Assert.assertTrue(duckAiEnglishDetailed.contains("duckduckgo.com/?q="))
 
         val protonLumoUrl = SummarizerEnginePreference.ProtonLumo.buildSummaryUrl(
             articleUrl = testUrl,

@@ -178,7 +178,7 @@ fun SettingsPage(
                 description = colorAndStyleTitle,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.DarkMode,
-                keywords = listOf("dark", "night", "amoled", "black", "theme", "sombre", "nuit", "noir"),
+                keywords = listOf("dark", "night", "amoled", "black", "theme", "mode"),
                 onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
@@ -186,7 +186,7 @@ fun SettingsPage(
                 description = boldCharactersDesc,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.FormatBold,
-                keywords = listOf("bold", "bionic", "reading", "characters", "gras", "caractères", "lecture", "bionique"),
+                keywords = listOf("bold", "bionic", "reading", "characters", "text"),
                 onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
@@ -194,7 +194,7 @@ fun SettingsPage(
                 description = colorAndStyleTitle,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.Palette,
-                keywords = listOf("feeds", "flux", "page", "groupes", "expand", "elevation", "favicons"),
+                keywords = listOf("feeds", "feed", "page", "groups", "expand", "elevation", "favicons"),
                 onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
@@ -202,7 +202,7 @@ fun SettingsPage(
                 description = colorAndStyleTitle,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.Palette,
-                keywords = listOf("flow", "flux", "articles", "images", "date", "titre", "header", "sticky"),
+                keywords = listOf("flow", "stream", "articles", "images", "date", "title", "header", "sticky"),
                 onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
@@ -210,7 +210,7 @@ fun SettingsPage(
                 description = colorAndStyleTitle,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.Palette,
-                keywords = listOf("reading", "lecture", "police", "font", "taille", "interligne", "texte", "alignement"),
+                keywords = listOf("reading", "reader", "font", "size", "line height", "text", "alignment"),
                 onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
@@ -218,7 +218,7 @@ fun SettingsPage(
                 description = interactionDesc,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("gestures", "navigation", "startup", "behavior", "scroll", "interaction", "gestes", "démarrage"),
+                keywords = listOf("gestures", "navigation", "startup", "behavior", "scroll", "interaction"),
                 onClick = navigateToInteraction,
             ),
             SettingSearchItem(
@@ -226,7 +226,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.Swipe,
-                keywords = listOf("swipe", "left", "glisser", "gauche", "geste", "marquer", "lu", "favori", "lire", "action", "balayer"),
+                keywords = listOf("swipe", "left", "gesture", "mark", "read", "star", "action"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.swipeStartAction)
                     navigateToInteraction()
@@ -237,7 +237,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.Swipe,
-                keywords = listOf("swipe", "right", "glisser", "droite", "geste", "marquer", "lu", "favori", "lire", "action", "balayer"),
+                keywords = listOf("swipe", "right", "gesture", "mark", "read", "star", "action"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.swipeEndAction)
                     navigateToInteraction()
@@ -248,7 +248,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("sort", "tri", "trier", "articles", "unread", "non lus", "ordre", "date", "recent", "earliest", "latest", "chrono"),
+                keywords = listOf("sort", "order", "articles", "unread", "date", "recent", "earliest", "latest", "chrono"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.flowSortUnreadArticles)
                     navigateToInteraction()
@@ -259,7 +259,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("mark", "read", "scroll", "marquer", "lu", "défilement", "automatique", "defilement", "lire"),
+                keywords = listOf("mark", "read", "scroll", "automatic", "auto"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.markAsReadOnScroll)
                     navigateToInteraction()
@@ -270,7 +270,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("hide", "empty", "groups", "masquer", "groupes", "vides", "dossiers", "cacher"),
+                keywords = listOf("hide", "empty", "groups", "folders"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.hideEmptyGroups)
                     navigateToInteraction()
@@ -281,7 +281,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("initial", "page", "startup", "démarrage", "ouverture", "accueil", "flux", "feeds", "start"),
+                keywords = listOf("initial", "page", "startup", "launch", "open", "home", "feeds", "flow", "start"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.initialPage)
                     navigateToInteraction()
@@ -292,7 +292,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("initial", "filter", "filtre", "défaut", "all", "unread", "starred", "tout", "non lus", "favoris"),
+                keywords = listOf("initial", "filter", "default", "all", "unread", "starred"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.initialFilter)
                     navigateToInteraction()
@@ -303,7 +303,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("browser", "navigateur", "liens", "links", "open", "ouvrir", "chrome", "firefox", "custom tabs", "web"),
+                keywords = listOf("browser", "links", "open", "chrome", "firefox", "custom tabs", "web"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.openLink)
                     navigateToInteraction()
@@ -314,7 +314,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("share", "shared", "content", "partage", "partager", "contenu", "titre", "lien", "url"),
+                keywords = listOf("share", "shared", "content", "title", "link", "url"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.sharedContent)
                     navigateToInteraction()
@@ -325,7 +325,7 @@ fun SettingsPage(
                 description = syncNotificationDesc,
                 category = interactionTitle,
                 icon = Icons.Outlined.Notifications,
-                keywords = listOf("sync", "notification", "alerts", "new articles", "count", "synchronisation", "alerte", "nouveaux", "articles"),
+                keywords = listOf("sync", "notification", "alerts", "new articles", "count"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.syncNotification)
                     navigateToInteraction()
@@ -336,7 +336,7 @@ fun SettingsPage(
                 description = restoreLastArticleDesc,
                 category = interactionTitle,
                 icon = Icons.Outlined.History,
-                keywords = listOf("resume", "last article", "startup", "reopen", "reading", "reprendre", "dernier", "article", "rouvrir", "lecture"),
+                keywords = listOf("resume", "last article", "startup", "reopen", "reading", "history"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.restoreLastArticle)
                     navigateToInteraction()
@@ -347,7 +347,7 @@ fun SettingsPage(
                 description = restoreScrollPositionDesc,
                 category = interactionTitle,
                 icon = Icons.Outlined.TouchApp,
-                keywords = listOf("scroll", "position", "remember", "all", "unread", "list", "mémorisation", "memorisation", "défilement", "defilement", "position", "liste", "flux"),
+                keywords = listOf("scroll", "position", "remember", "all", "unread", "list", "flow"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.restoreScrollPosition)
                     navigateToInteraction()
@@ -358,7 +358,7 @@ fun SettingsPage(
                 description = syncStatusDesc,
                 category = colorAndStyleTitle,
                 icon = Icons.Outlined.Sync,
-                keywords = listOf("sync status", "last sync", "date", "time", "feeds", "error", "état", "synchronisation", "statut", "heure", "erreur"),
+                keywords = listOf("sync status", "last sync", "date", "time", "feeds", "error", "status"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.feedsShowSyncStatus)
                     navigateToColorAndStyle()
@@ -369,7 +369,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.Swipe,
-                keywords = listOf("pull", "swipe", "next feed", "bottom", "load", "tirer", "suivant", "bas", "charger"),
+                keywords = listOf("pull", "swipe", "next feed", "bottom", "load"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.pullToLoadNextFeed)
                     navigateToInteraction()
@@ -380,7 +380,7 @@ fun SettingsPage(
                 description = interactionTitle,
                 category = interactionTitle,
                 icon = Icons.Outlined.Swipe,
-                keywords = listOf("pull", "switch", "article", "tirer", "changer", "suivant", "lecture"),
+                keywords = listOf("pull", "switch", "article", "next", "reading"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.pullToSwitchArticle)
                     navigateToInteraction()
@@ -391,7 +391,7 @@ fun SettingsPage(
                 description = languagesDesc,
                 category = languagesTitle,
                 icon = Icons.Outlined.Language,
-                keywords = listOf("language", "locale", "translation", "english", "french", "arabic", "spanish", "german", "chinese", "langue", "français", "arabe", "anglais", "espagnol", "allemand"),
+                keywords = listOf("language", "locale", "translation", "english", "french", "arabic", "spanish", "german", "chinese"),
                 onClick = navigateToLanguages,
             ),
             SettingSearchItem(
@@ -399,7 +399,7 @@ fun SettingsPage(
                 description = troubleshootingDesc,
                 category = troubleshootingTitle,
                 icon = Icons.Outlined.BugReport,
-                keywords = listOf("logs", "cache", "clean", "error", "debug", "backup", "restore", "database", "dépannage", "journal", "vider", "sauvegarde", "restauration"),
+                keywords = listOf("logs", "cache", "clean", "error", "debug", "backup", "restore", "database"),
                 onClick = navigateToTroubleshooting,
             ),
             SettingSearchItem(
@@ -407,7 +407,7 @@ fun SettingsPage(
                 description = tipsAndSupportDesc,
                 category = tipsAndSupportTitle,
                 icon = Icons.Outlined.TipsAndUpdates,
-                keywords = listOf("help", "support", "about", "donate", "license", "version", "update", "github", "aide", "don", "licence", "mise à jour", "propos"),
+                keywords = listOf("help", "support", "about", "donate", "license", "version", "update", "github"),
                 onClick = navigateToTipsAndSupport,
             ),
         )
