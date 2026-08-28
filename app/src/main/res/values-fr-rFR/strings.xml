@@ -471,4 +471,13 @@
     <string name="local_backup_restore">Sauvegarde &amp; Restauration locale</string>
     <string name="storage_and_cache">Stockage &amp; Cache</string>
     <string name="sync_logs">Journaux de synchronisation</string>
+    <string name="clear_server_config">Supprimer la configuration du serveur</string>
+    <string name="clear_server_config_desc">Effacer les identifiants et désactiver la sauvegarde cloud</string>
+    <string name="clear_server_config_confirm">Voulez-vous vraiment effacer les paramètres de connexion du serveur distant et désactiver la sauvegarde automatique ?</string>
+    <string name="clear_server_config_success">Configuration du serveur supprimée</string>
+    <string name="pages_layout_and_display">Disposition des pages</string>
+    <string name="pages_layout_and_display_desc">Personnaliser la page des flux, la liste des articles et la lecture</string>
+    <string name="feeds_page_style_desc">Dossiers, indicateur de synchro, filtres</string>
+    <string name="flow_page_style_desc">Grille / Liste, favicons, images, dates</string>
+    <string name="reading_page_style_desc">Moteur de lecture, résumé IA, typographie</string>
 </resources>

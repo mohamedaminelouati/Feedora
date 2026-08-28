@@ -501,4 +501,13 @@
     <string name="local_backup_restore">Local Backup &amp; Restore</string>
     <string name="storage_and_cache">Storage &amp; Cache</string>
     <string name="sync_logs">Sync Logs</string>
+    <string name="clear_server_config">Clear Server Configuration</string>
+    <string name="clear_server_config_desc">Remove server credentials and reset cloud backup</string>
+    <string name="clear_server_config_confirm">Are you sure you want to clear the cloud backup server configuration and disable automatic backups?</string>
+    <string name="clear_server_config_success">Server configuration cleared</string>
+    <string name="pages_layout_and_display">Layout &amp; Display</string>
+    <string name="pages_layout_and_display_desc">Feeds, Articles list, and Reading page appearance</string>
+    <string name="feeds_page_style_desc">Folders, sync status, filter bar</string>
+    <string name="flow_page_style_desc">Grid / List layout, favicons, images, dates</string>
+    <string name="reading_page_style_desc">Reader engine, AI summary, typography</string>
 </resources>

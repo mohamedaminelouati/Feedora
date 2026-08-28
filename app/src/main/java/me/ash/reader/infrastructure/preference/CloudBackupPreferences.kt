@@ -120,4 +120,23 @@ class CloudBackupPreferencesManager @Inject constructor(
             prefs[CloudBackupDataStoreKeys.LAST_BACKUP_STATUS] = updated.lastBackupStatus
         }
     }
+
+    suspend fun clearSettings() {
+        context.dataStore.edit { prefs ->
+            prefs.remove(CloudBackupDataStoreKeys.PROTOCOL)
+            prefs.remove(CloudBackupDataStoreKeys.HOST)
+            prefs.remove(CloudBackupDataStoreKeys.PORT)
+            prefs.remove(CloudBackupDataStoreKeys.REMOTE_PATH)
+            prefs.remove(CloudBackupDataStoreKeys.USERNAME)
+            prefs.remove(CloudBackupDataStoreKeys.PASSWORD)
+            prefs.remove(CloudBackupDataStoreKeys.TRUST_INSECURE_SSL)
+            prefs.remove(CloudBackupDataStoreKeys.AUTO_ENABLED)
+            prefs.remove(CloudBackupDataStoreKeys.FREQUENCY)
+            prefs.remove(CloudBackupDataStoreKeys.REQUIRE_WIFI)
+            prefs.remove(CloudBackupDataStoreKeys.REQUIRE_CHARGING)
+            prefs.remove(CloudBackupDataStoreKeys.MAX_TO_KEEP)
+            prefs.remove(CloudBackupDataStoreKeys.LAST_BACKUP_TIME)
+            prefs.remove(CloudBackupDataStoreKeys.LAST_BACKUP_STATUS)
+        }
+    }
 }

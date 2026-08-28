@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material.icons.outlined.Dashboard
 import androidx.compose.material.icons.outlined.FormatBold
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Language
@@ -70,7 +71,7 @@ private data class SettingSearchItem(
     val description: String,
     val category: String,
     val icon: ImageVector,
-    val keywords: List<String> = emptyList(),
+    val keywords: List<String>,
     val onClick: () -> Unit,
 )
 
@@ -79,11 +80,12 @@ fun SettingsPage(
     updateViewModel: UpdateViewModel = hiltViewModel(),
     onBack: () -> Unit,
     navigateToAccounts: () -> Unit,
+    navigateToCloudBackup: () -> Unit,
     navigateToColorAndStyle: () -> Unit,
+    navigateToPagesStyle: () -> Unit,
     navigateToInteraction: () -> Unit,
     navigateToLanguages: () -> Unit,
     navigateToTroubleshooting: () -> Unit,
-    navigateToCloudBackup: () -> Unit,
     navigateToTipsAndSupport: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -97,6 +99,8 @@ fun SettingsPage(
     val accountsDesc = stringResource(R.string.accounts_desc)
     val colorAndStyleTitle = stringResource(R.string.color_and_style)
     val colorAndStyleDesc = stringResource(R.string.color_and_style_desc)
+    val pagesLayoutStyleTitle = stringResource(R.string.pages_layout_and_display)
+    val pagesLayoutStyleDesc = stringResource(R.string.pages_layout_and_display_desc)
     val darkThemeTitle = stringResource(R.string.dark_theme)
     val boldCharactersTitle = stringResource(R.string.bold_characters)
     val boldCharactersDesc = stringResource(R.string.bold_characters_preview)
@@ -137,6 +141,7 @@ fun SettingsPage(
     val allSearchableItems = remember(
         accountsTitle,
         colorAndStyleTitle,
+        pagesLayoutStyleTitle,
         darkThemeTitle,
         boldCharactersTitle,
         interactionTitle,
@@ -178,6 +183,14 @@ fun SettingsPage(
                 onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
+                title = pagesLayoutStyleTitle,
+                description = pagesLayoutStyleDesc,
+                category = pagesLayoutStyleTitle,
+                icon = Icons.Outlined.Dashboard,
+                keywords = listOf("layout", "display", "pages", "feeds", "flow", "reading", "grid", "list", "disposition", "mise en page"),
+                onClick = navigateToPagesStyle,
+            ),
+            SettingSearchItem(
                 title = darkThemeTitle,
                 description = colorAndStyleTitle,
                 category = colorAndStyleTitle,
@@ -188,34 +201,34 @@ fun SettingsPage(
             SettingSearchItem(
                 title = boldCharactersTitle,
                 description = boldCharactersDesc,
-                category = colorAndStyleTitle,
+                category = pagesLayoutStyleTitle,
                 icon = Icons.Outlined.FormatBold,
                 keywords = listOf("bold", "bionic", "reading", "characters", "text"),
-                onClick = navigateToColorAndStyle,
+                onClick = navigateToPagesStyle,
             ),
             SettingSearchItem(
                 title = feedsPageStyleTitle,
-                description = colorAndStyleTitle,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
+                description = pagesLayoutStyleTitle,
+                category = pagesLayoutStyleTitle,
+                icon = Icons.Outlined.Dashboard,
                 keywords = listOf("feeds", "feed", "page", "groups", "expand", "elevation", "favicons"),
-                onClick = navigateToColorAndStyle,
+                onClick = navigateToPagesStyle,
             ),
             SettingSearchItem(
                 title = flowPageStyleTitle,
-                description = colorAndStyleTitle,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
-                keywords = listOf("flow", "stream", "articles", "images", "date", "title", "header", "sticky"),
-                onClick = navigateToColorAndStyle,
+                description = pagesLayoutStyleTitle,
+                category = pagesLayoutStyleTitle,
+                icon = Icons.Outlined.Dashboard,
+                keywords = listOf("flow", "stream", "articles", "images", "date", "title", "header", "sticky", "grid", "grille"),
+                onClick = navigateToPagesStyle,
             ),
             SettingSearchItem(
                 title = readingPageStyleTitle,
-                description = colorAndStyleTitle,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
-                keywords = listOf("reading", "reader", "font", "size", "line height", "text", "alignment"),
-                onClick = navigateToColorAndStyle,
+                description = pagesLayoutStyleTitle,
+                category = pagesLayoutStyleTitle,
+                icon = Icons.Outlined.Dashboard,
+                keywords = listOf("reading", "reader", "font", "size", "line height", "text", "alignment", "ai"),
+                onClick = navigateToPagesStyle,
             ),
             SettingSearchItem(
                 title = interactionTitle,
@@ -573,6 +586,14 @@ fun SettingsPage(
                             desc = colorAndStyleDesc,
                             icon = Icons.Outlined.Palette,
                             onClick = navigateToColorAndStyle,
+                        )
+                    }
+                    item {
+                        SelectableSettingGroupItem(
+                            title = pagesLayoutStyleTitle,
+                            desc = pagesLayoutStyleDesc,
+                            icon = Icons.Outlined.Dashboard,
+                            onClick = navigateToPagesStyle,
                         )
                     }
                     item {

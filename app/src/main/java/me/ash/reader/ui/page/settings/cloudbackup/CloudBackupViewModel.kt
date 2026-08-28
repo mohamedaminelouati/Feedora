@@ -259,4 +259,19 @@ class CloudBackupViewModel @Inject constructor(
             onComplete(result)
         }
     }
+
+    fun clearConfiguration() {
+        viewModelScope.launch {
+            preferencesManager.clearSettings()
+            CloudBackupWorker.cancelWork(workManager)
+            _uiState.update {
+                it.copy(
+                    settings = CloudBackupSettings(),
+                    remoteBackups = emptyList(),
+                    testConnectionMessage = null,
+                    isTestSuccess = null,
+                )
+            }
+        }
+    }
 }

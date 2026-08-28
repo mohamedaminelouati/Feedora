@@ -97,6 +97,7 @@ fun CloudBackupPage(
     var showProtocolDialog by remember { mutableStateOf(false) }
     var showFrequencyDialog by remember { mutableStateOf(false) }
     var showRotationDialog by remember { mutableStateOf(false) }
+    var showClearConfigDialog by remember { mutableStateOf(false) }
     var passwordVisible by remember { mutableStateOf(false) }
 
     var fileToRestore by remember { mutableStateOf<RemoteBackupFile?>(null) }
@@ -360,6 +361,33 @@ fun CloudBackupPage(
         )
     }
 
+    // Clear Configuration Dialog
+    if (showClearConfigDialog) {
+        AlertDialog(
+            onDismissRequest = { showClearConfigDialog = false },
+            title = { Text(stringResource(R.string.clear_server_config)) },
+            text = { Text(stringResource(R.string.clear_server_config_confirm)) },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.clearConfiguration()
+                        showClearConfigDialog = false
+                        hapticFeedback.performHapticFeedback(HapticFeedbackType.Confirm)
+                        context.showToast(context.getString(R.string.clear_server_config_success))
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
+                ) {
+                    Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.onError)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showClearConfigDialog = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            },
+        )
+    }
+
     RYScaffold(
         containerColor = MaterialTheme.colorScheme.surface onLight MaterialTheme.colorScheme.inverseOnSurface,
         navigationIcon = {
@@ -502,6 +530,23 @@ fun CloudBackupPage(
                                     style = MaterialTheme.typography.bodySmall,
                                     color = if (uiState.isTestSuccess == true) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
                                 )
+                            }
+                        }
+
+                        if (settings.config.host.isNotBlank() || settings.config.username.isNotBlank()) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            OutlinedButton(
+                                modifier = Modifier.fillMaxWidth(),
+                                onClick = { showClearConfigDialog = true },
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Delete,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(18.dp),
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(stringResource(R.string.clear_server_config))
                             }
                         }
                     }
