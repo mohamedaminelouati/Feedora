@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">Vse</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d arhivirana novica</item>
@@ -132,7 +132,7 @@
     <string name="tips_and_support">Nasveti in podpora</string>
     <string name="tips_and_support_desc">O programski opremi, odprtokodne licence</string>
     <string name="welcome">Dobrodošli</string>
-    <string name="tos_tips">Če želite nadaljevati, preberite Pogoje storitve in Pravilnik o zasebnosti programske opreme Read You ter se z njimi strinjajte.</string>
+    <string name="tos_tips">Če želite nadaljevati, preberite Pogoje storitve in Pravilnik o zasebnosti programske opreme Read You Pro ter se z njimi strinjajte.</string>
     <string name="browse_tos_tips">Prebrskajte </string>
     <string name="terms_of_service">Pogoji storitve</string>
     <string name="tos_content"></string>
@@ -160,10 +160,10 @@
     <string name="reading_page">Bralna stran</string>
     <string name="sponsor">Sponzor</string>
     <string name="open_source_licenses">Odprtokodne licence</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Seznam sprememb</string>
     <string name="update">Posodobitev</string>
     <string name="skip_this_version">Preskoči to različico</string>
@@ -341,7 +341,7 @@
     <string name="troubleshooting">Odpravljanje težav</string>
     <string name="troubleshooting_desc">Poročilo o napaki, nastavitve aplikacije</string>
     <string name="bug_report">Poročilo o napaki</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">Nastavitve aplikacije</string>
     <string name="import_from_protobuf_file">Uvoz iz datoteke protobuf</string>
     <string name="export_as_protobuf_file">Izvozi kot datoteko protobuf</string>

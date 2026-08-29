@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">모든 아티클</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d개의 항목</item>
@@ -123,7 +123,7 @@
     <string name="tips_and_support">도움말 &amp; 지원</string>
     <string name="tips_and_support_desc">정보, 오픈소스 라이선스</string>
     <string name="welcome">환영합니다</string>
-    <string name="tos_tips">계속하려면 Read You의 서비스 약관 및 개인 정보 보호 정책에 동의하셔야 합니다.</string>
+    <string name="tos_tips">계속하려면 Read You Pro의 서비스 약관 및 개인 정보 보호 정책에 동의하셔야 합니다.</string>
     <string name="browse_tos_tips">찾아보기</string>
     <string name="terms_of_service">서비스 약관</string>
     <string name="tos_content"></string>
@@ -151,10 +151,10 @@
     <string name="reading_page">읽기 페이지</string>
     <string name="sponsor">스폰서</string>
     <string name="open_source_licenses">오픈소스 라이선스</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">변경 내역</string>
     <string name="update">업데이트</string>
     <string name="skip_this_version">이 버전 건너뛰기</string>
@@ -333,7 +333,7 @@
     <string name="troubleshooting">문제 해결</string>
     <string name="troubleshooting_desc">버그 신고, 앱 환경설정</string>
     <string name="bug_report">버그 신고</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">앱 환경설정</string>
     <string name="import_from_protobuf_file">protobuf 파일에서 가져오기</string>
     <string name="export_as_protobuf_file">protobuf 파일로 내보내기</string>

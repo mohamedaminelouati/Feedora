@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">همه</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d مورد آرشیو شده</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">نکات و پشتیبانی</string>
     <string name="tips_and_support_desc">درباره، حامیان مالی، مجوزهای منبع‌باز</string>
     <string name="welcome">خوش آمدید</string>
-    <string name="tos_tips">برای ادامه، شرایط خدمات و خط مشی رازداری Read You را بخوانید و موافقت کنید.</string>
+    <string name="tos_tips">برای ادامه، شرایط خدمات و خط مشی رازداری Read You Pro را بخوانید و موافقت کنید.</string>
     <string name="browse_tos_tips">را مرور کنید</string>
     <string name="terms_of_service">شرایط استفاده از خدمات</string>
     <string name="tos_content"></string>
@@ -154,10 +154,10 @@
     <string name="reading_page">صفحه خواندن</string>
     <string name="sponsor">حامی</string>
     <string name="open_source_licenses">لایسنس های متن باز</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">تغییرات</string>
     <string name="update">بروزرسانی</string>
     <string name="skip_this_version">رد کردن این نسخه</string>
@@ -335,7 +335,7 @@
     <string name="troubleshooting">عیب یابی</string>
     <string name="troubleshooting_desc">گزارش باگ، ابزار های اشکال‌زدایی (دیباگ)</string>
     <string name="bug_report">گزارش ایراد (باگ)</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">تنظیمات برنامه</string>
     <string name="import_from_protobuf_file">وارد کردن از فایل protobuf</string>
     <string name="export_as_protobuf_file">خروجی بعنوان فایل protobuf</string>

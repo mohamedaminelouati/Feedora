@@ -648,30 +648,65 @@ suspend fun Context.fromDataStoreToJSONString(): String {
 
 suspend fun String.fromJSONStringToDataStore(context: Context) {
     val gson = Gson()
-    val type = object : TypeToken<Map<String, *>>() {}.type
-    val deserializedMap: Map<String, Any> = gson.fromJson(this, type)
+    val type = object : TypeToken<Map<String, Any?>>() {}.type
+    val deserializedMap: Map<String, Any?> = runCatching { gson.fromJson<Map<String, Any?>>(this, type) }.getOrNull() ?: return
     context.dataStore.edit { preferences ->
         deserializedMap
             .filterKeys { it !in ignorePreferencesOnExportAndImport }
             .forEach { (keyString, value) ->
-                val preferencesKey = PreferencesKey.keys[keyString]
-                when (preferencesKey) {
-                    is PreferencesKey.BooleanKey -> {
-                        if (value is Boolean) preferences[preferencesKey.key] = value
+                if (value == null) return@forEach
+                val dataStoreKey = DataStoreKey.keys[keyString]
+                if (dataStoreKey != null) {
+                    when (dataStoreKey.type) {
+                        Boolean::class.java -> {
+                            if (value is Boolean) {
+                                preferences[dataStoreKey.key as Preferences.Key<Boolean>] = value
+                            } else if (value is String) {
+                                preferences[dataStoreKey.key as Preferences.Key<Boolean>] = value.toBoolean()
+                            }
+                        }
+                        Float::class.java -> {
+                            if (value is Number) {
+                                preferences[dataStoreKey.key as Preferences.Key<Float>] = value.toFloat()
+                            } else if (value is String) {
+                                value.toFloatOrNull()?.let { preferences[dataStoreKey.key as Preferences.Key<Float>] = it }
+                            }
+                        }
+                        Int::class.java -> {
+                            if (value is Number) {
+                                preferences[dataStoreKey.key as Preferences.Key<Int>] = value.toInt()
+                            } else if (value is String) {
+                                value.toIntOrNull()?.let { preferences[dataStoreKey.key as Preferences.Key<Int>] = it }
+                            }
+                        }
+                        Long::class.java -> {
+                            if (value is Number) {
+                                preferences[dataStoreKey.key as Preferences.Key<Long>] = value.toLong()
+                            } else if (value is String) {
+                                value.toLongOrNull()?.let { preferences[dataStoreKey.key as Preferences.Key<Long>] = it }
+                            }
+                        }
+                        String::class.java -> {
+                            preferences[dataStoreKey.key as Preferences.Key<String>] = value.toString()
+                        }
                     }
-                    is PreferencesKey.FloatKey -> {
-                        if (value is Number) preferences[preferencesKey.key] = value.toFloat()
+                } else {
+                    when (value) {
+                        is Boolean -> preferences[booleanPreferencesKey(keyString)] = value
+                        is Double -> {
+                            if (value == value.toLong().toDouble()) {
+                                if (value in Int.MIN_VALUE.toDouble()..Int.MAX_VALUE.toDouble()) {
+                                    preferences[intPreferencesKey(keyString)] = value.toInt()
+                                } else {
+                                    preferences[longPreferencesKey(keyString)] = value.toLong()
+                                }
+                            } else {
+                                preferences[floatPreferencesKey(keyString)] = value.toFloat()
+                            }
+                        }
+                        is Number -> preferences[intPreferencesKey(keyString)] = value.toInt()
+                        is String -> preferences[stringPreferencesKey(keyString)] = value
                     }
-                    is PreferencesKey.IntKey -> {
-                        if (value is Number) preferences[preferencesKey.key] = value.toInt()
-                    }
-                    is PreferencesKey.LongKey -> {
-                        if (value is Number) preferences[preferencesKey.key] = value.toLong()
-                    }
-                    is PreferencesKey.StringKey -> {
-                        if (value is String) preferences[preferencesKey.key] = value
-                    }
-                    null -> return@forEach
                 }
             }
     }

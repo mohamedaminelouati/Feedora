@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">အားလုံး</string>
     <plurals name="all_desc">
         <item quantity="one">%1$dမော်ကွန်းတင်ထားသော အရာ</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">အကြံပြုချက်များနှင့် ပံ့ပိုးမှု</string>
     <string name="tips_and_support_desc">အကြောင်း၊ ပံ့ပိုးကူညီမှု၊ ပွင့်လင်းအရင်းအမြစ်လိုင်စင်များ</string>
     <string name="welcome">ကြိုဆိုပါတယ်။</string>
-    <string name="tos_tips">ဆက်လက်ဆောင်ရွက်ရန် Read You ၏ဝန်ဆောင်မှုစည်းမျဉ်းများနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒကိုဖတ်ရှုပြီး သဘောတူပါ။</string>
+    <string name="tos_tips">ဆက်လက်ဆောင်ရွက်ရန် Read You Pro ၏ဝန်ဆောင်မှုစည်းမျဉ်းများနှင့် ကိုယ်ရေးကိုယ်တာမူဝါဒကိုဖတ်ရှုပြီး သဘောတူပါ။</string>
     <string name="browse_tos_tips">လိုက်ကြည့်ပါ။</string>
     <string name="terms_of_service">ဝန်ဆောင်မှုစည်းမျဉ်းများ</string>
     <string name="tos_content"></string>
@@ -154,10 +154,10 @@
     <string name="reading_page">စာမျက်နှာဖတ်ခြင်း။</string>
     <string name="sponsor">စပွန်ဆာ</string>
     <string name="open_source_licenses">Open Source လိုင်စင်များ</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">ပြောင်းလဲမှုမှတ်တမ်း</string>
     <string name="update">အပ်ဒိတ်</string>
     <string name="skip_this_version">ဤဗားရှင်းကို ကျော်လိုက်ပါ။</string>
@@ -336,7 +336,7 @@
     <string name="troubleshooting">ပြသာနာရှာဖွေရှင်းပေးခြင်း</string>
     <string name="troubleshooting_desc">ချွတ်ယွင်းချက်အစီရင်ခံစာ၊ အက်ပ်စိတ်ကြိုက်များ</string>
     <string name="bug_report">ချွတ်ယွင်းချက်အစီရင်ခံစာ</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">အက်ပ်စိတ်ကြိုက်များ</string>
     <string name="import_from_protobuf_file">protobuf ဖိုင်မှ တင်သွင်းပါ။</string>
     <string name="export_as_protobuf_file">protobuf ဖိုင်အဖြစ် ထုတ်ယူပါ။</string>

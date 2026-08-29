@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">すべて</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d 個のアーカイブされたアイテム</item>
@@ -123,7 +123,7 @@
     <string name="tips_and_support">ヒントとサポート</string>
     <string name="tips_and_support_desc">このアプリについて、スポンサー、オープンソースライセンス</string>
     <string name="welcome">ようこそ</string>
-    <string name="tos_tips">Read You の利用規約とプライバシーポリシーをお読みになり、同意される場合は、[同意する]をタップしてください。</string>
+    <string name="tos_tips">Read You Pro の利用規約とプライバシーポリシーをお読みになり、同意される場合は、[同意する]をタップしてください。</string>
     <string name="browse_tos_tips">閲覧する</string>
     <string name="terms_of_service">利用規約</string>
     <string name="tos_content"></string>
@@ -151,10 +151,10 @@
     <string name="reading_page">閲覧ページ</string>
     <string name="sponsor">スポンサー</string>
     <string name="open_source_licenses">オープンソースライセンス</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">変更履歴</string>
     <string name="update">アップデート</string>
     <string name="skip_this_version">このバージョンをスキップ</string>
@@ -332,7 +332,7 @@
     <string name="troubleshooting">トラブルシューティング</string>
     <string name="troubleshooting_desc">バグ報告、アプリの設定</string>
     <string name="bug_report">バグ報告</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">アプリの設定</string>
     <string name="import_from_protobuf_file">protobufファイルからインポート</string>
     <string name="export_as_protobuf_file">protobufファイルにエクスポート</string>

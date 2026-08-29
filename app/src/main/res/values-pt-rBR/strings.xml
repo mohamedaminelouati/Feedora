@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">Todos</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d item arquivado</item>
@@ -129,7 +129,7 @@
     <string name="tips_and_support">Dicas e Suporte</string>
     <string name="tips_and_support_desc">Sobre, patrocinar, licenças de código aberto</string>
     <string name="welcome">Bem-vindo</string>
-    <string name="tos_tips">Por favor, leia os termos de serviço e política de privacidade do Read You para continuar.</string>
+    <string name="tos_tips">Por favor, leia os termos de serviço e política de privacidade do Read You Pro para continuar.</string>
     <string name="browse_tos_tips">Explore os </string>
     <string name="terms_of_service">Termos de serviço</string>
     <string name="tos_content"></string>
@@ -157,10 +157,10 @@
     <string name="reading_page">Página de Leitura</string>
     <string name="sponsor">Patrocinador</string>
     <string name="open_source_licenses">Licenças de código aberto</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Histórico de atualizações</string>
     <string name="update">Atualizar</string>
     <string name="skip_this_version">Pular esta versão</string>
@@ -338,7 +338,7 @@
     <string name="troubleshooting">Solução de problemas</string>
     <string name="troubleshooting_desc">Relatório de bug, preferências do app</string>
     <string name="bug_report">Relatório de erro</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">Preferências de aplicativos</string>
     <string name="import_from_protobuf_file">Importar do arquivo protobuf</string>
     <string name="export_as_protobuf_file">Exportar como arquivo protobuf</string>

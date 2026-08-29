@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">सभी</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d संग्रहीत आइटम</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">सुझाव और सहायता</string>
     <string name="tips_and_support_desc">परिचय, ओपन सोर्स लाइसेंस</string>
     <string name="welcome">स्वागत है </string>
-    <string name="tos_tips">आगे बढ़ने के लिए Read You की सेवा शर्तें और गोपनीयता नीति को पढ़े और स्वीकार करें।</string>
+    <string name="tos_tips">आगे बढ़ने के लिए Read You Pro की सेवा शर्तें और गोपनीयता नीति को पढ़े और स्वीकार करें।</string>
     <string name="browse_tos_tips">यहाँ </string>
     <string name="terms_of_service">सेवा की शर्तें</string>
     <string name="tos_content"></string>
@@ -154,10 +154,10 @@
     <string name="reading_page">पठन पृष्ठ</string>
     <string name="sponsor">प्रायोजक</string>
     <string name="open_source_licenses">ओपन सोर्स लाइसेंस</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">बदलाव सूचि </string>
     <string name="update">अपडेट</string>
     <string name="skip_this_version">इस संस्करण को छोडें</string>
@@ -335,7 +335,7 @@
     <string name="troubleshooting">समस्या निवारण</string>
     <string name="troubleshooting_desc">बग रिपोर्ट, डिबग टूल</string>
     <string name="bug_report">बग रिपोर्ट</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">ऐप प्राथमिकताएं</string>
     <string name="import_from_protobuf_file">protobuf फाइल से आयात करें</string>
     <string name="export_as_protobuf_file">protobuf फाइल के रूप में निर्यात करें</string>

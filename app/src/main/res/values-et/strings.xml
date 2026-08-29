@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">Kõik</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d arhiveeritud kirje</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">Nõuanded ja kasutajatugi</string>
     <string name="tips_and_support_desc">Rakenduse teave, sponsorlus, avatud lähtekoodi litsentsid</string>
     <string name="welcome">Tere tulemast</string>
-    <string name="tos_tips">Jätkamiseks palun tutvu ja nõustu Read You kasutustingimuste ja privaatsusreeglitega.</string>
+    <string name="tos_tips">Jätkamiseks palun tutvu ja nõustu Read You Pro kasutustingimuste ja privaatsusreeglitega.</string>
     <string name="browse_tos_tips">Loe </string>
     <string name="terms_of_service">Kasutustingimused</string>
     <string name="tos_content"></string>
@@ -154,10 +154,10 @@
     <string name="reading_page">Lugemisvaade</string>
     <string name="sponsor">Sponsor</string>
     <string name="open_source_licenses">Avatud lähtekoodiga tarkvara litsentsid</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Muudatuste logi</string>
     <string name="update">Uuenda</string>
     <string name="skip_this_version">Jäta see versioon vahele</string>
@@ -335,7 +335,7 @@
     <string name="troubleshooting">Veaotsing</string>
     <string name="troubleshooting_desc">Veateade, rakenduse eelistused</string>
     <string name="bug_report">Veateated</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">Rakenduse eelistused</string>
     <string name="import_from_protobuf_file">Impordi protobufi failist</string>
     <string name="export_as_protobuf_file">Ekspordi protobufi faili</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">全部</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d 项已存档</item>
@@ -123,7 +123,7 @@
     <string name="tips_and_support">提示和支持</string>
     <string name="tips_and_support_desc">关于、赞助者、开源许可证</string>
     <string name="welcome">欢迎</string>
-    <string name="tos_tips">在此之前，请阅读并同意 Read You 的服务条款与隐私政策。</string>
+    <string name="tos_tips">在此之前，请阅读并同意 Read You Pro 的服务条款与隐私政策。</string>
     <string name="browse_tos_tips">查看《</string>
     <string name="terms_of_service">服务条款</string>
     <string name="tos_content"></string>
@@ -151,10 +151,10 @@
     <string name="reading_page">阅读页面</string>
     <string name="sponsor">捐赠</string>
     <string name="open_source_licenses">开放源代码许可</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">更新日志</string>
     <string name="update">更新</string>
     <string name="skip_this_version">跳过这个版本</string>
@@ -332,7 +332,7 @@
     <string name="troubleshooting">故障排除</string>
     <string name="troubleshooting_desc">错误报告、应用选项</string>
     <string name="bug_report">错误报告</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">应用程序偏好设置</string>
     <string name="import_from_protobuf_file">导入 protobuf 文件</string>
     <string name="export_as_protobuf_file">导出为 protobuf 文件</string>

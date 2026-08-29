@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">Όλα</string>
     <plurals name="all_desc">
         <item quantity="one">%1$dαρχειοθετημένο στοιχείο</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">Συμβουλές και υποστήριξη</string>
     <string name="tips_and_support_desc">Πληροφορίες, χορηγός, άδειες ανοιχτού κώδικα</string>
     <string name="welcome">Καλωσόρισμα</string>
-    <string name="tos_tips">Διαβάστε και αποδεχτείτε τους όρους παροχής υπηρεσιών και την πολιτική απορρήτου του Read You για να συνεχίσετε.</string>
+    <string name="tos_tips">Διαβάστε και αποδεχτείτε τους όρους παροχής υπηρεσιών και την πολιτική απορρήτου του Read You Pro για να συνεχίσετε.</string>
     <string name="browse_tos_tips">Περιηγηθείτε στο</string>
     <string name="terms_of_service">Όροι παροχής υπηρεσιών</string>
     <string name="tos_content"></string>
@@ -154,10 +154,10 @@
     <string name="reading_page">Σελίδα ανάγνωσης</string>
     <string name="sponsor">Ανάδοχος</string>
     <string name="open_source_licenses">Άδειες ανοιχτού κώδικα</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Καταγραφή αλλαγών</string>
     <string name="update">Εκσυγχρονίζω</string>
     <string name="skip_this_version">Παράβλεψη αυτής της έκδοσης</string>
@@ -336,7 +336,7 @@
     <string name="troubleshooting">Αντιμετώπιση προβλημάτων</string>
     <string name="troubleshooting_desc">Αναφορά σφαλμάτων, προτιμήσεις εφαρμογών</string>
     <string name="bug_report">Αναφορά σφάλματος</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">Προτιμήσεις εφαρμογών</string>
     <string name="import_from_protobuf_file">Εισαγωγή από αρχείο protobuf</string>
     <string name="export_as_protobuf_file">Εξαγωγή ως αρχείο protobuf</string>

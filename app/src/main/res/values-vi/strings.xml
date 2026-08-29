@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">Tất cả</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d bài viết lưu trữ</item>
@@ -123,7 +123,7 @@
     <string name="tips_and_support">Mẹo &amp; hỗ trợ</string>
     <string name="tips_and_support_desc">Giới thiệu, giấy phép mã nguồn mở</string>
     <string name="welcome">Chào mừng</string>
-    <string name="tos_tips">Đọc và đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư của Read You để tiếp tục.</string>
+    <string name="tos_tips">Đọc và đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư của Read You Pro để tiếp tục.</string>
     <string name="browse_tos_tips">Đọc </string>
     <string name="terms_of_service">Điều khoản Dịch vụ</string>
     <string name="tos_content"></string>
@@ -151,10 +151,10 @@
     <string name="reading_page">Bài viết</string>
     <string name="sponsor">Tài trợ</string>
     <string name="open_source_licenses">Giấy phép mã nguồn mở</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Có gì mới</string>
     <string name="update">Cập nhật</string>
     <string name="skip_this_version">Bỏ qua phiên bản này</string>
@@ -332,7 +332,7 @@
     <string name="troubleshooting">Xử lý sự cố</string>
     <string name="troubleshooting_desc">Báo cáo lỗi, công cụ dò lỗi</string>
     <string name="bug_report">Báo cáo lỗi</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">Cấu hình ứng dụng</string>
     <string name="import_from_protobuf_file">Nhập từ file protobuf</string>
     <string name="export_as_protobuf_file">Xuất từ file protobuf</string>

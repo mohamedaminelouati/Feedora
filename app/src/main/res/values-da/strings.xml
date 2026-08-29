@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">Alle</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d Arkiveret element</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">Tips &amp; hjælp</string>
     <string name="tips_and_support_desc">Om, frie licenser</string>
     <string name="welcome">Velkommen</string>
-    <string name="tos_tips">Venligst accepter Read Yous brugervilkår og privatlivspolitik for at fortsætte.</string>
+    <string name="tos_tips">Venligst accepter Read You Pros brugervilkår og privatlivspolitik for at fortsætte.</string>
     <string name="browse_tos_tips">Udforsk </string>
     <string name="terms_of_service">Tjenestevilkår</string>
     <string name="tos_content"></string>
@@ -154,10 +154,10 @@
     <string name="reading_page">Læseside</string>
     <string name="sponsor">Sponsor</string>
     <string name="open_source_licenses">Frie licenser</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Ændringshistorik</string>
     <string name="update">Opdater</string>
     <string name="skip_this_version">Spring denne version over</string>
@@ -335,7 +335,7 @@
     <string name="troubleshooting">Fejlfinding</string>
     <string name="troubleshooting_desc">Fejlrapport, debugværktøjer</string>
     <string name="bug_report">Fejlrapport</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">Apppræferencer</string>
     <string name="import_from_protobuf_file">Importer fra protobuf-fil</string>
     <string name="export_as_protobuf_file">Eksporter som protobuf-fil</string>

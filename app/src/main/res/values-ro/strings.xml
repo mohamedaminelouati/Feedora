@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You</string>
+    <string name="read_you" translatable="false">Read You Pro</string>
     <string name="all">Toate</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d articol arhivat</item>
@@ -129,7 +129,7 @@
     <string name="tips_and_support">Sfaturi și asistență</string>
     <string name="tips_and_support_desc">Despre, licențe open source</string>
     <string name="welcome">Bun venit</string>
-    <string name="tos_tips">Vă rugăm să citiți și să fiți de acord cu Termenii și condițiile și Politica de confidențialitate ale Read You pentru a continua.</string>
+    <string name="tos_tips">Vă rugăm să citiți și să fiți de acord cu Termenii și condițiile și Politica de confidențialitate ale Read You Pro pentru a continua.</string>
     <string name="browse_tos_tips">Răsfoiți </string>
     <string name="terms_of_service">Termenii serviciului</string>
     <string name="tos_content"></string>
@@ -157,10 +157,10 @@
     <string name="reading_page">Pagina de citire</string>
     <string name="sponsor">Sponsor</string>
     <string name="open_source_licenses">Licențe open source</string>
-    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
-    <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Jurnalul modificărilor</string>
     <string name="update">Actualizează</string>
     <string name="skip_this_version">Sari peste această versiune</string>
@@ -338,7 +338,7 @@
     <string name="troubleshooting">Depanare</string>
     <string name="troubleshooting_desc">Raport de eroare, preferințe pentru aplicație</string>
     <string name="bug_report">Raport de eroare</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">Preferințele aplicației</string>
     <string name="import_from_protobuf_file">Import din fișierul protobuf</string>
     <string name="export_as_protobuf_file">Exportați ca fișier protobuf</string>
