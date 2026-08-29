@@ -88,7 +88,6 @@ fun SettingsPage(
     navigateToAccounts: () -> Unit,
     navigateToCloudBackup: () -> Unit,
     navigateToLanguages: () -> Unit,
-    navigateToTroubleshooting: () -> Unit,
     navigateToTipsAndSupport: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -98,18 +97,22 @@ fun SettingsPage(
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
+    val accountsTitle = stringResource(R.string.accounts)
+    val accountsDesc = stringResource(R.string.accounts_desc)
+    val globalStyleTitle = stringResource(R.string.global_style)
+    val colorAndStyleDesc = stringResource(R.string.color_and_style_desc)
     val feedsPageStyleTitle = stringResource(R.string.feeds_page)
     val feedsPageStyleDesc = stringResource(R.string.feeds_page_style_desc)
     val flowPageStyleTitle = stringResource(R.string.flow_page)
     val flowPageStyleDesc = stringResource(R.string.flow_page_style_desc)
     val readingPageStyleTitle = stringResource(R.string.reading_page)
     val readingPageStyleDesc = stringResource(R.string.reading_page_style_desc)
-    val accountsTitle = stringResource(R.string.accounts)
-    val accountsDesc = stringResource(R.string.accounts_desc)
-    val backupAndDataTitle = stringResource(R.string.backup_and_data)
+    val backupsTitle = stringResource(R.string.backups_title)
     val backupAndDataDesc = stringResource(R.string.backup_and_data_desc)
-    val colorAndStyleTitle = stringResource(R.string.color_and_style)
-    val colorAndStyleDesc = stringResource(R.string.color_and_style_desc)
+    val languagesTitle = stringResource(R.string.languages)
+    val languagesDesc = Locale.getDefault().toDisplayName()
+    val helpAndSupportTitle = stringResource(R.string.help_and_support)
+    val tipsAndSupportDesc = stringResource(R.string.tips_and_support_desc)
     val darkThemeTitle = stringResource(R.string.dark_theme)
     val boldCharactersTitle = stringResource(R.string.bold_characters)
     val boldCharactersDesc = stringResource(R.string.bold_characters_preview)
@@ -122,13 +125,6 @@ fun SettingsPage(
     val syncStatusTitle = stringResource(R.string.show_sync_status)
     val syncStatusDesc = stringResource(R.string.show_sync_status_desc)
     val pullToSwitchTitle = stringResource(R.string.pull_to_switch_feed)
-    val languagesTitle = stringResource(R.string.languages)
-    val languagesDesc = Locale.getDefault().toDisplayName()
-    val troubleshootingTitle = stringResource(R.string.troubleshooting)
-    val troubleshootingDesc = stringResource(R.string.troubleshooting_desc)
-    val tipsAndSupportTitle = stringResource(R.string.tips_and_support)
-    val tipsAndSupportDesc = stringResource(R.string.tips_and_support_desc)
-
     val swipeToStartTitle = stringResource(R.string.swipe_to_start)
     val swipeToEndTitle = stringResource(R.string.swipe_to_end)
     val sortUnreadArticlesTitle = stringResource(R.string.sort_unread_articles)
@@ -141,15 +137,22 @@ fun SettingsPage(
     val pullToSwitchArticleTitle = stringResource(R.string.pull_to_switch_article)
 
     val allSearchableItems = remember(
+        accountsTitle,
+        accountsDesc,
+        globalStyleTitle,
+        colorAndStyleDesc,
         feedsPageStyleTitle,
         feedsPageStyleDesc,
         flowPageStyleTitle,
         flowPageStyleDesc,
         readingPageStyleTitle,
         readingPageStyleDesc,
-        accountsTitle,
-        backupAndDataTitle,
-        colorAndStyleTitle,
+        backupsTitle,
+        backupAndDataDesc,
+        languagesTitle,
+        languagesDesc,
+        helpAndSupportTitle,
+        tipsAndSupportDesc,
         darkThemeTitle,
         boldCharactersTitle,
         syncNotificationTitle,
@@ -157,10 +160,6 @@ fun SettingsPage(
         restoreScrollPositionTitle,
         syncStatusTitle,
         pullToSwitchTitle,
-        languagesTitle,
-        languagesDesc,
-        troubleshootingTitle,
-        tipsAndSupportTitle,
         swipeToStartTitle,
         swipeToEndTitle,
         sortUnreadArticlesTitle,
@@ -174,11 +173,27 @@ fun SettingsPage(
     ) {
         listOf(
             SettingSearchItem(
+                title = accountsTitle,
+                description = accountsDesc,
+                category = accountsTitle,
+                icon = Icons.Outlined.AccountCircle,
+                keywords = listOf("rss", "local", "miniflux", "freshrss", "nextcloud", "inoreader", "feedbin", "fever", "google reader", "comptes", "ajouter", "sync"),
+                onClick = navigateToAccounts,
+            ),
+            SettingSearchItem(
+                title = globalStyleTitle,
+                description = colorAndStyleDesc,
+                category = globalStyleTitle,
+                icon = Icons.Outlined.Palette,
+                keywords = listOf("theme", "colors", "dark", "light", "appearance", "font", "style", "ui", "couleur", "apparence", "police", "global"),
+                onClick = navigateToColorAndStyle,
+            ),
+            SettingSearchItem(
                 title = feedsPageStyleTitle,
                 description = feedsPageStyleDesc,
                 category = feedsPageStyleTitle,
                 icon = Icons.Outlined.Folder,
-                keywords = listOf("feeds", "feed", "page", "groups", "expand", "elevation", "favicons", "flux", "dossiers"),
+                keywords = listOf("feeds", "feed", "page", "groups", "expand", "elevation", "favicons", "flux", "dossiers", "layout", "grid"),
                 onClick = navigateToFeedsPageStyle,
             ),
             SettingSearchItem(
@@ -198,33 +213,17 @@ fun SettingsPage(
                 onClick = navigateToReadingPageStyle,
             ),
             SettingSearchItem(
-                title = colorAndStyleTitle,
-                description = colorAndStyleDesc,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
-                keywords = listOf("theme", "colors", "dark", "light", "appearance", "font", "style", "ui", "couleur", "apparence", "police"),
-                onClick = navigateToColorAndStyle,
-            ),
-            SettingSearchItem(
-                title = accountsTitle,
-                description = accountsDesc,
-                category = accountsTitle,
-                icon = Icons.Outlined.AccountCircle,
-                keywords = listOf("rss", "local", "miniflux", "freshrss", "nextcloud", "inoreader", "feedbin", "fever", "google reader", "comptes", "ajouter", "sync"),
-                onClick = navigateToAccounts,
-            ),
-            SettingSearchItem(
-                title = backupAndDataTitle,
+                title = backupsTitle,
                 description = backupAndDataDesc,
-                category = backupAndDataTitle,
+                category = backupsTitle,
                 icon = Icons.Outlined.CloudUpload,
                 keywords = listOf("backup", "cloud", "webdav", "ftp", "sftp", "ftps", "sauvegarde", "données", "cache", "json", "restaurer"),
                 onClick = navigateToCloudBackup,
             ),
             SettingSearchItem(
                 title = darkThemeTitle,
-                description = colorAndStyleTitle,
-                category = colorAndStyleTitle,
+                description = globalStyleTitle,
+                category = globalStyleTitle,
                 icon = Icons.Outlined.DarkMode,
                 keywords = listOf("dark", "night", "amoled", "black", "theme", "mode", "oled"),
                 onClick = navigateToColorAndStyle,
@@ -400,19 +399,11 @@ fun SettingsPage(
                 onClick = navigateToLanguages,
             ),
             SettingSearchItem(
-                title = troubleshootingTitle,
-                description = troubleshootingDesc,
-                category = troubleshootingTitle,
-                icon = Icons.Outlined.BugReport,
-                keywords = listOf("logs", "cache", "clean", "error", "debug", "database"),
-                onClick = navigateToTroubleshooting,
-            ),
-            SettingSearchItem(
-                title = tipsAndSupportTitle,
+                title = helpAndSupportTitle,
                 description = tipsAndSupportDesc,
-                category = tipsAndSupportTitle,
+                category = helpAndSupportTitle,
                 icon = Icons.Outlined.TipsAndUpdates,
-                keywords = listOf("help", "support", "about", "donate", "license", "version", "update", "github"),
+                keywords = listOf("help", "support", "about", "donate", "license", "version", "update", "github", "aide", "assistance"),
                 onClick = navigateToTipsAndSupport,
             ),
         )
@@ -544,38 +535,7 @@ fun SettingsPage(
                             }
                         }
                     }
-                    item {
-                        SelectableSettingGroupItem(
-                            title = feedsPageStyleTitle,
-                            desc = stringResource(R.string.feeds_page_style_desc),
-                            icon = Icons.Outlined.Folder,
-                            onClick = navigateToFeedsPageStyle,
-                        )
-                    }
-                    item {
-                        SelectableSettingGroupItem(
-                            title = flowPageStyleTitle,
-                            desc = stringResource(R.string.flow_page_style_desc),
-                            icon = Icons.Outlined.Dashboard,
-                            onClick = navigateToFlowPageStyle,
-                        )
-                    }
-                    item {
-                        SelectableSettingGroupItem(
-                            title = readingPageStyleTitle,
-                            desc = stringResource(R.string.reading_page_style_desc),
-                            icon = Icons.Outlined.MenuBook,
-                            onClick = navigateToReadingPageStyle,
-                        )
-                    }
-                    item {
-                        SelectableSettingGroupItem(
-                            title = colorAndStyleTitle,
-                            desc = colorAndStyleDesc,
-                            icon = Icons.Outlined.Palette,
-                            onClick = navigateToColorAndStyle,
-                        )
-                    }
+                    // 1- Compte
                     item {
                         SelectableSettingGroupItem(
                             title = accountsTitle,
@@ -584,14 +544,52 @@ fun SettingsPage(
                             onClick = navigateToAccounts,
                         )
                     }
+                    // 2- Style global
                     item {
                         SelectableSettingGroupItem(
-                            title = backupAndDataTitle,
+                            title = globalStyleTitle,
+                            desc = colorAndStyleDesc,
+                            icon = Icons.Outlined.Palette,
+                            onClick = navigateToColorAndStyle,
+                        )
+                    }
+                    // 3- Page des flux
+                    item {
+                        SelectableSettingGroupItem(
+                            title = feedsPageStyleTitle,
+                            desc = feedsPageStyleDesc,
+                            icon = Icons.Outlined.Folder,
+                            onClick = navigateToFeedsPageStyle,
+                        )
+                    }
+                    // 4- Page des articles
+                    item {
+                        SelectableSettingGroupItem(
+                            title = flowPageStyleTitle,
+                            desc = flowPageStyleDesc,
+                            icon = Icons.Outlined.Dashboard,
+                            onClick = navigateToFlowPageStyle,
+                        )
+                    }
+                    // 5- Page de lecture
+                    item {
+                        SelectableSettingGroupItem(
+                            title = readingPageStyleTitle,
+                            desc = readingPageStyleDesc,
+                            icon = Icons.Outlined.MenuBook,
+                            onClick = navigateToReadingPageStyle,
+                        )
+                    }
+                    // 6- Sauvegardes
+                    item {
+                        SelectableSettingGroupItem(
+                            title = backupsTitle,
                             desc = backupAndDataDesc,
                             icon = Icons.Outlined.CloudUpload,
                             onClick = navigateToCloudBackup,
                         )
                     }
+                    // 7- Langues
                     item {
                         SelectableSettingGroupItem(
                             title = languagesTitle,
@@ -600,17 +598,10 @@ fun SettingsPage(
                             onClick = navigateToLanguages,
                         )
                     }
+                    // 8- Aide et assistance
                     item {
                         SelectableSettingGroupItem(
-                            title = troubleshootingTitle,
-                            desc = troubleshootingDesc,
-                            icon = Icons.Outlined.BugReport,
-                            onClick = navigateToTroubleshooting,
-                        )
-                    }
-                    item {
-                        SelectableSettingGroupItem(
-                            title = tipsAndSupportTitle,
+                            title = helpAndSupportTitle,
                             desc = tipsAndSupportDesc,
                             icon = Icons.Outlined.TipsAndUpdates,
                             onClick = navigateToTipsAndSupport,

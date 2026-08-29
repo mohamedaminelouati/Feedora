@@ -64,6 +64,17 @@ class AccountViewModel @Inject constructor(
         }
     }
 
+    fun importFromOPML(accountId: Int, inputStream: java.io.InputStream, callback: (Boolean) -> Unit = {}) {
+        viewModelScope.launch(ioDispatcher) {
+            val result = runCatching {
+                opmlService.saveToDatabase(inputStream, accountId)
+            }
+            withContext(mainDispatcher) {
+                callback(result.isSuccess)
+            }
+        }
+    }
+
     fun hideDeleteDialog() {
         _accountUiState.update { it.copy(deleteDialogVisible = false) }
     }

@@ -485,4 +485,12 @@
     <string name="feeds_page_style_desc">Dossiers, élévation, favicons, badge de synchro</string>
     <string name="flow_page_style_desc">Mode Grille ou Liste, gestes de balayage, défilement</string>
     <string name="reading_page_style_desc">Moteur de rendu, typographie, liens, résumé IA</string>
+    <string name="global_style">Style global</string>
+    <string name="backups_title">Sauvegardes</string>
+    <string name="help_and_support">Aide et assistance</string>
+    <string name="feeds_layout">Disposition des flux</string>
+    <string name="import_opml">Importer en OPML</string>
+    <string name="import_opml_desc">Importer les flux d\'un fichier OPML dans ce compte</string>
+    <string name="import_opml_success">OPML importé avec succès</string>
+    <string name="import_opml_failed">Échec de l\'importation du fichier OPML</string>
 </resources>

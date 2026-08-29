@@ -161,6 +161,7 @@ sealed interface PreferencesKey {
         const val feedsGroupListExpand = "feedsGroupListExpand"
         const val feedsGroupListTonalElevation = "feedsGroupListTonalElevation"
         const val feedsShowSyncStatus = "feedsShowSyncStatus"
+        const val feedsLayout = "feedsLayout"
 
         // Flow page
         const val flowFilterBarStyle = "flowFilterBarStyle"
@@ -176,6 +177,7 @@ sealed interface PreferencesKey {
         const val flowArticleListTonalElevation = "flowArticleListTonalElevation"
         const val flowArticleListReadIndicator = "flowArticleListReadStatusIndicator"
         const val flowSortUnreadArticles = "flowArticleListSortUnreadArticles"
+        const val flowLayout = "flowLayout"
 
         // Reading page
         const val readingRenderer = "readingRender"
@@ -256,6 +258,7 @@ sealed interface PreferencesKey {
                 BooleanKey(feedsGroupListExpand),
                 IntKey(feedsGroupListTonalElevation),
                 BooleanKey(feedsShowSyncStatus),
+                IntKey(feedsLayout),
                 // Flow page
                 IntKey(flowFilterBarStyle),
                 IntKey(flowFilterBarPadding),
@@ -270,6 +273,7 @@ sealed interface PreferencesKey {
                 IntKey(flowArticleListTonalElevation),
                 IntKey(flowArticleListReadIndicator),
                 BooleanKey(flowSortUnreadArticles),
+                IntKey(flowLayout),
                 // Reading page
                 IntKey(readingRenderer),
                 BooleanKey(readingBoldCharacters),
@@ -354,6 +358,7 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
         const val feedsGroupListExpand = "feedsGroupListExpand"
         const val feedsGroupListTonalElevation = "feedsGroupListTonalElevation"
         const val feedsShowSyncStatus = "feedsShowSyncStatus"
+        const val feedsLayout = "feedsLayout"
 
         // Flow page
         const val flowFilterBarStyle = "flowFilterBarStyle"
@@ -472,6 +477,8 @@ data class DataStoreKey<T>(val key: Preferences.Key<T>, val type: Class<T>) {
                     DataStoreKey(intPreferencesKey(feedsGroupListTonalElevation), Int::class.java),
                 feedsShowSyncStatus to
                     DataStoreKey(intPreferencesKey(feedsShowSyncStatus), Int::class.java),
+                feedsLayout to
+                    DataStoreKey(intPreferencesKey(feedsLayout), Int::class.java),
                 // Flow page
                 flowFilterBarStyle to
                     DataStoreKey(intPreferencesKey(flowFilterBarStyle), Int::class.java),

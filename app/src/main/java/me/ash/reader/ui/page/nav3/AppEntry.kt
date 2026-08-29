@@ -51,7 +51,6 @@ import me.ash.reader.ui.page.settings.languages.LanguagesPage
 import me.ash.reader.ui.page.settings.cloudbackup.CloudBackupPage
 import me.ash.reader.ui.page.settings.tips.LicenseListPage
 import me.ash.reader.ui.page.settings.tips.TipsAndSupportPage
-import me.ash.reader.ui.page.settings.troubleshooting.TroubleshootingPage
 import me.ash.reader.ui.page.startup.StartupPage
 
 private const val INITIAL_OFFSET_FACTOR = 0.10f
@@ -187,9 +186,6 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                                 navigateToAccounts = { backStack.add(Route.Accounts) },
                                 navigateToCloudBackup = { backStack.add(Route.CloudBackup) },
                                 navigateToLanguages = { backStack.add(Route.Languages) },
-                                navigateToTroubleshooting = {
-                                    backStack.add(Route.Troubleshooting)
-                                },
                                 navigateToTipsAndSupport = { backStack.add(Route.TipsAndSupport) },
                             )
                         }
@@ -261,7 +257,6 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                     Route.ReadingPageImage -> NavEntry(key) { ReadingImagePage(onBack = onBack) }
                     Route.ReadingPageVideo -> NavEntry(key) { ReadingVideoPage(onBack = onBack) }
                     Route.Languages -> NavEntry(key) { LanguagesPage(onBack = onBack) }
-                    Route.Troubleshooting -> NavEntry(key) { TroubleshootingPage(onBack = onBack) }
                     Route.CloudBackup -> NavEntry(key) { CloudBackupPage(onBack = onBack) }
                     Route.TipsAndSupport ->
                         NavEntry(key) {

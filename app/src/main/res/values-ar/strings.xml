@@ -498,4 +498,12 @@
     <string name="feeds_page_style_desc">المجلدات، الأيقونات، مؤشر المزامنة</string>
     <string name="flow_page_style_desc">عرض الشبكة أو القائمة، إيماءات السحب، التمرير</string>
     <string name="reading_page_style_desc">محرك القراءة، الخطوط، الروابط، ملخص الذكاء الاصطناعي</string>
+    <string name="global_style">النمط العام</string>
+    <string name="backups_title">النسخ الاحتياطية</string>
+    <string name="help_and_support">المساعدة والدعم</string>
+    <string name="feeds_layout">تنسيق عرض الخلاصات</string>
+    <string name="import_opml">استيراد OPML</string>
+    <string name="import_opml_desc">استيراد الخلاصات من ملف OPML إلى هذا الحساب</string>
+    <string name="import_opml_success">تم استيراد OPML بنجاح</string>
+    <string name="import_opml_failed">فشل استيراد ملف OPML</string>
 </resources>

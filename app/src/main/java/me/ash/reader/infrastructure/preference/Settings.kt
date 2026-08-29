@@ -29,6 +29,7 @@ data class Settings(
     val feedsGroupListExpand: FeedsGroupListExpandPreference = FeedsGroupListExpandPreference.default,
     val feedsGroupListTonalElevation: FeedsGroupListTonalElevationPreference = FeedsGroupListTonalElevationPreference.default,
     val feedsShowSyncStatus: FeedsShowSyncStatusPreference = FeedsShowSyncStatusPreference.default,
+    val feedsLayout: FeedsLayoutPreference = FeedsLayoutPreference.default,
 
     // Flow page
     val flowFilterBarStyle: FlowFilterBarStylePreference = FlowFilterBarStylePreference.default,

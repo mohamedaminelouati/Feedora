@@ -99,6 +99,24 @@ fun AccountDetailsPage(
     var keepArchivedDialogVisible by remember { mutableStateOf(false) }
     var exportOPMLModeDialogVisible by remember { mutableStateOf(false) }
 
+    val opmlImportSuccessMsg = stringResource(R.string.import_opml_success)
+    val opmlImportFailedMsg = stringResource(R.string.import_opml_failed)
+    val importOpmlLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri?.let {
+                val inputStream = context.contentResolver.openInputStream(it)
+                if (inputStream != null && selectedAccount?.id != null) {
+                    viewModel.importFromOPML(selectedAccount.id, inputStream) { success ->
+                        if (success) {
+                            context.showToast(opmlImportSuccessMsg)
+                        } else {
+                            context.showToast(opmlImportFailedMsg)
+                        }
+                    }
+                }
+            }
+        }
+
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(MimeType.ANY)) {
             result ->
@@ -247,6 +265,21 @@ fun AccountDetailsPage(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.advanced),
                     )
+                    SettingItem(
+                        title = stringResource(R.string.import_opml),
+                        desc = stringResource(R.string.import_opml_desc),
+                        onClick = {
+                            importOpmlLauncher.launch(
+                                arrayOf(
+                                    "text/xml",
+                                    "text/x-opml",
+                                    "application/xml",
+                                    "application/octet-stream",
+                                    "*/*"
+                                )
+                            )
+                        },
+                    ) {}
                     SettingItem(
                         title = stringResource(R.string.export_as_opml),
                         onClick = { exportOPMLModeDialogVisible = true },

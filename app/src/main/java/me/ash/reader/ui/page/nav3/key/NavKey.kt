@@ -55,9 +55,6 @@ sealed interface Route : NavKey {
     // Languages
     @Serializable data object Languages : Route
 
-    // Troubleshooting
-    @Serializable data object Troubleshooting : Route
-
     // Cloud Backup
     @Serializable data object CloudBackup : Route
 

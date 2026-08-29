@@ -61,6 +61,7 @@ fun AccountsPage(
                             desc = it.type.toDesc(context),
                             icon = it.type.toIcon().takeIf { it is ImageVector }?.let { it as ImageVector },
                             iconPainter = it.type.toIcon().takeIf { it is Painter }?.let { it as Painter },
+                            showChevron = true,
                             onClick = { navigateToAccountDetails(it.id!!) },
                         ) {}
                     }

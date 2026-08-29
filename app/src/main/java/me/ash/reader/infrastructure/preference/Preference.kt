@@ -34,6 +34,7 @@ fun Preferences.toSettings(): Settings {
         feedsGroupListExpand = FeedsGroupListExpandPreference.fromPreferences(this),
         feedsGroupListTonalElevation = FeedsGroupListTonalElevationPreference.fromPreferences(this),
         feedsShowSyncStatus = FeedsShowSyncStatusPreference.fromPreferences(this),
+        feedsLayout = FeedsLayoutPreference.fromPreferences(this),
 
         // Flow page
         flowFilterBarStyle = FlowFilterBarStylePreference.fromPreferences(this),

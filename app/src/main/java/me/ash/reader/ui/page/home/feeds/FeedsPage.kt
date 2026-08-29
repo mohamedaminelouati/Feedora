@@ -67,9 +67,12 @@ import me.ash.reader.infrastructure.preference.LocalFeedsFilterBarStyle
 import me.ash.reader.infrastructure.preference.LocalFeedsFilterBarTonalElevation
 import me.ash.reader.infrastructure.preference.LocalFeedsGroupListExpand
 import me.ash.reader.infrastructure.preference.LocalFeedsGroupListTonalElevation
+import me.ash.reader.infrastructure.preference.LocalFeedsLayout
 import me.ash.reader.infrastructure.preference.LocalFeedsTopBarTonalElevation
 import me.ash.reader.infrastructure.preference.LocalNewVersionNumber
 import me.ash.reader.infrastructure.preference.LocalSkipVersionNumber
+import me.ash.reader.ui.component.base.RYExtensibleVisibility
+import androidx.compose.foundation.layout.Box
 import me.ash.reader.ui.component.FilterBar
 import me.ash.reader.ui.component.base.DisplayText
 import me.ash.reader.ui.component.base.FeedbackIconButton
@@ -123,6 +126,7 @@ fun FeedsPage(
     val filterBarStyle = LocalFeedsFilterBarStyle.current
     val filterBarPadding = LocalFeedsFilterBarPadding.current
     val filterBarTonalElevation = LocalFeedsFilterBarTonalElevation.current
+    val feedsLayout = LocalFeedsLayout.current
 
     val accounts = accountViewModel.accounts.collectAsStateValue(initial = emptyList())
 
@@ -312,21 +316,59 @@ fun FeedsPage(
                                 navigationToFlow()
                             }
 
-                            feeds.forEachIndexed { index, feed ->
-                                FeedItem(
-                                    feed = feed,
-                                    isLastItem = { index == feeds.lastIndex },
-                                    isExpanded = {
-                                        groupsVisible.getOrPut(feed.groupId, groupListExpand::value)
-                                    },
-                                    onClick = {
-                                        feedsViewModel.changeFilter(
-                                            filterState.copy(feed = feed, group = null)
-                                        )
-                                        navigationToFlow()
-                                    },
-                                    onLongClick = { scope.launch { feedDrawerState.show() } },
-                                )
+                            val isExpanded = groupsVisible.getOrPut(group.id, groupListExpand::value)
+                            if (feedsLayout.isGrid()) {
+                                RYExtensibleVisibility(visible = isExpanded) {
+                                    androidx.compose.foundation.layout.Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 14.dp, vertical = 8.dp)
+                                    ) {
+                                        feeds.chunked(2).forEach { rowFeeds ->
+                                            Row(
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(vertical = 4.dp),
+                                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                            ) {
+                                                rowFeeds.forEach { feed ->
+                                                    Box(modifier = Modifier.weight(1f)) {
+                                                        FeedGridItem(
+                                                            feed = feed,
+                                                            onClick = {
+                                                                feedsViewModel.changeFilter(
+                                                                    filterState.copy(feed = feed, group = null)
+                                                                )
+                                                                navigationToFlow()
+                                                            },
+                                                            onLongClick = { scope.launch { feedDrawerState.show() } },
+                                                        )
+                                                    }
+                                                }
+                                                if (rowFeeds.size == 1) {
+                                                    Spacer(modifier = Modifier.weight(1f))
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                feeds.forEachIndexed { index, feed ->
+                                    FeedItem(
+                                        feed = feed,
+                                        isLastItem = { index == feeds.lastIndex },
+                                        isExpanded = {
+                                            groupsVisible.getOrPut(feed.groupId, groupListExpand::value)
+                                        },
+                                        onClick = {
+                                            feedsViewModel.changeFilter(
+                                                filterState.copy(feed = feed, group = null)
+                                            )
+                                            navigationToFlow()
+                                        },
+                                        onLongClick = { scope.launch { feedDrawerState.show() } },
+                                    )
+                                }
                             }
                         }
                     }

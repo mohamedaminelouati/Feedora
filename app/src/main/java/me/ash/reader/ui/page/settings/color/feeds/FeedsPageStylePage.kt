@@ -34,10 +34,12 @@ fun FeedsPageStylePage(
     val groupListExpand = LocalFeedsGroupListExpand.current
     val groupListTonalElevation = LocalFeedsGroupListTonalElevation.current
     val showSyncStatus = LocalFeedsShowSyncStatus.current
+    val feedsLayout = LocalFeedsLayout.current
 
     val scope = rememberCoroutineScope()
 
     var showSyncStatusDialogVisible by remember { mutableStateOf(false) }
+    var feedsLayoutDialogVisible by remember { mutableStateOf(false) }
     var filterBarStyleDialogVisible by remember { mutableStateOf(false) }
     var filterBarPaddingDialogVisible by remember { mutableStateOf(false) }
     var filterBarTonalElevationDialogVisible by remember { mutableStateOf(false) }
@@ -140,6 +142,14 @@ fun FeedsPageStylePage(
                         highlightKey = DataStoreKey.feedsShowSyncStatus,
                         onClick = {
                             showSyncStatusDialogVisible = true
+                        },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.feeds_layout),
+                        desc = feedsLayout.toDesc(context),
+                        highlightKey = DataStoreKey.feedsLayout,
+                        onClick = {
+                            feedsLayoutDialogVisible = true
                         },
                     ) {}
                     Spacer(modifier = Modifier.height(24.dp))
@@ -256,6 +266,21 @@ fun FeedsPageStylePage(
         }
     ) {
         showSyncStatusDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = feedsLayoutDialogVisible,
+        title = stringResource(R.string.feeds_layout),
+        options = FeedsLayoutPreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(context),
+                selected = it == feedsLayout,
+            ) {
+                it.put(context, scope)
+            }
+        }
+    ) {
+        feedsLayoutDialogVisible = false
     }
 
 /*    RadioDialog(

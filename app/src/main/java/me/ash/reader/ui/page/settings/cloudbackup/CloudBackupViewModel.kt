@@ -26,7 +26,13 @@ import me.ash.reader.infrastructure.preference.CloudBackupPreferencesManager
 import me.ash.reader.infrastructure.preference.CloudBackupSettings
 import me.ash.reader.infrastructure.remote.RemoteBackupFile
 import me.ash.reader.infrastructure.remote.RemoteStorageProtocol
-import me.ash.reader.ui.page.settings.troubleshooting.BackupProgress
+
+data class BackupProgress(
+    val isVisible: Boolean = false,
+    val title: String = "",
+    val progress: Float = 0f,
+    val message: String = "",
+)
 
 data class CloudBackupUiState(
     val settings: CloudBackupSettings = CloudBackupSettings(),

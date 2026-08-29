@@ -515,4 +515,12 @@
     <string name="feeds_page_style_desc">Folders, elevation, favicons, sync status</string>
     <string name="flow_page_style_desc">Grid or List, swipe gestures, scrolling, cards</string>
     <string name="reading_page_style_desc">Reading engine, typography, links, AI summary</string>
+    <string name="global_style">Global Style</string>
+    <string name="backups_title">Backups</string>
+    <string name="help_and_support">Help &amp; Support</string>
+    <string name="feeds_layout">Feeds Layout</string>
+    <string name="import_opml">Import OPML</string>
+    <string name="import_opml_desc">Import feeds from an OPML file into this account</string>
+    <string name="import_opml_success">OPML imported successfully</string>
+    <string name="import_opml_failed">Failed to import OPML file</string>
 </resources>

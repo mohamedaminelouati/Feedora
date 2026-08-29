@@ -25,6 +25,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -61,6 +63,7 @@ fun SettingItem(
     icon: ImageVector? = null,
     iconPainter: Painter? = null,
     separatedActions: Boolean = false,
+    showChevron: Boolean = false,
     highlightKey: String? = null,
     onClick: () -> Unit,
     action: (@Composable () -> Unit)? = null,
@@ -152,17 +155,25 @@ fun SettingItem(
                     )
                 }
             }
+            if (separatedActions || (showChevron && action == null)) {
+                Icon(
+                    modifier = Modifier.padding(start = 8.dp),
+                    imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                )
+            }
             action?.let {
                 if (separatedActions) {
                     VerticalDivider(
                         modifier = Modifier
-                            .padding(start = 16.dp)
+                            .padding(start = 12.dp)
                             .size(1.dp, 32.dp),
                         color = tonalPalettes neutralVariant 80 onDark (tonalPalettes neutralVariant 30)
                     )
                 }
                 CompositionLocalProvider(LocalInteractionSources provides if (separatedActions) null else interactionSource) {
-                    Box(Modifier.padding(start = 16.dp)) {
+                    Box(Modifier.padding(start = 12.dp)) {
                         it()
                     }
                 }

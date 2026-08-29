@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Badge
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -203,5 +204,93 @@ fun FeedItem(
                 scope.launch { feedOptionViewModel.fetchFeed(it) }
             },
         )
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun FeedGridItem(
+    modifier: Modifier = Modifier,
+    feed: Feed,
+    feedOptionViewModel: FeedOptionViewModel = hiltViewModel(),
+    onClick: () -> Unit = {},
+    onLongClick: () -> Unit = {},
+) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val syncStatusPref = LocalFeedsShowSyncStatus.current
+    val shouldShowSyncStatus = when (syncStatusPref) {
+        FeedsShowSyncStatusPreference.Always -> true
+        FeedsShowSyncStatusPreference.ErrorsOnly -> feed.lastSyncStatus == 2
+        FeedsShowSyncStatusPreference.Never -> false
+    }
+
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .combinedClickable(
+                onClick = { onClick() },
+                onLongClick = {
+                    onLongClick()
+                    scope.launch { feedOptionViewModel.fetchFeed(feed.id) }
+                },
+            ),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.45f),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                FeedIcon(feedName = feed.name, iconUrl = feed.icon, modifier = Modifier.size(24.dp))
+                if (feed.important != 0) {
+                    Badge(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        contentColor = MaterialTheme.colorScheme.outline,
+                    ) {
+                        Text(
+                            text = feed.important.toString(),
+                            style = MaterialTheme.typography.labelSmall,
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = feed.name,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+            if (shouldShowSyncStatus) {
+                Spacer(modifier = Modifier.height(6.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    val (statusText, statusColor) =
+                        formatSyncDateTime(context, feed.lastSyncTime, feed.lastSyncStatus)
+                    Box(
+                        modifier = Modifier
+                            .size(6.dp)
+                            .clip(CircleShape)
+                            .background(statusColor)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = statusText,
+                        style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp),
+                        color = MaterialTheme.colorScheme.outline,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+            }
+        }
     }
 }
