@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Article
 import androidx.compose.material.icons.rounded.FiberManualRecord
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
@@ -61,6 +63,13 @@ import me.ash.reader.ui.component.menu.AnimatedDropdownMenu
 import me.ash.reader.ui.ext.requiresBidi
 import me.ash.reader.ui.ext.surfaceColorAtElevation
 import me.ash.reader.ui.theme.applyTextDirection
+
+private val IMG_SRC_REGEX = Regex("""<img[^>]+src=["']([^"']+)["']""", RegexOption.IGNORE_CASE)
+
+private fun extractFirstImageUrl(html: String?): String? {
+    if (html.isNullOrBlank()) return null
+    return IMG_SRC_REGEX.find(html)?.groupValues?.get(1)
+}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -98,6 +107,14 @@ fun ArticleGridItem(
         FlowArticleReadIndicatorPreference.ExcludingStarred -> if (isUnread || article.isStarred) 1f else 0.5f
     }
 
+    val imageUrl = remember(article.img, article.rawDescription) {
+        if (!article.img.isNullOrBlank()) {
+            article.img
+        } else {
+            extractFirstImageUrl(article.rawDescription)
+        }
+    }
+
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -121,22 +138,37 @@ fun ArticleGridItem(
         tonalElevation = articleListTonalElevation.dp,
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            // Hero Image
-            if (articleListImage.value && article.img != null) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(16f / 9f)
-                        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                ) {
+            // Mandatory Hero Image or Neutral Placeholder Banner
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(16f / 9f)
+                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                    .background(
+                        Brush.linearGradient(
+                            listOf(
+                                MaterialTheme.colorScheme.surfaceContainerHigh,
+                                MaterialTheme.colorScheme.surfaceContainerHighest,
+                            )
+                        )
+                    ),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (imageUrl != null) {
                     RYAsyncImage(
                         modifier = Modifier.fillMaxSize(),
-                        data = article.img,
+                        data = imageUrl,
                         contentScale = ContentScale.Crop,
                         scale = Scale.FILL,
                         size = SIZE_1000,
                         precision = Precision.INEXACT,
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Outlined.Article,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.35f),
+                        modifier = Modifier.size(36.dp),
                     )
                 }
             }
@@ -161,8 +193,9 @@ fun ArticleGridItem(
                                 FeedIcon(
                                     feedName = feed.name,
                                     iconUrl = feed.icon,
+                                    size = 26.dp,
                                 )
-                                Spacer(modifier = Modifier.width(6.dp))
+                                Spacer(modifier = Modifier.width(8.dp))
                             }
                             if (articleListFeedName.value) {
                                 Text(

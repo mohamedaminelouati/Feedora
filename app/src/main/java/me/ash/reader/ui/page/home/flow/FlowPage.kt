@@ -555,25 +555,6 @@ fun FlowPage(
                                         }
                                 }
                             }
-                            FeedbackIconButton(
-                                imageVector =
-                                    if (flowLayout.isGrid()) {
-                                        Icons.AutoMirrored.Rounded.ViewList
-                                    } else {
-                                        Icons.Rounded.GridView
-                                    },
-                                contentDescription =
-                                    stringResource(
-                                        if (flowLayout.isGrid()) {
-                                            R.string.switch_to_list_view
-                                        } else {
-                                            R.string.switch_to_grid_view
-                                        }
-                                    ),
-                                tint = MaterialTheme.colorScheme.onSurface,
-                            ) {
-                                (!flowLayout).put(context, scope)
-                            }
                         },
                         colors =
                             TopAppBarDefaults.topAppBarColors(

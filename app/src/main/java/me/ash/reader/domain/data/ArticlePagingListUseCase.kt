@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -68,51 +69,54 @@ constructor(
 
     init {
         applicationScope.launch(ioDispatcher) {
-            filterStateUseCase.filterStateFlow
-                .combine(accountService.currentAccountIdFlow) { filterState, accountId ->
-                    filterState
-                }
-                .collect { filterState ->
-                    val searchContent = filterState.searchContent
+            combine(
+                filterStateUseCase.filterStateFlow,
+                accountService.currentAccountIdFlow,
+                settingsProvider.settingsFlow.map { it.flowLayout }.distinctUntilChanged(),
+            ) { filterState, _, flowLayout ->
+                filterState to flowLayout
+            }
+            .collect { (filterState, flowLayout) ->
+                val searchContent = filterState.searchContent
 
-                    mutablePagerFlow.value =
-                        PagerData(
-                            Pager(
-                                    config = PagingConfig(pageSize = 50, enablePlaceholders = false)
-                                ) {
-                                    if (!searchContent.isNullOrBlank()) {
-                                        rssService
-                                            .get()
-                                            .searchArticles(
-                                                content = searchContent.trim(),
-                                                groupId = filterState.group?.id,
-                                                feedId = filterState.feed?.id,
-                                                isStarred = filterState.filter.isStarred(),
-                                                isUnread = filterState.filter.isUnread(),
-                                                sortAscending =
-                                                    settingsProvider.settings.flowSortUnreadArticles
-                                                        .value,
-                                            )
-                                    } else {
-                                        rssService
-                                            .get()
-                                            .pullArticles(
-                                                groupId = filterState.group?.id,
-                                                feedId = filterState.feed?.id,
-                                                isStarred = filterState.filter.isStarred(),
-                                                isUnread = filterState.filter.isUnread(),
-                                                sortAscending =
-                                                    settingsProvider.settings.flowSortUnreadArticles
-                                                        .value,
-                                            )
-                                    }
+                mutablePagerFlow.value =
+                    PagerData(
+                        Pager(
+                                config = PagingConfig(pageSize = 50, enablePlaceholders = false)
+                            ) {
+                                if (!searchContent.isNullOrBlank()) {
+                                    rssService
+                                        .get()
+                                        .searchArticles(
+                                            content = searchContent.trim(),
+                                            groupId = filterState.group?.id,
+                                            feedId = filterState.feed?.id,
+                                            isStarred = filterState.filter.isStarred(),
+                                            isUnread = filterState.filter.isUnread(),
+                                            sortAscending =
+                                                settingsProvider.settings.flowSortUnreadArticles
+                                                    .value,
+                                        )
+                                } else {
+                                    rssService
+                                        .get()
+                                        .pullArticles(
+                                            groupId = filterState.group?.id,
+                                            feedId = filterState.feed?.id,
+                                            isStarred = filterState.filter.isStarred(),
+                                            isUnread = filterState.filter.isUnread(),
+                                            sortAscending =
+                                                settingsProvider.settings.flowSortUnreadArticles
+                                                    .value,
+                                        )
                                 }
-                                .flow
-                                .map { it.mapPagingFlowItem(androidStringsHelper) }
-                                .cachedIn(applicationScope),
-                            filterState = filterState,
-                        )
-                }
+                            }
+                            .flow
+                            .map { it.mapPagingFlowItem(androidStringsHelper, includeDateSeparators = !flowLayout.isGrid()) }
+                            .cachedIn(applicationScope),
+                        filterState = filterState,
+                    )
+            }
         }
         applicationScope.launch {
             pagerFlow.collectLatest { (pager, _) ->

@@ -63,7 +63,7 @@ fun AccountsPage(
                             iconPainter = it.type.toIcon().takeIf { it is Painter }?.let { it as Painter },
                             showChevron = true,
                             onClick = { navigateToAccountDetails(it.id!!) },
-                        ) {}
+                        )
                     }
                 }
                 item {
@@ -99,8 +99,9 @@ fun AccountsPage(
                         title = stringResource(R.string.add_accounts),
                         desc = stringResource(R.string.add_accounts_desc),
                         icon = Icons.Outlined.PersonAdd,
+                        showChevron = true,
                         onClick = navigateToAddAccount,
-                    ) {}
+                    )
                 }
                 item {
                     Spacer(modifier = Modifier.height(24.dp))

@@ -322,14 +322,14 @@ fun FeedsPage(
                                     androidx.compose.foundation.layout.Column(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(horizontal = 14.dp, vertical = 8.dp)
+                                            .padding(horizontal = 16.dp, vertical = 6.dp)
                                     ) {
                                         feeds.chunked(2).forEach { rowFeeds ->
                                             Row(
                                                 modifier = Modifier
                                                     .fillMaxWidth()
-                                                    .padding(vertical = 4.dp),
-                                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                                    .padding(vertical = 5.dp),
+                                                horizontalArrangement = Arrangement.spacedBy(10.dp),
                                             ) {
                                                 rowFeeds.forEach { feed ->
                                                     Box(modifier = Modifier.weight(1f)) {

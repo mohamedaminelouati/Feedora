@@ -69,20 +69,35 @@ private fun ImageIcon(modifier: Modifier, placeholderIcon: ImageVector, feedName
 
 @Composable
 private fun FontIcon(modifier: Modifier, size: Dp, feedName: String) {
+    val cleanName = feedName.trim()
+    val letters = if (cleanName.length >= 3) {
+        cleanName.take(3).uppercase()
+    } else if (cleanName.isNotEmpty()) {
+        cleanName.uppercase()
+    } else {
+        " "
+    }
+    val fontSize = when (letters.length) {
+        1 -> (size.value * 0.52f).sp
+        2 -> (size.value * 0.40f).sp
+        else -> (size.value * 0.32f).sp
+    }
     Box(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.primary),
+            .background(MaterialTheme.colorScheme.primaryContainer),
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = feedName.ifEmpty { " " }.first().toString(),
-            style = MaterialTheme.typography.bodyMedium.merge(
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontSize = 10.sp,
+            text = letters,
+            style = MaterialTheme.typography.labelSmall.merge(
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontSize = fontSize,
                 fontWeight = FontWeight.Bold,
-            )
+                letterSpacing = (-0.5).sp,
+            ),
+            maxLines = 1,
         )
     }
 }

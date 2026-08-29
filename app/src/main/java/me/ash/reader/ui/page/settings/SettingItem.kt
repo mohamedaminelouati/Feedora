@@ -155,7 +155,7 @@ fun SettingItem(
                     )
                 }
             }
-            if (separatedActions || (showChevron && action == null)) {
+            if (separatedActions || showChevron) {
                 Icon(
                     modifier = Modifier.padding(start = 8.dp),
                     imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,

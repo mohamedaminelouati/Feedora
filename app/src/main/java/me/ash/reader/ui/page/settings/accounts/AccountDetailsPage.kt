@@ -267,7 +267,6 @@ fun AccountDetailsPage(
                     )
                     SettingItem(
                         title = stringResource(R.string.import_opml),
-                        desc = stringResource(R.string.import_opml_desc),
                         onClick = {
                             importOpmlLauncher.launch(
                                 arrayOf(

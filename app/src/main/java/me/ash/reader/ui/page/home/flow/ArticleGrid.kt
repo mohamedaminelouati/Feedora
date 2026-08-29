@@ -32,12 +32,7 @@ fun LazyGridScope.ArticleGrid(
         count = pagingItems.itemCount,
         key = pagingItems.itemKey(::key),
         contentType = pagingItems.itemContentType(::contentType),
-        span = { index ->
-            when (pagingItems.peek(index)) {
-                is ArticleFlowItem.Date -> GridItemSpan(maxLineSpan)
-                else -> GridItemSpan(1)
-            }
-        },
+        span = { GridItemSpan(1) },
     ) { index ->
         when (val item = pagingItems[index]) {
             is ArticleFlowItem.Article -> {
@@ -54,13 +49,6 @@ fun LazyGridScope.ArticleGrid(
                     onMarkBelowAsRead = if (index == pagingItems.itemCount - 1) null else onMarkBelowAsRead,
                     onShare = onShare,
                 )
-            }
-
-            is ArticleFlowItem.Date -> {
-                if (item.showSpacer) {
-                    Spacer(modifier = Modifier.fillMaxWidth().height(16.dp))
-                }
-                StickyHeader(item.date, isShowFeedIcon, articleListTonalElevation)
             }
 
             else -> {}
