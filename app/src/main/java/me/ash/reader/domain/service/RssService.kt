@@ -18,6 +18,11 @@ constructor(
     private val localRssService: LocalRssService,
     private val feverRssService: FeverRssService,
     private val googleReaderRssService: GoogleReaderRssService,
+    private val minifluxRssService: MinifluxRssService,
+    private val ttrssRssService: TTRSSRssService,
+    private val inoreaderRssService: InoreaderRssService,
+    private val feedbinRssService: FeedbinRssService,
+    private val feedlyRssService: FeedlyRssService,
 ) {
 
     private val currentServiceFlow =
@@ -38,11 +43,11 @@ constructor(
             AccountType.Fever.id -> feverRssService
             AccountType.GoogleReader.id -> googleReaderRssService
             AccountType.FreshRSS.id -> googleReaderRssService
-            AccountType.Inoreader.id -> googleReaderRssService
-            AccountType.Miniflux.id -> googleReaderRssService
-            AccountType.TTRSS.id -> googleReaderRssService
-            AccountType.Feedbin.id -> googleReaderRssService
-            AccountType.Feedly.id -> googleReaderRssService
+            AccountType.Inoreader.id -> inoreaderRssService
+            AccountType.Miniflux.id -> minifluxRssService
+            AccountType.TTRSS.id -> ttrssRssService
+            AccountType.Feedbin.id -> feedbinRssService
+            AccountType.Feedly.id -> feedlyRssService
             else -> localRssService
         }
 }

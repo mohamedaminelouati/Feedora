@@ -32,7 +32,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import me.ash.reader.R
 import me.ash.reader.domain.model.account.Account
 import me.ash.reader.domain.model.account.AccountType
-import me.ash.reader.domain.model.account.security.GoogleReaderSecurityKey
+import me.ash.reader.domain.model.account.security.FeedlySecurityKey
 import me.ash.reader.ui.component.base.RYDialog
 import me.ash.reader.ui.component.base.RYOutlineTextField
 import me.ash.reader.ui.ext.collectAsStateValue
@@ -123,7 +123,7 @@ fun AddFeedlyAccountDialog(
                         Account(
                             type = AccountType.Feedly,
                             name = context.getString(R.string.feedly),
-                            securityKey = GoogleReaderSecurityKey(
+                            securityKey = FeedlySecurityKey(
                                 serverUrl = "https://cloud.feedly.com/v3/",
                                 username = username,
                                 password = token,

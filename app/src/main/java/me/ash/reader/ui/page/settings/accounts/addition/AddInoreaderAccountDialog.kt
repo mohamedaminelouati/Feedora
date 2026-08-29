@@ -32,7 +32,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import me.ash.reader.R
 import me.ash.reader.domain.model.account.Account
 import me.ash.reader.domain.model.account.AccountType
-import me.ash.reader.domain.model.account.security.GoogleReaderSecurityKey
+import me.ash.reader.domain.model.account.security.InoreaderSecurityKey
 import me.ash.reader.ui.component.base.RYDialog
 import me.ash.reader.ui.component.base.RYOutlineTextField
 import me.ash.reader.ui.ext.collectAsStateValue
@@ -121,7 +121,7 @@ fun AddInoreaderAccountDialog(
                         Account(
                             type = AccountType.Inoreader,
                             name = context.getString(R.string.inoreader),
-                            securityKey = GoogleReaderSecurityKey(
+                            securityKey = InoreaderSecurityKey(
                                 serverUrl = "https://www.inoreader.com/reader/",
                                 username = username,
                                 password = password,

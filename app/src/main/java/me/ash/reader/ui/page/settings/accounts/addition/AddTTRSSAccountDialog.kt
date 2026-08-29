@@ -32,7 +32,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import me.ash.reader.R
 import me.ash.reader.domain.model.account.Account
 import me.ash.reader.domain.model.account.AccountType
-import me.ash.reader.domain.model.account.security.GoogleReaderSecurityKey
+import me.ash.reader.domain.model.account.security.TTRSSSecurityKey
 import me.ash.reader.ui.component.base.RYDialog
 import me.ash.reader.ui.component.base.RYOutlineTextField
 import me.ash.reader.ui.ext.collectAsStateValue
@@ -145,7 +145,7 @@ fun AddTTRSSAccountDialog(
                         Account(
                             type = AccountType.TTRSS,
                             name = context.getString(R.string.ttrss),
-                            securityKey = GoogleReaderSecurityKey(
+                            securityKey = TTRSSSecurityKey(
                                 serverUrl = normalizedUrl,
                                 username = username,
                                 password = password,
