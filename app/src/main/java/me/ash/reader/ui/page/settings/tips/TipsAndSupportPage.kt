@@ -394,7 +394,7 @@ private fun RoundIconButton(type: RoundIconButtonType) {
                 )
             }
 
-            is RoundIconButtonType.GitHub, is RoundIconButtonType.Telegram -> {
+            is RoundIconButtonType.GitHub, is RoundIconButtonType.LinkedIn -> {
                 Icon(
                     modifier = type.offset.size(type.size),
                     painter = painterResource(type.iconResource!!),
