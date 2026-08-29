@@ -33,10 +33,11 @@ class InoreaderAPI private constructor(
             .get()
             .build()
         val response = client.newCall(request).executeAsync()
-        if (!response.isSuccessful) {
-            throw InoreaderAPIException("Inoreader GET failed with code ${response.code}")
-        }
         val bodyStr = response.body.string()
+        if (!response.isSuccessful) {
+            val errorMsg = if (bodyStr.isNotBlank()) bodyStr.trim() else "Inoreader HTTP ${response.code}: ${response.message}"
+            throw InoreaderAPIException(errorMsg)
+        }
         return toDTO<T>(bodyStr)
     }
 
@@ -47,10 +48,12 @@ class InoreaderAPI private constructor(
             .post(formBody)
             .build()
         val response = client.newCall(request).executeAsync()
+        val bodyStr = response.body.string()
         if (!response.isSuccessful) {
-            throw InoreaderAPIException("Inoreader POST failed with code ${response.code}")
+            val errorMsg = if (bodyStr.isNotBlank()) bodyStr.trim() else "Inoreader HTTP ${response.code}: ${response.message}"
+            throw InoreaderAPIException(errorMsg)
         }
-        return response.body.string()
+        return bodyStr
     }
 
     suspend fun getUserInfo(): InoreaderDTO.UserInfo =

@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import me.ash.reader.infrastructure.rss.provider.feedly.FeedlyDTO
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class FeedlyProviderTest {
@@ -62,7 +63,10 @@ class FeedlyProviderTest {
                         "published": 1690000000,
                         "author": "Editor",
                         "content": {"content": "<p>Article text</p>"},
-                        "unread": true
+                        "unread": true,
+                        "tags": [
+                            {"id": "user/c08v7/tag/global.saved", "label": "Saved"}
+                        ]
                     }
                 ]
             }
@@ -73,5 +77,26 @@ class FeedlyProviderTest {
         assertEquals("item_12345", stream.items?.get(0)?.id)
         assertEquals("Feedly Article", stream.items?.get(0)?.title)
         assertEquals("<p>Article text</p>", stream.items?.get(0)?.content?.content)
+        assertTrue(stream.items?.get(0)?.tags?.any { it.id.endsWith("global.saved") } == true)
+    }
+
+    @Test
+    fun testFeedlyErrorResponseExtraction() {
+        val errorJson = """{"errorCode":404,"requestId":"a32aa30dd8ccc611-MRS","errorMessage":"API version not found"}"""
+        val errorMap = gson.fromJson(errorJson, Map::class.java)
+        assertEquals("API version not found", errorMap["errorMessage"])
+        assertEquals(404.0, errorMap["errorCode"])
+    }
+
+    @Test
+    fun testFeedlyMarkersPayloadSerialization() {
+        val marker = FeedlyDTO.MarkersUpdate(
+            action = "markAsRead",
+            type = "entries",
+            entryIds = listOf("entry_1", "entry_2")
+        )
+        val json = gson.toJson(marker)
+        assertTrue(json.contains("\"action\":\"markAsRead\""))
+        assertTrue(json.contains("\"entryIds\":[\"entry_1\",\"entry_2\"]"))
     }
 }

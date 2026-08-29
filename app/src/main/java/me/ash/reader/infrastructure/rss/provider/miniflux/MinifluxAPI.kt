@@ -51,10 +51,16 @@ class MinifluxAPI private constructor(
             .get()
             .build()
         val response = client.newCall(request).executeAsync()
-        if (!response.isSuccessful) {
-            throw MinifluxAPIException("Miniflux request failed with code ${response.code}: ${response.message}")
-        }
         val bodyStr = response.body.string()
+        if (!response.isSuccessful) {
+            val errorMsg = try {
+                val errorObj = gson.fromJson(bodyStr, Map::class.java)
+                errorObj["error_message"] as? String ?: "Miniflux error ${response.code}"
+            } catch (e: Exception) {
+                "Miniflux HTTP ${response.code}: ${response.message}"
+            }
+            throw MinifluxAPIException(errorMsg)
+        }
         return toDTO<T>(bodyStr)
     }
 
@@ -65,10 +71,16 @@ class MinifluxAPI private constructor(
             .post(bodyJson.toRequestBody(jsonMediaType))
             .build()
         val response = client.newCall(request).executeAsync()
-        if (!response.isSuccessful) {
-            throw MinifluxAPIException("Miniflux POST failed with code ${response.code}: ${response.message}")
-        }
         val bodyStr = response.body.string()
+        if (!response.isSuccessful) {
+            val errorMsg = try {
+                val errorObj = gson.fromJson(bodyStr, Map::class.java)
+                errorObj["error_message"] as? String ?: "Miniflux error ${response.code}"
+            } catch (e: Exception) {
+                "Miniflux HTTP ${response.code}: ${response.message}"
+            }
+            throw MinifluxAPIException(errorMsg)
+        }
         return toDTO<T>(bodyStr)
     }
 

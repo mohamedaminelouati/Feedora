@@ -36,10 +36,17 @@ class FeedlyAPI private constructor(
             .get()
             .build()
         val response = client.newCall(request).executeAsync()
+        val bodyStr = response.body.string()
         if (!response.isSuccessful) {
-            throw FeedlyAPIException("Feedly GET failed with code ${response.code}")
+            val errorMsg = try {
+                val errorObj = gson.fromJson(bodyStr, Map::class.java)
+                errorObj["errorMessage"] as? String ?: "Feedly error ${response.code}"
+            } catch (e: Exception) {
+                "Feedly HTTP ${response.code}: ${response.message}"
+            }
+            throw FeedlyAPIException(errorMsg)
         }
-        return response.body.string()
+        return bodyStr
     }
 
     private suspend inline fun <reified T> executeGet(path: String): T {
@@ -54,10 +61,17 @@ class FeedlyAPI private constructor(
             .post(bodyJson.toRequestBody(jsonMediaType))
             .build()
         val response = client.newCall(request).executeAsync()
+        val bodyStr = response.body.string()
         if (!response.isSuccessful) {
-            throw FeedlyAPIException("Feedly POST failed with code ${response.code}")
+            val errorMsg = try {
+                val errorObj = gson.fromJson(bodyStr, Map::class.java)
+                errorObj["errorMessage"] as? String ?: "Feedly error ${response.code}"
+            } catch (e: Exception) {
+                "Feedly HTTP ${response.code}: ${response.message}"
+            }
+            throw FeedlyAPIException(errorMsg)
         }
-        return response.body.string()
+        return bodyStr
     }
 
     private suspend fun executeDelete(path: String) {
