@@ -155,10 +155,10 @@
     <string name="reading_page">Reading page</string>
     <string name="sponsor">Sponsor</string>
     <string name="open_source_licenses">Open source licenses</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
     <string name="change_log">Changelog</string>
     <string name="update">Update</string>
     <string name="skip_this_version">Skip this version</string>
@@ -338,7 +338,7 @@
     <string name="troubleshooting">Troubleshooting</string>
     <string name="troubleshooting_desc">Bug report, app preferences</string>
     <string name="bug_report">Bug report</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
     <string name="app_preferences">App preferences</string>
     <string name="import_from_protobuf_file">Import from protobuf file</string>
     <string name="export_as_protobuf_file">Export as protobuf file</string>
