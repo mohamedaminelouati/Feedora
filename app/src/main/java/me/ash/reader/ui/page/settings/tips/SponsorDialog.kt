@@ -63,21 +63,18 @@ private fun SponsorDialogContent(modifier: Modifier = Modifier) {
         }
 
         SponsorItem(
-            model = githubAvatar("Ashinch"),
-            name = "Ash",
-            description = "Lead Developer",
+            model = githubAvatar("mohamedaminelouati"),
+            name = "Mohamed Amine Louati",
+            description = "Lead Developer / Maintainer",
         ) {
-            context.openURL("https://ash7.io/sponsor/", openLink = OpenLinkPreference.default)
+            context.openURL("https://github.com/mohamedaminelouati", openLink = OpenLinkPreference.default)
         }
         SponsorItem(
-            model = githubAvatar("JunkFood02"),
-            name = "junkfood",
-            description = "Maintainer",
+            model = githubAvatar("Ashinch"),
+            name = "Ash",
+            description = "Original Author",
         ) {
-            context.openURL(
-                "https://github.com/sponsors/JunkFood02",
-                openLink = OpenLinkPreference.default
-            )
+            context.openURL("https://github.com/Ashinch", openLink = OpenLinkPreference.default)
         }
         Spacer(Modifier.height(8.dp))
     }

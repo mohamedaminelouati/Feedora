@@ -271,15 +271,15 @@ fun TipsAndSupportPage(
                             })
                         Spacer(modifier = Modifier.width(16.dp))
 
-                        // Telegram
+                        // LinkedIn
                         RoundIconButton(
-                            RoundIconButtonType.Telegram(
+                            RoundIconButtonType.LinkedIn(
                                 backgroundColor = MaterialTheme.colorScheme.primaryContainer alwaysLight true,
                             ) {
                                 view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                                 view.playSoundEffect(SoundEffectConstants.CLICK)
                                 context.openURL(
-                                    context.getString(R.string.telegram_link),
+                                    context.getString(R.string.linkedin_link),
                                     OpenLinkPreference.AutoPreferCustomTabs
                                 )
                             })
@@ -347,13 +347,13 @@ sealed class RoundIconButtonType(
     )
 
     @Immutable
-    data class Telegram(
-        val desc: String = "Telegram",
-        override val offset: Modifier = Modifier.offset(x = (-1).dp),
+    data class LinkedIn(
+        val desc: String = "LinkedIn",
+        override val offset: Modifier = Modifier.offset(x = 0.dp),
         override val backgroundColor: Color,
         override val onClick: () -> Unit = {},
     ) : RoundIconButtonType(
-        iconResource = R.drawable.ic_telegram,
+        iconResource = R.drawable.ic_linkedin,
         descString = desc,
         backgroundColor = backgroundColor,
         onClick = onClick,
