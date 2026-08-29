@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="read_you" translatable="false">Read You</string>
     <string name="all">Alle</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d archivierter Eintrag</item>
@@ -20,12 +20,15 @@
     <string name="loading">Laden…</string>
     <string name="expand_less">Reduzieren</string>
     <string name="expand_more">Erweitern</string>
+    <string name="unfold_more">Alle erweitern</string>
+    <string name="unfold_less">Alle einklappen</string>
     <string name="confirm">Bestätigen</string>
     <string name="cancel">Abbrechen</string>
     <string name="allow">Erlauben</string>
     <string name="deny">Ablehnen</string>
     <string name="defaults">Standard</string>
     <string name="unknown">Unbekannt</string>
+    <string name="empty">Leer</string>
     <string name="back">Zurück</string>
     <string name="go_to">Gehe zu</string>
     <string name="settings">Einstellungen</string>
@@ -48,6 +51,10 @@
     <string name="all_parse_full_content_tips">Gesamten Inhalt aller Artikel der Gruppe „%1$s“ abrufen</string>
     <string name="all_parse_full_content_toast">Vollständiger Abruf aller Artikelinhalte in der Gruppe „%1$s“ ist erlaubt</string>
     <string name="all_deny_parse_full_content_toast">Vollständiger Abruf aller Artikelinhalte in der Gruppe „%1$s“ wird verweigert</string>
+    <string name="open_in_browser">Im Browser öffnen</string>
+    <string name="all_open_in_browser_tips">Alle Artikel der Gruppe „%1$s“ im Standard-Browser öffnen</string>
+    <string name="all_open_in_browser_toast">Das Öffnen aller Artikel der Gruppe „%1$s“ im Standard-Browser ist erlaubt</string>
+    <string name="all_deny_open_in_browser_toast">Das Öffnen aller Artikel der Gruppe „%1$s“ im Standard-Browser wird verweigert</string>
     <string name="clear_articles">Artikel leeren</string>
     <string name="clear_articles_in_feed_toast">Alle archivierten Artikel im Feed „%1$s“ wurden geleert</string>
     <string name="clear_articles_in_group_toast">Alle archivierten Artikel in der Gruppe „%1$s“ wurden geleert</string>
@@ -59,6 +66,7 @@
     <string name="all_move_to_group_toast">Alle Feeds in die Gruppe „%1$s“ verschoben</string>
     <string name="rename">Umbenennen</string>
     <string name="change_url">URL ändern</string>
+    <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
     <string name="rename_toast">Umbenannt zu „%1$s“</string>
     <string name="create_new_group">Neue Gruppe erstellen</string>
     <string name="name">Name</string>
@@ -100,14 +108,28 @@
     <string name="interaction_desc">Startseite, Gesten</string>
     <string name="languages">Sprachen</string>
     <string name="help_translate">Hilf uns beim Übersetzen</string>
+    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">Gerätesprache verwenden</string>
+    <string name="english" translatable="false">English</string>
+    <string name="chinese_simplified" translatable="false">简体中文</string>
+    <string name="german" translatable="false">Deutsch</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="czech" translatable="false">Čeština</string>
+    <string name="italian" translatable="false">Italiano</string>
+    <string name="hindi" translatable="false">हिंदी</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="basque" translatable="false">Euskara</string>
+    <string name="indonesian" translatable="false">Bahasa Indonesia</string>
+    <string name="chinese_traditional" translatable="false">繁體中文</string>
     <string name="tips_and_support">Tipps &amp; Support</string>
     <string name="tips_and_support_desc">Über, Sponsor, Open-Source-Lizenzen</string>
     <string name="welcome">Willkommen</string>
     <string name="tos_tips">Bitte lesen Sie die Nutzungsbedingungen und die Datenschutzrichtlinie von Read You und stimmen Sie ihnen zu, um fortzufahren.</string>
-    <string name="browse_tos_tips">Durchsuchen Sie die <i><u>Nutzungsbedingungen und Datenschutzbestimmungen</u></i></string>
+    <string name="browse_tos_tips">Durchsuchen Sie die </string>
     <string name="terms_of_service">Nutzungsbedingungen</string>
-    <string name="tos_content"><h5> Datenschutzrichtlinie </h5> <br/> <p> Wir nehmen Ihre Privatsphäre sehr ernst. </p> <br/> <p> <b>Read You</b> sammelt keine Benutzerdaten und alle vertraulichen Informationen (Passwörter und andere Kontoinformationen) werden sicher in der lokalen Anwendungsdatenbank auf Ihrem Gerät gespeichert. </p> <br/> <p> <b>Read You</b> verwendet die folgenden Berechtigungen, um Ihnen den Dienst bereitzustellen. </p> <br/> <p> – Berechtigung zum Netzwerkzugriff (um auf Online-Inhalte nach Ihren Angaben zuzugreifen) </p> <p> – Berechtigung zum Abrufen des Netzwerkstatus (um festzustellen, ob auf dem Gerät aktuell Netzwerkbedingungen verfügbar sind) </p> <p> – Berechtigung für Hintergrunddienste (um Ihre Favoriten regelmäßig automatisch zu synchronisieren) </p> <br/> <br/> <h5> Dienste von Drittanbietern </h5> <br/> <p> Diese Richtlinie gilt nicht für Dienste von Drittanbietern, die Sie mit <b>Read You</b> verwenden. Sie können die Datenschutzrichtlinien der von Ihnen genutzten Dienste von Drittanbietern auf deren Websites einsehen. </p> <br/> <br/> <h5> Haftungsausschlüsse </h5> <br/> <p> <b>Read You</b> ist ausschließlich ein Tool zur Inhaltserfassung. Ihre Nutzung von <b>Read You</b> unterliegt den Gesetzen und Bestimmungen Ihres Landes und Ihrer Region, und jegliche Haftung, die sich aus Ihren Handlungen ergibt, wird von Ihnen persönlich getragen. </p> <br/> <br/> <h5> Open-Source-Lizenz </h5> <br/> <p> <b>Read You</b> ist ein Open-Source-Projekt unter der GNU GPL 3.0 Open Source License[1], die Ihnen das kostenlose Verwenden, Referenzieren und Modifizieren des Quellcodes von <b>Read You</b> erlaubt, jedoch nicht die Verbreitung und den Verkauf des modifizierten und abgeleiteten Codes als kommerzielle Closed-Source-Software erlaubt. Weitere Einzelheiten entnehmen Sie bitte der vollständigen GNU GPL 3.0 Open Source License[2]. </p> <br/> <br/> <h5> Anhang </h5> <br/> <p> - [1] https://github.com/ReadYouApp/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content"></string>
     <string name="agree">Zustimmen</string>
     <string name="wallpaper_colors">Hintergrundfarben</string>
     <string name="no_palettes">Keine Paletten</string>
@@ -126,11 +148,15 @@
     <string name="tonal_elevation">Farbliches Hervorheben</string>
     <string name="reading_fonts">Leseschriftarten</string>
     <string name="basic_fonts">Grundschriftarten</string>
+    <string name="google_sans" translatable="false">Google Sans Flex</string>
     <string name="feeds_page">Feeds-Seite</string>
     <string name="flow_page">Flow-Seite</string>
     <string name="reading_page">Leseseite</string>
     <string name="sponsor">Sponsor</string>
     <string name="open_source_licenses">Open Source Lizenzen</string>
+    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
+    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
     <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
     <string name="change_log">Änderungsprotokoll</string>
     <string name="update">Aktualisieren</string>
@@ -199,11 +225,10 @@
     <string name="images_desc">Abgerundete Ecken, Horizontaler Rand</string>
     <string name="videos_desc">Abgerundete Ecken, Horizontaler Rand</string>
     <string name="maximize">Maximieren</string>
-    <string name="every_2_hours">Alle 2 Stunden</string>
-    <string name="for_2_days">2 Tage</string>
-    <string name="for_1_week">1 Woche</string>
+    <string name="every_15_minutes">Alle 15 Minuten</string>
     <string name="every_30_minutes">Alle 30 Minuten</string>
     <string name="every_1_hour">Stündlich</string>
+    <string name="every_2_hours">Alle 2 Stunden</string>
     <string name="every_3_hours">Alle 3 Stunden</string>
     <string name="every_6_hours">Alle 6 Stunden</string>
     <string name="every_12_hours">Alle 12 Stunden</string>
@@ -211,60 +236,71 @@
     <string name="manually">Manuell</string>
     <string name="always">Immer</string>
     <string name="for_1_day">1 Tag</string>
+    <string name="for_2_days">2 Tage</string>
     <string name="for_3_days">3 Tage</string>
-    <string name="for_1_month">1 Monat</string>
-    <string name="every_15_minutes">Alle 15 Minuten</string>
+    <string name="for_1_week">1 Woche</string>
     <string name="for_2_weeks">2 Wochen</string>
+    <string name="for_1_month">1 Monat</string>
     <string name="local">Lokal</string>
+    <string name="fever" translatable="false">Fever</string>
+    <string name="google_reader" translatable="false">Google Reader</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="feedly" translatable="false">Feedly</string>
+    <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">Auf diesem Gerät</string>
     <string name="services">Dienste</string>
+    <string name="feedly_desc" translatable="false">feedly.com</string>
+    <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="self_hosted">Selbstgehostet</string>
+    <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Veraltet. Nicht empfohlen.</string>
     <string name="more">Mehr</string>
     <string name="add_accounts">Konten hinzufügen</string>
     <string name="list">Liste</string>
     <string name="add_accounts_desc">Lokal, Dienste, selbstgehostet</string>
-    <string name="self_hosted">Selbstgehostet</string>
     <string name="display">Anzeige</string>
+    <string name="synchronous">Synchronisation</string>
     <string name="sync_interval">Synchronisiere</string>
+    <string name="sync_once_on_start">Einmalig beim Start synchronisieren</string>
+    <string name="only_on_wifi">Nur über WLAN</string>
     <string name="only_when_charging">Nur beim Aufladen</string>
     <string name="keep_archived_articles">Archivierte Artikel behalten</string>
-    <string name="synchronous">Synchronisation</string>
-    <string name="only_on_wifi">Nur über WLAN</string>
-    <string name="sync_once_on_start">Einmalig beim Start synchronisieren</string>
+    <string name="block_list">Sperrliste</string>
     <string name="export_as_opml">Als OPML exportieren</string>
     <string name="clear_all_articles">Alle Artikel leeren</string>
     <string name="delete_account">Konto löschen</string>
+    <string name="clear_all_articles_tips">Sind Sie sicher, dass Sie die Artikelliste für dieses Konto leeren wollen?</string>
+    <string name="delete_account_tips">Sind Sie sicher, dass Sie dieses Konto löschen möchten\?</string>
     <string name="must_have_an_account">Sie müssen mindestens 1 Konto haben</string>
     <string name="clear_all_articles_toast">Artikelliste wurde geleert</string>
     <string name="delete_account_toast">Konto gelöscht</string>
-    <string name="clear_all_articles_tips">Sind Sie sicher, dass Sie die Artikelliste für dieses Konto leeren wollen?</string>
-    <string name="delete_account_tips">Sind Sie sicher, dass Sie dieses Konto löschen möchten\?</string>
     <string name="synchronous_tips">Neustart erforderlich, damit die Änderungen wirksam werden</string>
-    <string name="block_list">Sperrliste</string>
+    <string name="keep_archived_tips">Archivierte Artikel sind Artikel, die als gelesen markiert, nicht mit Sternen versehen und nicht getaggt sind. Die Einstellung „Archivierte Artikel behalten“ ist nur auf diesem Gerät wirksam. Ältere archivierte Artikel werden von diesem Gerät gelöscht. Die Löschung von Artikeln kann nicht rückgängig gemacht werden.</string>
     <string name="switch_account">Wechseln</string>
     <string name="add">Hinzufügen</string>
     <string name="accounts_tips">Sie können das Konto wechseln, indem Sie auf der Feed-Seite auf den Kontonamen tippen</string>
-    <string name="username">Benutzername</string>
-    <string name="empty">Leer</string>
     <string name="server_url">Server URL</string>
+    <string name="username">Benutzername</string>
     <string name="password">Passwort</string>
+    <string name="client_certificate">Client-Zertifikat (optional)</string>
     <string name="connection">Verbindung</string>
     <string name="system_default">System</string>
-    <string name="custom_tabs">CustomTabs erzwingen</string>
-    <string name="open_link_ask_dialog_title">Öffnen mit…</string>
-    <string name="open_link_specific_browser">Browser</string>
-    <string name="auto_default_browser">Automatisch (Standard-Browser bevorzugen)</string>
-    <string name="always_ask">Immer fragen</string>
-    <string name="specific_browser_name">Browser: %1$s</string>
-    <string name="specific_browser">Bestimmten Browser erzwingen</string>
     <string name="initial_open_app">App zum Öffnen von Links</string>
-    <string name="auto_customtabs">Automatisch (CustomTabs bevorzugen)</string>
-    <string name="default_browser">Standard-Browser erzwingen</string>
-    <string name="open_link_something_wrong">Einstellung „Link öffnen“ wird ignoriert, weil etwas schief gelaufen ist</string>
     <string name="open_link_specific_browser_not_selected">Keine</string>
+    <string name="auto_customtabs">Automatisch (CustomTabs bevorzugen)</string>
+    <string name="auto_default_browser">Automatisch (Standard-Browser bevorzugen)</string>
+    <string name="custom_tabs">CustomTabs erzwingen</string>
+    <string name="specific_browser">Bestimmten Browser erzwingen</string>
+    <string name="specific_browser_name">Browser: %1$s</string>
+    <string name="default_browser">Standard-Browser erzwingen</string>
+    <string name="always_ask">Immer fragen</string>
+    <string name="open_link_specific_browser">Browser</string>
+    <string name="open_link_something_wrong">Einstellung „Link öffnen“ wird ignoriert, weil etwas schief gelaufen ist</string>
+    <string name="open_link_ask_dialog_title">Öffnen mit…</string>
     <string name="include_additional_info">Zusätzliche Informationen einfügen</string>
     <string name="exclude">Ausschließen</string>
-    <string name="additional_info_desc">Zu den zusätzlichen Informationen gehören Konfigurationsoptionen für jeden Feed, z.B. ob Benachrichtigungen zugelassen werden sollen, der gesamte Inhalt analysiert werden soll usw. Wenn Sie beabsichtigen, die exportierte OPML-Datei mit anderen Lesegeräten zu verwenden, wählen Sie bitte \"Ausschließen\".</string>
+    <string name="additional_info_desc">Zu den zusätzlichen Informationen gehören Konfigurationsoptionen für jeden Feed, z.B. ob Benachrichtigungen zugelassen werden sollen, der gesamte Inhalt analysiert werden soll usw. Wenn Sie beabsichtigen, die exportierte OPML-Datei mit anderen Lesegeräten zu verwenden, wählen Sie bitte "Ausschließen".</string>
     <string name="grey_out_articles">Artikel ausgrauen</string>
     <string name="all_read">Alle gelesenen</string>
     <string name="read_excluding_starred">Gelesene, ohne markierte</string>
@@ -272,52 +308,46 @@
     <string name="unexpected_error_title">Ups! Da ist etwas schief gelaufen…</string>
     <string name="copy_error_report">Fehlerbericht kopieren</string>
     <string name="submit_bug_report">Einen Fehlerbericht auf GitHub einreichen</string>
-    <string name="next_article">Nächster Artikel</string>
     <string name="unexpected_error_msg">Die Anwendung ist auf einen unerwarteten Fehler gestoßen und wurde geschlossen. \n \nDamit wir dieses Problem schnell identifizieren und beheben können, können Sie %1$s mit dem unten stehenden Stack-Trace.</string>
-    <string name="pull_to_switch_article">Zum Artikelwechsel ziehen</string>
-    <string name="export">Exportieren</string>
+    <string name="next_article">Nächster Artikel</string>
     <string name="swipe_to_start">Nach links wischen</string>
     <string name="swipe_to_end">Nach rechts wischen</string>
-    <string name="toggle_starred">Markierung umschalten</string>
     <string name="none">Keine</string>
     <string name="toggle_read">Gelesen umschalten</string>
+    <string name="toggle_starred">Markierung umschalten</string>
+    <string name="line_height_multiple">Zeilenhöhe mehrfach</string>
+    <string name="export">Exportieren</string>
+    <string name="pull_to_switch_article">Zum Artikelwechsel ziehen</string>
     <string name="mark_above_as_read">Oberhalb als gelesen markieren</string>
     <string name="mark_below_as_read">Unterhalb als gelesen markieren</string>
-    <string name="image_saved">Bild gespeichert</string>
-    <string name="line_height_multiple">Zeilenhöhe mehrfach</string>
     <string name="save">Speichern</string>
+    <string name="image_saved">Bild gespeichert</string>
     <string name="permission_denied">Erlaubnis verweigert</string>
-    <string name="title_and_link">Titel und Link</string>
-    <string name="keep_archived_tips">Archivierte Artikel sind Artikel, die als gelesen markiert, nicht mit Sternen versehen und nicht getaggt sind. Die Einstellung „Archivierte Artikel behalten“ ist nur auf diesem Gerät wirksam. Ältere archivierte Artikel werden von diesem Gerät gelöscht. Die Löschung von Artikeln kann nicht rückgängig gemacht werden.</string>
-    <string name="only_link">Nur Link</string>
     <string name="shared_content">Geteilter Inhalt</string>
+    <string name="only_link">Nur Link</string>
+    <string name="title_and_link">Titel und Link</string>
+    <string name="troubleshooting">Fehlerbehebung</string>
+    <string name="troubleshooting_desc">Fehlerbericht, App-Einstellungen</string>
+    <string name="bug_report">Fehlerbericht</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
     <string name="app_preferences">App Einstellungen</string>
     <string name="import_from_protobuf_file">Importieren aus Protobuf-Datei</string>
     <string name="export_as_protobuf_file">Export als Protobuf-Datei</string>
     <string name="invalid_protobuf_file_warning">Diese Datei ist eventuell keine gültige Protobuf-Datei. Importieren der Datei kann die App möglicherweise beschädigen und zum Verlust der aktuellen Einstellungen führen. Sind Sie sicher, dass Sie fortfahren möchten?</string>
-    <string name="troubleshooting">Fehlerbehebung</string>
-    <string name="troubleshooting_desc">Fehlerbericht, App-Einstellungen</string>
-    <string name="bug_report">Fehlerbericht</string>
     <string name="import_from_json">Aus JSON importieren</string>
     <string name="export_as_json">Als JSON exportieren</string>
     <string name="invalid_json_file_warning">Diese Datei ist eventuell keine gültige JSON-Datei. Der Import kann die App möglicherweise beschädigen und zum Verlust der aktuellen Einstellungen führen. Sind Sie sicher, dass Sie fortfahren möchten?</string>
-    <string name="unfold_more">Alle erweitern</string>
-    <string name="unfold_less">Alle einklappen</string>
+    <string name="webview" translatable="false">WebView</string>
     <string name="native_component">Native Komponente</string>
     <string name="content_renderer">Inhalts-Renderer</string>
     <string name="read_aloud">Vorlesen</string>
     <string name="only_available_on_webview">Nur bei Verwendung des WebView-Content-Renderers verfügbar</string>
     <string name="about">Über</string>
-    <string name="toolbars">Werkzeugleisten</string>
     <string name="mark_as_read_on_scroll">Beim Scrollen als gelesen markieren</string>
+    <string name="hide_empty_groups">Leere Gruppen ausblenden</string>
     <string name="become_a_sponsor">Sponsor werden</string>
     <string name="sponsor_desc">Wir entwickeln und pflegen diese kostenlose, quelloffene Anwendung in unserer Freizeit. Wenn sie Ihnen gefällt, unterstützen Sie uns bitte mit einer kleinen Spende! ☕️</string>
-    <string name="open_in_browser">Im Browser öffnen</string>
-    <string name="all_open_in_browser_tips">Alle Artikel der Gruppe „%1$s“ im Standard-Browser öffnen</string>
-    <string name="all_open_in_browser_toast">Das Öffnen aller Artikel der Gruppe „%1$s“ im Standard-Browser ist erlaubt</string>
-    <string name="all_deny_open_in_browser_toast">Das Öffnen aller Artikel der Gruppe „%1$s“ im Standard-Browser wird verweigert</string>
-    <string name="client_certificate">Client-Zertifikat (optional)</string>
-    <string name="hide_empty_groups">Leere Gruppen ausblenden</string>
+    <string name="toolbars">Werkzeugleisten</string>
     <string name="sort_unread_articles">Ungelesene Artikel sortieren</string>
     <string name="latest">Neueste</string>
     <string name="earliest">Älteste</string>
@@ -341,8 +371,9 @@
     <string name="last_updated">Zuletzt aktualisiert</string>
     <string name="no_unread_articles">Keine ungelesenen Artikel</string>
     <string name="list_widget_label">Listenansicht</string>
-    <string name="card_widget_label">Kartenansicht</string>"
+    <string name="card_widget_label">Kartenansicht</string>
     <string name="widget_description">Neueste ungelesene Artikel aus ausgewählten Quellen anzeigen</string>
+    <string name="apply">Anwenden</string>
     <string name="notifications">Benachrichtigungen</string>
     <string name="group_configuration_description">„%1$s” für Feeds in „%2$s” konfigurieren</string>
     <string name="disabled">Deaktiviert</string>
@@ -352,5 +383,141 @@
     <string name="parse_full_content_desc">Vollständige Artikel von Webseiten laden</string>
     <string name="enable">Aktivieren</string>
     <string name="disable">Deaktivieren</string>
-    <string name="apply">Anwenden</string>
+    <string name="show_sync_status">Synchronisierungsstatus anzeigen</string>
+    <string name="show_sync_status_desc">Zeigen Sie unter jedem Feed den letzten Synchronisierungsstatus, das Datum und die Uhrzeit an</string>
+    <string name="reading_ai_summary">Artikelzusammenfassung</string>
+    <string name="reading_ai_summary_desc">Schaltfläche „Zusammenfassung“ in der Lesesymbolleiste anzeigen, um sie im Browser zu öffnen</string>
+    <string name="summarizer_engine">Summarizer-Engine</string>
+    <string name="summarizer_language">Zusammenfassungssprache</string>
+    <string name="summarizer_style">Format/Stil der Zusammenfassung</string>
+    <string name="no_link_available">Für diesen Artikel ist kein Link verfügbar</string>
+    <plurals name="new_articles_count">
+        <item quantity="one">%1$dneuer Artikel hinzugefügt</item>
+        <item quantity="other">%1$dneue Artikel hinzugefügt</item>
+    </plurals>
+    <string name="sync_finished_title">Synchronisierung abgeschlossen</string>
+    <string name="sync_notification">Synchronisierungsbenachrichtigung</string>
+    <string name="sync_notification_desc">Benachrichtigung mit Anzahl hinzugefügter Artikel nach der Synchronisierung anzeigen</string>
+    <string name="restore_last_article">Den zuletzt gelesenen Artikel fortsetzen</string>
+    <string name="restore_last_article_desc">Öffnen Sie den Artikel, den Sie gerade gelesen haben, beim Start der App erneut</string>
+    <string name="restore_scroll_position">Merken Sie sich die Bildlaufposition</string>
+    <string name="restore_scroll_position_desc">Position in der Liste beim Start wiederherstellen</string>
+    <string name="full_translation">Vollständige Übersetzung</string>
+    <string name="translate_article">Artikel übersetzen</string>
+    <string name="ai_summary">Zusammenfassung</string>
+    <string name="ai_full_translation">Vollständige Übersetzung</string>
+    <string name="ai_generating_summary">Zusammenfassung wird erstellt...</string>
+    <string name="ai_translating_article">Artikel wird übersetzt...</string>
+    <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
+    <string name="regenerate">Regenerieren</string>
+    <string name="retry">Wiederholen</string>
+    <string name="copy">Kopie</string>
+    <string name="search_settings">Sucheinstellungen</string>
+    <string name="no_settings_found">Keine Einstellungen gefunden</string>
+    <string name="sync_status_always">Stets</string>
+    <string name="sync_status_errors_only">Nur Fehler</string>
+    <string name="sync_status_never">Niemals</string>
+    <string name="summary_style_key_points">Wichtige Punkte</string>
+    <string name="summary_style_tldr">TL;DR</string>
+    <string name="summary_style_detailed">Ausführlich</string>
+    <string name="ai_select_language">Sprache auswählen…</string>
+    <string name="ai_select_language_prompt">Bitte wählen Sie eine Sprache aus, um zu beginnen.</string>
+    <string name="open_summary_in_browser">Öffnen Sie die Zusammenfassung im Browser</string>
+    <string name="article_summary">Artikelzusammenfassung</string>
+    <string name="sync_status_unsynced">Nicht synchronisiert</string>
+    <string name="sync_status_today">Heute um%1$s</string>
+    <string name="sync_status_yesterday">Gestern um%1$s</string>
+    <string name="sync_status_success_prefix">Synchronisiert:%1$s</string>
+    <string name="sync_status_failed_prefix">Fehlgeschlagen:%1$s</string>
+    <string name="backup_and_restore">Sichern und Wiederherstellen</string>
+    <string name="export_full_backup">Exportieren Sie alle Daten und Einstellungen</string>
+    <string name="export_full_backup_desc">Umfasst alle Artikel (markiert, ungelesen, alle), Feeds, Gruppen, Konten und Einstellungen</string>
+    <string name="import_full_backup">Importieren Sie alle Daten und Einstellungen</string>
+    <string name="export_preferences">Nur Einstellungen exportieren</string>
+    <string name="import_preferences">Nur Einstellungen importieren</string>
+    <string name="exporting_backup">Backup wird exportiert…</string>
+    <string name="importing_backup">Backup wird importiert…</string>
+    <string name="exporting_articles">Artikel exportieren…</string>
+    <string name="importing_articles">Artikel werden wiederhergestellt…</string>
+    <string name="backup_export_success">Backup erfolgreich exportiert</string>
+    <string name="backup_export_failed">Backup konnte nicht exportiert werden</string>
+    <string name="backup_import_success">Backup erfolgreich importiert</string>
+    <string name="backup_import_failed">Backup konnte nicht importiert werden</string>
+    <string name="cloud_backup">Cloud-Backup</string>
+    <string name="cloud_backup_desc">Sicherung und Wiederherstellung über WebDAV, FTP, FTPS und SFTP</string>
+    <string name="server_settings">Servereinstellungen</string>
+    <string name="protocol">Protokoll</string>
+    <string name="server_host">Host-/Server-URL</string>
+    <string name="server_port">Hafen</string>
+    <string name="remote_path">Remote-Ordnerpfad</string>
+    <string name="trust_insecure_ssl">Vertrauen Sie selbstsignierten Zertifikaten</string>
+    <string name="test_connection">Testverbindung</string>
+    <string name="testing_connection">Verbindung wird getestet…</string>
+    <string name="auto_backup">Automatische Sicherung</string>
+    <string name="auto_backup_desc">Sichern Sie regelmäßig die gesamten Daten in der Cloud</string>
+    <string name="frequency">Frequenz</string>
+    <string name="freq_disabled">Deaktiviert</string>
+    <string name="freq_6_hours">Alle 6 Stunden</string>
+    <string name="freq_12_hours">Alle 12 Stunden</string>
+    <string name="freq_daily">Täglich (24h)</string>
+    <string name="freq_weekly">Wöchentlich (7 Tage)</string>
+    <string name="require_wifi">Nur WLAN</string>
+    <string name="require_wifi_desc">Führen Sie die Sicherung nur über eine WLAN-Verbindung durch</string>
+    <string name="require_charging">Nur Laden</string>
+    <string name="require_charging_desc">Führen Sie die Sicherung nur durch, wenn das Gerät aufgeladen wird</string>
+    <string name="max_backups_to_keep">Backup-Rotation</string>
+    <string name="max_backups_desc">Behalten Sie die neuesten%1$d-Backups auf dem Server</string>
+    <string name="max_backups_unlimited">Behalten Sie alle Backups (unbegrenzt)</string>
+    <string name="backup_now">Jetzt sichern</string>
+    <string name="remote_backups">Remote-Backups</string>
+    <string name="no_remote_backups">Auf dem Server wurden keine Backups gefunden</string>
+    <string name="restore_remote_backup">Sicherung wiederherstellen</string>
+    <string name="restore_confirm_message">Sind Sie sicher, dass Sie dieses Backup wiederherstellen möchten? Aktuelle Daten werden zusammengeführt.</string>
+    <string name="delete_remote_backup">Remote-Backup löschen</string>
+    <string name="delete_confirm_message">Sind Sie sicher, dass Sie dieses Backup vom Server löschen möchten?</string>
+    <string name="cloud_backup_success">Cloud-Sicherung erfolgreich abgeschlossen</string>
+    <string name="cloud_backup_failed">Die Cloud-Sicherung konnte nicht durchgeführt werden</string>
+    <string name="cloud_restore_success">Cloud-Wiederherstellung erfolgreich abgeschlossen</string>
+    <string name="cloud_restore_failed">Cloud-Backup konnte nicht wiederhergestellt werden</string>
+    <string name="cloud_delete_success">Remote-Backup gelöscht</string>
+    <string name="article_layout">Artikellayout</string>
+    <string name="layout_list">Liste</string>
+    <string name="layout_grid">Netz</string>
+    <string name="switch_to_grid_view">Wechseln Sie zur Rasteransicht</string>
+    <string name="switch_to_list_view">Wechseln Sie zur Listenansicht</string>
+    <string name="display_format">Anzeigeformat</string>
+    <string name="card_elements">Kartenelemente</string>
+    <string name="reading_indicators">Messwerte und Indikatoren</string>
+    <string name="reading_display_engine">Rendern und Anzeigen</string>
+    <string name="reading_typography_media">Typografie &amp; Medien</string>
+    <string name="reading_ai_assistant">KI-Leseassistent</string>
+    <string name="swipe_gestures">Wischgesten</string>
+    <string name="scrolling_navigation">Scrollen und Navigation</string>
+    <string name="external_links_sharing">Externe Links und Teilen</string>
+    <string name="diagnostics_and_reports">Diagnosen und Berichte</string>
+    <string name="local_backup_restore">Lokale Sicherung und Wiederherstellung</string>
+    <string name="storage_and_cache">Speicherung und Cache</string>
+    <string name="sync_logs">Protokolle synchronisieren</string>
+    <string name="clear_server_config">Serverkonfiguration löschen</string>
+    <string name="clear_server_config_desc">Entfernen Sie die Serveranmeldeinformationen und setzen Sie das Cloud-Backup zurück</string>
+    <string name="clear_server_config_confirm">Sind Sie sicher, dass Sie die Konfiguration des Cloud-Sicherungsservers löschen und automatische Sicherungen deaktivieren möchten?</string>
+    <string name="clear_server_config_success">Serverkonfiguration gelöscht</string>
+    <string name="backup_and_data">Backups und Daten</string>
+    <string name="backup_and_data_desc">Cloud- und lokales Backup, Einstellungen, Cache</string>
+    <string name="theme_and_colors">Thema und Farben</string>
+    <string name="presentation_and_layout">Seitenlayouts und Anzeige</string>
+    <string name="clear_cache">Cache leeren</string>
+    <string name="clear_cache_desc">Zwischengespeicherte Bilder und Artikel löschen</string>
+    <string name="clear_cache_success">Cache erfolgreich geleert</string>
+    <string name="feeds_page_style_desc">Ordner, Höhe, Favoriten, Synchronisierungsstatus</string>
+    <string name="flow_page_style_desc">Raster oder Liste, Wischgesten, Scrollen, Karten</string>
+    <string name="reading_page_style_desc">Lesemaschine, Typografie, Links, KI-Zusammenfassung</string>
+    <string name="global_style">Globaler Stil</string>
+    <string name="backups_title">Backups</string>
+    <string name="help_and_support">Hilfe und Support</string>
+    <string name="feeds_layout">Feeds-Layout</string>
+    <string name="import_opml">OPML importieren</string>
+    <string name="import_opml_desc">Importieren Sie Feeds aus einer OPML-Datei in dieses Konto</string>
+    <string name="import_opml_success">OPML erfolgreich importiert</string>
+    <string name="import_opml_failed">Import der OPML-Datei fehlgeschlagen</string>
 </resources>

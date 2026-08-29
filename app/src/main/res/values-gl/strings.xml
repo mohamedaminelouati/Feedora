@@ -1,7 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="icons_and_label_only_selected">Iconas e etiqueta (só activas)</string>
+    <string name="read_you" translatable="false">Read You</string>
+    <string name="all">Todo</string>
+    <plurals name="all_desc">
+        <item quantity="one">%1$d elemento arquivado</item>
+        <item quantity="other">%1$d elementos arquivados</item>
+    </plurals>
     <string name="unread">Sen ler</string>
+    <plurals name="unread_desc">
+        <item quantity="one">%1$d elemento non lido</item>
+        <item quantity="other">%1$d elementos non lidos</item>
+    </plurals>
     <string name="starred">Favoritos</string>
     <plurals name="starred_desc">
         <item quantity="one">%1$d elemento favorito</item>
@@ -12,8 +20,12 @@
     <string name="loading">Cargando…</string>
     <string name="expand_less">Contraer</string>
     <string name="expand_more">Expandir</string>
+    <string name="unfold_more">Expandir todo</string>
+    <string name="unfold_less">Contraer todo</string>
+    <string name="confirm">Confirmar</string>
     <string name="cancel">Cancelar</string>
     <string name="allow">Permitir</string>
+    <string name="deny">Denegar</string>
     <string name="defaults">Predeterminado</string>
     <string name="unknown">Descoñecido</string>
     <string name="empty">Baleiro</string>
@@ -23,23 +35,39 @@
     <string name="refresh">Refrescar</string>
     <string name="search">Busca</string>
     <string name="searching">Buscando…</string>
+    <string name="subscribe">Suscribir</string>
     <string name="already_subscribed">Xa suscrito</string>
     <string name="clear">Limpar</string>
     <string name="paste">Pegar</string>
     <string name="feed_or_site_url">Fonte ou URL do sitio</string>
     <string name="import_from_opml">Importar desde OPML</string>
     <string name="preset">Predefinir</string>
+    <string name="selected">Seleccionado</string>
+    <string name="allow_notification">Permitir notificacións</string>
     <string name="all_allow_notification_tips">Permitir a todas as fontes no grupo «%1$s» enviar notificacións</string>
     <string name="all_allow_notification_toast">As notificacións do grupo «%1$s» están permitidas</string>
+    <string name="all_deny_notification_toast">As notificacións do grupo «%1$s» están denegadas</string>
     <string name="parse_full_content">Analizar contido completo</string>
     <string name="all_parse_full_content_tips">Analizar o contido completo dos artigos no grupo «%1$s»</string>
     <string name="all_parse_full_content_toast">Analizar o contido completo dos artigos no grupo «%1$s» está permitido</string>
+    <string name="all_deny_parse_full_content_toast">Analizar o contido completo dos artigos no grupo «%1$s» está denegado</string>
+    <string name="open_in_browser">Abrir no navegador</string>
+    <string name="all_open_in_browser_tips">Abrir todos os artigos no grupo «%1$s» no navegador predeterminado</string>
+    <string name="all_open_in_browser_toast">Abrir todos os artigos no grupo «%1$s» no navegador predeterminado está permitido</string>
+    <string name="all_deny_open_in_browser_toast">Abrir todos os artigos no grupo «%1$s» no navegador predeterminado está denegado</string>
     <string name="clear_articles">Limpar artigos</string>
     <string name="clear_articles_in_feed_toast">Limpados todos os artigos arquivados da fonte «%1$s»</string>
+    <string name="clear_articles_in_group_toast">Limpados todos os artigos arquivados do grupo «%1$s»</string>
     <string name="clear_articles_feed_tips">Limpar todos os artigos arquivados da fonte «%1$s»</string>
     <string name="clear_articles_group_tips">Limpar todos os artigos arquivados do grupo «%1$s»</string>
     <string name="add_to_group">Engadir a grupo</string>
     <string name="move_to_group">Mover a grupo</string>
+    <string name="all_move_to_group_tips">Mover todas as fontes do grupo «%1$s» ao grupo «%2$s»</string>
+    <string name="all_move_to_group_toast">Movidas todas as fontes ao grupo «%1$s»</string>
+    <string name="rename">Renomear</string>
+    <string name="change_url">Trocar URL</string>
+    <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
+    <string name="rename_toast">Renomeado a «%1$s»</string>
     <string name="create_new_group">Crear novo grupo</string>
     <string name="name">Nome</string>
     <string name="open_with">Abrir %1$s</string>
@@ -54,15 +82,20 @@
     <string name="today">Hoxe</string>
     <string name="yesterday">Onte</string>
     <string name="date_at_time">%1$s ás %2$s</string>
+    <string name="search_for_in">Buscar %1$s elementos en «%2$s»</string>
+    <string name="search_for">Buscar %1$s elementos</string>
+    <string name="mark_as_read">Marcar como lido</string>
+    <string name="mark_all_as_read">Marcar todos como lidos</string>
     <string name="mark_as_unread">Marcar como non lido</string>
     <string name="mark_as_starred">Marcar como favorito</string>
     <string name="mark_as_unstar">Desmarcar como favorito</string>
-    <string name="mark_as_read">Marcar como lido</string>
     <string name="mark_as_read_one_day">Marcar como lido se ten máis de 1 día</string>
     <string name="mark_as_read_three_days">Marcar como lido se ten máis de 3 días</string>
     <string name="mark_as_read_seven_days">Marcar como lido se ten máis de 7 días</string>
+    <string name="one_day">1d</string>
     <string name="three_days">3d</string>
     <string name="seven_days">7d</string>
+    <string name="close">Pechar</string>
     <string name="get_new_updates">Obter actualizacións</string>
     <string name="get_new_updates_desc">Nova versión %1$s dispoñible</string>
     <string name="in_coding">En progreso</string>
@@ -75,11 +108,28 @@
     <string name="interaction_desc">Páxina de inicio, xestos</string>
     <string name="languages">Linguas</string>
     <string name="help_translate">Axuda na tradución</string>
+    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">Usar lingua do dispositivo</string>
+    <string name="english" translatable="false">English</string>
+    <string name="chinese_simplified" translatable="false">简体中文</string>
+    <string name="german" translatable="false">Deutsch</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="czech" translatable="false">Čeština</string>
+    <string name="italian" translatable="false">Italiano</string>
+    <string name="hindi" translatable="false">हिंदी</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="basque" translatable="false">Euskara</string>
+    <string name="indonesian" translatable="false">Bahasa Indonesia</string>
+    <string name="chinese_traditional" translatable="false">繁體中文</string>
     <string name="tips_and_support">Consellos e soporte</string>
+    <string name="tips_and_support_desc">Acerca de, patrocinadores, licenzas de código aberto</string>
     <string name="welcome">Benvido</string>
-    <string name="browse_tos_tips">Navegue polos <i><u>termos de servizo e política de privacidade</u></i></string>
+    <string name="tos_tips">Por favor, lea e acepte os termos de servizo e a política de privacidade de Read You para continuar.</string>
+    <string name="browse_tos_tips">Navegue polos </string>
     <string name="terms_of_service">Termos de servizo</string>
+    <string name="tos_content"></string>
     <string name="agree">Aceptar</string>
     <string name="wallpaper_colors">Cores do fondo de pantalla</string>
     <string name="no_palettes">Sen paletas</string>
@@ -98,11 +148,15 @@
     <string name="tonal_elevation">Elevación tonal</string>
     <string name="reading_fonts">Fontes de lectura</string>
     <string name="basic_fonts">Fontes básicas</string>
+    <string name="google_sans" translatable="false">Google Sans Flex</string>
     <string name="feeds_page">Páxina de fontes</string>
     <string name="flow_page">Páxina de fluxo</string>
     <string name="reading_page">Páxina de lectura</string>
     <string name="sponsor">Patrocinar</string>
     <string name="open_source_licenses">Licenzas de código aberto</string>
+    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
+    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
     <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
     <string name="change_log">Rexistro de cambios</string>
     <string name="update">Actualizar</string>
@@ -116,8 +170,8 @@
     <string name="on_start">Ao inicio</string>
     <string name="initial_page">Páxina de inicio</string>
     <string name="initial_filter">Filtro predeterminado</string>
-    <string name="preview_article_title">A novela \"O señor dos misterios\" rematou</string>
-    <string name="preview_article_desc">\"O Tolo\" é a oitavo e derradeiro volume da serie \"O Señor dos Misterios\" escrita por Calamar que Ama o Buceo.</string>
+    <string name="preview_article_title">A novela "O señor dos misterios" rematou</string>
+    <string name="preview_article_desc">"O Tolo" é a oitavo e derradeiro volume da serie "O Señor dos Misterios" escrita por Calamar que Ama o Buceo.</string>
     <string name="preview_feed_name">Reddit</string>
     <string name="value">valor</string>
     <string name="horizontal_padding">Padding horizontal</string>
@@ -127,13 +181,19 @@
     <string name="feed_names">Nomes das fontes</string>
     <string name="feed_favicons">Favicons da fonte</string>
     <string name="article_date_sticky_header">Cabeceira fixa de data de publicación</string>
-    <string name="always_expand">Sempre expandir</string>
-    <string name="top">Arriba</string>
     <string name="article_list">Listaxe de artigos</string>
     <string name="group_list">Listaxe de grupos</string>
+    <string name="always_expand">Sempre expandir</string>
+    <string name="top">Arriba</string>
+    <string name="mark_as_read_button_position">Posición do botón «Marcar como lido»</string>
+    <string name="top_bar">Barra superior</string>
     <string name="fill_selected_icon">Encher a icona de filtro actual</string>
     <string name="filter_bar">Barra de filtro</string>
     <string name="icons">Iconas</string>
+    <string name="icons_and_labels">Iconas e etiquetas</string>
+    <string name="icons_and_label_only_selected">Iconas e etiqueta (só activas)</string>
+    <string name="tips_top_bar_tonal_elevation">A elevación tonal para a listaxe da barra superior só está dispoñible ao desprazarse</string>
+    <string name="tips_article_list_tonal_elevation">A elevación tonal para a listaxe de artigos só está dispoñible no tema claro</string>
     <string name="tips_group_list_tonal_elevation">A elevación tonal para a listaxe de grupos só está dispoñible no tema claro</string>
     <string name="share">Compartir</string>
     <string name="touch_to_play_video">Presiona para ver un vídeo</string>
@@ -150,6 +210,8 @@
     <string name="videos">Vídeos</string>
     <string name="align_start">Aliñar inicio</string>
     <string name="align_end">Aliñar fin</string>
+    <string name="center_text">Centrar texto</string>
+    <string name="justify">Xustificar</string>
     <string name="external_fonts">Tipografías externas</string>
     <string name="title">Título</string>
     <string name="bold">Grosa</string>
@@ -168,15 +230,30 @@
     <string name="every_1_hour">Cada hora</string>
     <string name="every_2_hours">Cada 2 horas</string>
     <string name="every_3_hours">Cada 3 horas</string>
+    <string name="every_6_hours">Cada 6 horas</string>
     <string name="every_12_hours">Cada 12 horas</string>
     <string name="every_1_day">Cada día</string>
     <string name="manually">Manualmente</string>
+    <string name="always">Sempre</string>
+    <string name="for_1_day">1 día</string>
     <string name="for_2_days">2 días</string>
+    <string name="for_3_days">3 días</string>
+    <string name="for_1_week">1 semana</string>
     <string name="for_2_weeks">2 semanas</string>
     <string name="for_1_month">1 mes</string>
+    <string name="local">Local</string>
+    <string name="fever" translatable="false">Fever</string>
+    <string name="google_reader" translatable="false">Google Reader</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="feedly" translatable="false">Feedly</string>
+    <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">Neste dispositivo</string>
     <string name="services">Servizos</string>
+    <string name="feedly_desc" translatable="false">feedly.com</string>
+    <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">Autohospedado</string>
+    <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Obsoleto. Non recomendado.</string>
     <string name="more">Máis</string>
     <string name="add_accounts">Engadir contas</string>
@@ -194,23 +271,34 @@
     <string name="clear_all_articles">Limpar todos os artigos</string>
     <string name="delete_account">Eliminar conta</string>
     <string name="clear_all_articles_tips">Seguro que desexas borrar a listaxe de artigos desta conta?</string>
+    <string name="delete_account_tips">Seguro que desexas eliminar esta conta?</string>
     <string name="must_have_an_account">Debes ter polo menos 1 conta</string>
     <string name="clear_all_articles_toast">Borrada listaxe de artigos</string>
     <string name="delete_account_toast">Conta borrada</string>
     <string name="synchronous_tips">Reinicio requirido para que os trocos teñan efecto</string>
+    <string name="keep_archived_tips">Os elementos arquivados son artigos marcados como lidos, non marcados como favorito nin etiquetados. A configuración «Manter artigos arquivados» só é efectiva neste dispositivo. Artigos vellos arquivados serán borrados destes dispositivos. O borrado dos artigos non se pode desfacer.</string>
+    <string name="switch_account">Cambiar</string>
     <string name="add">Engadir</string>
     <string name="accounts_tips">Podes alternar contas tocando o nome da conta na páxina de fontes</string>
     <string name="server_url">URL do servidor</string>
     <string name="username">Nome de usuario/a</string>
     <string name="password">Contrasinal</string>
+    <string name="client_certificate">Certificado do cliente (opcional)</string>
+    <string name="connection">Conexión</string>
+    <string name="system_default">Sistema</string>
     <string name="initial_open_app">Aplicación para cando se preme unha ligazón</string>
     <string name="open_link_specific_browser_not_selected">Nada</string>
+    <string name="auto_customtabs">Automático (preferir lapelas personalizadas)</string>
     <string name="auto_default_browser">Automático (preferir navegador predeterminado)</string>
+    <string name="custom_tabs">Forzar lapelas personalizadas</string>
+    <string name="specific_browser">Forzar navegador específico</string>
     <string name="specific_browser_name">Navegador: %1$s</string>
     <string name="default_browser">Forzar navegador predeterminado</string>
     <string name="always_ask">Preguntar sempre</string>
     <string name="open_link_specific_browser">Navegador</string>
     <string name="open_link_something_wrong">Configuración de «Abrir ligazón» ignorada porque algo saíu mal</string>
+    <string name="open_link_ask_dialog_title">Abrir con…</string>
+    <string name="include_additional_info">Incluír información adicional</string>
     <string name="exclude">Excluír</string>
     <string name="additional_info_desc">A información adicional inclúe opcións de configuración para cada fonte, como permitir notificacións, analizar o contido completo, etc. Se desexas utilizar un ficheiro OPML exportado con outros lectores, selecciona «Excluír».</string>
     <string name="grey_out_articles">Artigos en branco e negro</string>
@@ -219,69 +307,17 @@
     <string name="external_links">Ligazóns externas</string>
     <string name="unexpected_error_title">Vaites! Algo foi mal…</string>
     <string name="copy_error_report">Copiar informe de erro</string>
+    <string name="submit_bug_report">Enviar un informe de erro a Github</string>
     <string name="unexpected_error_msg">A aplicación atopou un erro non previsto e pechouse. \n \nPara axudarnos a indentificar e arranxar o problema rápidamente, podes %1$s coa cadea de erro que se amosa a continuación.</string>
     <string name="next_article">Seguinte artigo</string>
-    <plurals name="all_desc">
-        <item quantity="one">%1$d elemento arquivado</item>
-        <item quantity="other">%1$d elementos arquivados</item>
-    </plurals>
-    <string name="all">Todo</string>
-    <plurals name="unread_desc">
-        <item quantity="one">%1$d elemento non lido</item>
-        <item quantity="other">%1$d elementos non lidos</item>
-    </plurals>
-    <string name="confirm">Confirmar</string>
-    <string name="deny">Denegar</string>
-    <string name="allow_notification">Permitir notificacións</string>
-    <string name="all_deny_parse_full_content_toast">Analizar o contido completo dos artigos no grupo «%1$s» está denegado</string>
-    <string name="all_move_to_group_tips">Mover todas as fontes do grupo «%1$s» ao grupo «%2$s»</string>
-    <string name="rename">Renomear</string>
-    <string name="change_url">Trocar URL</string>
-    <string name="all_deny_notification_toast">As notificacións do grupo «%1$s» están denegadas</string>
-    <string name="all_move_to_group_toast">Movidas todas as fontes ao grupo «%1$s»</string>
-    <string name="rename_toast">Renomeado a «%1$s»</string>
-    <string name="subscribe">Suscribir</string>
-    <string name="search_for_in">Buscar %1$s elementos en «%2$s»</string>
-    <string name="search_for">Buscar %1$s elementos</string>
-    <string name="one_day">1d</string>
-    <string name="close">Pechar</string>
-    <string name="selected">Seleccionado</string>
-    <string name="mark_all_as_read">Marcar todos como lidos</string>
-    <string name="tips_and_support_desc">Acerca de, patrocinadores, licenzas de código aberto</string>
-    <string name="tos_tips">Por favor, lea e acepte os termos de servizo e a política de privacidade de Read You para continuar.</string>
-    <string name="clear_articles_in_group_toast">Limpados todos os artigos arquivados do grupo «%1$s»</string>
-    <string name="tos_content"><h5> Política de privacidade </h5> <br/> <p> Tomamos moi seriamente a túa privacidade. </p> <br/> <p> <b>Read You</b> non recompila ningún dato do usuario, e toda a información confidencial (contrasinais e outra información da conta) almacénase de xeito seguro na base de datos local da aplicación no teu dispositivo. </p> <br/> <p> <b>Read You</b> usará os seguintes permisos para prestar o servizo. </p> <br/> <p> - Permiso de acceso á rede (para acceder aos contidos en liña que especifiques) </p> <p> - Obter o permiso do estado da rede (para determinar se o dispositivo ten actualmente opcións de redes dispoñibles) </p> <p> - Permiso de funcionamento en segundo plano (para sincronizar automáticamente os teus favoritos)) </p> <br/> <br/> <h5> Servizos de terceiros </h5> <br/> <p> Esta política non se aplica aos servizos de terceiros que utilice con <b>Read You</b>. Podes consultar as políticas de privacidade dos servicios de terceiros que utilices nas túas páxinas web </p> <br/> <br/> <h5> Avisos </h5> <br/> <p> <b>Read You</b> é só unha ferramenta de recompilación de contidos. O uso de <b>Read You</b> está suxeito ás leis e normativas do teu país e rexión, e calquera responsabilidade derivada das túas accións correrá pola túa conta. </p> <br/> <br/> <h5> Licencias de código aberto </h5> <br/> <p> <b>Read You</b> é un proxecto de código aberto baixo GNU GPL 3.0 Open Source License[1], que permite utilizar, referenciar e modificar o código fonte de <b>Read You</b> de xeito gratuito, pero non permite que o código modificado e derivado se distribúa ou venda como software comercial e de código pechado. Para mais detalles, consulte a licencia completa de código aberto GNU GPL 3.0[2]. </p> <br/> <br/> <h5> Anexo </h5> <br/> <p> - [1] https://github.com/ReadYouApp/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
-    <string name="mark_as_read_button_position">Posición do botón «Marcar como lido»</string>
-    <string name="top_bar">Barra superior</string>
-    <string name="icons_and_labels">Iconas e etiquetas</string>
-    <string name="tips_article_list_tonal_elevation">A elevación tonal para a listaxe de artigos só está dispoñible no tema claro</string>
-    <string name="tips_top_bar_tonal_elevation">A elevación tonal para a listaxe da barra superior só está dispoñible ao desprazarse</string>
-    <string name="justify">Xustificar</string>
-    <string name="every_6_hours">Cada 6 horas</string>
-    <string name="center_text">Centrar texto</string>
-    <string name="always">Sempre</string>
-    <string name="for_3_days">3 días</string>
-    <string name="local">Local</string>
-    <string name="switch_account">Cambiar</string>
-    <string name="system_default">Sistema</string>
-    <string name="open_link_ask_dialog_title">Abrir con…</string>
-    <string name="for_1_day">1 día</string>
-    <string name="for_1_week">1 semana</string>
-    <string name="auto_customtabs">Automático (preferir lapelas personalizadas)</string>
-    <string name="custom_tabs">Forzar lapelas personalizadas</string>
-    <string name="specific_browser">Forzar navegador específico</string>
-    <string name="include_additional_info">Incluír información adicional</string>
-    <string name="submit_bug_report">Enviar un informe de erro a Github</string>
-    <string name="delete_account_tips">Seguro que desexas eliminar esta conta?</string>
-    <string name="connection">Conexión</string>
     <string name="swipe_to_start">Despraza á esquerda</string>
     <string name="swipe_to_end">Despraza á dereita</string>
-    <string name="toggle_starred">Alterna favoritos</string>
-    <string name="toggle_read">Alterna lidos</string>
     <string name="none">Nada</string>
+    <string name="toggle_read">Alterna lidos</string>
+    <string name="toggle_starred">Alterna favoritos</string>
+    <string name="line_height_multiple">Alto de liña múltiple</string>
     <string name="export">Exportar</string>
     <string name="pull_to_switch_article">Arrastra para cambiar de artigo</string>
-    <string name="line_height_multiple">Alto de liña múltiple</string>
     <string name="mark_above_as_read">Marcar enriba como lido</string>
     <string name="mark_below_as_read">Marcar enbaixo como lido</string>
     <string name="save">Gardar</string>
@@ -290,31 +326,27 @@
     <string name="shared_content">Contido compartido</string>
     <string name="only_link">Só ligazón</string>
     <string name="title_and_link">Título e ligazón</string>
-    <string name="keep_archived_tips">Os elementos arquivados son artigos marcados como lidos, non marcados como favorito nin etiquetados. A configuración «Manter artigos arquivados» só é efectiva neste dispositivo. Artigos vellos arquivados serán borrados destes dispositivos. O borrado dos artigos non se pode desfacer.</string>
     <string name="troubleshooting">Tratamento de erros</string>
     <string name="troubleshooting_desc">Informe de erros, preferencias da aplicación</string>
     <string name="bug_report">Informe de erro</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
     <string name="app_preferences">Preferencias da aplicación</string>
     <string name="import_from_protobuf_file">Importar desde ficheiro protobuf</string>
     <string name="export_as_protobuf_file">Exportar como ficheiro protobuf</string>
     <string name="invalid_protobuf_file_warning">Este ficheiro pode non ser un ficheiro protobuf válido. Importalo podería chegar a corromper a aplicación e conlevar a perda da configuración actual. Queres proceder?</string>
-    <string name="unfold_more">Expandir todo</string>
-    <string name="unfold_less">Contraer todo</string>
-    <string name="open_in_browser">Abrir no navegador</string>
-    <string name="all_open_in_browser_tips">Abrir todos os artigos no grupo «%1$s» no navegador predeterminado</string>
-    <string name="all_open_in_browser_toast">Abrir todos os artigos no grupo «%1$s» no navegador predeterminado está permitido</string>
-    <string name="all_deny_open_in_browser_toast">Abrir todos os artigos no grupo «%1$s» no navegador predeterminado está denegado</string>
-    <string name="client_certificate">Certificado do cliente (opcional)</string>
     <string name="import_from_json">Importar desde JSON</string>
     <string name="export_as_json">Exportar como JSON</string>
     <string name="invalid_json_file_warning">Este ficheiro pode non ser un ficheiro JSON válido. Importalo podería chegar a corromper a aplicación e conlevar a perda da configuración actual. Queres proceder?</string>
+    <string name="webview" translatable="false">WebView</string>
     <string name="native_component">Compoñente nativo</string>
     <string name="content_renderer">Renderizador de contido</string>
     <string name="read_aloud">Ler en voz alta</string>
     <string name="only_available_on_webview">Só dispoñible cando se usa o renderizador de contido WebView</string>
     <string name="about">Acerca de</string>
+    <string name="mark_as_read_on_scroll">Marcar como lido ao desprazar</string>
     <string name="hide_empty_groups">Agochar grupos baleiros</string>
     <string name="become_a_sponsor">Volverse un patrocinador</string>
+    <string name="sponsor_desc">Construímos e mantemos esta aplicación gratuíta e de código aberto no noso tempo libre. Se a gozas, considera apoiarnos cunha pequena doazón! ☕️</string>
     <string name="toolbars">Barras de ferramentas</string>
     <string name="sort_unread_articles">Ordear artigo non lidos</string>
     <string name="latest">Máis recente</string>
@@ -325,9 +357,7 @@
     <string name="pull_to_switch_feed">Tira para cargar a seguinte fonte</string>
     <string name="bold_characters">Caracteres en letra grosa</string>
     <string name="use_bold_characters">Usar caracteres grosos</string>
-    <string name="mark_as_read_on_scroll">Marcar como lido ao desprazar</string>
     <string name="bold_characters_preview">Pon en letra grosa os primeiros caracteres das palabras no artigo</string>
-    <string name="sponsor_desc">Construímos e mantemos esta aplicación gratuíta e de código aberto no noso tempo libre. Se a gozas, considera apoiarnos cunha pequena doazón! ☕️</string>
     <string name="load_next_feed">Cargar a seguinte fonte</string>
     <string name="mark_all_as_read_and_load_next_feed">Marcar todo como lido e cargar a seguinte fonte</string>
     <string name="pull_from_bottom">Tirar desde debaixo</string>
@@ -340,15 +370,154 @@
     <string name="done">Feito</string>
     <string name="last_updated">Última actualización</string>
     <string name="no_unread_articles">Non hai artigos sen ler</string>
+    <string name="list_widget_label">Vista de lista</string>
+    <string name="card_widget_label">Vista de tarxetas</string>
+    <string name="widget_description">Ver os últimos artigos non lidos das fontes seleccionadas</string>
     <string name="apply">Aplicar</string>
     <string name="notifications">Notificacións</string>
+    <string name="group_configuration_description">Configurar «%1$s» para as fontes en «%2$s»</string>
     <string name="disabled">Deshabilitado</string>
     <string name="enabled">Habilitado</string>
+    <string name="notifications_desc">Recibe notificacións cando estean dispoñibles novos artigos sen ler</string>
     <string name="open_in_browser_desc">Abrir artigos no navegador</string>
+    <string name="parse_full_content_desc">Obtén artigos completos das páxinas web</string>
     <string name="enable">Habilitar</string>
     <string name="disable">Deshabilitar</string>
-    <string name="list_widget_label">Vista de lista</string>
-    <string name="card_widget_label">Vista de tarxetas</string>"
-    <string name="widget_description">Ver os últimos artigos non lidos das fontes seleccionadas</string>
-    <string name="group_configuration_description">Configurar «%1$s» para as fontes en «%2$s»</string>
+    <string name="show_sync_status">Mostra o estado de sincronización</string>
+    <string name="show_sync_status_desc">Mostra o estado da última sincronización, a data e a hora debaixo de cada fonte</string>
+    <string name="reading_ai_summary">Resumo do artigo</string>
+    <string name="reading_ai_summary_desc">Mostrar o botón de resumo na barra de ferramentas de lectura para abrir no navegador</string>
+    <string name="summarizer_engine">Motor de resumo</string>
+    <string name="summarizer_language">Linguaxe resumo</string>
+    <string name="summarizer_style">Formato/Estilo de resumo</string>
+    <string name="no_link_available">Non hai ligazón dispoñible para este artigo</string>
+    <plurals name="new_articles_count">
+        <item quantity="one">%1$dartigo novo engadido</item>
+        <item quantity="other">%1$dartigos novos engadidos</item>
+    </plurals>
+    <string name="sync_finished_title">Sincronización rematada</string>
+    <string name="sync_notification">Notificación de sincronización</string>
+    <string name="sync_notification_desc">Mostra a notificación co reconto de artigos engadidos despois da sincronización</string>
+    <string name="restore_last_article">Retomar o artigo da última lectura</string>
+    <string name="restore_last_article_desc">Volve abrir o artigo que estabas lendo ao iniciar a aplicación</string>
+    <string name="restore_scroll_position">Lembra a posición de desprazamento</string>
+    <string name="restore_scroll_position_desc">Restaurar a posición na lista no lanzamento</string>
+    <string name="full_translation">Tradución completa</string>
+    <string name="translate_article">Traducir artigo</string>
+    <string name="ai_summary">Resumo</string>
+    <string name="ai_full_translation">Tradución completa</string>
+    <string name="ai_generating_summary">Xerando resumo...</string>
+    <string name="ai_translating_article">Traducindo artigo...</string>
+    <string name="copied_to_clipboard">Copiouse no portapapeis</string>
+    <string name="regenerate">Rexenerar</string>
+    <string name="retry">Volve tentar</string>
+    <string name="copy">Copiar</string>
+    <string name="search_settings">Configuración de busca</string>
+    <string name="no_settings_found">Non se atopou ningunha configuración</string>
+    <string name="sync_status_always">Sempre</string>
+    <string name="sync_status_errors_only">Só erros</string>
+    <string name="sync_status_never">Nunca</string>
+    <string name="summary_style_key_points">Puntos clave</string>
+    <string name="summary_style_tldr">TL; DR</string>
+    <string name="summary_style_detailed">Detallado</string>
+    <string name="ai_select_language">Seleccionar idioma...</string>
+    <string name="ai_select_language_prompt">Selecciona un idioma para comezar.</string>
+    <string name="open_summary_in_browser">Abre Resumo no navegador</string>
+    <string name="article_summary">Resumo do artigo</string>
+    <string name="sync_status_unsynced">Non sincronizado</string>
+    <string name="sync_status_today">Hoxe ás%1$s</string>
+    <string name="sync_status_yesterday">Onte ás%1$s</string>
+    <string name="sync_status_success_prefix">Sincronizado:%1$s</string>
+    <string name="sync_status_failed_prefix">Produciuse un erro:%1$s</string>
+    <string name="backup_and_restore">Copia de seguranza e restauración</string>
+    <string name="export_full_backup">Exporta todos os datos e configuracións</string>
+    <string name="export_full_backup_desc">Inclúe todos os artigos (marcados con estrela, sen ler, todos), fontes, grupos, contas e configuración</string>
+    <string name="import_full_backup">Importa todos os datos e configuracións</string>
+    <string name="export_preferences">Exportar só a configuración</string>
+    <string name="import_preferences">Importar só a configuración</string>
+    <string name="exporting_backup">Exportando a copia de seguranza...</string>
+    <string name="importing_backup">Importando a copia de seguranza...</string>
+    <string name="exporting_articles">Exportando artigos...</string>
+    <string name="importing_articles">Restaurando artigos...</string>
+    <string name="backup_export_success">A copia de seguranza exportouse correctamente</string>
+    <string name="backup_export_failed">Produciuse un erro ao exportar a copia de seguranza</string>
+    <string name="backup_import_success">A copia de seguranza importouse correctamente</string>
+    <string name="backup_import_failed">Produciuse un erro ao importar a copia de seguranza</string>
+    <string name="cloud_backup">Copia de seguranza na nube</string>
+    <string name="cloud_backup_desc">Copia de seguranza e restauración mediante WebDAV, FTP, FTPS e SFTP</string>
+    <string name="server_settings">Configuración do servidor</string>
+    <string name="protocol">Protocolo</string>
+    <string name="server_host">URL do servidor/host</string>
+    <string name="server_port">Porto</string>
+    <string name="remote_path">Ruta do cartafol remoto</string>
+    <string name="trust_insecure_ssl">Confía en certificados autofirmados</string>
+    <string name="test_connection">Conexión de proba</string>
+    <string name="testing_connection">Probando a conexión...</string>
+    <string name="auto_backup">Copia de seguranza automática</string>
+    <string name="auto_backup_desc">Fai unha copia periódica de datos completos na nube</string>
+    <string name="frequency">Frecuencia</string>
+    <string name="freq_disabled">Desactivado</string>
+    <string name="freq_6_hours">Cada 6 horas</string>
+    <string name="freq_12_hours">Cada 12 horas</string>
+    <string name="freq_daily">Diario (24h)</string>
+    <string name="freq_weekly">Semanal (7 días)</string>
+    <string name="require_wifi">Só Wi-Fi</string>
+    <string name="require_wifi_desc">Realice unha copia de seguranza só na conexión wifi</string>
+    <string name="require_charging">Só cargando</string>
+    <string name="require_charging_desc">Realice unha copia de seguranza só cando o dispositivo estea cargando</string>
+    <string name="max_backups_to_keep">Rotación de copia de seguridade</string>
+    <string name="max_backups_desc">Mantén%1$dcopias de seguranza máis recentes no servidor</string>
+    <string name="max_backups_unlimited">Manter todas as copias de seguridade (ilimitadas)</string>
+    <string name="backup_now">Fai unha copia de seguranza agora</string>
+    <string name="remote_backups">Copias de seguranza remotas</string>
+    <string name="no_remote_backups">Non se atoparon copias de seguridade no servidor</string>
+    <string name="restore_remote_backup">Restaurar copia de seguranza</string>
+    <string name="restore_confirm_message">Estás seguro de que queres restaurar esta copia de seguranza? Os datos actuais fusionaranse.</string>
+    <string name="delete_remote_backup">Eliminar a copia de seguranza remota</string>
+    <string name="delete_confirm_message">Estás seguro de que queres eliminar esta copia de seguranza do servidor?</string>
+    <string name="cloud_backup_success">A copia de seguranza na nube realizouse correctamente</string>
+    <string name="cloud_backup_failed">Produciuse un erro ao realizar a copia de seguranza na nube</string>
+    <string name="cloud_restore_success">A restauración da nube completouse correctamente</string>
+    <string name="cloud_restore_failed">Produciuse un erro ao restaurar a copia de seguranza na nube</string>
+    <string name="cloud_delete_success">Eliminouse a copia de seguranza remota</string>
+    <string name="article_layout">Disposición do artigo</string>
+    <string name="layout_list">Lista</string>
+    <string name="layout_grid">Reixa</string>
+    <string name="switch_to_grid_view">Cambia á vista de cuadrícula</string>
+    <string name="switch_to_list_view">Cambia á vista de lista</string>
+    <string name="display_format">Formato de visualización</string>
+    <string name="card_elements">Elementos da tarxeta</string>
+    <string name="reading_indicators">Lectura e indicadores</string>
+    <string name="reading_display_engine">Renderizado e visualización</string>
+    <string name="reading_typography_media">Tipografía e medios</string>
+    <string name="reading_ai_assistant">Asistente de lectura AI</string>
+    <string name="swipe_gestures">Xestos de pasar o dedo</string>
+    <string name="scrolling_navigation">Desprazamento e navegación</string>
+    <string name="external_links_sharing">Ligazóns externas e compartición</string>
+    <string name="diagnostics_and_reports">Diagnóstico e informes</string>
+    <string name="local_backup_restore">Copia de seguranza e restauración local</string>
+    <string name="storage_and_cache">Almacenamento e caché</string>
+    <string name="sync_logs">Sincronizar rexistros</string>
+    <string name="clear_server_config">Borrar a configuración do servidor</string>
+    <string name="clear_server_config_desc">Elimina as credenciais do servidor e restablece a copia de seguranza da nube</string>
+    <string name="clear_server_config_confirm">Estás seguro de que queres borrar a configuración do servidor de copia de seguranza na nube e desactivar as copias de seguranza automáticas?</string>
+    <string name="clear_server_config_success">Borrouse a configuración do servidor</string>
+    <string name="backup_and_data">Copias de seguridade e datos</string>
+    <string name="backup_and_data_desc">Copia de seguranza local e na nube, preferencias, caché</string>
+    <string name="theme_and_colors">Tema e cores</string>
+    <string name="presentation_and_layout">Deseño e visualización das páxinas</string>
+    <string name="clear_cache">Borrar caché</string>
+    <string name="clear_cache_desc">Borrar imaxes e artigos almacenados na caché</string>
+    <string name="clear_cache_success">A caché borrouse correctamente</string>
+    <string name="feeds_page_style_desc">Cartafoles, elevación, favicons, estado de sincronización</string>
+    <string name="flow_page_style_desc">Reixa ou Lista, xestos de desprazamento, desprazamento, tarxetas</string>
+    <string name="reading_page_style_desc">Motor de lectura, tipografía, ligazóns, resumo AI</string>
+    <string name="global_style">Estilo global</string>
+    <string name="backups_title">Copias de seguridade</string>
+    <string name="help_and_support">Axuda e Soporte</string>
+    <string name="feeds_layout">Disposición de fontes</string>
+    <string name="import_opml">Importar OPML</string>
+    <string name="import_opml_desc">Importa fontes dun ficheiro OPML a esta conta</string>
+    <string name="import_opml_success">OPML importouse correctamente</string>
+    <string name="import_opml_failed">Produciuse un erro ao importar o ficheiro OPML</string>
 </resources>

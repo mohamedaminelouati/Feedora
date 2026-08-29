@@ -1,26 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="all_allow_notification_toast">Aviseringar från gruppen \"%1$s\" tillåts</string>
-    <plurals name="unread_desc">
-        <item quantity="one">%1$d oläst artikel</item>
-        <item quantity="other">%1$d olästa artiklar</item>
-    </plurals>
-    <string name="starred">Stjärnmärkt</string>
-    <string name="feeds">Flöden</string>
-    <string name="syncing">Avstämmer…</string>
-    <string name="loading">Hämtar…</string>
-    <string name="confirm">Bekräfta</string>
-    <string name="cancel">Avbryt</string>
-    <string name="allow">Tillåt</string>
+    <string name="read_you" translatable="false">Read You</string>
     <string name="all">Allt</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d arkiverad artikel</item>
         <item quantity="other">%1$d arkiverade artiklar</item>
     </plurals>
+    <string name="unread">Oläst</string>
+    <plurals name="unread_desc">
+        <item quantity="one">%1$d oläst artikel</item>
+        <item quantity="other">%1$d olästa artiklar</item>
+    </plurals>
+    <string name="starred">Stjärnmärkt</string>
+    <plurals name="starred_desc">
+        <item quantity="one">%1$d stjärnmärkt artikel</item>
+        <item quantity="other">%1$d stjärnmärkta artiklar</item>
+    </plurals>
+    <string name="feeds">Flöden</string>
+    <string name="syncing">Avstämmer…</string>
+    <string name="loading">Hämtar…</string>
+    <string name="expand_less">Krymp</string>
+    <string name="expand_more">Utöka</string>
+    <string name="unfold_more">Expandera alla</string>
+    <string name="unfold_less">Dölj alla</string>
+    <string name="confirm">Bekräfta</string>
+    <string name="cancel">Avbryt</string>
+    <string name="allow">Tillåt</string>
     <string name="deny">Neka</string>
     <string name="defaults">Standardinställning</string>
     <string name="unknown">Okänd</string>
+    <string name="empty">Tömma</string>
     <string name="back">Tillbaka</string>
+    <string name="go_to">Gå till</string>
+    <string name="settings">Inställningar</string>
+    <string name="refresh">Uppdatera</string>
+    <string name="search">Sök</string>
     <string name="searching">Söker…</string>
     <string name="subscribe">Prenumerera</string>
     <string name="already_subscribed">Prenumererar redan</string>
@@ -31,37 +44,45 @@
     <string name="preset">Förinställning</string>
     <string name="selected">Vald</string>
     <string name="allow_notification">Tillåt aviseringar</string>
-    <string name="all_allow_notification_tips">Tillåt alla flöden i gruppen \"%1$s\" att skicka meddelanden</string>
-    <string name="all_deny_notification_toast">Aviseringar från gruppen \"%1$s\" nekas</string>
+    <string name="all_allow_notification_tips">Tillåt alla flöden i gruppen "%1$s" att skicka meddelanden</string>
+    <string name="all_allow_notification_toast">Aviseringar från gruppen "%1$s" tillåts</string>
+    <string name="all_deny_notification_toast">Aviseringar från gruppen "%1$s" nekas</string>
     <string name="parse_full_content">Analysera fullständigt innehåll</string>
-    <string name="all_parse_full_content_tips">Fullständig innehållsanalys av samtliga artiklar i gruppen \"%1$s\"</string>
-    <string name="all_parse_full_content_toast">Fullständig innehållsanalys av samtliga artiklar i gruppen \"%1$s\" tillåts</string>
-    <string name="all_deny_parse_full_content_toast">Fullständig innehållsanalys av samtliga artiklar i gruppen \"%1$s\" nekas</string>
+    <string name="all_parse_full_content_tips">Fullständig innehållsanalys av samtliga artiklar i gruppen "%1$s"</string>
+    <string name="all_parse_full_content_toast">Fullständig innehållsanalys av samtliga artiklar i gruppen "%1$s" tillåts</string>
+    <string name="all_deny_parse_full_content_toast">Fullständig innehållsanalys av samtliga artiklar i gruppen "%1$s" nekas</string>
+    <string name="open_in_browser">Öppna i webbläsare</string>
+    <string name="all_open_in_browser_tips">Öppna alla artiklar i gruppen "%1$s" med standardwebbläsaren</string>
+    <string name="all_open_in_browser_toast">Öppning av alla artiklar i gruppen "%1$s" i standardwebbläsaren är tillåtet</string>
+    <string name="all_deny_open_in_browser_toast">Öppning av alla artiklar i gruppen "%1$s" i standardwebbläsaren nekas</string>
     <string name="clear_articles">Rensa artiklar</string>
-    <string name="clear_articles_in_feed_toast">Rensade alla arkiverade artiklar i flödet \"%1$s\"</string>
-    <string name="clear_articles_feed_tips">Rensa alla arkiverade artiklar i flödet \"%1$s\"</string>
+    <string name="clear_articles_in_feed_toast">Rensade alla arkiverade artiklar i flödet "%1$s"</string>
+    <string name="clear_articles_in_group_toast">Rensade alla arkiverade artiklar i gruppen "%1$s"</string>
+    <string name="clear_articles_feed_tips">Rensa alla arkiverade artiklar i flödet "%1$s"</string>
+    <string name="clear_articles_group_tips">Rensa alla arkiverade artiklar i gruppen "%1$s"</string>
     <string name="add_to_group">Lägg till i grupp</string>
     <string name="move_to_group">Flytta till grupp</string>
-    <string name="all_move_to_group_tips">Flytta alla flöden i gruppen \"%1$s\" till gruppen \"%2$s\"</string>
-    <string name="all_move_to_group_toast">Flyttade alla flöden till gruppen \"%1$s\"</string>
+    <string name="all_move_to_group_tips">Flytta alla flöden i gruppen "%1$s" till gruppen "%2$s"</string>
+    <string name="all_move_to_group_toast">Flyttade alla flöden till gruppen "%1$s"</string>
     <string name="rename">Döp om</string>
     <string name="change_url">Ändra URL</string>
-    <string name="rename_toast">Döptes om till \"%1$s\"</string>
+    <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
+    <string name="rename_toast">Döptes om till "%1$s"</string>
     <string name="create_new_group">Skapa ny grupp</string>
     <string name="name">Namn</string>
     <string name="open_with">Öppna %1$s</string>
     <string name="options">Alternativ</string>
     <string name="delete">Radera</string>
-    <string name="delete_toast">Raderade \"%1$s\"</string>
+    <string name="delete_toast">Raderade "%1$s"</string>
     <string name="unsubscribe">Avsluta prenumeration</string>
-    <string name="unsubscribe_tips">Avsluta prenumeration på \"%1$s\" och ta bort alla tillhörande arkiverade artiklar</string>
+    <string name="unsubscribe_tips">Avsluta prenumeration på "%1$s" och ta bort alla tillhörande arkiverade artiklar</string>
     <string name="delete_group">Radera grupp</string>
-    <string name="delete_group_tips">Radera gruppen \"%1$s\" och alla flöden och tillhörande arkiverade artiklar</string>
+    <string name="delete_group_tips">Radera gruppen "%1$s" och alla flöden och tillhörande arkiverade artiklar</string>
     <string name="group_option_tips">Följande alternativ kommer att tillämpas på alla flöden i denna grupp</string>
     <string name="today">Idag</string>
     <string name="yesterday">Igår</string>
     <string name="date_at_time">%1$s på %2$s</string>
-    <string name="search_for_in">Sök efter %1$s artiklar i \"%2$s\"</string>
+    <string name="search_for_in">Sök efter %1$s artiklar i "%2$s"</string>
     <string name="search_for">Sök efter %1$s artiklar</string>
     <string name="mark_as_read">Markera som läst</string>
     <string name="mark_all_as_read">Markera alla som lästa</string>
@@ -75,6 +96,7 @@
     <string name="three_days">3d</string>
     <string name="seven_days">7d</string>
     <string name="close">Stäng</string>
+    <string name="get_new_updates">Hämta nya uppdateringar</string>
     <string name="get_new_updates_desc">Ny version %1$s är tillgänglig</string>
     <string name="in_coding">Pågående</string>
     <string name="coming_soon">Kommer snart</string>
@@ -86,9 +108,28 @@
     <string name="interaction_desc">Startsida, gester</string>
     <string name="languages">Språk</string>
     <string name="help_translate">Översättningshjälp</string>
+    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="use_device_languages">Använd enhetens språk</string>
+    <string name="english" translatable="false">English</string>
+    <string name="chinese_simplified" translatable="false">简体中文</string>
+    <string name="german" translatable="false">Deutsch</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="czech" translatable="false">Čeština</string>
+    <string name="italian" translatable="false">Italiano</string>
+    <string name="hindi" translatable="false">हिंदी</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="basque" translatable="false">Euskara</string>
+    <string name="indonesian" translatable="false">Bahasa Indonesia</string>
+    <string name="chinese_traditional" translatable="false">繁體中文</string>
+    <string name="tips_and_support">Råd &amp; hjälp</string>
+    <string name="tips_and_support_desc">Om, sponsor, open source licenser</string>
     <string name="welcome">Välkommen</string>
     <string name="tos_tips">Vänligen läs och godkänn att Read You:s villkor för tjänste- och sekretesspolicy att fortsätta.</string>
-    <string name="browse_tos_tips">Bläddra igenom <i><u>tjänste och integritetsvillkoren</u></i></string>
+    <string name="browse_tos_tips">Bläddra igenom </string>
+    <string name="terms_of_service">Villkor för service</string>
+    <string name="tos_content"></string>
     <string name="agree">Jag instämmer</string>
     <string name="wallpaper_colors">Bakgrundbild färger</string>
     <string name="no_palettes">Inga paletter</string>
@@ -107,11 +148,15 @@
     <string name="tonal_elevation">Förhöjd ton</string>
     <string name="reading_fonts">Teckensnitt för läsning</string>
     <string name="basic_fonts">Grundläggande teckensnitt</string>
+    <string name="google_sans" translatable="false">Google Sans Flex</string>
     <string name="feeds_page">Flödessida</string>
     <string name="flow_page">Strömsida</string>
     <string name="reading_page">Lässida</string>
     <string name="sponsor">Sponsor</string>
     <string name="open_source_licenses">Öppen källkodslicenser</string>
+    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
+    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
     <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
     <string name="change_log">Ändringslogg</string>
     <string name="update">Uppdatera</string>
@@ -136,14 +181,19 @@
     <string name="feed_names">Flödesnamn</string>
     <string name="feed_favicons">Flödets webbsidsikon</string>
     <string name="article_date_sticky_header">Självhäftande rubrik för publiceringsdatum</string>
+    <string name="article_list">Artikellista</string>
+    <string name="group_list">Grupplista</string>
     <string name="always_expand">Ständig utvidgning</string>
     <string name="top">Överst</string>
+    <string name="mark_as_read_button_position">"Markera som läst" knapplats</string>
     <string name="top_bar">Översta menyrad</string>
     <string name="fill_selected_icon">Fyll aktuell filterikon</string>
+    <string name="filter_bar">Filtreringsmeny</string>
     <string name="icons">Ikoner</string>
     <string name="icons_and_labels">Ikoner och etiketter</string>
     <string name="icons_and_label_only_selected">Ikoner och etiketter (endast aktiva)</string>
     <string name="tips_top_bar_tonal_elevation">Denna förhöjda ton är enbart tillgänglig vid rullning</string>
+    <string name="tips_article_list_tonal_elevation">Denna förhöjda ton för artikellistan är enbart tillgänglig i ljust tema</string>
     <string name="tips_group_list_tonal_elevation">Denna förhöjda ton för grupplistan är enbart tillgänglig i ljust tema</string>
     <string name="share">Dela</string>
     <string name="touch_to_play_video">Tryck för att spela en video</string>
@@ -155,6 +205,11 @@
     <string name="general">Allmän</string>
     <string name="auto_hide_toolbars">Dölj verktygsrader automatiskt</string>
     <string name="rearrange_buttons">Omplacera knappar</string>
+    <string name="images">Bilder</string>
+    <string name="rounded_corners">Rundade hörn</string>
+    <string name="videos">Videor</string>
+    <string name="align_start">Startjustera</string>
+    <string name="align_end">Slutjustera</string>
     <string name="center_text">Centrera text</string>
     <string name="justify">Justera</string>
     <string name="external_fonts">Yttre teckensnitt</string>
@@ -170,35 +225,6 @@
     <string name="images_desc">Rundade hörn, horisontell utfyllnad</string>
     <string name="videos_desc">Rundade hörn, horisontell utfyllnad</string>
     <string name="maximize">Maximera</string>
-    <string name="unread">Oläst</string>
-    <plurals name="starred_desc">
-        <item quantity="one">%1$d stjärnmärkt artikel</item>
-        <item quantity="other">%1$d stjärnmärkta artiklar</item>
-    </plurals>
-    <string name="expand_less">Krymp</string>
-    <string name="expand_more">Utöka</string>
-    <string name="go_to">Gå till</string>
-    <string name="settings">Inställningar</string>
-    <string name="refresh">Uppdatera</string>
-    <string name="search">Sök</string>
-    <string name="clear_articles_in_group_toast">Rensade alla arkiverade artiklar i gruppen \"%1$s\"</string>
-    <string name="clear_articles_group_tips">Rensa alla arkiverade artiklar i gruppen \"%1$s\"</string>
-    <string name="tips_and_support">Råd &amp; hjälp</string>
-    <string name="get_new_updates">Hämta nya uppdateringar</string>
-    <string name="tips_and_support_desc">Om, sponsor, open source licenser</string>
-    <string name="use_device_languages">Använd enhetens språk</string>
-    <string name="terms_of_service">Villkor för service</string>
-    <string name="tos_content"><h5> Integritetsprincip </h5> <br/> <p> Jag tar din integritet på stort allvar. </p> <br/> <p> <b>Read You</b> samlar inte in någon användardata och alla känsliga uppgifter (lösenord och annan kontoinformation) lagras säkert i den lokala programdatabasen på din enhet. </p> <br/> <p> <b>Read You</b> kommer att nyttja följande behörigheter för att tillhandahålla tjänsten. </p> <br/> <p> - Behörighet för nätverksåtkomst (för åtkomst till internetinnehåll som du anger) </p> <p> - Behörighet för att hämta nätverkstatus (för att avgöra om enheten för närvarande har nätverksåtkomst) </p> <p> - Behörighet för bakgrundstjänster (för att regelbundet och automatiskt stämma av dina favoriter) </p> <br/> <br/> <h5> Tredjepartstjänster </h5> <br/> <p> Denna princip tillämpas inte för de tredjepartstjänster som du använder i <b>Read You</b>. Du kan stämma av integritetsprinciperna för tredjepartstjänsterna som du använder på deras hemsidor. </p> <br/> <br/> <h5> Friskrivningar </h5> <br/> <p> <b>Read You</b> är enbart ett verktyg för insamling av innehåll. Ditt nyttjande av <b>Read You</b> faller under de lagar och förordningar som gäller i ditt land och allt ansvar för ditt beteende tar du personligt ansvar för. </p> <br/> <br/> <h5> Öppen Källkod Licens </h5> <br/> <p> <b>Read You</b> är ett öppen källkodsprojekt som lyder under GNU GPL 3.0 Öppen Källkodslicens[1] som låter dig att använda, hänvisa till samt anpassa källkoden till <b>Read You</b> utan kostnad, men tillåter inte att den anpassade och härledda källkoden distribueras och säljs som instängd och kommersialiserad mjukvara. För ytterligare detaljer se GNU GPL 3.0 Öppen Källkodlicens[2]. </p> <br/> <br/> <h5> Bilagor </h5> <br/> <p> - [1] https://github.com/ReadYouApp/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
-    <string name="group_list">Grupplista</string>
-    <string name="article_list">Artikellista</string>
-    <string name="mark_as_read_button_position">\"Markera som läst\" knapplats</string>
-    <string name="filter_bar">Filtreringsmeny</string>
-    <string name="tips_article_list_tonal_elevation">Denna förhöjda ton för artikellistan är enbart tillgänglig i ljust tema</string>
-    <string name="align_end">Slutjustera</string>
-    <string name="images">Bilder</string>
-    <string name="videos">Videor</string>
-    <string name="align_start">Startjustera</string>
-    <string name="rounded_corners">Rundade hörn</string>
     <string name="every_15_minutes">Var 15:e minut</string>
     <string name="every_30_minutes">Var 30:e minut</string>
     <string name="every_1_hour">Varje timme</string>
@@ -216,48 +242,50 @@
     <string name="for_2_weeks">2 veckor</string>
     <string name="for_1_month">1 månad</string>
     <string name="local">Lokal</string>
+    <string name="fever" translatable="false">Fever</string>
+    <string name="google_reader" translatable="false">Google Reader</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="feedly" translatable="false">Feedly</string>
+    <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">På denna enhet</string>
     <string name="services">Tjänster</string>
+    <string name="feedly_desc" translatable="false">feedly.com</string>
+    <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="self_hosted">Självhostad</string>
+    <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="google_reader_desc" translatable="false">Google Reader API</string>
+    <string name="fever_desc">Utrangerad. Rekommenderas inte.</string>
     <string name="more">Ytterligare</string>
     <string name="add_accounts">Lägg till konton</string>
     <string name="list">Lista</string>
+    <string name="add_accounts_desc">Lokal, tjänster, självhostad</string>
+    <string name="display">Skärm</string>
     <string name="synchronous">Synkroniserar</string>
     <string name="sync_interval">Synka</string>
     <string name="sync_once_on_start">Synkronisera vid uppstart</string>
     <string name="only_on_wifi">Enbart på trådlöst</string>
     <string name="only_when_charging">Endast vid laddning</string>
     <string name="keep_archived_articles">Behåll arkiverade artiklar</string>
+    <string name="block_list">Blockeringslista</string>
     <string name="export_as_opml">Exportera som OPML</string>
     <string name="clear_all_articles">Rensa alla artiklar</string>
     <string name="delete_account">Ta bort konto</string>
+    <string name="clear_all_articles_tips">Är du säker på att du vill rensa artikellistan för det här kontot?</string>
+    <string name="delete_account_tips">Vill du verkligen ta bort detta konto\?</string>
     <string name="must_have_an_account">Du måste ha minst ett konto</string>
     <string name="clear_all_articles_toast">Rensade artikellistan</string>
     <string name="delete_account_toast">Konto raderat</string>
-    <string name="delete_account_tips">Vill du verkligen ta bort detta konto\?</string>
     <string name="synchronous_tips">Omstart krävs för förändringar att träda i kraft</string>
-    <string name="fever_desc">Utrangerad. Rekommenderas inte.</string>
-    <string name="block_list">Blockeringslista</string>
-    <string name="clear_all_articles_tips">Är du säker på att du vill rensa artikellistan för det här kontot?</string>
-    <string name="self_hosted">Självhostad</string>
-    <string name="add_accounts_desc">Lokal, tjänster, självhostad</string>
-    <string name="display">Skärm</string>
+    <string name="keep_archived_tips">Arkiverade objekt är artiklar som är markerade som lästa, inte stjärnmärkta och inte taggade. Inställningen "Behåll arkiverade artiklar" är endast i effekt på den här enheten. Äldre arkiverade artiklar raderas från den här enheten. Borttagning av artiklar kan inte ångras.</string>
     <string name="switch_account">Växla</string>
     <string name="add">Lägg till</string>
     <string name="accounts_tips">Du kan växla konton genom att trycka på kontonamnet på flödessidan</string>
     <string name="server_url">Server URL</string>
-    <string name="password">Lösenord</string>
-    <string name="connection">Förbindelse</string>
     <string name="username">Användarnamn</string>
-    <string name="system_default">Systemet</string>
-    <string name="empty">Tömma</string>
-    <string name="unfold_more">Expandera alla</string>
-    <string name="unfold_less">Dölj alla</string>
-    <string name="open_in_browser">Öppna i webbläsare</string>
-    <string name="all_open_in_browser_tips">Öppna alla artiklar i gruppen \"%1$s\" med standardwebbläsaren</string>
-    <string name="all_open_in_browser_toast">Öppning av alla artiklar i gruppen \"%1$s\" i standardwebbläsaren är tillåtet</string>
-    <string name="all_deny_open_in_browser_toast">Öppning av alla artiklar i gruppen \"%1$s\" i standardwebbläsaren nekas</string>
-    <string name="keep_archived_tips">Arkiverade objekt är artiklar som är markerade som lästa, inte stjärnmärkta och inte taggade. Inställningen \"Behåll arkiverade artiklar\" är endast i effekt på den här enheten. Äldre arkiverade artiklar raderas från den här enheten. Borttagning av artiklar kan inte ångras.</string>
+    <string name="password">Lösenord</string>
     <string name="client_certificate">Klientcertifikat (valfritt)</string>
+    <string name="connection">Förbindelse</string>
+    <string name="system_default">Systemet</string>
     <string name="initial_open_app">App när länken klickas</string>
     <string name="open_link_specific_browser_not_selected">Ingen</string>
     <string name="auto_customtabs">Auto (föredrar anpassade flikar)</string>
@@ -268,11 +296,11 @@
     <string name="default_browser">Tvinga standardwebbläsare</string>
     <string name="always_ask">Fråga alltid</string>
     <string name="open_link_specific_browser">Webbläsare</string>
-    <string name="open_link_something_wrong">\"Öppna länk\"-inställning ignoreras eftersom något gick fel</string>
+    <string name="open_link_something_wrong">"Öppna länk"-inställning ignoreras eftersom något gick fel</string>
     <string name="open_link_ask_dialog_title">Öppna med…</string>
     <string name="include_additional_info">Inkludera ytterligare info</string>
     <string name="exclude">Exkludera</string>
-    <string name="additional_info_desc">Ytterligare information inkluderar konfigurationsalternativ för varje flöde, till exempel om du vill tillåta avisering, analysera fullständigt innehåll med mera. Om du tänker använda den exporterade OPML-filen med andra läsare, vänligen välj \"Exclude\".</string>
+    <string name="additional_info_desc">Ytterligare information inkluderar konfigurationsalternativ för varje flöde, till exempel om du vill tillåta avisering, analysera fullständigt innehåll med mera. Om du tänker använda den exporterade OPML-filen med andra läsare, vänligen välj "Exclude".</string>
     <string name="grey_out_articles">Gör artiklar gråtonade</string>
     <string name="all_read">Alla lästa</string>
     <string name="read_excluding_starred">Läs, exklusive stjärnmärkta</string>
@@ -301,6 +329,7 @@
     <string name="troubleshooting">Felsökning</string>
     <string name="troubleshooting_desc">Buggrapport, appinställningar</string>
     <string name="bug_report">Buggrapport</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
     <string name="app_preferences">Appinställningar</string>
     <string name="import_from_protobuf_file">Importera från protobuf-fil</string>
     <string name="export_as_protobuf_file">Exportera som protobuf-fil</string>
@@ -308,6 +337,7 @@
     <string name="import_from_json">Importera från JSON</string>
     <string name="export_as_json">Exportera som JSON</string>
     <string name="invalid_json_file_warning">Den här filen kanske inte är en giltig JSON-fil. Import kan potentiellt korrumpera appen och resultera i förlust av nuvarande inställningar. Är du säker på att du vill fortsätta?</string>
+    <string name="webview" translatable="false">WebView</string>
     <string name="native_component">Inbyggd komponent</string>
     <string name="content_renderer">Innehållsrenderare</string>
     <string name="read_aloud">Läs högt</string>
@@ -341,11 +371,11 @@
     <string name="last_updated">Senast uppdaterad</string>
     <string name="no_unread_articles">Inga olästa artiklar</string>
     <string name="list_widget_label">Listvy</string>
-    <string name="card_widget_label">Kortvy</string>"
+    <string name="card_widget_label">Kortvy</string>
     <string name="widget_description">Visa senaste olästa artiklar från utvalda källor</string>
     <string name="apply">Applicera</string>
     <string name="notifications">Meddelanden</string>
-    <string name="group_configuration_description">Konfigurera \"%1$s\" för flöden i \"%2$s\"</string>
+    <string name="group_configuration_description">Konfigurera "%1$s" för flöden i "%2$s"</string>
     <string name="disabled">Inaktiverad</string>
     <string name="enabled">Aktiverad</string>
     <string name="notifications_desc">Få meddelanden när nya olästa artiklar finns tillgängliga</string>
@@ -353,4 +383,141 @@
     <string name="parse_full_content_desc">Hämta fullständiga artiklar från webbsidor</string>
     <string name="enable">Aktivera</string>
     <string name="disable">Inaktivera</string>
+    <string name="show_sync_status">Visa synkroniseringsstatus</string>
+    <string name="show_sync_status_desc">Visa senaste synkroniseringstillstånd, datum och tid under varje flöde</string>
+    <string name="reading_ai_summary">Artikelsammanfattning</string>
+    <string name="reading_ai_summary_desc">Visa sammanfattningsknapp i läsverktygsfältet för att öppna i webbläsaren</string>
+    <string name="summarizer_engine">Summarizer Engine</string>
+    <string name="summarizer_language">Sammanfattningsspråk</string>
+    <string name="summarizer_style">Sammanfattningsformat/stil</string>
+    <string name="no_link_available">Ingen länk tillgänglig för denna artikel</string>
+    <plurals name="new_articles_count">
+        <item quantity="one">%1$dny artikel tillagd</item>
+        <item quantity="other">%1$dnya artiklar tillagda</item>
+    </plurals>
+    <string name="sync_finished_title">Synkroniseringen avslutad</string>
+    <string name="sync_notification">Synkroniseringsmeddelande</string>
+    <string name="sync_notification_desc">Visa avisering med tillagda artiklar efter synkronisering</string>
+    <string name="restore_last_article">Fortsätt senast lästa artikel</string>
+    <string name="restore_last_article_desc">Öppna artikeln du läste igen när appen startas</string>
+    <string name="restore_scroll_position">Kom ihåg Scroll Position</string>
+    <string name="restore_scroll_position_desc">Återställ position i listan vid lansering</string>
+    <string name="full_translation">Fullständig översättning</string>
+    <string name="translate_article">Översätt artikel</string>
+    <string name="ai_summary">Sammanfattning</string>
+    <string name="ai_full_translation">Fullständig översättning</string>
+    <string name="ai_generating_summary">Genererar sammanfattning...</string>
+    <string name="ai_translating_article">Översätter artikel...</string>
+    <string name="copied_to_clipboard">Kopierade till urklipp</string>
+    <string name="regenerate">Regenerera</string>
+    <string name="retry">Försöka igen</string>
+    <string name="copy">Kopiera</string>
+    <string name="search_settings">Sökinställningar</string>
+    <string name="no_settings_found">Inga inställningar hittades</string>
+    <string name="sync_status_always">Alltid</string>
+    <string name="sync_status_errors_only">Endast fel</string>
+    <string name="sync_status_never">Aldrig</string>
+    <string name="summary_style_key_points">Nyckelpunkter</string>
+    <string name="summary_style_tldr">TL;DR</string>
+    <string name="summary_style_detailed">Detaljerad</string>
+    <string name="ai_select_language">Välj språk...</string>
+    <string name="ai_select_language_prompt">Välj ett språk för att börja.</string>
+    <string name="open_summary_in_browser">Öppna Sammanfattning i webbläsaren</string>
+    <string name="article_summary">Artikelsammanfattning</string>
+    <string name="sync_status_unsynced">Inte synkroniserat</string>
+    <string name="sync_status_today">Idag kl%1$s</string>
+    <string name="sync_status_yesterday">Igår kl%1$s</string>
+    <string name="sync_status_success_prefix">Synkroniserad:%1$s</string>
+    <string name="sync_status_failed_prefix">Misslyckades:%1$s</string>
+    <string name="backup_and_restore">Säkerhetskopiera och återställa</string>
+    <string name="export_full_backup">Exportera alla data och inställningar</string>
+    <string name="export_full_backup_desc">Inkluderar alla artiklar (stjärnmärkta, olästa, alla), flöden, grupper, konton och inställningar</string>
+    <string name="import_full_backup">Importera alla data och inställningar</string>
+    <string name="export_preferences">Exportera endast inställningar</string>
+    <string name="import_preferences">Importera endast inställningar</string>
+    <string name="exporting_backup">Exporterar säkerhetskopia...</string>
+    <string name="importing_backup">Importerar säkerhetskopia...</string>
+    <string name="exporting_articles">Exporterar artiklar...</string>
+    <string name="importing_articles">Återställer artiklar...</string>
+    <string name="backup_export_success">Säkerhetskopieringen har exporterats</string>
+    <string name="backup_export_failed">Det gick inte att exportera säkerhetskopian</string>
+    <string name="backup_import_success">Säkerhetskopieringen har importerats</string>
+    <string name="backup_import_failed">Det gick inte att importera säkerhetskopian</string>
+    <string name="cloud_backup">Cloud Backup</string>
+    <string name="cloud_backup_desc">Säkerhetskopiera och återställa via WebDAV, FTP, FTPS och SFTP</string>
+    <string name="server_settings">Serverinställningar</string>
+    <string name="protocol">Protokoll</string>
+    <string name="server_host">Värd-/server-URL</string>
+    <string name="server_port">Hamn</string>
+    <string name="remote_path">Fjärr mappsökväg</string>
+    <string name="trust_insecure_ssl">Lita på självsignerade certifikat</string>
+    <string name="test_connection">Testa anslutningen</string>
+    <string name="testing_connection">Testar anslutning...</string>
+    <string name="auto_backup">Automatisk säkerhetskopiering</string>
+    <string name="auto_backup_desc">Säkerhetskopiera hela data regelbundet till molnet</string>
+    <string name="frequency">Frekvens</string>
+    <string name="freq_disabled">Inaktiverad</string>
+    <string name="freq_6_hours">Var 6:e ​​timme</string>
+    <string name="freq_12_hours">Var 12:e timme</string>
+    <string name="freq_daily">Dagligen (24h)</string>
+    <string name="freq_weekly">Varje vecka (7 dagar)</string>
+    <string name="require_wifi">Endast Wi-Fi</string>
+    <string name="require_wifi_desc">Utför endast säkerhetskopiering på Wi-Fi-anslutning</string>
+    <string name="require_charging">Endast laddning</string>
+    <string name="require_charging_desc">Utför endast säkerhetskopiering när enheten laddas</string>
+    <string name="max_backups_to_keep">Backup Rotation</string>
+    <string name="max_backups_desc">Behåll%1$dsenaste säkerhetskopior på servern</string>
+    <string name="max_backups_unlimited">Behåll alla säkerhetskopior (obegränsat)</string>
+    <string name="backup_now">Säkerhetskopiera nu</string>
+    <string name="remote_backups">Fjärrbackuper</string>
+    <string name="no_remote_backups">Inga säkerhetskopior hittades på servern</string>
+    <string name="restore_remote_backup">Återställ säkerhetskopia</string>
+    <string name="restore_confirm_message">Är du säker på att du vill återställa den här säkerhetskopian? Aktuell data kommer att slås samman.</string>
+    <string name="delete_remote_backup">Ta bort fjärrsäkerhetskopiering</string>
+    <string name="delete_confirm_message">Är du säker på att du vill ta bort denna säkerhetskopia från servern?</string>
+    <string name="cloud_backup_success">Molnsäkerhetskopiering har slutförts</string>
+    <string name="cloud_backup_failed">Det gick inte att utföra molnsäkerhetskopiering</string>
+    <string name="cloud_restore_success">Molnåterställningen har slutförts</string>
+    <string name="cloud_restore_failed">Det gick inte att återställa molnsäkerhetskopieringen</string>
+    <string name="cloud_delete_success">Fjärrsäkerhetskopiering raderad</string>
+    <string name="article_layout">Artikellayout</string>
+    <string name="layout_list">Lista</string>
+    <string name="layout_grid">Rutnät</string>
+    <string name="switch_to_grid_view">Växla till rutnätsvy</string>
+    <string name="switch_to_list_view">Växla till listvy</string>
+    <string name="display_format">Visningsformat</string>
+    <string name="card_elements">Card Elements</string>
+    <string name="reading_indicators">Reading &amp; Indicators</string>
+    <string name="reading_display_engine">Rendering &amp; Display</string>
+    <string name="reading_typography_media">Typography &amp; Media</string>
+    <string name="reading_ai_assistant">AI Reading Assistant</string>
+    <string name="swipe_gestures">Swipe Gestures</string>
+    <string name="scrolling_navigation">Scrolling &amp; Navigation</string>
+    <string name="external_links_sharing">External Links &amp; Sharing</string>
+    <string name="diagnostics_and_reports">Diagnostics &amp; Reports</string>
+    <string name="local_backup_restore">Local Backup &amp; Restore</string>
+    <string name="storage_and_cache">Storage &amp; Cache</string>
+    <string name="sync_logs">Sync Logs</string>
+    <string name="clear_server_config">Clear Server Configuration</string>
+    <string name="clear_server_config_desc">Remove server credentials and reset cloud backup</string>
+    <string name="clear_server_config_confirm">Are you sure you want to clear the cloud backup server configuration and disable automatic backups?</string>
+    <string name="clear_server_config_success">Server configuration cleared</string>
+    <string name="backup_and_data">Backups &amp; Data</string>
+    <string name="backup_and_data_desc">Cloud &amp; local backup, preferences, cache</string>
+    <string name="theme_and_colors">Theme &amp; Colors</string>
+    <string name="presentation_and_layout">Page Layouts &amp; Display</string>
+    <string name="clear_cache">Clear cache</string>
+    <string name="clear_cache_desc">Clear cached images and articles</string>
+    <string name="clear_cache_success">Cache cleared successfully</string>
+    <string name="feeds_page_style_desc">Folders, elevation, favicons, sync status</string>
+    <string name="flow_page_style_desc">Grid or List, swipe gestures, scrolling, cards</string>
+    <string name="reading_page_style_desc">Reading engine, typography, links, AI summary</string>
+    <string name="global_style">Global Style</string>
+    <string name="backups_title">Backups</string>
+    <string name="help_and_support">Help &amp; Support</string>
+    <string name="feeds_layout">Feeds Layout</string>
+    <string name="import_opml">Import OPML</string>
+    <string name="import_opml_desc">Import feeds from an OPML file into this account</string>
+    <string name="import_opml_success">OPML imported successfully</string>
+    <string name="import_opml_failed">Failed to import OPML file</string>
 </resources>

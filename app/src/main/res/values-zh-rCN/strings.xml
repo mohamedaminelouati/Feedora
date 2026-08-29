@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="read_you" translatable="false">Read You</string>
     <string name="all">全部</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d 项已存档</item>
@@ -17,6 +17,8 @@
     <string name="loading">加载中…</string>
     <string name="expand_less">收缩</string>
     <string name="expand_more">展开</string>
+    <string name="unfold_more">全部展开</string>
+    <string name="unfold_less">全部折叠</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="allow">允许</string>
@@ -39,40 +41,45 @@
     <string name="preset">预设</string>
     <string name="selected">已选择</string>
     <string name="allow_notification">允许通知</string>
-    <string name="all_allow_notification_tips">允许 \"%1$s\" 分组中的所有订阅源发出通知</string>
-    <string name="all_allow_notification_toast">已允许来自 \"%1$s\" 分组的通知</string>
-    <string name="all_deny_notification_toast">已拒绝来自 \"%1$s\" 分组的通知</string>
+    <string name="all_allow_notification_tips">允许 "%1$s" 分组中的所有订阅源发出通知</string>
+    <string name="all_allow_notification_toast">已允许来自 "%1$s" 分组的通知</string>
+    <string name="all_deny_notification_toast">已拒绝来自 "%1$s" 分组的通知</string>
     <string name="parse_full_content">全文解析</string>
-    <string name="all_parse_full_content_tips">对 \"%1$s\" 分组中的所有文章进行全文解析</string>
-    <string name="all_parse_full_content_toast">已允许全文解析 \"%1$s\" 分组的所有文章</string>
-    <string name="all_deny_parse_full_content_toast">已拒绝全文解析\"%1$s\" 分组内所有文章</string>
+    <string name="all_parse_full_content_tips">对 "%1$s" 分组中的所有文章进行全文解析</string>
+    <string name="all_parse_full_content_toast">已允许全文解析 "%1$s" 分组的所有文章</string>
+    <string name="all_deny_parse_full_content_toast">已拒绝全文解析"%1$s" 分组内所有文章</string>
+    <string name="open_in_browser">在浏览器中打开</string>
+    <string name="all_open_in_browser_tips">用默认浏览器打开 “%1$s”分组的全部文章</string>
+    <string name="all_open_in_browser_toast">已允许用默认浏览器打开“%1$s”分组的所有文章</string>
+    <string name="all_deny_open_in_browser_toast">已拒绝用默认浏览器打开“%1$s”分组的所有文章</string>
     <string name="clear_articles">清空文章</string>
-    <string name="clear_articles_in_feed_toast">已清空 \"%1$s\" 订阅源中所有已归档文章</string>
-    <string name="clear_articles_in_group_toast">已清空 \"%1$s\" 分组中所有已归档的文章</string>
-    <string name="clear_articles_feed_tips">清空 \"%1$s\" 订阅源中所有已归档的文章</string>
-    <string name="clear_articles_group_tips">清空 \"%1$s\" 分组中所有已归档的文章</string>
+    <string name="clear_articles_in_feed_toast">已清空 "%1$s" 订阅源中所有已归档文章</string>
+    <string name="clear_articles_in_group_toast">已清空 "%1$s" 分组中所有已归档的文章</string>
+    <string name="clear_articles_feed_tips">清空 "%1$s" 订阅源中所有已归档的文章</string>
+    <string name="clear_articles_group_tips">清空 "%1$s" 分组中所有已归档的文章</string>
     <string name="add_to_group">添加到组</string>
     <string name="move_to_group">移动到组</string>
-    <string name="all_move_to_group_tips">将 \"%1$s\" 分组中的所有订阅源移动至 \"%2$s\" 分组</string>
-    <string name="all_move_to_group_toast">已全部移动至 \"%1$s\" 分组</string>
+    <string name="all_move_to_group_tips">将 "%1$s" 分组中的所有订阅源移动至 "%2$s" 分组</string>
+    <string name="all_move_to_group_toast">已全部移动至 "%1$s" 分组</string>
     <string name="rename">重命名</string>
     <string name="change_url">更改链接</string>
-    <string name="rename_toast">已重命名为 \"%1$s\"</string>
+    <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
+    <string name="rename_toast">已重命名为 "%1$s"</string>
     <string name="create_new_group">新建分组</string>
     <string name="name">名称</string>
     <string name="open_with">打开 %1$s</string>
     <string name="options">选项</string>
     <string name="delete">删除</string>
-    <string name="delete_toast">\"%1$s\" 已被删除</string>
+    <string name="delete_toast">"%1$s" 已被删除</string>
     <string name="unsubscribe">取消订阅</string>
-    <string name="unsubscribe_tips">不再订阅 \"%1$s\"，同时删除其中所有已归档的文章</string>
+    <string name="unsubscribe_tips">不再订阅 "%1$s"，同时删除其中所有已归档的文章</string>
     <string name="delete_group">删除分组</string>
-    <string name="delete_group_tips">删除 \"%1$s\" 分组，同时删除其中所有订阅源和已归档的文章</string>
+    <string name="delete_group_tips">删除 "%1$s" 分组，同时删除其中所有订阅源和已归档的文章</string>
     <string name="group_option_tips">以下选项应用到该分组中的所有订阅源</string>
     <string name="today">今天</string>
     <string name="yesterday">昨天</string>
     <string name="date_at_time">%1$s %2$s</string>
-    <string name="search_for_in">在%1$s的 \"%2$s\" 中搜索</string>
+    <string name="search_for_in">在%1$s的 "%2$s" 中搜索</string>
     <string name="search_for">在%1$s中搜索</string>
     <string name="mark_as_read">标记为已读</string>
     <string name="mark_all_as_read">全部标记为已读</string>
@@ -97,15 +104,29 @@
     <string name="interaction">使用偏好</string>
     <string name="interaction_desc">启动页面、手势</string>
     <string name="languages">语言</string>
-    <string name="use_device_languages">跟随系统设置</string>
     <string name="help_translate">帮助我们翻译</string>
+    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="use_device_languages">跟随系统设置</string>
+    <string name="english" translatable="false">English</string>
+    <string name="chinese_simplified" translatable="false">简体中文</string>
+    <string name="german" translatable="false">Deutsch</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="czech" translatable="false">Čeština</string>
+    <string name="italian" translatable="false">Italiano</string>
+    <string name="hindi" translatable="false">हिंदी</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="basque" translatable="false">Euskara</string>
+    <string name="indonesian" translatable="false">Bahasa Indonesia</string>
+    <string name="chinese_traditional" translatable="false">繁體中文</string>
     <string name="tips_and_support">提示和支持</string>
     <string name="tips_and_support_desc">关于、赞助者、开源许可证</string>
     <string name="welcome">欢迎</string>
     <string name="tos_tips">在此之前，请阅读并同意 Read You 的服务条款与隐私政策。</string>
-    <string name="browse_tos_tips">查看《<i><u>服务条款与隐私政策</u></i>》</string>
+    <string name="browse_tos_tips">查看《</string>
     <string name="terms_of_service">服务条款</string>
-    <string name="tos_content"><h5> 隐私政策 </h5> <br/> <p> 我们非常重视您的隐私。 </p> <br/> <p> <b>Read You</b> 不收集任何用户数据，所有敏感信息（密码和其他账户信息）都安全地存储在您设备上的本地应用数据库中。 </p> <br/> <p> <b>Read You</b> 将使用以下权限为您提供服务： </p> <br/> <p> - 访问网络权限（用于访问您所指定的在线内容） </p> <p> - 获取网络状态权限（用于确定当前设备是否拥有可用的网络条件） </p> <p> - 后台服务权限（用于定时自动地为您同步已收藏的内容） </p> <br/> <br/> <h5> 第三方服务 </h5> <br/> <p> 本政策不适用于您与 <b>Read You</b> 一起使用的第三方服务。您可以在所使用的第三方服务的网站上查阅相关的隐私政策。 </p> <br/> <br/> <h5> 免责声明 </h5> <br/> <p> <b>Read You</b> 仅是一款内容收藏工具。您在使用 <b>Read You</b> 的过程中，应遵守所在国家和地区的法律法规，因您的行为所产生的一切责任将由您个人承担。 </p> <br/> <br/> <h5> 开源许可 </h5> <br/> <p> <b>Read You</b> 是一个使用 GNU GPL 3.0 开源许可协议的开源项目[1]，允许您免费使用、引用、修改 <b>Read You</b> 的源代码，但不允许修改后和其衍生的代码作为闭源的商业软件进行发布和销售。具体细节请查看完整的 GNU GPL 3.0 开源许可协议 [2]。 </p> <br/> <br/> <h5> 附录 </h5> <br/> <p> - [1] https://github.com/ReadYouApp/ReadYou </p> <p> - [2] https://www.gnu.org/licenses/gpl-3.0.html </p></string>
+    <string name="tos_content"></string>
     <string name="agree">同意并继续</string>
     <string name="wallpaper_colors">壁纸颜色</string>
     <string name="no_palettes">无色板</string>
@@ -119,16 +140,20 @@
     <string name="use_device_theme">跟随系统设置</string>
     <string name="on">开启</string>
     <string name="off">关闭</string>
-    <string name="amoled_dark_theme">黑色暗色主题</string>
     <string name="other">其他</string>
+    <string name="amoled_dark_theme">黑色暗色主题</string>
     <string name="tonal_elevation">色调海拔</string>
     <string name="reading_fonts">阅读字体</string>
     <string name="basic_fonts">基本字体</string>
+    <string name="google_sans" translatable="false">Google Sans Flex</string>
     <string name="feeds_page">订阅源页面</string>
     <string name="flow_page">信息流页面</string>
     <string name="reading_page">阅读页面</string>
     <string name="sponsor">捐赠</string>
     <string name="open_source_licenses">开放源代码许可</string>
+    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
+    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
     <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
     <string name="change_log">更新日志</string>
     <string name="update">更新</string>
@@ -214,9 +239,18 @@
     <string name="for_2_weeks">2 周</string>
     <string name="for_1_month">1 个月</string>
     <string name="local">本地</string>
+    <string name="fever" translatable="false">Fever</string>
+    <string name="google_reader" translatable="false">Google Reader</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="feedly" translatable="false">Feedly</string>
+    <string name="inoreader" translatable="false">Inoreader</string>
     <string name="local_desc">在这台设备上</string>
     <string name="services">服务</string>
+    <string name="feedly_desc" translatable="false">feedly.com</string>
+    <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">自托管</string>
+    <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">已过时，不推荐。</string>
     <string name="more">更多</string>
     <string name="add_accounts">添加账户</string>
@@ -239,26 +273,28 @@
     <string name="clear_all_articles_toast"> 已清空文章列表</string>
     <string name="delete_account_toast">已删除账户</string>
     <string name="synchronous_tips">需要重新启动才能使更改生效</string>
+    <string name="keep_archived_tips">已归档的项目是指标记为已读、未加星标和未加标签的文章。"保留已归档的文章"设置仅在此设备上有效，较旧的已归档文章将从此设备中删除，文章的删除是无法撤销的。</string>
     <string name="switch_account">切换</string>
     <string name="add">添加</string>
     <string name="accounts_tips">在订阅源页面中轻按账户名称来切换</string>
     <string name="server_url">服务器地址</string>
     <string name="username">用户名</string>
     <string name="password">密码</string>
+    <string name="client_certificate">客户端证书（可选）</string>
     <string name="connection">连接信息</string>
     <string name="system_default">系统默认</string>
-    <string name="custom_tabs">强制使用自定义标签页</string>
-    <string name="open_link_ask_dialog_title">打开方式…</string>
-    <string name="open_link_specific_browser">浏览器</string>
-    <string name="auto_default_browser">自动（偏好默认浏览器）</string>
-    <string name="always_ask">始终询问</string>
-    <string name="specific_browser_name">浏览器：%1$s</string>
-    <string name="specific_browser">强制使用特定浏览器</string>
     <string name="initial_open_app">单击链接打开应用</string>
-    <string name="auto_customtabs">自动（偏好自定义标签页）</string>
-    <string name="default_browser">强制使用默认浏览器</string>
-    <string name="open_link_something_wrong">“打开链接”设置被忽略，因为出现了错误</string>
     <string name="open_link_specific_browser_not_selected">未选择</string>
+    <string name="auto_customtabs">自动（偏好自定义标签页）</string>
+    <string name="auto_default_browser">自动（偏好默认浏览器）</string>
+    <string name="custom_tabs">强制使用自定义标签页</string>
+    <string name="specific_browser">强制使用特定浏览器</string>
+    <string name="specific_browser_name">浏览器：%1$s</string>
+    <string name="default_browser">强制使用默认浏览器</string>
+    <string name="always_ask">始终询问</string>
+    <string name="open_link_specific_browser">浏览器</string>
+    <string name="open_link_something_wrong">“打开链接”设置被忽略，因为出现了错误</string>
+    <string name="open_link_ask_dialog_title">打开方式…</string>
     <string name="include_additional_info">包含附加信息</string>
     <string name="exclude">不包含</string>
     <string name="additional_info_desc">附加信息中包含了每个订阅源的配置选项，例如是否允许通知、是否全文解析等。当您期望将导出的 OPML 文件用于其他阅读器时，请选择“不包含”。</string>
@@ -266,9 +302,9 @@
     <string name="all_read">所有已读项</string>
     <string name="read_excluding_starred">已读项，但已加星标的除外</string>
     <string name="external_links">外部链接</string>
-    <string name="submit_bug_report">在 GitHub 上提交故障报告</string>
     <string name="unexpected_error_title">哎呀！出问题了…</string>
     <string name="copy_error_report">复制错误报告</string>
+    <string name="submit_bug_report">在 GitHub 上提交故障报告</string>
     <string name="unexpected_error_msg">应用碰到了未预期的错误，已关闭。 \n \n要帮助我们快速查明并修复问题，你可以 %1$s 下方的堆栈踪迹。</string>
     <string name="next_article">下一篇文章</string>
     <string name="swipe_to_start">左滑</string>
@@ -276,21 +312,21 @@
     <string name="none">无</string>
     <string name="toggle_read">切换“已读”状态</string>
     <string name="toggle_starred">切换“加星”状态</string>
+    <string name="line_height_multiple">行高倍数</string>
     <string name="export">导出</string>
     <string name="pull_to_switch_article">下拉切换文章</string>
+    <string name="mark_above_as_read">将上方文章标为已读</string>
+    <string name="mark_below_as_read">将下方文章标为已读</string>
     <string name="save">保存</string>
     <string name="image_saved">图片已保存</string>
     <string name="permission_denied">权限被拒绝</string>
-    <string name="mark_below_as_read">将下方文章标为已读</string>
-    <string name="line_height_multiple">行高倍数</string>
-    <string name="mark_above_as_read">将上方文章标为已读</string>
     <string name="shared_content">分享内容</string>
     <string name="only_link">仅链接</string>
     <string name="title_and_link">标题和链接</string>
-    <string name="keep_archived_tips">已归档的项目是指标记为已读、未加星标和未加标签的文章。\"保留已归档的文章\"设置仅在此设备上有效，较旧的已归档文章将从此设备中删除，文章的删除是无法撤销的。</string>
     <string name="troubleshooting">故障排除</string>
     <string name="troubleshooting_desc">错误报告、应用选项</string>
     <string name="bug_report">错误报告</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
     <string name="app_preferences">应用程序偏好设置</string>
     <string name="import_from_protobuf_file">导入 protobuf 文件</string>
     <string name="export_as_protobuf_file">导出为 protobuf 文件</string>
@@ -298,26 +334,20 @@
     <string name="import_from_json">从 JSON 文件导入</string>
     <string name="export_as_json">导出为 JSON 文件</string>
     <string name="invalid_json_file_warning">该文件可能不是有效的 JSON 文件！导入该文件可能会损坏应用程序并导致当前偏好设置丢失，您确定要继续吗？</string>
-    <string name="unfold_more">全部展开</string>
-    <string name="unfold_less">全部折叠</string>
+    <string name="webview" translatable="false">WebView</string>
+    <string name="native_component">原生组件</string>
+    <string name="content_renderer">内容渲染器</string>
     <string name="read_aloud">大声读出</string>
     <string name="only_available_on_webview">仅在使用 WebView 内容渲染器时可用</string>
-    <string name="content_renderer">内容渲染器</string>
-    <string name="native_component">原生组件</string>
     <string name="about">关于</string>
     <string name="mark_as_read_on_scroll">滚动时标记为已读</string>
+    <string name="hide_empty_groups">隐藏空的分组</string>
     <string name="become_a_sponsor">成为赞助者</string>
     <string name="sponsor_desc">我们在闲暇时间构建并维护这个自由开源应用。如果你觉得应用还不错，请考虑用小额捐赠支持哦我们！☕️</string>
     <string name="toolbars">工具栏</string>
-    <string name="hide_empty_groups">隐藏空的分组</string>
-    <string name="open_in_browser">在浏览器中打开</string>
-    <string name="all_open_in_browser_tips">用默认浏览器打开 “%1$s”分组的全部文章</string>
-    <string name="all_open_in_browser_toast">已允许用默认浏览器打开“%1$s”分组的所有文章</string>
-    <string name="all_deny_open_in_browser_toast">已拒绝用默认浏览器打开“%1$s”分组的所有文章</string>
-    <string name="client_certificate">客户端证书（可选）</string>
+    <string name="sort_unread_articles">排列未读文章顺序</string>
     <string name="latest">最新</string>
     <string name="earliest">最早</string>
-    <string name="sort_unread_articles">排列未读文章顺序</string>
     <string name="short_desc">简短</string>
     <string name="long_desc">冗长</string>
     <string name="none_desc">没有</string>
@@ -338,7 +368,7 @@
     <string name="last_updated">上次更新</string>
     <string name="no_unread_articles">无未读文章</string>
     <string name="list_widget_label">列表视图</string>
-    <string name="card_widget_label">卡片视图</string>"
+    <string name="card_widget_label">卡片视图</string>
     <string name="widget_description">查看来自所选源的最新未读文章</string>
     <string name="apply">应用</string>
     <string name="notifications">通知</string>
@@ -350,4 +380,141 @@
     <string name="parse_full_content_desc">从网页获取完整内容</string>
     <string name="enable">启用</string>
     <string name="disable">停用</string>
+    <string name="show_sync_status">Show sync status</string>
+    <string name="show_sync_status_desc">在每个 feed 下显示上次同步状态、日期和时间</string>
+    <string name="reading_ai_summary">文章摘要</string>
+    <string name="reading_ai_summary_desc">在阅读工具栏中显示摘要按钮以在浏览器中打开</string>
+    <string name="summarizer_engine">摘要引擎</string>
+    <string name="summarizer_language">摘要语言</string>
+    <string name="summarizer_style">摘要格式/风格</string>
+    <string name="no_link_available">这篇文章没有可用的链接</string>
+    <plurals name="new_articles_count">
+        <item quantity="one">%1$d添加了新文章</item>
+        <item quantity="other">%1$d添加了新文章</item>
+    </plurals>
+    <string name="sync_finished_title">同步完成</string>
+    <string name="sync_notification">同步通知</string>
+    <string name="sync_notification_desc">同步后显示添加文章数的通知</string>
+    <string name="restore_last_article">恢复上次阅读的文章</string>
+    <string name="restore_last_article_desc">在应用程序启动时重新打开您正在阅读的文章</string>
+    <string name="restore_scroll_position">记住滚动位置</string>
+    <string name="restore_scroll_position_desc">启动时恢复列表中的位置</string>
+    <string name="full_translation">完整翻译</string>
+    <string name="translate_article">翻译文章</string>
+    <string name="ai_summary">概括</string>
+    <string name="ai_full_translation">完整翻译</string>
+    <string name="ai_generating_summary">正在生成摘要...</string>
+    <string name="ai_translating_article">翻译文章...</string>
+    <string name="copied_to_clipboard">已复制到剪贴板</string>
+    <string name="regenerate">再生</string>
+    <string name="retry">重试</string>
+    <string name="copy">复制</string>
+    <string name="search_settings">搜索设置</string>
+    <string name="no_settings_found">没有找到设置</string>
+    <string name="sync_status_always">总是</string>
+    <string name="sync_status_errors_only">仅错误</string>
+    <string name="sync_status_never">绝不</string>
+    <string name="summary_style_key_points">要点</string>
+    <string name="summary_style_tldr">长话短说</string>
+    <string name="summary_style_detailed">详细的</string>
+    <string name="ai_select_language">选择语言...</string>
+    <string name="ai_select_language_prompt">请选择一种语言开始。</string>
+    <string name="open_summary_in_browser">在浏览器中打开摘要</string>
+    <string name="article_summary">文章摘要</string>
+    <string name="sync_status_unsynced">未同步</string>
+    <string name="sync_status_today">今天在%1$s</string>
+    <string name="sync_status_yesterday">昨天在%1$s</string>
+    <string name="sync_status_success_prefix">已同步：%1$s</string>
+    <string name="sync_status_failed_prefix">失败：%1$s</string>
+    <string name="backup_and_restore">备份与恢复</string>
+    <string name="export_full_backup">导出所有数据和设置</string>
+    <string name="export_full_backup_desc">包括所有文章（已加星标、未读、全部）、提要、群组、帐户和设置</string>
+    <string name="import_full_backup">导入所有数据和设置</string>
+    <string name="export_preferences">仅导出设置</string>
+    <string name="import_preferences">仅导入设置</string>
+    <string name="exporting_backup">正在导出备份...</string>
+    <string name="importing_backup">正在导入备份...</string>
+    <string name="exporting_articles">正在导出文章...</string>
+    <string name="importing_articles">正在恢复文章...</string>
+    <string name="backup_export_success">备份导出成功</string>
+    <string name="backup_export_failed">导出备份失败</string>
+    <string name="backup_import_success">备份导入成功</string>
+    <string name="backup_import_failed">导入备份失败</string>
+    <string name="cloud_backup">云备份</string>
+    <string name="cloud_backup_desc">通过 WebDAV、FTP、FTPS 和 SFTP 进行备份和恢复</string>
+    <string name="server_settings">服务器设置</string>
+    <string name="protocol">协议</string>
+    <string name="server_host">主机/服务器 URL</string>
+    <string name="server_port">港口</string>
+    <string name="remote_path">远程文件夹路径</string>
+    <string name="trust_insecure_ssl">信任自签名证书</string>
+    <string name="test_connection">测试连接</string>
+    <string name="testing_connection">测试连接...</string>
+    <string name="auto_backup">自动备份</string>
+    <string name="auto_backup_desc">定期将完整数据备份至云端</string>
+    <string name="frequency">频率</string>
+    <string name="freq_disabled">残疾人</string>
+    <string name="freq_6_hours">每 6 小时</string>
+    <string name="freq_12_hours">每12小时一次</string>
+    <string name="freq_daily">每日（24 小时）</string>
+    <string name="freq_weekly">每周（7 天）</string>
+    <string name="require_wifi">仅无线网络</string>
+    <string name="require_wifi_desc">仅在 Wi-Fi 连接上执行备份</string>
+    <string name="require_charging">仅充电</string>
+    <string name="require_charging_desc">仅在设备充电时执行备份</string>
+    <string name="max_backups_to_keep">备份轮换</string>
+    <string name="max_backups_desc">在服务器上保留%1$d最新备份</string>
+    <string name="max_backups_unlimited">保留所有备份（无限制）</string>
+    <string name="backup_now">立即备份</string>
+    <string name="remote_backups">远程备份</string>
+    <string name="no_remote_backups">服务器上未找到备份</string>
+    <string name="restore_remote_backup">恢复备份</string>
+    <string name="restore_confirm_message">您确定要恢复此备份吗？当前数据将被合并。</string>
+    <string name="delete_remote_backup">删除远程备份</string>
+    <string name="delete_confirm_message">您确定要从服务器删除此备份吗？</string>
+    <string name="cloud_backup_success">云备份成功完成</string>
+    <string name="cloud_backup_failed">云备份失败</string>
+    <string name="cloud_restore_success">云恢复成功完成</string>
+    <string name="cloud_restore_failed">云备份恢复失败</string>
+    <string name="cloud_delete_success">远程备份已删除</string>
+    <string name="article_layout">文章布局</string>
+    <string name="layout_list">列表</string>
+    <string name="layout_grid">网格</string>
+    <string name="switch_to_grid_view">切换到网格视图</string>
+    <string name="switch_to_list_view">切换到列表视图</string>
+    <string name="display_format">显示格式</string>
+    <string name="card_elements">卡片元素</string>
+    <string name="reading_indicators">读数和指标</string>
+    <string name="reading_display_engine">渲染与显示</string>
+    <string name="reading_typography_media">版式与媒体</string>
+    <string name="reading_ai_assistant">AI阅读助手</string>
+    <string name="swipe_gestures">滑动手势</string>
+    <string name="scrolling_navigation">滚动和导航</string>
+    <string name="external_links_sharing">外部链接和分享</string>
+    <string name="diagnostics_and_reports">诊断和报告</string>
+    <string name="local_backup_restore">本地备份与恢复</string>
+    <string name="storage_and_cache">存储和缓存</string>
+    <string name="sync_logs">同步日志</string>
+    <string name="clear_server_config">清除服务器配置</string>
+    <string name="clear_server_config_desc">删除服务器凭据并重置云备份</string>
+    <string name="clear_server_config_confirm">您确定要清除云备份服务器配置并禁用自动备份吗？</string>
+    <string name="clear_server_config_success">服务器配置已清除</string>
+    <string name="backup_and_data">备份和数据</string>
+    <string name="backup_and_data_desc">云和本地备份、首选项、缓存</string>
+    <string name="theme_and_colors">主题和颜色</string>
+    <string name="presentation_and_layout">页面布局和显示</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="clear_cache_desc">清除缓存的图像和文章</string>
+    <string name="clear_cache_success">缓存清除成功</string>
+    <string name="feeds_page_style_desc">文件夹、高度、图标、同步状态</string>
+    <string name="flow_page_style_desc">网格或列表、滑动手势、滚动、卡片</string>
+    <string name="reading_page_style_desc">阅读引擎、排版、链接、AI摘要</string>
+    <string name="global_style">全球风格</string>
+    <string name="backups_title">备份</string>
+    <string name="help_and_support">帮助与支持</string>
+    <string name="feeds_layout">提要布局</string>
+    <string name="import_opml">导入OPML</string>
+    <string name="import_opml_desc">将源从 OPML 文件导入到此帐户</string>
+    <string name="import_opml_success">OPML导入成功</string>
+    <string name="import_opml_failed">导入 OPML 文件失败</string>
 </resources>

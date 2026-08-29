@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="read_you" translatable="false">Read You</string>
     <string name="all">Guztia</string>
     <plurals name="all_desc">
         <item quantity="one">Artxibatutako elementu %1$d</item>
@@ -20,12 +20,15 @@
     <string name="loading">Kargatzen…</string>
     <string name="expand_less">Uzkurtu</string>
     <string name="expand_more">Zabaldu</string>
+    <string name="unfold_more">Zabaldu dena</string>
+    <string name="unfold_less">Tolestu dena</string>
     <string name="confirm">Baieztatu</string>
     <string name="cancel">Utzi</string>
     <string name="allow">Baimendu</string>
     <string name="deny">Ukatu</string>
     <string name="defaults">Lehenetsia</string>
     <string name="unknown">Ezezaguna</string>
+    <string name="empty">Hutsik</string>
     <string name="back">Atzera</string>
     <string name="go_to">Hona joan</string>
     <string name="settings">Ezarpenak</string>
@@ -41,40 +44,45 @@
     <string name="preset">Aurrezarpenak</string>
     <string name="selected">Hautatuta</string>
     <string name="allow_notification">Jakinarazpenak baimendu</string>
-    <string name="all_allow_notification_tips">Baimendu \"%1$s\" taldeko jario guztiei jakinarazpenak bidaltzen</string>
-    <string name="all_allow_notification_toast">\"%1$s\" taldeko jakinarazpen guztiak baimenduta daude</string>
-    <string name="all_deny_notification_toast">\"%1$s\" taldeko jakinarazpenak ez daude baimenduta</string>
+    <string name="all_allow_notification_tips">Baimendu "%1$s" taldeko jario guztiei jakinarazpenak bidaltzen</string>
+    <string name="all_allow_notification_toast">"%1$s" taldeko jakinarazpen guztiak baimenduta daude</string>
+    <string name="all_deny_notification_toast">"%1$s" taldeko jakinarazpenak ez daude baimenduta</string>
     <string name="parse_full_content">Eduki osoa analizatu</string>
-    <string name="all_parse_full_content_tips">\"%1$s\" taldeko artikulu guztien eduki osoaren analisia</string>
-    <string name="all_parse_full_content_toast">\"%1$s\" taldeko artikulu guztien eduki osoaren analisia</string>
-    <string name="all_deny_parse_full_content_toast">\"%1$s\" taldeko artikulu guztien eduki osoaren analisi gehiagorik ez</string>
+    <string name="all_parse_full_content_tips">"%1$s" taldeko artikulu guztien eduki osoaren analisia</string>
+    <string name="all_parse_full_content_toast">"%1$s" taldeko artikulu guztien eduki osoaren analisia</string>
+    <string name="all_deny_parse_full_content_toast">"%1$s" taldeko artikulu guztien eduki osoaren analisi gehiagorik ez</string>
+    <string name="open_in_browser">Ireki arakatzailean</string>
+    <string name="all_open_in_browser_tips">Ireki "%1$s" taldeko artikulu guztiak arakatzaile lehenetsia erabiliz</string>
+    <string name="all_open_in_browser_toast">Arakatzaile lehenetsian "%1$s" taldeko artikulu guztiak irekitzea baimenduta dago</string>
+    <string name="all_deny_open_in_browser_toast">Arakatzaile lehenetsian "%1$s" taldeko artikulu guztiak irekitzea ukatu egiten da</string>
     <string name="clear_articles">Artikuluak garbitu</string>
-    <string name="clear_articles_in_feed_toast">\"%1$s\" jarioaren artxibatutako artikulu guztiak garbitu dira</string>
-    <string name="clear_articles_in_group_toast">\"%1$s\" taldearen artxibatutako artikulu guztiak garbitu dira</string>
-    <string name="clear_articles_feed_tips">\"%1$s\" jarioaren artxibatutako artikulu guztiak garbitu</string>
-    <string name="clear_articles_group_tips">\"%1$s\" taldearen artxibatutako artikulu guztiak garbitu</string>
+    <string name="clear_articles_in_feed_toast">"%1$s" jarioaren artxibatutako artikulu guztiak garbitu dira</string>
+    <string name="clear_articles_in_group_toast">"%1$s" taldearen artxibatutako artikulu guztiak garbitu dira</string>
+    <string name="clear_articles_feed_tips">"%1$s" jarioaren artxibatutako artikulu guztiak garbitu</string>
+    <string name="clear_articles_group_tips">"%1$s" taldearen artxibatutako artikulu guztiak garbitu</string>
     <string name="add_to_group">Taldera gehitu</string>
     <string name="move_to_group">Taldera mugitu</string>
-    <string name="all_move_to_group_tips">\"%1$s\" taldeko jario guztiak \"%2$s\" taldera mugitu</string>
-    <string name="all_move_to_group_toast">Jario guztiak \"%1$s\" taldera mugitu</string>
+    <string name="all_move_to_group_tips">"%1$s" taldeko jario guztiak "%2$s" taldera mugitu</string>
+    <string name="all_move_to_group_toast">Jario guztiak "%1$s" taldera mugitu</string>
     <string name="rename">Berrizendatu</string>
     <string name="change_url">URLa aldatu</string>
-    <string name="rename_toast">\"%1$s\" izen berria jarri da</string>
+    <string name="feed_url_placeholder" translatable="false">http://example.com/feed.rss</string>
+    <string name="rename_toast">"%1$s" izen berria jarri da</string>
     <string name="create_new_group">Talde berria sortu</string>
     <string name="name">Izena</string>
     <string name="open_with">Ireki %1$s</string>
     <string name="options">Aukerak</string>
     <string name="delete">Ezabatu</string>
-    <string name="delete_toast">\"%1$s\" ezabatuta</string>
+    <string name="delete_toast">"%1$s" ezabatuta</string>
     <string name="unsubscribe">Harpidetza kendu</string>
-    <string name="unsubscribe_tips">\"%1$s\"-etik harpidetza kendu eta bere artxibatutako artikulu guztiak ezabatu</string>
+    <string name="unsubscribe_tips">"%1$s"-etik harpidetza kendu eta bere artxibatutako artikulu guztiak ezabatu</string>
     <string name="delete_group">Taldea ezabatu</string>
-    <string name="delete_group_tips">\"%1$s\" taldea ezabatu, baita bere jario eta artxibatutako artikulu guztiak ere.</string>
+    <string name="delete_group_tips">"%1$s" taldea ezabatu, baita bere jario eta artxibatutako artikulu guztiak ere.</string>
     <string name="group_option_tips">Hurrengo aukerak talde honetako jario guztiei aplikatuko zaizkie.</string>
     <string name="today">Gaur</string>
     <string name="yesterday">Atzo</string>
     <string name="date_at_time">%1$s at %2$s</string>
-    <string name="search_for_in">Bilatu %1$s elementuak hemen \"%2$s\"</string>
+    <string name="search_for_in">Bilatu %1$s elementuak hemen "%2$s"</string>
     <string name="search_for">Bilatu %1$s elementuak</string>
     <string name="mark_as_read">Irakurrita bezala markatu</string>
     <string name="mark_all_as_read">Markatu guztia irakurrita bezala</string>
@@ -100,121 +108,135 @@
     <string name="interaction_desc">Abioa, ukipen-atzeraelikadura</string>
     <string name="languages">Hizkuntzak</string>
     <string name="help_translate">Itzulpenarekin lagundu</string>
+    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
     <string name="use_device_languages">Gailuaren hizkuntza erabili</string>
+    <string name="english" translatable="false">English</string>
+    <string name="chinese_simplified" translatable="false">简体中文</string>
+    <string name="german" translatable="false">Deutsch</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="czech" translatable="false">Čeština</string>
+    <string name="italian" translatable="false">Italiano</string>
+    <string name="hindi" translatable="false">हिंदी</string>
+    <string name="spanish" translatable="false">Español</string>
+    <string name="polish" translatable="false">Polski</string>
+    <string name="russian" translatable="false">Русский</string>
+    <string name="basque" translatable="false">Euskara</string>
+    <string name="indonesian" translatable="false">Bahasa Indonesia</string>
+    <string name="chinese_traditional" translatable="false">繁體中文</string>
     <string name="tips_and_support">Aholkuak eta babesa</string>
     <string name="tips_and_support_desc">Honi buruz, kode irekiko lizentziak</string>
     <string name="welcome">Ongi etorri</string>
     <string name="tos_tips">Mesedez irakurri eta onartu Read You-ren zerbitzu-baldintzak eta pribatutasun politika jarraitu ahal izateko.</string>
-    <string name="browse_tos_tips">Nabigatu <i><u>zerbitzu-baldintzetan eta pribatutasun politikan</u></i></string>
+    <string name="browse_tos_tips">Nabigatu </string>
     <string name="terms_of_service">Zerbitzu-baldintzak</string>
     <string name="tos_content">
-        &lt;h5&gt;
+        <h5>
 
         Pribatutasun politika
 
-        &lt;/h5&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
+        </h5>
+        <br/>
+        <p>
 
         Zure pribatutasuna oso serio hartzen dut.
 
-        &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
-        &lt;b&gt;Read You&lt;/b&gt;
+        </p>
+        <br/>
+        <p>
+        <b>Read You</b>
 
         aplikazioak ez du inolako erabiltzaile daturik biltzen, eta informazio sentikor guztia (pasahitzak eta beste kontu-informazioa)
         aplikazioaren datu-base lokal eta seguruan gordetzen dira zure gailuan.
 
-        &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
-        &lt;b&gt;Read You&lt;/b&gt;
+        </p>
+        <br/>
+        <p>
+        <b>Read You</b>
 
         aplikazioak hurrengo baimenak erabiliko ditu zerbitzua hornitu ahal izateko.
 
-        &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
+        </p>
+        <br/>
+        <p>
 
         - Sarerako sarbide baimena (zehazten duzun sareko edukia eskuratu ahal izateko)
 
-        &lt;/p&gt;
-        &lt;p&gt;
+        </p>
+        <p>
 
         - Sareraen egoera eskuratzeko baimena (jakin ahal izateko ea gailua sarerik eskuragarri duen)
 
-        &lt;/p&gt;
-        &lt;p&gt;
+        </p>
+        <p>
 
         - Atzeko planoko zerbitzu baimena (aldiro zure gogokoenak automatikoki sinkronizatzeko)
 
-        &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;br/&gt;
-        &lt;h5&gt;
+        </p>
+        <br/>
+        <br/>
+        <h5>
 
         Hirugarrenen zerbitzuak
 
-        &lt;/h5&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
+        </h5>
+        <br/>
+        <p>
 
-        Politika honek ez du eraginik &lt;b&gt;Read You&lt;/b&gt; aplikazioarekin erabiltzen dituzun hirugarrenen zerbitzuetan.
+        Politika honek ez du eraginik <b>Read You</b> aplikazioarekin erabiltzen dituzun hirugarrenen zerbitzuetan.
         Erabiltzen dituzun zerbitzuen pribatutasun politikak haien webguneetan aztertu ditzakezu.
 
-        &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;br/&gt;
-        &lt;h5&gt;
+        </p>
+        <br/>
+        <br/>
+        <h5>
 
         Erantzukizun ezeztapenak
 
-        &lt;/h5&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
-        &lt;b&gt;Read You&lt;/b&gt;
+        </h5>
+        <br/>
+        <p>
+        <b>Read You</b>
 
-        edukia biltzen duen tresna bat besterik ez da. Egiten duzun &lt;b&gt;Read You&lt;/b&gt; aplikazioaren erabilera
+        edukia biltzen duen tresna bat besterik ez da. Egiten duzun <b>Read You</b> aplikazioaren erabilera
         zure herrialde eta eskualdearen lege eta arauen menpekoa da, eta zure ekintzetatik deribatutako edozein erantzukizun
         zure gain hartuko da pertsonalki.
 
-        &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;br/&gt;
-        &lt;h5&gt;
+        </p>
+        <br/>
+        <br/>
+        <h5>
 
         Kode irekiko lizentzia
 
-        &lt;/h5&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
-        &lt;b&gt;Read You&lt;/b&gt;
+        </h5>
+        <br/>
+        <p>
+        <b>Read You</b>
 
         GNU GPL 3.0 kode irekiko lizentziapean dagoen kode irekiko proiektu bat da[1], baimena ematen dizuna modu librean
-        &lt;b&gt;Read You&lt;/b&gt; proiektuaren kodea erabiltzeko, erreferentzia egiteko, eta iturburua aldatzeko,
+        <b>Read You</b> proiektuaren kodea erabiltzeko, erreferentzia egiteko, eta iturburua aldatzeko,
         baina baimentzen ez duena aldatutako eta deribatutako kode hori kode itxiko software komertzial bezala banatzen edo saltzen.
         Xehetasunetarako, mesedez irakurri GNU GPL 3.0 kode irekiko lizentzia[2] osoa.
 
-        &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;br/&gt;
-        &lt;h5&gt;
+        </p>
+        <br/>
+        <br/>
+        <h5>
 
         Eranskinak
 
-        &lt;/h5&gt;
-        &lt;br/&gt;
-        &lt;p&gt;
+        </h5>
+        <br/>
+        <p>
 
         - [1] https://github.com/ReadYouApp/ReadYou
 
-        &lt;/p&gt;
-        &lt;p&gt;
+        </p>
+        <p>
 
         - [2] https://www.gnu.org/licenses/gpl-3.0.html
 
-        &lt;/p&gt;
+        </p>
     </string>
     <string name="agree">Ados</string>
     <string name="wallpaper_colors">Horma-paperaren koloreak</string>
@@ -234,11 +256,15 @@
     <string name="tonal_elevation">Tonuaren goratzea</string>
     <string name="reading_fonts">Irakurtzeko letra-tipoak</string>
     <string name="basic_fonts">Oinarrizko letra-tipoak</string>
+    <string name="google_sans" translatable="false">Google Sans Flex</string>
     <string name="feeds_page">Jarioen orria</string>
     <string name="flow_page">Fluxu orria</string>
     <string name="reading_page">Irakurketa orria</string>
     <string name="sponsor">Babesa eman</string>
     <string name="open_source_licenses">Kode irekiko lizentziak</string>
+    <string name="github_link" translatable="false">https://github.com/ReadYouApp/ReadYou</string>
+    <string name="telegram_link" translatable="false">https://t.me/ReadYouApp</string>
+    <string name="wiki_link" translatable="false">https://github.com/ReadYouApp/ReadYou/wiki/Getting-Started</string>
     <string name="update_link">https://api.github.com/repos/ReadYouApp/ReadYou/releases/latest</string>
     <string name="change_log">Aldaketa egunkaria</string>
     <string name="update">Eguneratu</string>
@@ -269,7 +295,7 @@
     <string name="group_list">Taldeen zerrenda</string>
     <string name="always_expand">Zabaldu beti</string>
     <string name="top">Goian</string>
-    <string name="mark_as_read_button_position">\"Irakurrita bezala markatu\" botoiaren posizioa</string>
+    <string name="mark_as_read_button_position">"Irakurrita bezala markatu" botoiaren posizioa</string>
     <string name="top_bar">Goiko barra</string>
     <string name="fill_selected_icon">Hautatutako ikonoa bete</string>
     <string name="filter_bar">Iragazki barra</string>
@@ -309,82 +335,299 @@
     <string name="images_desc">Izkin biribilduak, betetze horizontala</string>
     <string name="videos_desc">Izkin biribilduak, betetze horizontala</string>
     <string name="maximize">Maximizatu</string>
-    <string name="add_accounts">Kontuak gehitu</string>
-    <string name="for_2_days">2 egun</string>
-    <string name="services">Zerbitzuak</string>
-    <string name="more">Gehiago</string>
-    <string name="display">Erakutsi</string>
-    <string name="list">Zerrenda</string>
-    <string name="for_3_days">3 egun</string>
-    <string name="for_1_week">Aste 1</string>
-    <string name="for_1_month">Hilabete 1</string>
-    <string name="export_as_opml">OPML bezala esportatu</string>
-    <string name="sync_once_on_start">Sinkronizatu behin abiarazterakoan</string>
-    <string name="for_2_weeks">2 aste</string>
-    <string name="delete_account">Kontua ezabatu</string>
-    <string name="must_have_an_account">Kontu behar beharrezkoa da</string>
-    <string name="every_2_hours">2 orduro</string>
-    <string name="every_1_hour">Orduro</string>
-    <string name="every_12_hours">12 orduro</string>
-    <string name="keep_archived_articles">Mantendu artxibatutako artikuluak</string>
     <string name="every_15_minutes">15 minuturo</string>
     <string name="every_30_minutes">30 minuturo</string>
+    <string name="every_1_hour">Orduro</string>
+    <string name="every_2_hours">2 orduro</string>
     <string name="every_3_hours">3 orduro</string>
-    <string name="local_desc">Gailu honetan</string>
-    <string name="only_when_charging">Kargatu bitartean soilik</string>
-    <string name="clear_all_articles">Artikulu guztiak ezabatu</string>
     <string name="every_6_hours">6 orduro</string>
-    <string name="add_accounts_desc">Lokala, Zerbitzuak, Norberak ostatatukoa</string>
-    <string name="only_on_wifi">Wifipean soilik</string>
+    <string name="every_12_hours">12 orduro</string>
+    <string name="every_1_day">Egunero</string>
+    <string name="manually">Eskuz</string>
+    <string name="always">Beti</string>
+    <string name="for_1_day">Egun 1</string>
+    <string name="for_2_days">2 egun</string>
+    <string name="for_3_days">3 egun</string>
+    <string name="for_1_week">Aste 1</string>
+    <string name="for_2_weeks">2 aste</string>
+    <string name="for_1_month">Hilabete 1</string>
+    <string name="local">Lokala</string>
+    <string name="fever" translatable="false">Fever</string>
+    <string name="google_reader" translatable="false">Google Reader</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="feedly" translatable="false">Feedly</string>
+    <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="local_desc">Gailu honetan</string>
+    <string name="services">Zerbitzuak</string>
+    <string name="feedly_desc" translatable="false">feedly.com</string>
+    <string name="inoreader_desc" translatable="false">inoreader.com</string>
     <string name="self_hosted">Norberak ostatatutakoa</string>
+    <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="google_reader_desc" translatable="false">Google Reader API</string>
+    <string name="fever_desc">Zaharkituta. Ez da gomendatzen.</string>
+    <string name="more">Gehiago</string>
+    <string name="add_accounts">Kontuak gehitu</string>
+    <string name="list">Zerrenda</string>
+    <string name="add_accounts_desc">Lokala, Zerbitzuak, Norberak ostatatukoa</string>
+    <string name="display">Erakutsi</string>
     <string name="synchronous">Sinkronizazioa</string>
     <string name="sync_interval">Sinkronizatu</string>
-    <string name="every_1_day">Egunero</string>
-    <string name="for_1_day">Egun 1</string>
-    <string name="delete_account_toast">Kontu hau ezabatu egin da</string>
-    <string name="clear_all_articles_toast">Kontu honetako artikulu guztiak ezabatu dira</string>
+    <string name="sync_once_on_start">Sinkronizatu behin abiarazterakoan</string>
+    <string name="only_on_wifi">Wifipean soilik</string>
+    <string name="only_when_charging">Kargatu bitartean soilik</string>
+    <string name="keep_archived_articles">Mantendu artxibatutako artikuluak</string>
     <string name="block_list">Blokeatutakoen zerrenda</string>
-    <string name="delete_account_tips">Kontu hau ezabatu nahi duzu\?</string>
+    <string name="export_as_opml">OPML bezala esportatu</string>
+    <string name="clear_all_articles">Artikulu guztiak ezabatu</string>
+    <string name="delete_account">Kontua ezabatu</string>
     <string name="clear_all_articles_tips">Kontu honetako artikulu guztiak ezabatu nahi dituzu\?</string>
-    <string name="always">Beti</string>
-    <string name="local">Lokala</string>
-    <string name="fever_desc">Zaharkituta. Ez da gomendatzen.</string>
+    <string name="delete_account_tips">Kontu hau ezabatu nahi duzu\?</string>
+    <string name="must_have_an_account">Kontu behar beharrezkoa da</string>
+    <string name="clear_all_articles_toast">Kontu honetako artikulu guztiak ezabatu dira</string>
+    <string name="delete_account_toast">Kontu hau ezabatu egin da</string>
     <string name="synchronous_tips">Aplikazioa berrabiarazi behar da aldaketak efektua izateko.</string>
-    <string name="manually">Eskuz</string>
+    <string name="keep_archived_tips">Artxibatutako elementuak irakurritako gisa markatuta dauden artikuluak dira, izarrik gabekoak eta etiketatu gabekoak. "Mantendu artxibatutako artikuluak" ezarpena gailu honetan bakarrik da eraginkorra. Artxibatutako artikulu zaharragoak gailu honetatik ezabatuko dira. Artikuluak ezabatzea ezin da desegin.</string>
     <string name="switch_account">Kontua aldatu</string>
     <string name="add">Gehitu</string>
-    <string name="auto_customtabs">Automatikoa (Lehenetsi CustomTabs)</string>
-    <string name="external_links">Kanpoko estekak</string>
     <string name="accounts_tips">Kontuaren izena ukitu dezakezu jarioen orrian kontua aldizkatzeko</string>
-    <string name="empty">Hutsik</string>
     <string name="server_url">Zerbitzariaren URL-a</string>
-    <string name="password">Pasahitza</string>
-    <string name="system_default">Sistema</string>
-    <string name="open_link_specific_browser">Nabigatzailea</string>
-    <string name="include_additional_info">Informazio gehigarria sartu</string>
-    <string name="exclude">Baztertu</string>
-    <string name="additional_info_desc">Informazio gehigarriak jario bakoitzeko konfigurazio aukerak sartzen ditu, adibidez jakinarazpenak onartzen diren edo ez, eduki osoa analizatzen den edo ez, etab. Zure asmoa denean esportatutako OPML fitxategia beste irakurle batzuekin erabiltzea, mesedez hautatu \"Baztertu\".</string>
-    <string name="auto_default_browser">Automatikoa (Lehenetsi nabigatzailea)</string>
     <string name="username">Erabiltzaile izena</string>
+    <string name="password">Pasahitza</string>
+    <string name="client_certificate">Bezeroaren ziurtagiria (aukerakoa)</string>
     <string name="connection">Konexioa</string>
+    <string name="system_default">Sistema</string>
     <string name="initial_open_app">Esteka bat klikatzerakoan irekiko den aplikazioa</string>
     <string name="open_link_specific_browser_not_selected">Bat ere ez</string>
+    <string name="auto_customtabs">Automatikoa (Lehenetsi CustomTabs)</string>
+    <string name="auto_default_browser">Automatikoa (Lehenetsi nabigatzailea)</string>
     <string name="custom_tabs">Behartu CustomTabs erabiltzera</string>
     <string name="specific_browser">Behartu zehaztutako nabigatzailea erabiltzera</string>
     <string name="specific_browser_name">Nabigatzailea: %1$s</string>
     <string name="default_browser">Behartu lehenetsitako nabigatzailea</string>
     <string name="always_ask">Galdetu beti</string>
-    <string name="open_link_something_wrong">\"Esteka ireki\" ezarpena alde batera utzi da zerbait oker joan delako.</string>
+    <string name="open_link_specific_browser">Nabigatzailea</string>
+    <string name="open_link_something_wrong">"Esteka ireki" ezarpena alde batera utzi da zerbait oker joan delako.</string>
     <string name="open_link_ask_dialog_title">Ireki honekin…</string>
+    <string name="include_additional_info">Informazio gehigarria sartu</string>
+    <string name="exclude">Baztertu</string>
+    <string name="additional_info_desc">Informazio gehigarriak jario bakoitzeko konfigurazio aukerak sartzen ditu, adibidez jakinarazpenak onartzen diren edo ez, eduki osoa analizatzen den edo ez, etab. Zure asmoa denean esportatutako OPML fitxategia beste irakurle batzuekin erabiltzea, mesedez hautatu "Baztertu".</string>
     <string name="grey_out_articles">Artikuluak grisez markatu</string>
     <string name="all_read">Irakurritako guztiak</string>
     <string name="read_excluding_starred">Irakurritakoak, izartutakoak izan ezik</string>
+    <string name="external_links">Kanpoko estekak</string>
+    <string name="unexpected_error_title">Hara! Zeozer gaizki joan da…</string>
+    <string name="copy_error_report">Erroreen txostena kopiatu</string>
     <string name="submit_bug_report">akats txosten bat ireki GitHub-en</string>
     <string name="unexpected_error_msg">Aplikazioak ezusteko errore bat aurkitu du eta itxi behar izan da. \n \nArazo hau azkar identifikatzen eta konpontzen laguntzeko, %1$s egin dezakezu beheko pilaren arrastoarekin.</string>
     <string name="next_article">Hurrengo artikulua</string>
-    <string name="none">Bat ere ez</string>
-    <string name="unexpected_error_title">Hara! Zeozer gaizki joan da…</string>
-    <string name="copy_error_report">Erroreen txostena kopiatu</string>
     <string name="swipe_to_start">Arrastatu ezkerrera</string>
     <string name="swipe_to_end">Arrastatu eskuinera</string>
+    <string name="none">Bat ere ez</string>
+    <string name="toggle_read">Aldatu irakurketa</string>
+    <string name="toggle_starred">Aldatu izarrez</string>
+    <string name="line_height_multiple">Lerroaren altuera anitza</string>
+    <string name="export">Esportatu</string>
+    <string name="pull_to_switch_article">Tira artikulua aldatzeko</string>
+    <string name="mark_above_as_read">Markatu goiko irakurri bezala</string>
+    <string name="mark_below_as_read">Markatu behean irakurritako moduan</string>
+    <string name="save">Gorde</string>
+    <string name="image_saved">Irudia gorde da</string>
+    <string name="permission_denied">Baimena ukatu egin da</string>
+    <string name="shared_content">Partekatutako edukia</string>
+    <string name="only_link">Esteka bakarra</string>
+    <string name="title_and_link">Izenburua eta esteka</string>
+    <string name="troubleshooting">Arazoak konpontzea</string>
+    <string name="troubleshooting_desc">Akatsen txostena, aplikazioen hobespenak</string>
+    <string name="bug_report">Akatsen txostena</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/ReadYouApp/ReadYou/issues</string>
+    <string name="app_preferences">Aplikazioaren hobespenak</string>
+    <string name="import_from_protobuf_file">Inportatu protobuf fitxategitik</string>
+    <string name="export_as_protobuf_file">Esportatu protobuf fitxategi gisa</string>
+    <string name="invalid_protobuf_file_warning">Baliteke fitxategi hau baliozko protobuf fitxategia ez izatea. Inportatzeak aplikazioa hondatu eta egungo hobespenak galtzea eragin dezake. Ziur jarraitu nahi duzula?</string>
+    <string name="import_from_json">Inportatu JSONtik</string>
+    <string name="export_as_json">Esportatu JSON gisa</string>
+    <string name="invalid_json_file_warning">Baliteke fitxategi hau baliozko JSON fitxategi bat ez izatea. Inportatzeak aplikazioa hondatu eta egungo hobespenak galtzea eragin dezake. Ziur jarraitu nahi duzula?</string>
+    <string name="webview" translatable="false">WebView</string>
+    <string name="native_component">Bertako osagaia</string>
+    <string name="content_renderer">Edukien errendatzailea</string>
+    <string name="read_aloud">Irakurri ozen</string>
+    <string name="only_available_on_webview">WebView edukien errendatzailea erabiltzean bakarrik erabilgarri</string>
+    <string name="about">Buruz</string>
+    <string name="mark_as_read_on_scroll">Markatu irakurritako gisa korrituan</string>
+    <string name="hide_empty_groups">Ezkutatu hutsik dauden taldeak</string>
+    <string name="become_a_sponsor">Egin zaitez babesle</string>
+    <string name="sponsor_desc">Doako kode irekiko aplikazio hau eraiki eta mantentzen dugu gure denbora librean. Gustatzen bazaizu, kontuan hartu gurekin laguntzea dohaintza txiki batekin! ☕️</string>
+    <string name="toolbars">Tresna-barrak</string>
+    <string name="sort_unread_articles">Ordenatu irakurri gabeko artikuluak</string>
+    <string name="latest">Azkena</string>
+    <string name="earliest">Lehenago</string>
+    <string name="short_desc">Laburra</string>
+    <string name="long_desc">Luzea</string>
+    <string name="none_desc">Bat ere ez</string>
+    <string name="pull_to_switch_feed">Tira hurrengo jarioa kargatzeko</string>
+    <string name="bold_characters">Pertsonaia ausartak</string>
+    <string name="use_bold_characters">Erabili karaktere lodiak</string>
+    <string name="bold_characters_preview">Lodiz idatzi artikulu bateko hitzen lehen karaktereak</string>
+    <string name="load_next_feed">Kargatu hurrengo jarioa</string>
+    <string name="mark_all_as_read_and_load_next_feed">Markatu dena irakurrita bezala eta kargatu hurrengo jarioa</string>
+    <string name="pull_from_bottom">Tira behetik</string>
+    <string name="account">Kontua</string>
+    <string name="feed">Elikadura</string>
+    <string name="folder">Karpeta</string>
+    <string name="data_source">Datu iturria</string>
+    <string name="theme">Gaia</string>
+    <string name="widget_settings">Widget-en ezarpenak</string>
+    <string name="done">Eginda</string>
+    <string name="last_updated">Azken eguneratua</string>
+    <string name="no_unread_articles">Ez dago irakurri gabeko artikulurik</string>
+    <string name="list_widget_label">Zerrenda ikuspegia</string>
+    <string name="card_widget_label">Txartelaren ikuspegia</string>
+    <string name="widget_description">Ikusi hautatutako iturrietatik irakurri gabeko azken artikuluak</string>
+    <string name="apply">Aplikatu</string>
+    <string name="notifications">Jakinarazpenak</string>
+    <string name="group_configuration_description">Konfiguratu "%1$s" "%2$s" jarioetarako</string>
+    <string name="disabled">Ezindua</string>
+    <string name="enabled">Gaituta</string>
+    <string name="notifications_desc">Jaso jakinarazpenak irakurri gabeko artikulu berriak eskuragarri daudenean</string>
+    <string name="open_in_browser_desc">Ireki artikuluak arakatzailean</string>
+    <string name="parse_full_content_desc">Eskuratu artikulu osoa web-orrietatik</string>
+    <string name="enable">Gaitu</string>
+    <string name="disable">Desgaitu</string>
+    <string name="show_sync_status">Erakutsi sinkronizazio-egoera</string>
+    <string name="show_sync_status_desc">Bistaratu azken sinkronizazio egoera, data eta ordua jario bakoitzaren azpian</string>
+    <string name="reading_ai_summary">Artikuluaren laburpena</string>
+    <string name="reading_ai_summary_desc">Erakutsi laburpen botoia irakurketa tresna-barran arakatzailean irekitzeko</string>
+    <string name="summarizer_engine">Laburpen Motorra</string>
+    <string name="summarizer_language">Laburpena Hizkuntza</string>
+    <string name="summarizer_style">Laburpen formatua / Estiloa</string>
+    <string name="no_link_available">Ez dago estekarik artikulu honetarako</string>
+    <plurals name="new_articles_count">
+        <item quantity="one">%1$dartikulu berria gehitu da</item>
+        <item quantity="other">%1$dartikulu berriak gehitu dira</item>
+    </plurals>
+    <string name="sync_finished_title">Sinkronizazioa amaitu da</string>
+    <string name="sync_notification">Sinkronizatu jakinarazpena</string>
+    <string name="sync_notification_desc">Erakutsi jakinarazpena gehitutako artikulu kopuruarekin sinkronizatu ondoren</string>
+    <string name="restore_last_article">Azken irakurritako artikuluari buruzko laburpena</string>
+    <string name="restore_last_article_desc">Ireki berriro irakurtzen ari zaren artikulua aplikazioa abiarazten duzunean</string>
+    <string name="restore_scroll_position">Gogoratu Korritzeko posizioa</string>
+    <string name="restore_scroll_position_desc">Berrezarri zerrendako posizioa abiaraztean</string>
+    <string name="full_translation">Itzulpen osoa</string>
+    <string name="translate_article">Itzuli artikulua</string>
+    <string name="ai_summary">Laburpena</string>
+    <string name="ai_full_translation">Itzulpen osoa</string>
+    <string name="ai_generating_summary">Laburpena sortzen...</string>
+    <string name="ai_translating_article">Artikulua itzultzen...</string>
+    <string name="copied_to_clipboard">Arbelean kopiatu da</string>
+    <string name="regenerate">Birsortu</string>
+    <string name="retry">Saiatu berriro</string>
+    <string name="copy">Kopiatu</string>
+    <string name="search_settings">Bilaketa-ezarpenak</string>
+    <string name="no_settings_found">Ez da ezarpenik aurkitu</string>
+    <string name="sync_status_always">Beti</string>
+    <string name="sync_status_errors_only">Akatsak soilik</string>
+    <string name="sync_status_never">Inoiz ez</string>
+    <string name="summary_style_key_points">Gako Puntuak</string>
+    <string name="summary_style_tldr">TL;DR</string>
+    <string name="summary_style_detailed">Xehetasuna</string>
+    <string name="ai_select_language">Hautatu hizkuntza…</string>
+    <string name="ai_select_language_prompt">Mesedez, hautatu hizkuntza bat hasteko.</string>
+    <string name="open_summary_in_browser">Ireki Laburpena arakatzailean</string>
+    <string name="article_summary">Artikuluaren laburpena</string>
+    <string name="sync_status_unsynced">Sinkronizatu gabe</string>
+    <string name="sync_status_today">Gaur%1$s</string>
+    <string name="sync_status_yesterday">Atzo%1$s</string>
+    <string name="sync_status_success_prefix">Sinkronizatuta:%1$s</string>
+    <string name="sync_status_failed_prefix">Huts egin du:%1$s</string>
+    <string name="backup_and_restore">Babeskopia eta leheneratu</string>
+    <string name="export_full_backup">Esportatu datu eta ezarpen guztiak</string>
+    <string name="export_full_backup_desc">Artikulu guztiak (izardunak, irakurri gabekoak, guztiak), jarioak, taldeak, kontuak eta ezarpenak biltzen ditu</string>
+    <string name="import_full_backup">Inportatu datu eta ezarpen guztiak</string>
+    <string name="export_preferences">Esportatu ezarpenak soilik</string>
+    <string name="import_preferences">Inportatu ezarpenak soilik</string>
+    <string name="exporting_backup">Babeskopia esportatzen…</string>
+    <string name="importing_backup">Babeskopia inportatzen…</string>
+    <string name="exporting_articles">Artikuluak esportatzen…</string>
+    <string name="importing_articles">Artikuluak leheneratzen…</string>
+    <string name="backup_export_success">Esportatu da babeskopia</string>
+    <string name="backup_export_failed">Ezin izan da babeskopia esportatu</string>
+    <string name="backup_import_success">Babeskopia behar bezala inportatu da</string>
+    <string name="backup_import_failed">Ezin izan da babeskopia inportatu</string>
+    <string name="cloud_backup">Hodeiko babeskopia</string>
+    <string name="cloud_backup_desc">Egin babeskopiak eta leheneratu WebDAV, FTP, FTPS eta SFTP bidez</string>
+    <string name="server_settings">Zerbitzariaren ezarpenak</string>
+    <string name="protocol">Protokoloa</string>
+    <string name="server_host">Ostalariaren / zerbitzariaren URLa</string>
+    <string name="server_port">Portua</string>
+    <string name="remote_path">Urruneko karpetaren bidea</string>
+    <string name="trust_insecure_ssl">Norberak sinatutako ziurtagiriak fidagarriak</string>
+    <string name="test_connection">Proba konexioa</string>
+    <string name="testing_connection">Konexioa probatzen…</string>
+    <string name="auto_backup">Babeskopia automatikoa</string>
+    <string name="auto_backup_desc">Aldian-aldian babeskopia datu osoak hodeian</string>
+    <string name="frequency">Maiztasuna</string>
+    <string name="freq_disabled">Ezindua</string>
+    <string name="freq_6_hours">6 orduz behin</string>
+    <string name="freq_12_hours">12 orduz behin</string>
+    <string name="freq_daily">Egunero (24h)</string>
+    <string name="freq_weekly">Astero (7 egun)</string>
+    <string name="require_wifi">Wi-Fi bakarrik</string>
+    <string name="require_wifi_desc">Egin babeskopia Wi-Fi konexioan soilik</string>
+    <string name="require_charging">Kargatzen bakarrik</string>
+    <string name="require_charging_desc">Egin babeskopia gailua kargatzen ari denean soilik</string>
+    <string name="max_backups_to_keep">Backup Errotazioa</string>
+    <string name="max_backups_desc">Gorde%1$dazken babeskopiak zerbitzarian</string>
+    <string name="max_backups_unlimited">Gorde babeskopia guztiak (mugagabea)</string>
+    <string name="backup_now">Egin babeskopia orain</string>
+    <string name="remote_backups">Urruneko babeskopiak</string>
+    <string name="no_remote_backups">Ez da babeskopiarik aurkitu zerbitzarian</string>
+    <string name="restore_remote_backup">Berrezarri babeskopia</string>
+    <string name="restore_confirm_message">Ziur babeskopia hau leheneratu nahi duzula? Uneko datuak bateratuko dira.</string>
+    <string name="delete_remote_backup">Ezabatu urruneko babeskopia</string>
+    <string name="delete_confirm_message">Ziur babeskopia hau zerbitzaritik ezabatu nahi duzula?</string>
+    <string name="cloud_backup_success">Hodeiko babeskopia behar bezala osatu da</string>
+    <string name="cloud_backup_failed">Ezin izan da hodeiko babeskopia egin</string>
+    <string name="cloud_restore_success">Hodeiaren leheneratzea behar bezala osatu da</string>
+    <string name="cloud_restore_failed">Ezin izan da hodeiko babeskopia berrezarri</string>
+    <string name="cloud_delete_success">Urruneko babeskopia ezabatu da</string>
+    <string name="article_layout">Artikuluaren diseinua</string>
+    <string name="layout_list">Zerrenda</string>
+    <string name="layout_grid">Sarea</string>
+    <string name="switch_to_grid_view">Aldatu sareta ikuspegira</string>
+    <string name="switch_to_list_view">Aldatu zerrenda ikuspegira</string>
+    <string name="display_format">Bistaratzeko formatua</string>
+    <string name="card_elements">Txartelaren elementuak</string>
+    <string name="reading_indicators">Irakurketa eta adierazleak</string>
+    <string name="reading_display_engine">Errendatzea eta bistaratzea</string>
+    <string name="reading_typography_media">Tipografia eta komunikabideak</string>
+    <string name="reading_ai_assistant">AI Irakurketa Laguntzailea</string>
+    <string name="swipe_gestures">Irristatu keinuak</string>
+    <string name="scrolling_navigation">Korritzea eta nabigazioa</string>
+    <string name="external_links_sharing">Kanpoko estekak eta partekatzea</string>
+    <string name="diagnostics_and_reports">Diagnostikoak eta txostenak</string>
+    <string name="local_backup_restore">Tokiko babeskopia eta leheneratzea</string>
+    <string name="storage_and_cache">Biltegiratzea eta cachea</string>
+    <string name="sync_logs">Sinkronizatu erregistroak</string>
+    <string name="clear_server_config">Garbitu zerbitzariaren konfigurazioa</string>
+    <string name="clear_server_config_desc">Kendu zerbitzariaren kredentzialak eta berrezarri hodeiko babeskopia</string>
+    <string name="clear_server_config_confirm">Ziur hodeiko babeskopien zerbitzariaren konfigurazioa garbitu eta babeskopia automatikoak desgaitu nahi dituzula?</string>
+    <string name="clear_server_config_success">Garbitu da zerbitzariaren konfigurazioa</string>
+    <string name="backup_and_data">Babeskopia eta Datuak</string>
+    <string name="backup_and_data_desc">Hodeiko eta tokiko babeskopia, hobespenak, cachea</string>
+    <string name="theme_and_colors">Gaia eta Koloreak</string>
+    <string name="presentation_and_layout">Orriaren diseinuak eta bistaratzea</string>
+    <string name="clear_cache">Garbitu cachea</string>
+    <string name="clear_cache_desc">Garbitu cacheko irudiak eta artikuluak</string>
+    <string name="clear_cache_success">Cachea ondo garbitu da</string>
+    <string name="feeds_page_style_desc">Karpetak, kota, fabicons, sinkronizazio egoera</string>
+    <string name="flow_page_style_desc">Sarea edo Zerrenda, irristatze keinuak, korritzea, txartelak</string>
+    <string name="reading_page_style_desc">Irakurketa motorra, tipografia, estekak, AI laburpena</string>
+    <string name="global_style">Estilo globala</string>
+    <string name="backups_title">Backups</string>
+    <string name="help_and_support">Laguntza eta laguntza</string>
+    <string name="feeds_layout">Jarioen diseinua</string>
+    <string name="import_opml">Inportatu OPML</string>
+    <string name="import_opml_desc">Inportatu OPML fitxategi batetik jarioak kontu honetara</string>
+    <string name="import_opml_success">OPML behar bezala inportatu da</string>
+    <string name="import_opml_failed">Ezin izan da inportatu OPML fitxategia</string>
 </resources>
