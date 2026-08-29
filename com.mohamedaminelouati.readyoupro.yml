@@ -1,38 +1,29 @@
 Categories:
-  - Internet
   - News
+  - Reading
 License: GPL-3.0-only
-WebSite: https://github.com/mohamedaminelouati/ReadYou-Pro
+AuthorName: Mohamed Amine Louati
+AuthorEmail: mohamedaminlouati@gmail.com
+AuthorWebSite: https://github.com/mohamedaminelouati/ReadYou-Pro
 SourceCode: https://github.com/mohamedaminelouati/ReadYou-Pro
 IssueTracker: https://github.com/mohamedaminelouati/ReadYou-Pro/issues
 Changelog: https://github.com/mohamedaminelouati/ReadYou-Pro/releases
 
 AutoName: Read You Pro
-Summary: Modern Material You Android RSS Reader
-
-Description: |-
-  Read You Pro is an elegant, modern RSS reader for Android crafted with Jetpack Compose following Material You principles with zero tracking and full privacy.
-
-  Features:
-  * Native Cloud RSS Engines: Miniflux, Tiny Tiny RSS, Feedbin, Inoreader, Feedly, Fever & Google Reader API
-  * AI Article Summarization & Instant Translation
-  * Material You dynamic theming and AMOLED dark mode
-  * Automated scheduled backups to WebDAV, FTP, FTPS, and SFTP
-  * 51 synchronized regional languages
-  * Complete privacy: zero tracking, zero ads, zero data collection
 
 RepoType: git
 Repo: https://github.com/mohamedaminelouati/ReadYou-Pro.git
 
 Builds:
-  - versionName: '1.0.0'
+  - versionName: 1.0.0
     versionCode: 100
     commit: v1.0.0
     subdir: app
     gradle:
-      - fdroidRelease
+      - fdroid
+    prebuild: sed -i -e '/signingConfigs.getByName/d' build.gradle.kts
 
-AutoUpdateMode: Version v%v
-UpdateCheckMode: Tags
-CurrentVersion: '1.0.0'
+AutoUpdateMode: Version
+UpdateCheckMode: Tags ^v?[\d.]+$
+CurrentVersion: 1.0.0
 CurrentVersionCode: 100
