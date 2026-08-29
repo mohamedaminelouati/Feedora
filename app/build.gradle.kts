@@ -42,8 +42,8 @@ android {
         applicationId = "com.mohamedaminelouati.readyoupro"
         minSdk = 26
         targetSdk = 34
-        versionCode = 47
-        versionName = "0.16.2"
+        versionCode = 100
+        versionName = "1.0.0"
 
         buildConfigField(
             "String",
