@@ -250,15 +250,21 @@
     <string name="local">Локально</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">На этом устройстве</string>
     <string name="services">Сервисы</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">Самостоятельно развёрнутое на самохостинге</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Устарело. Не рекомендуется.</string>
     <string name="more">Больше</string>
@@ -514,16 +520,16 @@
     <string name="presentation_and_layout">Макеты и отображение страниц</string>
     <string name="clear_cache">Очистить кеш</string>
     <string name="clear_cache_desc">Очистить кэшированные изображения и статьи</string>
-    <string name="clear_cache_success">Cache cleared successfully</string>
-    <string name="feeds_page_style_desc">Folders, elevation, favicons, sync status</string>
-    <string name="flow_page_style_desc">Grid or List, swipe gestures, scrolling, cards</string>
-    <string name="reading_page_style_desc">Reading engine, typography, links, AI summary</string>
-    <string name="global_style">Global Style</string>
-    <string name="backups_title">Backups</string>
-    <string name="help_and_support">Help &amp; Support</string>
-    <string name="feeds_layout">Feeds Layout</string>
-    <string name="import_opml">Import OPML</string>
-    <string name="import_opml_desc">Import feeds from an OPML file into this account</string>
-    <string name="import_opml_success">OPML imported successfully</string>
-    <string name="import_opml_failed">Failed to import OPML file</string>
+    <string name="clear_cache_success">Кэш успешно очищен</string>
+    <string name="feeds_page_style_desc">Папки, повышение прав, значки, статус синхронизации</string>
+    <string name="flow_page_style_desc">Сетка или список, жесты смахивания, прокрутка, карточки</string>
+    <string name="reading_page_style_desc">Механизм чтения, типографика, ссылки, резюме AI</string>
+    <string name="global_style">Глобальный стиль</string>
+    <string name="backups_title">Резервные копии</string>
+    <string name="help_and_support">Помощь и поддержка</string>
+    <string name="feeds_layout">Макет каналов</string>
+    <string name="import_opml">Импортировать OPML</string>
+    <string name="import_opml_desc">Импортируйте каналы из файла OPML в этот аккаунт.</string>
+    <string name="import_opml_success">OPML успешно импортирован</string>
+    <string name="import_opml_failed">Не удалось импортировать файл OPML.</string>
 </resources>

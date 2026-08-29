@@ -86,6 +86,86 @@ class AdditionViewModel @Inject constructor(
             )
         }
     }
+
+    fun showAddMinifluxAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addMinifluxAccountDialogVisible = true,
+            )
+        }
+    }
+
+    fun hideAddMinifluxAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addMinifluxAccountDialogVisible = false,
+            )
+        }
+    }
+
+    fun showAddTTRSSAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addTTRSSAccountDialogVisible = true,
+            )
+        }
+    }
+
+    fun hideAddTTRSSAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addTTRSSAccountDialogVisible = false,
+            )
+        }
+    }
+
+    fun showAddInoreaderAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addInoreaderAccountDialogVisible = true,
+            )
+        }
+    }
+
+    fun hideAddInoreaderAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addInoreaderAccountDialogVisible = false,
+            )
+        }
+    }
+
+    fun showAddFeedbinAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addFeedbinAccountDialogVisible = true,
+            )
+        }
+    }
+
+    fun hideAddFeedbinAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addFeedbinAccountDialogVisible = false,
+            )
+        }
+    }
+
+    fun showAddFeedlyAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addFeedlyAccountDialogVisible = true,
+            )
+        }
+    }
+
+    fun hideAddFeedlyAccountDialog() {
+        _additionUiState.update {
+            it.copy(
+                addFeedlyAccountDialogVisible = false,
+            )
+        }
+    }
 }
 
 data class AdditionUiState(
@@ -93,4 +173,9 @@ data class AdditionUiState(
     val addFeverAccountDialogVisible: Boolean = false,
     val addGoogleReaderAccountDialogVisible: Boolean = false,
     val addFreshRSSAccountDialogVisible: Boolean = false,
+    val addMinifluxAccountDialogVisible: Boolean = false,
+    val addTTRSSAccountDialogVisible: Boolean = false,
+    val addInoreaderAccountDialogVisible: Boolean = false,
+    val addFeedbinAccountDialogVisible: Boolean = false,
+    val addFeedlyAccountDialogVisible: Boolean = false,
 )

@@ -58,11 +58,11 @@ The following are the progress made so far and the goals to be worked on in the 
 - [x] Fever
 - [x] Google Reader
 - [x] FreshRSS
-- [ ] Miniflux
-- [ ] Tiny Tiny RSS
-- [ ] Inoreader
-- [ ] Feedly
-- [ ] Feedbin
+- [x] Miniflux
+- [x] Tiny Tiny RSS
+- [x] Inoreader
+- [x] Feedly
+- [x] Feedbin
 - [ ] ...
 
 ## Download

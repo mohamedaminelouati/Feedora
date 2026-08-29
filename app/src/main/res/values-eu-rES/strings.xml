@@ -129,115 +129,7 @@
     <string name="tos_tips">Mesedez irakurri eta onartu Read You-ren zerbitzu-baldintzak eta pribatutasun politika jarraitu ahal izateko.</string>
     <string name="browse_tos_tips">Nabigatu </string>
     <string name="terms_of_service">Zerbitzu-baldintzak</string>
-    <string name="tos_content">
-        <h5>
-
-        Pribatutasun politika
-
-        </h5>
-        <br/>
-        <p>
-
-        Zure pribatutasuna oso serio hartzen dut.
-
-        </p>
-        <br/>
-        <p>
-        <b>Read You</b>
-
-        aplikazioak ez du inolako erabiltzaile daturik biltzen, eta informazio sentikor guztia (pasahitzak eta beste kontu-informazioa)
-        aplikazioaren datu-base lokal eta seguruan gordetzen dira zure gailuan.
-
-        </p>
-        <br/>
-        <p>
-        <b>Read You</b>
-
-        aplikazioak hurrengo baimenak erabiliko ditu zerbitzua hornitu ahal izateko.
-
-        </p>
-        <br/>
-        <p>
-
-        - Sarerako sarbide baimena (zehazten duzun sareko edukia eskuratu ahal izateko)
-
-        </p>
-        <p>
-
-        - Sareraen egoera eskuratzeko baimena (jakin ahal izateko ea gailua sarerik eskuragarri duen)
-
-        </p>
-        <p>
-
-        - Atzeko planoko zerbitzu baimena (aldiro zure gogokoenak automatikoki sinkronizatzeko)
-
-        </p>
-        <br/>
-        <br/>
-        <h5>
-
-        Hirugarrenen zerbitzuak
-
-        </h5>
-        <br/>
-        <p>
-
-        Politika honek ez du eraginik <b>Read You</b> aplikazioarekin erabiltzen dituzun hirugarrenen zerbitzuetan.
-        Erabiltzen dituzun zerbitzuen pribatutasun politikak haien webguneetan aztertu ditzakezu.
-
-        </p>
-        <br/>
-        <br/>
-        <h5>
-
-        Erantzukizun ezeztapenak
-
-        </h5>
-        <br/>
-        <p>
-        <b>Read You</b>
-
-        edukia biltzen duen tresna bat besterik ez da. Egiten duzun <b>Read You</b> aplikazioaren erabilera
-        zure herrialde eta eskualdearen lege eta arauen menpekoa da, eta zure ekintzetatik deribatutako edozein erantzukizun
-        zure gain hartuko da pertsonalki.
-
-        </p>
-        <br/>
-        <br/>
-        <h5>
-
-        Kode irekiko lizentzia
-
-        </h5>
-        <br/>
-        <p>
-        <b>Read You</b>
-
-        GNU GPL 3.0 kode irekiko lizentziapean dagoen kode irekiko proiektu bat da[1], baimena ematen dizuna modu librean
-        <b>Read You</b> proiektuaren kodea erabiltzeko, erreferentzia egiteko, eta iturburua aldatzeko,
-        baina baimentzen ez duena aldatutako eta deribatutako kode hori kode itxiko software komertzial bezala banatzen edo saltzen.
-        Xehetasunetarako, mesedez irakurri GNU GPL 3.0 kode irekiko lizentzia[2] osoa.
-
-        </p>
-        <br/>
-        <br/>
-        <h5>
-
-        Eranskinak
-
-        </h5>
-        <br/>
-        <p>
-
-        - [1] https://github.com/ReadYouApp/ReadYou
-
-        </p>
-        <p>
-
-        - [2] https://www.gnu.org/licenses/gpl-3.0.html
-
-        </p>
-    </string>
+    <string name="tos_content"></string>
     <string name="agree">Ados</string>
     <string name="wallpaper_colors">Horma-paperaren koloreak</string>
     <string name="no_palettes">Paletarik ez</string>
@@ -354,15 +246,21 @@
     <string name="local">Lokala</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">Gailu honetan</string>
     <string name="services">Zerbitzuak</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">Norberak ostatatutakoa</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Zaharkituta. Ez da gomendatzen.</string>
     <string name="more">Gehiago</string>

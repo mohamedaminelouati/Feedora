@@ -245,15 +245,21 @@
     <string name="local">Lokallar</string>
     <string name="fever" translatable="false">Qızdırma</string>
     <string name="google_reader" translatable="false">Google Reader</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Qidalandırmaq</string>
     <string name="inoreader" translatable="false">İnoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">Bu cihazda</string>
     <string name="services">Xidmətlər</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">Öz-özünə ev sahibliyi edən</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API-si</string>
     <string name="fever_desc">Deprecated. Tövsiyə edilmir.</string>
     <string name="more">Daha çox</string>

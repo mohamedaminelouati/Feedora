@@ -247,15 +247,21 @@
     <string name="local">Lokálne</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">V tomto zariadení</string>
     <string name="services">Služby</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">Vlastný hosting</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Zastarané. Neodporúčané.</string>
     <string name="more">Viac</string>
@@ -479,48 +485,48 @@
     <string name="delete_remote_backup">Odstrániť vzdialenú zálohu</string>
     <string name="delete_confirm_message">Naozaj chcete odstrániť túto zálohu zo servera?</string>
     <string name="cloud_backup_success">Zálohovanie do cloudu bolo úspešne dokončené</string>
-    <string name="cloud_backup_failed">Failed to perform cloud backup</string>
-    <string name="cloud_restore_success">Cloud restore completed successfully</string>
-    <string name="cloud_restore_failed">Failed to restore cloud backup</string>
-    <string name="cloud_delete_success">Remote backup deleted</string>
-    <string name="article_layout">Article layout</string>
-    <string name="layout_list">List</string>
-    <string name="layout_grid">Grid</string>
-    <string name="switch_to_grid_view">Switch to grid view</string>
-    <string name="switch_to_list_view">Switch to list view</string>
-    <string name="display_format">Display Format</string>
-    <string name="card_elements">Card Elements</string>
-    <string name="reading_indicators">Reading &amp; Indicators</string>
-    <string name="reading_display_engine">Rendering &amp; Display</string>
-    <string name="reading_typography_media">Typography &amp; Media</string>
-    <string name="reading_ai_assistant">AI Reading Assistant</string>
-    <string name="swipe_gestures">Swipe Gestures</string>
-    <string name="scrolling_navigation">Scrolling &amp; Navigation</string>
-    <string name="external_links_sharing">External Links &amp; Sharing</string>
-    <string name="diagnostics_and_reports">Diagnostics &amp; Reports</string>
-    <string name="local_backup_restore">Local Backup &amp; Restore</string>
-    <string name="storage_and_cache">Storage &amp; Cache</string>
-    <string name="sync_logs">Sync Logs</string>
-    <string name="clear_server_config">Clear Server Configuration</string>
-    <string name="clear_server_config_desc">Remove server credentials and reset cloud backup</string>
-    <string name="clear_server_config_confirm">Are you sure you want to clear the cloud backup server configuration and disable automatic backups?</string>
-    <string name="clear_server_config_success">Server configuration cleared</string>
-    <string name="backup_and_data">Backups &amp; Data</string>
-    <string name="backup_and_data_desc">Cloud &amp; local backup, preferences, cache</string>
-    <string name="theme_and_colors">Theme &amp; Colors</string>
-    <string name="presentation_and_layout">Page Layouts &amp; Display</string>
-    <string name="clear_cache">Clear cache</string>
-    <string name="clear_cache_desc">Clear cached images and articles</string>
-    <string name="clear_cache_success">Cache cleared successfully</string>
-    <string name="feeds_page_style_desc">Folders, elevation, favicons, sync status</string>
-    <string name="flow_page_style_desc">Grid or List, swipe gestures, scrolling, cards</string>
-    <string name="reading_page_style_desc">Reading engine, typography, links, AI summary</string>
-    <string name="global_style">Global Style</string>
-    <string name="backups_title">Backups</string>
-    <string name="help_and_support">Help &amp; Support</string>
-    <string name="feeds_layout">Feeds Layout</string>
-    <string name="import_opml">Import OPML</string>
-    <string name="import_opml_desc">Import feeds from an OPML file into this account</string>
-    <string name="import_opml_success">OPML imported successfully</string>
-    <string name="import_opml_failed">Failed to import OPML file</string>
+    <string name="cloud_backup_failed">Zálohovanie do cloudu zlyhalo</string>
+    <string name="cloud_restore_success">Obnova cloudu bola úspešne dokončená</string>
+    <string name="cloud_restore_failed">Obnovenie zálohy v cloude zlyhalo</string>
+    <string name="cloud_delete_success">Vzdialená záloha bola odstránená</string>
+    <string name="article_layout">Rozloženie článku</string>
+    <string name="layout_list">Zoznam</string>
+    <string name="layout_grid">Mriežka</string>
+    <string name="switch_to_grid_view">Prepnúť na zobrazenie mriežky</string>
+    <string name="switch_to_list_view">Prepnúť na zobrazenie zoznamu</string>
+    <string name="display_format">Formát zobrazenia</string>
+    <string name="card_elements">Prvky karty</string>
+    <string name="reading_indicators">Čítanie a indikátory</string>
+    <string name="reading_display_engine">Vykresľovanie a zobrazenie</string>
+    <string name="reading_typography_media">Typografia a médiá</string>
+    <string name="reading_ai_assistant">Asistent čítania AI</string>
+    <string name="swipe_gestures">Gestá potiahnutia prstom</string>
+    <string name="scrolling_navigation">Rolovanie a navigácia</string>
+    <string name="external_links_sharing">Externé odkazy a zdieľanie</string>
+    <string name="diagnostics_and_reports">Diagnostika a správy</string>
+    <string name="local_backup_restore">Lokálne zálohovanie a obnovenie</string>
+    <string name="storage_and_cache">Ukladací priestor a vyrovnávacia pamäť</string>
+    <string name="sync_logs">Synchronizovať denníky</string>
+    <string name="clear_server_config">Vymazať konfiguráciu servera</string>
+    <string name="clear_server_config_desc">Odstráňte poverenia servera a obnovte zálohovanie v cloude</string>
+    <string name="clear_server_config_confirm">Naozaj chcete vymazať konfiguráciu cloudového zálohovacieho servera a zakázať automatické zálohovanie?</string>
+    <string name="clear_server_config_success">Konfigurácia servera je vymazaná</string>
+    <string name="backup_and_data">Zálohy a dáta</string>
+    <string name="backup_and_data_desc">Cloudové a lokálne zálohovanie, preferencie, vyrovnávacia pamäť</string>
+    <string name="theme_and_colors">Téma a farby</string>
+    <string name="presentation_and_layout">Rozloženie a zobrazenie stránky</string>
+    <string name="clear_cache">Vymazať vyrovnávaciu pamäť</string>
+    <string name="clear_cache_desc">Vymažte obrázky a články vo vyrovnávacej pamäti</string>
+    <string name="clear_cache_success">Vyrovnávacia pamäť bola úspešne vymazaná</string>
+    <string name="feeds_page_style_desc">Priečinky, nadmorská výška, ikony favicon, stav synchronizácie</string>
+    <string name="flow_page_style_desc">Mriežka alebo zoznam, gestá potiahnutia, posúvanie, karty</string>
+    <string name="reading_page_style_desc">Čítací stroj, typografia, odkazy, súhrn AI</string>
+    <string name="global_style">Globálny štýl</string>
+    <string name="backups_title">Zálohy</string>
+    <string name="help_and_support">Pomoc a podpora</string>
+    <string name="feeds_layout">Rozloženie informačných kanálov</string>
+    <string name="import_opml">Importovať OPML</string>
+    <string name="import_opml_desc">Importujte informačné kanály zo súboru OPML do tohto účtu</string>
+    <string name="import_opml_success">OPML bol úspešne importovaný</string>
+    <string name="import_opml_failed">Nepodarilo sa importovať súbor OPML</string>
 </resources>

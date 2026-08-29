@@ -244,15 +244,21 @@
     <string name="local">محلي</string>
     <string name="fever" translatable="false">حُمَّى (حرارة أو سخونة)</string>
     <string name="google_reader" translatable="false">قارىء جوجل</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">فيدلي</string>
     <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">ع هيدا الجهاز</string>
     <string name="services">خدمات</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">سلف-هوستد</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">قارىء جوجل</string>
     <string name="fever_desc">مش مدعوم. م بينصح فيه.</string>
     <string name="more">بعد</string>

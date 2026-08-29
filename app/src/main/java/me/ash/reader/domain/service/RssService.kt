@@ -38,8 +38,11 @@ constructor(
             AccountType.Fever.id -> feverRssService
             AccountType.GoogleReader.id -> googleReaderRssService
             AccountType.FreshRSS.id -> googleReaderRssService
-            AccountType.Inoreader.id -> localRssService
-            AccountType.Feedly.id -> localRssService
+            AccountType.Inoreader.id -> googleReaderRssService
+            AccountType.Miniflux.id -> googleReaderRssService
+            AccountType.TTRSS.id -> googleReaderRssService
+            AccountType.Feedbin.id -> googleReaderRssService
+            AccountType.Feedly.id -> googleReaderRssService
             else -> localRssService
         }
 }

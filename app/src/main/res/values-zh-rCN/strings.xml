@@ -241,15 +241,21 @@
     <string name="local">本地</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">在这台设备上</string>
     <string name="services">服务</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">自托管</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">已过时，不推荐。</string>
     <string name="more">更多</string>
@@ -380,7 +386,7 @@
     <string name="parse_full_content_desc">从网页获取完整内容</string>
     <string name="enable">启用</string>
     <string name="disable">停用</string>
-    <string name="show_sync_status">Show sync status</string>
+    <string name="show_sync_status">显示同步状态</string>
     <string name="show_sync_status_desc">在每个 feed 下显示上次同步状态、日期和时间</string>
     <string name="reading_ai_summary">文章摘要</string>
     <string name="reading_ai_summary_desc">在阅读工具栏中显示摘要按钮以在浏览器中打开</string>

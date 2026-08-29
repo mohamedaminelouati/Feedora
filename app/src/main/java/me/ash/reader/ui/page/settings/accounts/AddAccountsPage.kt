@@ -64,27 +64,37 @@ fun AddAccountsPage(
                     ) {}
                     Spacer(modifier = Modifier.height(24.dp))
                 }
-/*                item {
+                item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.services),
                     )
                     SettingItem(
-                        enabled = false,
                         title = stringResource(R.string.feedly),
                         desc = stringResource(R.string.feedly_desc),
                         iconPainter = painterResource(id = R.drawable.ic_feedly),
-                        onClick = {},
+                        onClick = {
+                            additionViewModel.showAddFeedlyAccountDialog()
+                        },
                     ) {}
                     SettingItem(
-                        enabled = false,
                         title = stringResource(R.string.inoreader),
                         desc = stringResource(R.string.inoreader_desc),
                         iconPainter = painterResource(id = R.drawable.ic_inoreader),
-                        onClick = {},
+                        onClick = {
+                            additionViewModel.showAddInoreaderAccountDialog()
+                        },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.feedbin),
+                        desc = stringResource(R.string.feedbin_desc),
+                        iconPainter = painterResource(id = R.drawable.ic_feedbin),
+                        onClick = {
+                            additionViewModel.showAddFeedbinAccountDialog()
+                        },
                     ) {}
                     Spacer(modifier = Modifier.height(24.dp))
-                }*/
+                }
                 item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
@@ -96,6 +106,22 @@ fun AddAccountsPage(
                         iconPainter = painterResource(id = R.drawable.ic_freshrss),
                         onClick = {
                             additionViewModel.showAddFreshRSSAccountDialog()
+                        },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.miniflux),
+                        desc = stringResource(R.string.miniflux_desc),
+                        iconPainter = painterResource(id = R.drawable.ic_miniflux),
+                        onClick = {
+                            additionViewModel.showAddMinifluxAccountDialog()
+                        },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.ttrss),
+                        desc = stringResource(R.string.ttrss_desc),
+                        iconPainter = painterResource(id = R.drawable.ic_ttrss),
+                        onClick = {
+                            additionViewModel.showAddTTRSSAccountDialog()
                         },
                     ) {}
                     SettingItem(
@@ -128,6 +154,11 @@ fun AddAccountsPage(
     AddFeverAccountDialog(onBack, navigateToAccountDetails)
     AddGoogleReaderAccountDialog(onBack, navigateToAccountDetails)
     AddFreshRSSAccountDialog(onBack, navigateToAccountDetails)
+    AddMinifluxAccountDialog(onBack, navigateToAccountDetails)
+    AddTTRSSAccountDialog(onBack, navigateToAccountDetails)
+    AddInoreaderAccountDialog(onBack, navigateToAccountDetails)
+    AddFeedbinAccountDialog(onBack, navigateToAccountDetails)
+    AddFeedlyAccountDialog(onBack, navigateToAccountDetails)
 }
 
 @Preview

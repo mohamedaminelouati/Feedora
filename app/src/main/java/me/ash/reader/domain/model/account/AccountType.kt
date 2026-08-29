@@ -19,7 +19,7 @@ class AccountType(val id: Int) {
      * Make sure the constructed object is valid.
      */
     init {
-        if (id < 1 || id > 6) {
+        if (id < 1 || id > 9) {
             throw IllegalArgumentException("Account type id is not valid.")
         }
     }
@@ -32,6 +32,9 @@ class AccountType(val id: Int) {
             4 -> context.getString(R.string.fresh_rss)
             5 -> context.getString(R.string.feedly)
             6 -> context.getString(R.string.inoreader)
+            7 -> context.getString(R.string.miniflux)
+            8 -> context.getString(R.string.ttrss)
+            9 -> context.getString(R.string.feedbin)
             else -> context.getString(R.string.unknown)
         }
 
@@ -45,6 +48,9 @@ class AccountType(val id: Int) {
             4 -> painterResource(id = R.drawable.ic_freshrss)
             5 -> painterResource(id = R.drawable.ic_feedly)
             6 -> painterResource(id = R.drawable.ic_inoreader)
+            7 -> painterResource(id = R.drawable.ic_miniflux)
+            8 -> painterResource(id = R.drawable.ic_ttrss)
+            9 -> painterResource(id = R.drawable.ic_feedbin)
             else -> Icons.Rounded.RssFeed
         }
 
@@ -59,6 +65,9 @@ class AccountType(val id: Int) {
         val FreshRSS = AccountType(4)
         val Feedly = AccountType(5)
         val Inoreader = AccountType(6)
+        val Miniflux = AccountType(7)
+        val TTRSS = AccountType(8)
+        val Feedbin = AccountType(9)
     }
 }
 

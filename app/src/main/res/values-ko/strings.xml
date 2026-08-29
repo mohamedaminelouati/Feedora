@@ -126,7 +126,7 @@
     <string name="tos_tips">계속하려면 Read You의 서비스 약관 및 개인 정보 보호 정책에 동의하셔야 합니다.</string>
     <string name="browse_tos_tips">찾아보기</string>
     <string name="terms_of_service">서비스 약관</string>
-    <string name="tos_content"><h5>개인정보 보호정책</h5><br/><p>우리는 귀하의 개인정보를 매우 중요하게 생각합니다.</p><br/><p><b>Read You</b>는 어떠한 사용자 데이터도 수집하지 않으며, 모든 민감한 정보(비밀번호 및 기타 계정 정보)는 귀하의 기기에 있는 로컬 애플리케이션 데이터베이스에 안전하게 저장됩니다.</p><br/><p><b>Read You</b>는 서비스를 제공하기 위해 다음 권한을 사용합니다.</p><br/><p>- 네트워크 접근 권한(지정한 온라인 콘텐츠에 접근하기 위해)</p><p>- 네트워크 상태 확인 권한(기기가 현재 네트워크를 사용할 수 있는지 확인하기 위해)</p><p>- 백그라운드 서비스 권한(정기적으로 즐겨찾기를 자동 동기화하기 위해)</p><br/><br/><h5>타사 서비스</h5><br/><p>본 정책은 <b>Read You</b>와 함께 사용하는 타사 서비스에는 적용되지 않습니다. 사용하는 타사 서비스의 웹사이트에서 해당 개인정보 보호정책을 검토할 수 있습니다.</p><br/><br/><h5>면책 조항</h5><br/><p><b>Read You</b>는 콘텐츠 수집 도구일 뿐입니다. <b>Read You</b>의 사용은 귀하가 거주하는 국가 및 지역의 법률과 규정을 따르며, 귀하의 행위로 인해 발생하는 모든 책임은 귀하가 부담합니다.</p><br/><br/><h5>오픈 소스 라이선스</h5><br/><p><b>Read You</b>는 GNU GPL 3.0 오픈 소스 라이선스[1] 하의 오픈 소스 프로젝트로, <b>Read You</b>의 소스 코드를 무료로 사용, 참조 및 수정할 수 있지만 수정 및 파생된 코드를 비공개 상용 소프트웨어로 배포 및 판매하는 것은 허용되지 않습니다. 자세한 내용은 GNU GPL 3.0 전체 오픈 소스 라이선스[2]를 참조하십시오.</p><br/><br/><h5>부록</h5><br/><p>- [1] https://github.com/ReadYouApp/ReadYou</p><p>- [2] https://www.gnu.org/licenses/gpl-3.0.html</p></string>
+    <string name="tos_content"></string>
     <string name="agree">동의</string>
     <string name="wallpaper_colors">벽지 색상</string>
     <string name="no_palettes">팔레트 없음</string>
@@ -242,15 +242,21 @@
     <string name="local">로컬</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">이 기기에서</string>
     <string name="services">서비스</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">자체 호스팅</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">더 이상 사용되지 않습니다. 권장되지 않습니다.</string>
     <string name="more">더</string>

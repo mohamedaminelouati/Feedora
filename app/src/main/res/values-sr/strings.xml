@@ -247,15 +247,21 @@
     <string name="local">Локално</string>
     <string name="fever" translatable="false">Fever</string>
     <string name="google_reader" translatable="false">Google Reader</string>
-    <string name="fresh_rss" translatable="false">FreshRSS</string>
     <string name="feedly" translatable="false">Feedly</string>
     <string name="inoreader" translatable="false">Inoreader</string>
+    <string name="feedbin" translatable="false">Feedbin</string>
+    <string name="fresh_rss" translatable="false">FreshRSS</string>
+    <string name="miniflux" translatable="false">Miniflux</string>
+    <string name="ttrss" translatable="false">Tiny Tiny RSS</string>
     <string name="local_desc">На овом уређају</string>
     <string name="services">Услуге</string>
     <string name="feedly_desc" translatable="false">feedly.com</string>
     <string name="inoreader_desc" translatable="false">inoreader.com</string>
+    <string name="feedbin_desc" translatable="false">feedbin.com</string>
     <string name="self_hosted">Самохостовано</string>
     <string name="fresh_rss_desc" translatable="false">freshrss.org</string>
+    <string name="miniflux_desc" translatable="false">miniflux.app</string>
+    <string name="ttrss_desc" translatable="false">tt-rss.org</string>
     <string name="google_reader_desc" translatable="false">Google Reader API</string>
     <string name="fever_desc">Застарело. Не препоручује се.</string>
     <string name="more">Више</string>
@@ -471,51 +477,51 @@
     <string name="max_backups_to_keep">Бацкуп Ротатион</string>
     <string name="max_backups_desc">Држите __ПХ0__ најновије резервне копије на серверу</string>
     <string name="max_backups_unlimited">Чувајте све резервне копије (неограничено)</string>
-    <string name="backup_now">Backup Now</string>
-    <string name="remote_backups">Remote Backups</string>
-    <string name="no_remote_backups">No backups found on server</string>
-    <string name="restore_remote_backup">Restore Backup</string>
-    <string name="restore_confirm_message">Are you sure you want to restore this backup? Current data will be merged.</string>
-    <string name="delete_remote_backup">Delete Remote Backup</string>
-    <string name="delete_confirm_message">Are you sure you want to delete this backup from the server?</string>
-    <string name="cloud_backup_success">Cloud backup completed successfully</string>
-    <string name="cloud_backup_failed">Failed to perform cloud backup</string>
-    <string name="cloud_restore_success">Cloud restore completed successfully</string>
-    <string name="cloud_restore_failed">Failed to restore cloud backup</string>
-    <string name="cloud_delete_success">Remote backup deleted</string>
-    <string name="article_layout">Article layout</string>
-    <string name="layout_list">List</string>
-    <string name="layout_grid">Grid</string>
-    <string name="switch_to_grid_view">Switch to grid view</string>
-    <string name="switch_to_list_view">Switch to list view</string>
-    <string name="display_format">Display Format</string>
-    <string name="card_elements">Card Elements</string>
-    <string name="reading_indicators">Reading &amp; Indicators</string>
-    <string name="reading_display_engine">Rendering &amp; Display</string>
-    <string name="reading_typography_media">Typography &amp; Media</string>
-    <string name="reading_ai_assistant">AI Reading Assistant</string>
-    <string name="swipe_gestures">Swipe Gestures</string>
-    <string name="scrolling_navigation">Scrolling &amp; Navigation</string>
-    <string name="external_links_sharing">External Links &amp; Sharing</string>
-    <string name="diagnostics_and_reports">Diagnostics &amp; Reports</string>
-    <string name="local_backup_restore">Local Backup &amp; Restore</string>
-    <string name="storage_and_cache">Storage &amp; Cache</string>
-    <string name="sync_logs">Sync Logs</string>
-    <string name="clear_server_config">Clear Server Configuration</string>
-    <string name="clear_server_config_desc">Remove server credentials and reset cloud backup</string>
-    <string name="clear_server_config_confirm">Are you sure you want to clear the cloud backup server configuration and disable automatic backups?</string>
-    <string name="clear_server_config_success">Server configuration cleared</string>
-    <string name="backup_and_data">Backups &amp; Data</string>
-    <string name="backup_and_data_desc">Cloud &amp; local backup, preferences, cache</string>
-    <string name="theme_and_colors">Theme &amp; Colors</string>
-    <string name="presentation_and_layout">Page Layouts &amp; Display</string>
-    <string name="clear_cache">Clear cache</string>
-    <string name="clear_cache_desc">Clear cached images and articles</string>
-    <string name="clear_cache_success">Cache cleared successfully</string>
-    <string name="feeds_page_style_desc">Folders, elevation, favicons, sync status</string>
-    <string name="flow_page_style_desc">Grid or List, swipe gestures, scrolling, cards</string>
-    <string name="reading_page_style_desc">Reading engine, typography, links, AI summary</string>
-    <string name="global_style">Global Style</string>
+    <string name="backup_now">Направите резервну копију одмах</string>
+    <string name="remote_backups">Ремоте Бацкупс</string>
+    <string name="no_remote_backups">На серверу нису пронађене резервне копије</string>
+    <string name="restore_remote_backup">Врати резервну копију</string>
+    <string name="restore_confirm_message">Да ли сте сигурни да желите да вратите ову резервну копију? Тренутни подаци ће бити спојени.</string>
+    <string name="delete_remote_backup">Избришите удаљену резервну копију</string>
+    <string name="delete_confirm_message">Да ли сте сигурни да желите да избришете ову резервну копију са сервера?</string>
+    <string name="cloud_backup_success">Резервна копија у облаку је успешно завршена</string>
+    <string name="cloud_backup_failed">Прављење резервне копије у облаку није успело</string>
+    <string name="cloud_restore_success">Враћање у облак је успешно завршено</string>
+    <string name="cloud_restore_failed">Враћање резервне копије у облаку није успело</string>
+    <string name="cloud_delete_success">Удаљена резервна копија је избрисана</string>
+    <string name="article_layout">Изглед чланка</string>
+    <string name="layout_list">Лист</string>
+    <string name="layout_grid">Грид</string>
+    <string name="switch_to_grid_view">Пребаците се на приказ мреже</string>
+    <string name="switch_to_list_view">Пребаците се на приказ листе</string>
+    <string name="display_format">Дисплаи Формат</string>
+    <string name="card_elements">Цард Елементс</string>
+    <string name="reading_indicators">Читање и индикатори</string>
+    <string name="reading_display_engine">Рендеринг &amp; Дисплаи</string>
+    <string name="reading_typography_media">Типографија и медији</string>
+    <string name="reading_ai_assistant">АИ помоћник за читање</string>
+    <string name="swipe_gestures">Покрети превлачења</string>
+    <string name="scrolling_navigation">Померање и навигација</string>
+    <string name="external_links_sharing">Спољне везе и дељење</string>
+    <string name="diagnostics_and_reports">Дијагностика и извештаји</string>
+    <string name="local_backup_restore">Локално прављење резервних копија и враћање у претходно стање</string>
+    <string name="storage_and_cache">Складиштење и кеш меморија</string>
+    <string name="sync_logs">Синц Логс</string>
+    <string name="clear_server_config">Обришите конфигурацију сервера</string>
+    <string name="clear_server_config_desc">Уклоните акредитиве сервера и ресетујте резервну копију у облаку</string>
+    <string name="clear_server_config_confirm">Да ли сте сигурни да желите да обришете конфигурацију сервера за прављење резервних копија у облаку и онемогућите аутоматско прављење резервних копија?</string>
+    <string name="clear_server_config_success">Конфигурација сервера је обрисана</string>
+    <string name="backup_and_data">Резервне копије и подаци</string>
+    <string name="backup_and_data_desc">Облак и локална резервна копија, подешавања, кеш</string>
+    <string name="theme_and_colors">Тема и боје</string>
+    <string name="presentation_and_layout">Распореди и приказ странице</string>
+    <string name="clear_cache">Обриши кеш меморију</string>
+    <string name="clear_cache_desc">Обришите кеширане слике и чланке</string>
+    <string name="clear_cache_success">Кеш је успешно обрисан</string>
+    <string name="feeds_page_style_desc">Фасцикле, надморска висина, фавикони, статус синхронизације</string>
+    <string name="flow_page_style_desc">Мрежа или листа, покрети превлачења, померање, картице</string>
+    <string name="reading_page_style_desc">Машина за читање, типографија, везе, АИ резиме</string>
+    <string name="global_style">Глобал Стиле</string>
     <string name="backups_title">Резервне копије</string>
     <string name="help_and_support">Помоћ и подршка</string>
     <string name="feeds_layout">Феедс Лаиоут</string>
