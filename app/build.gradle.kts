@@ -39,7 +39,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "me.ash.reader"
+        applicationId = "com.mohamedaminelouati.readyoupro"
         minSdk = 26
         targetSdk = 34
         versionCode = 47
@@ -48,7 +48,7 @@ android {
         buildConfigField(
             "String",
             "USER_AGENT_STRING",
-            "\"ReadYou/${versionName}(${versionCode})\"",
+            "\"ReadYouPro/${versionName}(${versionCode})\"",
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -68,7 +68,6 @@ android {
         create("fdroid") { dimension = "channel" }
         create("googlePlay") {
             dimension = "channel"
-            applicationIdSuffix = ".google.play"
         }
     }
     signingConfigs {

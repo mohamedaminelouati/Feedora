@@ -102,6 +102,10 @@ Get the latest releases and APKs directly from GitHub:
 - [Feeder](https://gitlab.com/spacecowboy/Feeder)
 - [Seal](https://github.com/JunkFood02/Seal)
 
+## Privacy Policy
+
+**ReadYou Pro** respects your privacy with zero data collection, zero tracking, and zero telemetry. Read the full [Privacy Policy](PRIVACY.md).
+
 ## License
 
 GNU General Public License v3.0 (GPL-3.0) © [ReadYou Pro](https://github.com/mohamedaminelouati/ReadYou-Pro/blob/main/LICENSE)  
