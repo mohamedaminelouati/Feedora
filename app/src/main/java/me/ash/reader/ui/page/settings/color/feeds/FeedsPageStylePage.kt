@@ -106,8 +106,9 @@ fun FeedsPageStylePage(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                // Group List
+                // Group List & Behavior
                 item {
+                    val hideEmptyGroups = LocalHideEmptyGroups.current
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
                         text = stringResource(R.string.group_list)
@@ -123,6 +124,17 @@ fun FeedsPageStylePage(
                         }
                     }
                     SettingItem(
+                        title = stringResource(R.string.hide_empty_groups),
+                        highlightKey = DataStoreKey.feedsGroupListExpand,
+                        onClick = {
+                            hideEmptyGroups.toggle(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = hideEmptyGroups.value) {
+                            hideEmptyGroups.toggle(context, scope)
+                        }
+                    }
+                    SettingItem(
                         title = stringResource(R.string.show_sync_status),
                         desc = showSyncStatus.toDesc(),
                         highlightKey = DataStoreKey.feedsShowSyncStatus,
@@ -130,15 +142,7 @@ fun FeedsPageStylePage(
                             showSyncStatusDialogVisible = true
                         },
                     ) {}
-/*                    SettingItem(
-                        title = stringResource(R.string.tonal_elevation),
-                        desc = "${groupListTonalElevation.value}dp",
-                        onClick = {
-                            groupListTonalElevationDialogVisible = true
-                        },
-                    ) {}
-                    Tips(text = stringResource(R.string.tips_group_list_tonal_elevation))
-                    Spacer(modifier = Modifier.height(24.dp))*/
+                    Spacer(modifier = Modifier.height(24.dp))
                 }
 
                 // Filter Bar

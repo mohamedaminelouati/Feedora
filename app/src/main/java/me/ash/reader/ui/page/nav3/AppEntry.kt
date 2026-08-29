@@ -47,7 +47,6 @@ import me.ash.reader.ui.page.settings.color.reading.ReadingStylePage
 import me.ash.reader.ui.page.settings.color.reading.ReadingTextPage
 import me.ash.reader.ui.page.settings.color.reading.ReadingTitlePage
 import me.ash.reader.ui.page.settings.color.reading.ReadingVideoPage
-import me.ash.reader.ui.page.settings.interaction.InteractionPage
 import me.ash.reader.ui.page.settings.languages.LanguagesPage
 import me.ash.reader.ui.page.settings.cloudbackup.CloudBackupPage
 import me.ash.reader.ui.page.settings.tips.LicenseListPage
@@ -181,10 +180,12 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                         NavEntry(key) {
                             SettingsPage(
                                 onBack = onBack,
+                                navigateToFeedsPageStyle = { backStack.add(Route.FeedsPageStyle) },
+                                navigateToFlowPageStyle = { backStack.add(Route.FlowPageStyle) },
+                                navigateToReadingPageStyle = { backStack.add(Route.ReadingPageStyle) },
+                                navigateToColorAndStyle = { backStack.add(Route.ColorAndStyle) },
                                 navigateToAccounts = { backStack.add(Route.Accounts) },
                                 navigateToCloudBackup = { backStack.add(Route.CloudBackup) },
-                                navigateToColorAndStyle = { backStack.add(Route.ColorAndStyle) },
-                                navigateToInteraction = { backStack.add(Route.Interaction) },
                                 navigateToLanguages = { backStack.add(Route.Languages) },
                                 navigateToTroubleshooting = {
                                     backStack.add(Route.Troubleshooting)
@@ -227,11 +228,6 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                             ColorAndStylePage(
                                 onBack = onBack,
                                 navigateToDarkTheme = { backStack.add(Route.DarkTheme) },
-                                navigateToFeedsPageStyle = { backStack.add(Route.FeedsPageStyle) },
-                                navigateToFlowPageStyle = { backStack.add(Route.FlowPageStyle) },
-                                navigateToReadingPageStyle = {
-                                    backStack.add(Route.ReadingPageStyle)
-                                },
                             )
                         }
                     Route.DarkTheme -> NavEntry(key) { DarkThemePage(onBack = onBack) }
@@ -264,7 +260,6 @@ fun AppEntry(backStack: NavBackStack<NavKey>) {
                     Route.ReadingPageText -> NavEntry(key) { ReadingTextPage(onBack = onBack) }
                     Route.ReadingPageImage -> NavEntry(key) { ReadingImagePage(onBack = onBack) }
                     Route.ReadingPageVideo -> NavEntry(key) { ReadingVideoPage(onBack = onBack) }
-                    Route.Interaction -> NavEntry(key) { InteractionPage(onBack = onBack) }
                     Route.Languages -> NavEntry(key) { LanguagesPage(onBack = onBack) }
                     Route.Troubleshooting -> NavEntry(key) { TroubleshootingPage(onBack = onBack) }
                     Route.CloudBackup -> NavEntry(key) { CloudBackupPage(onBack = onBack) }

@@ -482,4 +482,7 @@
     <string name="clear_cache">Vider le cache</string>
     <string name="clear_cache_desc">Effacer les images et données temporaires</string>
     <string name="clear_cache_success">Cache vidé avec succès</string>
+    <string name="feeds_page_style_desc">Dossiers, élévation, favicons, badge de synchro</string>
+    <string name="flow_page_style_desc">Mode Grille ou Liste, gestes de balayage, défilement</string>
+    <string name="reading_page_style_desc">Moteur de rendu, typographie, liens, résumé IA</string>
 </resources>

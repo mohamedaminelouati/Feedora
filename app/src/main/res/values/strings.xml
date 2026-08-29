@@ -512,4 +512,7 @@
     <string name="clear_cache">Clear cache</string>
     <string name="clear_cache_desc">Clear cached images and articles</string>
     <string name="clear_cache_success">Cache cleared successfully</string>
+    <string name="feeds_page_style_desc">Folders, elevation, favicons, sync status</string>
+    <string name="flow_page_style_desc">Grid or List, swipe gestures, scrolling, cards</string>
+    <string name="reading_page_style_desc">Reading engine, typography, links, AI summary</string>
 </resources>

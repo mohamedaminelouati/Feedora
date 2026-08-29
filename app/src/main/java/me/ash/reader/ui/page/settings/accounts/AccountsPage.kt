@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import me.ash.reader.R
+import me.ash.reader.infrastructure.preference.not
 import me.ash.reader.ui.component.base.*
 import me.ash.reader.ui.ext.collectAsStateValue
 import me.ash.reader.ui.page.settings.SettingItem
@@ -67,6 +68,26 @@ fun AccountsPage(
                 item {
                     Tips(text = stringResource(R.string.accounts_tips))
                     Spacer(modifier = Modifier.height(24.dp))
+                }
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.notifications),
+                    )
+                    val syncNotification = me.ash.reader.infrastructure.preference.LocalSyncNotification.current
+                    val scope = androidx.compose.runtime.rememberCoroutineScope()
+                    SettingItem(
+                        title = stringResource(R.string.sync_notification),
+                        desc = stringResource(R.string.sync_notification_desc),
+                        onClick = {
+                            (!syncNotification).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = syncNotification.value) {
+                            (!syncNotification).put(context, scope)
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
                 item {
                     Subtitle(

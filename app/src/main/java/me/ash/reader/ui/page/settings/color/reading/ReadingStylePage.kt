@@ -39,6 +39,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import me.ash.reader.R
+import me.ash.reader.infrastructure.preference.LocalOpenLink
+import me.ash.reader.infrastructure.preference.LocalOpenLinkSpecificBrowser
 import me.ash.reader.infrastructure.preference.LocalPullToSwitchArticle
 import me.ash.reader.infrastructure.preference.LocalReadingAiSummary
 import me.ash.reader.infrastructure.preference.LocalReadingAutoHideToolbar
@@ -47,10 +49,14 @@ import me.ash.reader.infrastructure.preference.LocalReadingFonts
 import me.ash.reader.infrastructure.preference.LocalReadingPageTonalElevation
 import me.ash.reader.infrastructure.preference.LocalReadingRenderer
 import me.ash.reader.infrastructure.preference.LocalReadingTheme
+import me.ash.reader.infrastructure.preference.LocalRestoreLastArticle
+import me.ash.reader.infrastructure.preference.LocalSharedContent
+import me.ash.reader.infrastructure.preference.OpenLinkPreference
 import me.ash.reader.infrastructure.preference.ReadingFontsPreference
 import me.ash.reader.infrastructure.preference.ReadingPageTonalElevationPreference
 import me.ash.reader.infrastructure.preference.ReadingRendererPreference
 import me.ash.reader.infrastructure.preference.ReadingThemePreference
+import me.ash.reader.infrastructure.preference.SharedContentPreference
 import me.ash.reader.infrastructure.preference.not
 import me.ash.reader.ui.component.ReadingThemePrev
 import me.ash.reader.ui.component.base.DisplayText
@@ -62,6 +68,7 @@ import me.ash.reader.ui.component.base.RadioDialogOption
 import me.ash.reader.ui.component.base.Subtitle
 import me.ash.reader.ui.ext.ExternalFonts
 import me.ash.reader.ui.ext.MimeType
+import me.ash.reader.ui.ext.getBrowserAppList
 import me.ash.reader.ui.ext.showToast
 import me.ash.reader.ui.page.settings.SettingItem
 import me.ash.reader.ui.theme.palette.onLight
@@ -85,10 +92,21 @@ fun ReadingStylePage(
     val pullToSwitchArticle = LocalPullToSwitchArticle.current
     val renderer = LocalReadingRenderer.current
     val boldCharacters = LocalReadingBoldCharacters.current
+    val restoreLastArticle = LocalRestoreLastArticle.current
+    val openLink = LocalOpenLink.current
+    val openLinkSpecificBrowser = LocalOpenLinkSpecificBrowser.current
+    val sharedContent = LocalSharedContent.current
+
+    val isOpenLinkSpecificBrowserItemEnabled = remember(openLink) {
+        openLink == OpenLinkPreference.SpecificBrowser
+    }
 
     var tonalElevationDialogVisible by remember { mutableStateOf(false) }
     var rendererDialogVisible by remember { mutableStateOf(false) }
     var fontsDialogVisible by remember { mutableStateOf(false) }
+    var openLinkDialogVisible by remember { mutableStateOf(false) }
+    var openLinkSpecificBrowserDialogVisible by remember { mutableStateOf(false) }
+    var sharedContentDialogVisible by remember { mutableStateOf(false) }
 
     val launcher =
         rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
@@ -264,6 +282,57 @@ fun ReadingStylePage(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
+                // Reading Session & History
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.on_start),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.restore_last_article),
+                        desc = stringResource(R.string.restore_last_article_desc),
+                        onClick = {
+                            (!restoreLastArticle).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = restoreLastArticle.value) {
+                            (!restoreLastArticle).put(context, scope)
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                // External Links & Sharing
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.external_links_sharing),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.initial_open_app),
+                        desc = openLink.toDesc(context),
+                        onClick = {
+                            openLinkDialogVisible = true
+                        },
+                    ) {}
+                    SettingItem(
+                        enabled = isOpenLinkSpecificBrowserItemEnabled,
+                        title = stringResource(R.string.open_link_specific_browser),
+                        desc = openLinkSpecificBrowser.toDesc(context),
+                        onClick = {
+                            openLinkSpecificBrowserDialogVisible = true
+                        },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.shared_content),
+                        desc = sharedContent.toDesc(context),
+                        onClick = {
+                            sharedContentDialogVisible = true
+                        },
+                    ) {}
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
                 // Toolbars
                 item {
                     Subtitle(
@@ -336,5 +405,56 @@ fun ReadingStylePage(
         }
     ) {
         fontsDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = openLinkDialogVisible,
+        title = stringResource(R.string.initial_open_app),
+        options = OpenLinkPreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(context),
+                selected = it == openLink,
+            ) {
+                it.put(context, scope)
+            }
+        },
+    ) {
+        openLinkDialogVisible = false
+    }
+
+    val browserList = remember(context) {
+        context.getBrowserAppList()
+    }
+
+    RadioDialog(
+        visible = openLinkSpecificBrowserDialogVisible,
+        title = stringResource(R.string.open_link_specific_browser),
+        options = browserList.map {
+            RadioDialogOption(
+                text = it.loadLabel(context.packageManager).toString(),
+                selected = it.activityInfo.packageName == openLinkSpecificBrowser.packageName,
+            ) {
+                openLinkSpecificBrowser.copy(packageName = it.activityInfo.packageName)
+                    .put(context, scope)
+            }
+        },
+        onDismissRequest = {
+            openLinkSpecificBrowserDialogVisible = false
+        }
+    )
+
+    RadioDialog(
+        visible = sharedContentDialogVisible,
+        title = stringResource(R.string.shared_content),
+        options = SharedContentPreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(context),
+                selected = it == sharedContent,
+            ) {
+                it.put(context, scope)
+            }
+        },
+    ) {
+        sharedContentDialogVisible = false
     }
 }

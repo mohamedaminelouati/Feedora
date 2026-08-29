@@ -18,10 +18,12 @@ import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Dashboard
+import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material.icons.outlined.FormatBold
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lightbulb
+import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Search
@@ -79,10 +81,12 @@ private data class SettingSearchItem(
 fun SettingsPage(
     updateViewModel: UpdateViewModel = hiltViewModel(),
     onBack: () -> Unit,
+    navigateToFeedsPageStyle: () -> Unit,
+    navigateToFlowPageStyle: () -> Unit,
+    navigateToReadingPageStyle: () -> Unit,
+    navigateToColorAndStyle: () -> Unit,
     navigateToAccounts: () -> Unit,
     navigateToCloudBackup: () -> Unit,
-    navigateToColorAndStyle: () -> Unit,
-    navigateToInteraction: () -> Unit,
     navigateToLanguages: () -> Unit,
     navigateToTroubleshooting: () -> Unit,
     navigateToTipsAndSupport: () -> Unit,
@@ -94,6 +98,12 @@ fun SettingsPage(
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
+    val feedsPageStyleTitle = stringResource(R.string.feeds_page)
+    val feedsPageStyleDesc = stringResource(R.string.feeds_page_style_desc)
+    val flowPageStyleTitle = stringResource(R.string.flow_page)
+    val flowPageStyleDesc = stringResource(R.string.flow_page_style_desc)
+    val readingPageStyleTitle = stringResource(R.string.reading_page)
+    val readingPageStyleDesc = stringResource(R.string.reading_page_style_desc)
     val accountsTitle = stringResource(R.string.accounts)
     val accountsDesc = stringResource(R.string.accounts_desc)
     val backupAndDataTitle = stringResource(R.string.backup_and_data)
@@ -103,8 +113,6 @@ fun SettingsPage(
     val darkThemeTitle = stringResource(R.string.dark_theme)
     val boldCharactersTitle = stringResource(R.string.bold_characters)
     val boldCharactersDesc = stringResource(R.string.bold_characters_preview)
-    val interactionTitle = stringResource(R.string.interaction)
-    val interactionDesc = stringResource(R.string.interaction_desc)
     val syncNotificationTitle = stringResource(R.string.sync_notification)
     val syncNotificationDesc = stringResource(R.string.sync_notification_desc)
     val restoreLastArticleTitle = stringResource(R.string.restore_last_article)
@@ -131,17 +139,19 @@ fun SettingsPage(
     val openLinkBrowserTitle = stringResource(R.string.open_link_specific_browser)
     val sharedContentTitle = stringResource(R.string.shared_content)
     val pullToSwitchArticleTitle = stringResource(R.string.pull_to_switch_article)
-    val feedsPageStyleTitle = stringResource(R.string.feeds_page)
-    val flowPageStyleTitle = stringResource(R.string.flow_page)
-    val readingPageStyleTitle = stringResource(R.string.reading_page)
 
     val allSearchableItems = remember(
+        feedsPageStyleTitle,
+        feedsPageStyleDesc,
+        flowPageStyleTitle,
+        flowPageStyleDesc,
+        readingPageStyleTitle,
+        readingPageStyleDesc,
         accountsTitle,
         backupAndDataTitle,
         colorAndStyleTitle,
         darkThemeTitle,
         boldCharactersTitle,
-        interactionTitle,
         syncNotificationTitle,
         restoreLastArticleTitle,
         restoreScrollPositionTitle,
@@ -164,11 +174,43 @@ fun SettingsPage(
     ) {
         listOf(
             SettingSearchItem(
+                title = feedsPageStyleTitle,
+                description = feedsPageStyleDesc,
+                category = feedsPageStyleTitle,
+                icon = Icons.Outlined.Folder,
+                keywords = listOf("feeds", "feed", "page", "groups", "expand", "elevation", "favicons", "flux", "dossiers"),
+                onClick = navigateToFeedsPageStyle,
+            ),
+            SettingSearchItem(
+                title = flowPageStyleTitle,
+                description = flowPageStyleDesc,
+                category = flowPageStyleTitle,
+                icon = Icons.Outlined.Dashboard,
+                keywords = listOf("flow", "stream", "articles", "images", "date", "title", "header", "sticky", "grid", "grille", "swipes", "gestes", "filtre"),
+                onClick = navigateToFlowPageStyle,
+            ),
+            SettingSearchItem(
+                title = readingPageStyleTitle,
+                description = readingPageStyleDesc,
+                category = readingPageStyleTitle,
+                icon = Icons.Outlined.MenuBook,
+                keywords = listOf("reading", "reader", "font", "size", "line height", "text", "alignment", "ai", "lecture", "liens", "partage", "bionic"),
+                onClick = navigateToReadingPageStyle,
+            ),
+            SettingSearchItem(
+                title = colorAndStyleTitle,
+                description = colorAndStyleDesc,
+                category = colorAndStyleTitle,
+                icon = Icons.Outlined.Palette,
+                keywords = listOf("theme", "colors", "dark", "light", "appearance", "font", "style", "ui", "couleur", "apparence", "police"),
+                onClick = navigateToColorAndStyle,
+            ),
+            SettingSearchItem(
                 title = accountsTitle,
                 description = accountsDesc,
                 category = accountsTitle,
                 icon = Icons.Outlined.AccountCircle,
-                keywords = listOf("rss", "local", "miniflux", "freshrss", "nextcloud", "inoreader", "feedbin", "fever", "google reader", "comptes", "ajouter"),
+                keywords = listOf("rss", "local", "miniflux", "freshrss", "nextcloud", "inoreader", "feedbin", "fever", "google reader", "comptes", "ajouter", "sync"),
                 onClick = navigateToAccounts,
             ),
             SettingSearchItem(
@@ -178,14 +220,6 @@ fun SettingsPage(
                 icon = Icons.Outlined.CloudUpload,
                 keywords = listOf("backup", "cloud", "webdav", "ftp", "sftp", "ftps", "sauvegarde", "données", "cache", "json", "restaurer"),
                 onClick = navigateToCloudBackup,
-            ),
-            SettingSearchItem(
-                title = colorAndStyleTitle,
-                description = colorAndStyleDesc,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
-                keywords = listOf("theme", "colors", "dark", "light", "appearance", "font", "style", "ui", "couleur", "apparence", "police", "grid", "grille", "liste"),
-                onClick = navigateToColorAndStyle,
             ),
             SettingSearchItem(
                 title = darkThemeTitle,
@@ -198,206 +232,163 @@ fun SettingsPage(
             SettingSearchItem(
                 title = boldCharactersTitle,
                 description = boldCharactersDesc,
-                category = colorAndStyleTitle,
+                category = readingPageStyleTitle,
                 icon = Icons.Outlined.FormatBold,
                 keywords = listOf("bold", "bionic", "reading", "characters", "text"),
-                onClick = navigateToColorAndStyle,
-            ),
-            SettingSearchItem(
-                title = feedsPageStyleTitle,
-                description = colorAndStyleTitle,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
-                keywords = listOf("feeds", "feed", "page", "groups", "expand", "elevation", "favicons"),
-                onClick = navigateToColorAndStyle,
-            ),
-            SettingSearchItem(
-                title = flowPageStyleTitle,
-                description = colorAndStyleTitle,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
-                keywords = listOf("flow", "stream", "articles", "images", "date", "title", "header", "sticky", "grid", "grille"),
-                onClick = navigateToColorAndStyle,
-            ),
-            SettingSearchItem(
-                title = readingPageStyleTitle,
-                description = colorAndStyleTitle,
-                category = colorAndStyleTitle,
-                icon = Icons.Outlined.Palette,
-                keywords = listOf("reading", "reader", "font", "size", "line height", "text", "alignment", "ai"),
-                onClick = navigateToColorAndStyle,
-            ),
-            SettingSearchItem(
-                title = interactionTitle,
-                description = interactionDesc,
-                category = interactionTitle,
-                icon = Icons.Outlined.TouchApp,
-                keywords = listOf("gestures", "navigation", "startup", "behavior", "scroll", "interaction"),
-                onClick = navigateToInteraction,
+                onClick = navigateToReadingPageStyle,
             ),
             SettingSearchItem(
                 title = swipeToStartTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = flowPageStyleTitle,
+                category = flowPageStyleTitle,
                 icon = Icons.Outlined.Swipe,
                 keywords = listOf("swipe", "left", "gesture", "mark", "read", "star", "action"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.swipeStartAction)
-                    navigateToInteraction()
+                    navigateToFlowPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = swipeToEndTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = flowPageStyleTitle,
+                category = flowPageStyleTitle,
                 icon = Icons.Outlined.Swipe,
                 keywords = listOf("swipe", "right", "gesture", "mark", "read", "star", "action"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.swipeEndAction)
-                    navigateToInteraction()
+                    navigateToFlowPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = sortUnreadArticlesTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = flowPageStyleTitle,
+                category = flowPageStyleTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("sort", "order", "articles", "unread", "date", "recent", "earliest", "latest", "chrono"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.flowSortUnreadArticles)
-                    navigateToInteraction()
+                    navigateToFlowPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = markAsReadOnScrollTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = flowPageStyleTitle,
+                category = flowPageStyleTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("mark", "read", "scroll", "automatic", "auto"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.markAsReadOnScroll)
-                    navigateToInteraction()
+                    navigateToFlowPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = hideEmptyGroupsTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = feedsPageStyleTitle,
+                category = feedsPageStyleTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("hide", "empty", "groups", "folders"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.hideEmptyGroups)
-                    navigateToInteraction()
-                },
-            ),
-            SettingSearchItem(
-                title = initialPageTitle,
-                description = interactionTitle,
-                category = interactionTitle,
-                icon = Icons.Outlined.TouchApp,
-                keywords = listOf("initial", "page", "startup", "launch", "open", "home", "feeds", "flow", "start"),
-                onClick = {
-                    SettingsHighlightManager.highlight(DataStoreKey.initialPage)
-                    navigateToInteraction()
+                    navigateToFeedsPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = initialFilterTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = flowPageStyleTitle,
+                category = flowPageStyleTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("initial", "filter", "default", "all", "unread", "starred"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.initialFilter)
-                    navigateToInteraction()
+                    navigateToFlowPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = openLinkBrowserTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = readingPageStyleTitle,
+                category = readingPageStyleTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("browser", "links", "open", "chrome", "firefox", "custom tabs", "web"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.openLink)
-                    navigateToInteraction()
+                    navigateToReadingPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = sharedContentTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = readingPageStyleTitle,
+                category = readingPageStyleTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("share", "shared", "content", "title", "link", "url"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.sharedContent)
-                    navigateToInteraction()
+                    navigateToReadingPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = syncNotificationTitle,
                 description = syncNotificationDesc,
-                category = interactionTitle,
+                category = accountsTitle,
                 icon = Icons.Outlined.Notifications,
                 keywords = listOf("sync", "notification", "alerts", "new articles", "count"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.syncNotification)
-                    navigateToInteraction()
+                    navigateToAccounts()
                 },
             ),
             SettingSearchItem(
                 title = restoreLastArticleTitle,
                 description = restoreLastArticleDesc,
-                category = interactionTitle,
+                category = readingPageStyleTitle,
                 icon = Icons.Outlined.History,
                 keywords = listOf("resume", "last article", "startup", "reopen", "reading", "history"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.restoreLastArticle)
-                    navigateToInteraction()
+                    navigateToReadingPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = restoreScrollPositionTitle,
                 description = restoreScrollPositionDesc,
-                category = interactionTitle,
+                category = flowPageStyleTitle,
                 icon = Icons.Outlined.TouchApp,
                 keywords = listOf("scroll", "position", "remember", "all", "unread", "list", "flow"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.restoreScrollPosition)
-                    navigateToInteraction()
+                    navigateToFlowPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = syncStatusTitle,
                 description = syncStatusDesc,
-                category = colorAndStyleTitle,
+                category = feedsPageStyleTitle,
                 icon = Icons.Outlined.Sync,
                 keywords = listOf("sync status", "last sync", "date", "time", "feeds", "error", "status"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.feedsShowSyncStatus)
-                    navigateToColorAndStyle()
+                    navigateToFeedsPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = pullToSwitchTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = flowPageStyleTitle,
+                category = flowPageStyleTitle,
                 icon = Icons.Outlined.Swipe,
                 keywords = listOf("pull", "swipe", "next feed", "bottom", "load"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.pullToLoadNextFeed)
-                    navigateToInteraction()
+                    navigateToFlowPageStyle()
                 },
             ),
             SettingSearchItem(
                 title = pullToSwitchArticleTitle,
-                description = interactionTitle,
-                category = interactionTitle,
+                description = readingPageStyleTitle,
+                category = readingPageStyleTitle,
                 icon = Icons.Outlined.Swipe,
                 keywords = listOf("pull", "switch", "article", "next", "reading"),
                 onClick = {
                     SettingsHighlightManager.highlight(DataStoreKey.pullToSwitchArticle)
-                    navigateToInteraction()
+                    navigateToReadingPageStyle()
                 },
             ),
             SettingSearchItem(
@@ -555,18 +546,26 @@ fun SettingsPage(
                     }
                     item {
                         SelectableSettingGroupItem(
-                            title = accountsTitle,
-                            desc = accountsDesc,
-                            icon = Icons.Outlined.AccountCircle,
-                            onClick = navigateToAccounts,
+                            title = feedsPageStyleTitle,
+                            desc = stringResource(R.string.feeds_page_style_desc),
+                            icon = Icons.Outlined.Folder,
+                            onClick = navigateToFeedsPageStyle,
                         )
                     }
                     item {
                         SelectableSettingGroupItem(
-                            title = backupAndDataTitle,
-                            desc = backupAndDataDesc,
-                            icon = Icons.Outlined.CloudUpload,
-                            onClick = navigateToCloudBackup,
+                            title = flowPageStyleTitle,
+                            desc = stringResource(R.string.flow_page_style_desc),
+                            icon = Icons.Outlined.Dashboard,
+                            onClick = navigateToFlowPageStyle,
+                        )
+                    }
+                    item {
+                        SelectableSettingGroupItem(
+                            title = readingPageStyleTitle,
+                            desc = stringResource(R.string.reading_page_style_desc),
+                            icon = Icons.Outlined.MenuBook,
+                            onClick = navigateToReadingPageStyle,
                         )
                     }
                     item {
@@ -579,10 +578,18 @@ fun SettingsPage(
                     }
                     item {
                         SelectableSettingGroupItem(
-                            title = interactionTitle,
-                            desc = interactionDesc,
-                            icon = Icons.Outlined.TouchApp,
-                            onClick = navigateToInteraction,
+                            title = accountsTitle,
+                            desc = accountsDesc,
+                            icon = Icons.Outlined.AccountCircle,
+                            onClick = navigateToAccounts,
+                        )
+                    }
+                    item {
+                        SelectableSettingGroupItem(
+                            title = backupAndDataTitle,
+                            desc = backupAndDataDesc,
+                            icon = Icons.Outlined.CloudUpload,
+                            onClick = navigateToCloudBackup,
                         )
                     }
                     item {

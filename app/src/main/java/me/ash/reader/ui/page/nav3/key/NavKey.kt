@@ -52,9 +52,6 @@ sealed interface Route : NavKey {
 
     @Serializable data object ReadingPageVideo : Route
 
-    // Interaction
-    @Serializable data object Interaction : Route
-
     // Languages
     @Serializable data object Languages : Route
 

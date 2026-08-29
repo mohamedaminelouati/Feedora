@@ -44,6 +44,12 @@ fun FlowPageStylePage(
     val settings = LocalSettings.current
     val pullToSwitchFeed = settings.pullToSwitchFeed
 
+    val initialFilter = LocalInitialFilter.current
+    val swipeToStartAction = LocalArticleListSwipeStartAction.current
+    val swipeToEndAction = LocalArticleListSwipeEndAction.current
+    val markAsReadOnScroll = LocalMarkAsReadOnScroll.current
+    val restoreScrollPosition = LocalRestoreScrollPosition.current
+
     val scope = rememberCoroutineScope()
 
     var filterBarStyleDialogVisible by remember { mutableStateOf(false) }
@@ -55,8 +61,10 @@ fun FlowPageStylePage(
     var showArticleListDescDialog by remember { mutableStateOf(false) }
     var showPullToLoadDialog by remember { mutableStateOf(false) }
     var showFlowLayoutDialog by remember { mutableStateOf(false) }
-
     var showSortUnreadArticlesDialog by remember { mutableStateOf(false) }
+    var initialFilterDialogVisible by remember { mutableStateOf(false) }
+    var swipeStartDialogVisible by remember { mutableStateOf(false) }
+    var swipeEndDialogVisible by remember { mutableStateOf(false) }
 
     var filterBarPaddingValue: Int? by remember { mutableStateOf(filterBarPadding) }
 
@@ -198,12 +206,63 @@ fun FlowPageStylePage(
                     Spacer(modifier = Modifier.height(24.dp))
                 }
 
-                // Reading & Indicators
+                // Swipe Gestures
                 item {
                     Subtitle(
                         modifier = Modifier.padding(horizontal = 24.dp),
-                        text = stringResource(R.string.reading_indicators)
+                        text = stringResource(R.string.swipe_gestures),
                     )
+                    SettingItem(
+                        title = stringResource(R.string.swipe_to_start),
+                        desc = swipeToStartAction.desc,
+                        onClick = {
+                            swipeStartDialogVisible = true
+                        },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.swipe_to_end),
+                        desc = swipeToEndAction.desc,
+                        onClick = {
+                            swipeEndDialogVisible = true
+                        },
+                    ) {}
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
+
+                // Scrolling & Behavior
+                item {
+                    Subtitle(
+                        modifier = Modifier.padding(horizontal = 24.dp),
+                        text = stringResource(R.string.scrolling_navigation),
+                    )
+                    SettingItem(
+                        title = stringResource(R.string.initial_filter),
+                        desc = initialFilter.toDesc(context),
+                        onClick = {
+                            initialFilterDialogVisible = true
+                        },
+                    ) {}
+                    SettingItem(
+                        title = stringResource(R.string.restore_scroll_position),
+                        desc = stringResource(R.string.restore_scroll_position_desc),
+                        onClick = {
+                            (!restoreScrollPosition).put(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = restoreScrollPosition.value) {
+                            (!restoreScrollPosition).put(context, scope)
+                        }
+                    }
+                    SettingItem(
+                        title = stringResource(R.string.mark_as_read_on_scroll),
+                        onClick = {
+                            markAsReadOnScroll.toggle(context, scope)
+                        },
+                    ) {
+                        RYSwitch(activated = markAsReadOnScroll.value) {
+                            markAsReadOnScroll.toggle(context, scope)
+                        }
+                    }
                     SettingItem(
                         title = stringResource(R.string.article_date_sticky_header),
                         onClick = {
@@ -227,9 +286,7 @@ fun FlowPageStylePage(
                             showSortUnreadArticlesDialog = true
                         },
                         desc = sortUnreadArticles.description()
-                    ) {
-                    }
-
+                    ) {}
                     SettingItem(
                         title = stringResource(R.string.pull_from_bottom),
                         desc = pullToSwitchFeed.description(),
@@ -237,7 +294,6 @@ fun FlowPageStylePage(
                             showPullToLoadDialog = true
                         },
                     )
-
                     SettingItem(
                         title = stringResource(R.string.tonal_elevation),
                         desc = "${articleListTonalElevation.value}dp",
@@ -441,4 +497,49 @@ fun FlowPageStylePage(
             showFlowLayoutDialog = false
         }
     )
+
+    RadioDialog(
+        visible = initialFilterDialogVisible,
+        title = stringResource(R.string.initial_filter),
+        options = InitialFilterPreference.values.map {
+            RadioDialogOption(
+                text = it.toDesc(context),
+                selected = it == initialFilter,
+            ) {
+                it.put(context, scope)
+            }
+        },
+    ) {
+        initialFilterDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = swipeStartDialogVisible,
+        title = stringResource(R.string.swipe_to_start),
+        options = SwipeStartActionPreference.values.map {
+            RadioDialogOption(
+                text = it.desc,
+                selected = it == swipeToStartAction,
+            ) {
+                it.put(context, scope)
+            }
+        },
+    ) {
+        swipeStartDialogVisible = false
+    }
+
+    RadioDialog(
+        visible = swipeEndDialogVisible,
+        title = stringResource(R.string.swipe_to_end),
+        options = SwipeEndActionPreference.values.map {
+            RadioDialogOption(
+                text = it.desc,
+                selected = it == swipeToEndAction,
+            ) {
+                it.put(context, scope)
+            }
+        },
+    ) {
+        swipeEndDialogVisible = false
+    }
 }

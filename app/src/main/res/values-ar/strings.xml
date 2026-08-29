@@ -495,4 +495,7 @@
     <string name="clear_cache">مسح الذاكرة المؤقتة</string>
     <string name="clear_cache_desc">مسح الصور والبيانات المؤقتة</string>
     <string name="clear_cache_success">تم مسح الذاكرة المؤقتة بنجاح</string>
+    <string name="feeds_page_style_desc">المجلدات، الأيقونات، مؤشر المزامنة</string>
+    <string name="flow_page_style_desc">عرض الشبكة أو القائمة، إيماءات السحب، التمرير</string>
+    <string name="reading_page_style_desc">محرك القراءة، الخطوط، الروابط، ملخص الذكاء الاصطناعي</string>
 </resources>
