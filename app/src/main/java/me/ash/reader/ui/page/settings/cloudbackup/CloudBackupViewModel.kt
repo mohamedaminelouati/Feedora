@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -315,7 +316,7 @@ class CloudBackupViewModel @Inject constructor(
                 } ?: throw IllegalStateException("Cannot open output stream for $uri")
             }
             _uiState.update { it.copy(progressState = BackupProgress()) }
-            withContext(ioDispatcher) {
+            withContext(Dispatchers.Main) {
                 onComplete(result)
             }
         }
@@ -347,7 +348,7 @@ class CloudBackupViewModel @Inject constructor(
                 } ?: throw IllegalStateException("Cannot open input stream for $uri")
             }
             _uiState.update { it.copy(progressState = BackupProgress()) }
-            withContext(ioDispatcher) {
+            withContext(Dispatchers.Main) {
                 onComplete(result)
             }
         }
@@ -364,7 +365,9 @@ class CloudBackupViewModel @Inject constructor(
                     backupService.exportPreferencesOnly(context, outputStream)
                 } ?: throw IllegalStateException("Cannot open output stream for $uri")
             }
-            onComplete(result)
+            withContext(Dispatchers.Main) {
+                onComplete(result)
+            }
         }
     }
 
@@ -379,7 +382,9 @@ class CloudBackupViewModel @Inject constructor(
                     backupService.importPreferencesOnly(context, inputStream).getOrThrow()
                 } ?: throw IllegalStateException("Cannot open input stream for $uri")
             }
-            onComplete(result)
+            withContext(Dispatchers.Main) {
+                onComplete(result)
+            }
         }
     }
 
@@ -388,7 +393,9 @@ class CloudBackupViewModel @Inject constructor(
             runCatching {
                 context.cacheDir.deleteRecursively()
             }
-            onComplete()
+            withContext(Dispatchers.Main) {
+                onComplete()
+            }
         }
     }
 }

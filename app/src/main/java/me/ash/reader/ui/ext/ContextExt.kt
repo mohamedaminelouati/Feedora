@@ -7,6 +7,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
 import android.util.Log
 import android.widget.Toast
@@ -41,9 +43,17 @@ fun Context.getCurrentVersion(): Version = packageManager
     .versionName
     .toVersion()
 
-fun Context.getLatestApk(): File = File(cacheDir, "latest.apk")
+fun Context.getLatestApk(): File {
+    val dir = File(cacheDir, "apk")
+    if (!dir.exists()) {
+        dir.mkdirs()
+    }
+    return File(dir, "latest.apk")
+}
 
-fun Context.getFileProvider(): String = "${packageName}.fileprovider"
+fun Context.getFileProvider(): String {
+    return "$packageName.FileProvider"
+}
 
 fun Context.installLatestApk() {
     try {
@@ -65,16 +75,31 @@ fun Context.installLatestApk() {
 private var toast: Toast? = null
 
 fun Context.showToast(message: String?, duration: Int = Toast.LENGTH_SHORT) {
-    toast?.cancel()
-    toast = Toast.makeText(this, message, duration)
-    toast?.show()
+    if (message.isNullOrEmpty()) return
+    if (Looper.myLooper() == Looper.getMainLooper()) {
+        try {
+            toast?.cancel()
+            toast = Toast.makeText(this, message, duration)
+            toast?.show()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    } else {
+        Handler(Looper.getMainLooper()).post {
+            try {
+                toast?.cancel()
+                toast = Toast.makeText(this, message, duration)
+                toast?.show()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }
 
 suspend fun Context.showToastSuspend(message: String?, duration: Int = Toast.LENGTH_SHORT) {
     withContext(Dispatchers.Main) {
-        toast?.cancel()
-        toast = Toast.makeText(this@showToastSuspend, message, duration)
-        toast?.show()
+        showToast(message, duration)
     }
 }
 
