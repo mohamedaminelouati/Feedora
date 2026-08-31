@@ -42,7 +42,7 @@ class CloudBackupServiceTest {
 
     @Before
     fun setUp() {
-        `when`(mockContext.cacheDir).thenReturn(File(System.getProperty("java.io.tmpdir")))
+        `when`(mockContext.cacheDir).thenReturn(File(System.getProperty("java.io.tmpdir") ?: "."))
 
         cloudBackupService = CloudBackupService(
             context = mockContext,

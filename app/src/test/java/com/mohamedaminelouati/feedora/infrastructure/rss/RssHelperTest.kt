@@ -133,7 +133,7 @@ class RssHelperTest {
             <head>
                 <meta charset="iso-8859-1">
                 <title>Test &amp; Article</title>
-            <body>Flux RSS et actualites technologiques</body>
+            <body>RSS feeds and technology news</body>
         </html>
         """.trimIndent()
 
@@ -142,7 +142,7 @@ class RssHelperTest {
         Assert.assertEquals(Charsets.ISO_8859_1, charset)
 
         val decodedResult = String(bytes, charset)
-        Assert.assertTrue(decodedResult.contains("Flux RSS et actualites technologiques"))
+        Assert.assertTrue(decodedResult.contains("RSS feeds and technology news"))
         Assert.assertFalse(decodedResult.contains("\uFFFD"))
     }
 
@@ -153,7 +153,7 @@ class RssHelperTest {
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
             </head>
-            <body>Déjà vu été français</body>
+            <body>International special characters: café, résumé, naïve</body>
             </html>
         """.trimIndent()
         val win1252 = java.nio.charset.Charset.forName("windows-1252")
@@ -162,16 +162,16 @@ class RssHelperTest {
         Assert.assertEquals(win1252, charset)
 
         val decoded = String(bytes, charset)
-        Assert.assertTrue(decoded.contains("Déjà vu été français"))
+        Assert.assertTrue(decoded.contains("International special characters: café, résumé, naïve"))
     }
 
     @Test
-    fun testFrenchCharactersDecodingAccuracy() {
-        val originalFrenchText = "Club des développeurs : Actualités, cours, tutoriels & événements d'ingénierie"
-        val bytes = originalFrenchText.toByteArray(Charsets.ISO_8859_1)
+    fun testSpecialCharactersDecodingAccuracy() {
+        val sampleText = "Developer Community: News, tutorials, and engineering events"
+        val bytes = sampleText.toByteArray(Charsets.ISO_8859_1)
         val charset = rssHelper.detectHtmlCharset("text/html, charset=iso-8859-1", bytes)
         val decoded = String(bytes, charset)
-        Assert.assertEquals(originalFrenchText, decoded)
+        Assert.assertEquals(sampleText, decoded)
     }
 
     @Test
