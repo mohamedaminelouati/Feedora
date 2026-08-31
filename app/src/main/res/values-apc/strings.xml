@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">أسمعك بوضوح , حول زعيم الشاطىء , حول</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">كل شي</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d غرض بال أرشيڤ</item>

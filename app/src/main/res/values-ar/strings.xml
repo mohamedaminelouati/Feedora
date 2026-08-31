@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">أسمعك بوضوح , حول زعيم الشاطىء , حول</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">الكل</string>
     <plurals name="all_desc">
         <item quantity="zero">لا توجد عناصر مؤرشفة</item>
@@ -138,7 +138,7 @@
     <string name="tips_and_support">التلميحات والدعم</string>
     <string name="tips_and_support_desc">حول، راعي، تراخيص المصدر المفتوح</string>
     <string name="welcome">مرحبًا</string>
-    <string name="tos_tips">اقرأ ووافِق على شروط خدمة وسياسة خصوصيَّة Read You Pro لأستمرار.</string>
+    <string name="tos_tips">اقرأ ووافِق على شروط خدمة وسياسة خصوصيَّة Feedora لأستمرار.</string>
     <string name="browse_tos_tips">تصفَّح </string>
     <string name="terms_of_service">شروط الخدمة</string>
     <string name="tos_content"></string>

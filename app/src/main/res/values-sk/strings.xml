@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Všetko</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d archivovaná položka</item>
@@ -129,7 +129,7 @@
     <string name="tips_and_support">Tipy a podpora</string>
     <string name="tips_and_support_desc">O aplikácii, sponzor, open source licencie</string>
     <string name="welcome">Vitajte</string>
-    <string name="tos_tips">Ak chcete pokračovať, prečítajte si a vyjadrite súhlas s Podmienkami používania Read You Pro a Zásadami ochrany osobných údajov.</string>
+    <string name="tos_tips">Ak chcete pokračovať, prečítajte si a vyjadrite súhlas s Podmienkami používania Feedora a Zásadami ochrany osobných údajov.</string>
     <string name="browse_tos_tips">Pozrite si </string>
     <string name="terms_of_service">Zmluvné podmienky</string>
     <string name="tos_content"></string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">すべて</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d 個のアーカイブされたアイテム</item>
@@ -123,7 +123,7 @@
     <string name="tips_and_support">ヒントとサポート</string>
     <string name="tips_and_support_desc">このアプリについて、スポンサー、オープンソースライセンス</string>
     <string name="welcome">ようこそ</string>
-    <string name="tos_tips">Read You Pro の利用規約とプライバシーポリシーをお読みになり、同意される場合は、[同意する]をタップしてください。</string>
+    <string name="tos_tips">Feedora の利用規約とプライバシーポリシーをお読みになり、同意される場合は、[同意する]をタップしてください。</string>
     <string name="browse_tos_tips">閲覧する</string>
     <string name="terms_of_service">利用規約</string>
     <string name="tos_content"></string>

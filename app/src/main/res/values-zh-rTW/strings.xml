@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">全部</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d 則已存檔</item>
@@ -123,7 +123,7 @@
     <string name="tips_and_support">提示和支援</string>
     <string name="tips_and_support_desc">關於、贊助、開放原始碼授權</string>
     <string name="welcome">歡迎</string>
-    <string name="tos_tips">請詳閱並同意 Read You Pro 的服務條款與隱私權政策以繼續使用。</string>
+    <string name="tos_tips">請詳閱並同意 Feedora 的服務條款與隱私權政策以繼續使用。</string>
     <string name="browse_tos_tips">瀏覽</string>
     <string name="terms_of_service">服務條款</string>
     <string name="tos_content"></string>

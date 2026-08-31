@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Vse</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d arhivirana novica</item>
@@ -132,7 +132,7 @@
     <string name="tips_and_support">Nasveti in podpora</string>
     <string name="tips_and_support_desc">O programski opremi, odprtokodne licence</string>
     <string name="welcome">Dobrodošli</string>
-    <string name="tos_tips">Če želite nadaljevati, preberite Pogoje storitve in Pravilnik o zasebnosti programske opreme Read You Pro ter se z njimi strinjajte.</string>
+    <string name="tos_tips">Če želite nadaljevati, preberite Pogoje storitve in Pravilnik o zasebnosti programske opreme Feedora ter se z njimi strinjajte.</string>
     <string name="browse_tos_tips">Prebrskajte </string>
     <string name="terms_of_service">Pogoji storitve</string>
     <string name="tos_content"></string>

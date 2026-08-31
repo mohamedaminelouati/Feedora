@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Siz oxuyun</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Hamısı</string>
     <plurals name="all_desc">
         <item quantity="one">%1$darxivləşdirilmiş element</item>

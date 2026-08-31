@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">הכול</string>
     <plurals name="all_desc">
         <item quantity="one">פריט אחד הועבר לארכיון</item>

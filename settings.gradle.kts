@@ -15,5 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ReadYou Pro"
+rootProject.name = "Feedora"
 include(":app")

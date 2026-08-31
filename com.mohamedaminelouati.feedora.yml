@@ -9,7 +9,7 @@ SourceCode: https://github.com/mohamedaminelouati/ReadYou-Pro
 IssueTracker: https://github.com/mohamedaminelouati/ReadYou-Pro/issues
 Changelog: https://github.com/mohamedaminelouati/ReadYou-Pro/releases
 
-AutoName: ReadYou Pro
+AutoName: Feedora
 
 RepoType: git
 Repo: https://github.com/mohamedaminelouati/ReadYou-Pro.git
@@ -17,7 +17,7 @@ Repo: https://github.com/mohamedaminelouati/ReadYou-Pro.git
 Builds:
   - versionName: 1.0.0
     versionCode: 100
-    commit: v1.0.0
+    commit: 249a16089e9000a6e0337f71cbdaea5e00ea8b4e
     subdir: app
     gradle:
       - fdroid

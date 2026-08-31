@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Kõik</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d arhiveeritud kirje</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">Nõuanded ja kasutajatugi</string>
     <string name="tips_and_support_desc">Rakenduse teave, sponsorlus, avatud lähtekoodi litsentsid</string>
     <string name="welcome">Tere tulemast</string>
-    <string name="tos_tips">Jätkamiseks palun tutvu ja nõustu Read You Pro kasutustingimuste ja privaatsusreeglitega.</string>
+    <string name="tos_tips">Jätkamiseks palun tutvu ja nõustu Feedora kasutustingimuste ja privaatsusreeglitega.</string>
     <string name="browse_tos_tips">Loe </string>
     <string name="terms_of_service">Kasutustingimused</string>
     <string name="tos_content"></string>

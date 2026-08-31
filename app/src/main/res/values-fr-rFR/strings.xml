@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Tout</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d élément archivé</item>
@@ -129,7 +129,7 @@
     <string name="tips_and_support">Aide et assistance</string>
     <string name="tips_and_support_desc">"À propos, sponsor,  Licences Open Source"</string>
     <string name="welcome">Bienvenue</string>
-    <string name="tos_tips">Veuillez lire et accepter les conditions d’utilisation et la politique de confidentialité de Read You Pro.</string>
+    <string name="tos_tips">Veuillez lire et accepter les conditions d’utilisation et la politique de confidentialité de Feedora.</string>
     <string name="browse_tos_tips">Lire les </string>
     <string name="terms_of_service">Conditions d’utilisation</string>
     <string name="tos_content"></string>

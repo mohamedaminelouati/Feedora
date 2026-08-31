@@ -322,7 +322,7 @@ private fun Preview() {
             Subtitle("Data source")
             SingleChoiceItem(
                 selected = false,
-                title = "Read You Pro",
+                title = "Feedora",
                 description = "Account",
                 onClick = {},
             )

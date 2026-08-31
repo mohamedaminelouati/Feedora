@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Все</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d архивированная статья</item>

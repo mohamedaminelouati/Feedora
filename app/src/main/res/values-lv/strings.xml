@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Visi</string>
     <plurals name="all_desc">
         <item quantity="zero">%1$d arhivēti raksti</item>

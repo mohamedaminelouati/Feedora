@@ -39,7 +39,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.mohamedaminelouati.readyoupro"
+        applicationId = "com.mohamedaminelouati.feedora"
         minSdk = 26
         targetSdk = 34
         versionCode = 100
@@ -48,7 +48,7 @@ android {
         buildConfigField(
             "String",
             "USER_AGENT_STRING",
-            "\"ReadYouPro/${versionName}(${versionCode})\"",
+            "\"Feedora/${versionName}(${versionCode})\"",
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -94,7 +94,7 @@ android {
     applicationVariants.all {
         outputs.all {
             (this as com.android.build.gradle.internal.api.BaseVariantOutputImpl).outputFileName =
-                "ReadYou-${defaultConfig.versionName}-${gitCommitHash}.apk"
+                "Feedora-${defaultConfig.versionName}-${gitCommitHash}.apk"
         }
     }
     kotlinOptions {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Semua</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d Artikel Diarsipkan</item>

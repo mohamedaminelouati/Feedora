@@ -108,7 +108,7 @@ constructor(
     private fun getInitialFeed(account: Account, group: Group): Feed =
         Feed(
             id = account.id!!.spacerDollar(UUID.randomUUID().toString()),
-            name = "ReadYou Pro Releases",
+            name = "Feedora Releases",
             icon = "https://github.com/mohamedaminelouati.png",
             url = "https://github.com/mohamedaminelouati/ReadYou-Pro/releases.atom",
             groupId = group.id,

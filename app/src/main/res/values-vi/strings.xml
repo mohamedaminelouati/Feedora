@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Tất cả</string>
     <plurals name="all_desc">
         <item quantity="other">%1$d bài viết lưu trữ</item>
@@ -123,7 +123,7 @@
     <string name="tips_and_support">Mẹo &amp; hỗ trợ</string>
     <string name="tips_and_support_desc">Giới thiệu, giấy phép mã nguồn mở</string>
     <string name="welcome">Chào mừng</string>
-    <string name="tos_tips">Đọc và đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư của Read You Pro để tiếp tục.</string>
+    <string name="tos_tips">Đọc và đồng ý với Điều khoản dịch vụ và Chính sách quyền riêng tư của Feedora để tiếp tục.</string>
     <string name="browse_tos_tips">Đọc </string>
     <string name="terms_of_service">Điều khoản Dịch vụ</string>
     <string name="tos_content"></string>

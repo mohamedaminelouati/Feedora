@@ -1,4 +1,4 @@
-<i>Read You Pro</i> یک خبرخوان مدرن و زیبای RSS با طراحی <a href='https://m3.material.io/' target='_blank' rel='nofollow'>Material You </a> است
+<i>Feedora</i> یک خبرخوان مدرن و زیبای RSS با طراحی <a href='https://m3.material.io/' target='_blank' rel='nofollow'>Material You </a> است
 
 <b>ویژگی‌ها:</b>
 

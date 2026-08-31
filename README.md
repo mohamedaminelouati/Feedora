@@ -21,7 +21,7 @@
 </div>
 
 <div align="center">
-    <h1>ReadYou Pro</h1>
+    <h1>Feedora</h1>
     <p>A modern, powerful Android RSS reader presented in <a target="_blank" href="https://m3.material.io/">Material You</a> style.</p>
     <p>Maintained and enhanced by <strong><a href="https://github.com/mohamedaminelouati">Mohamed Amine Louati</a></strong>.</p>
     <br/>
@@ -36,7 +36,7 @@
 
 ## Features
 
-**ReadYou Pro** is a modern Android RSS reader built with Jetpack Compose following Material You principles.
+**Feedora** is a modern Android RSS reader built with Jetpack Compose following Material You principles.
 
 - [x] Subscribe to RSS / Atom / JSON / HTML feeds
 - [x] 51 synchronized languages
@@ -46,12 +46,12 @@
 - [x] Full content extraction and offline reading
 - [x] Multi-account management
 - [x] Text-to-speech read aloud
-- [x] AI Article Summarization (Smry.ai)
+- [x] Article Summarizer integration (Proton Lumo, Duck.ai, etc.)
 - [x] Material You dynamic theming and amoled dark mode
 
 ## Native Cloud Integrations
 
-**ReadYou Pro** natively supports major RSS services via direct dedicated API clients:
+**Feedora** natively supports major RSS services via direct dedicated API clients:
 
 - [x] **Miniflux** (Native REST API v1)
 - [x] **Tiny Tiny RSS** (Native JSON API)
@@ -90,7 +90,7 @@ Get the latest releases and APKs directly from GitHub:
 
 ## Credits & Acknowledgements
 
-**ReadYou Pro** is based on the open-source **Read You** project created by **Ash** and the open-source community.
+**Feedora** is based on the open-source **Read You** project created by **Ash** and the open-source community.
 
 ### Open Source Projects
 - [MusicYou](https://github.com/Kyant0/MusicYou)
@@ -104,9 +104,9 @@ Get the latest releases and APKs directly from GitHub:
 
 ## Privacy Policy
 
-**ReadYou Pro** respects your privacy with zero data collection, zero tracking, and zero telemetry. Read the full [Privacy Policy](PRIVACY.md).
+**Feedora** respects your privacy with zero data collection, zero tracking, and zero telemetry. Read the full [Privacy Policy](PRIVACY.md).
 
 ## License
 
-GNU General Public License v3.0 (GPL-3.0) © [ReadYou Pro](https://github.com/mohamedaminelouati/ReadYou-Pro/blob/main/LICENSE)  
+GNU General Public License v3.0 (GPL-3.0) © [Feedora](https://github.com/mohamedaminelouati/ReadYou-Pro/blob/main/LICENSE)  
 Based on Read You by Ash and contributors.

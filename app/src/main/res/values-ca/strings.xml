@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Tot</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d Article arxivat</item>
@@ -129,7 +129,7 @@
     <string name="tips_and_support">Consells i suport</string>
     <string name="tips_and_support_desc">Sobre les llicències de codi obert</string>
     <string name="welcome">Benvinguts/des</string>
-    <string name="tos_tips">Si us plau llegeix i accepta els termes de servei i la política de privacitat de Read You Pro per continuar.</string>
+    <string name="tos_tips">Si us plau llegeix i accepta els termes de servei i la política de privacitat de Feedora per continuar.</string>
     <string name="browse_tos_tips">Navega pels </string>
     <string name="terms_of_service">Termes de Servei</string>
     <string name="tos_content"></string>

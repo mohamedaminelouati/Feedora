@@ -1,4 +1,4 @@
-<i>Read You Pro</i> Moderná a elegantná čítačka RSS s dizajnom <a href='https://m3.material.io/' target='_blank' rel='nofollow'>Material You </a>
+<i>Feedora</i> Moderná a elegantná čítačka RSS s dizajnom <a href='https://m3.material.io/' target='_blank' rel='nofollow'>Material You </a>
 
 <b>Funkcie:</b>
 

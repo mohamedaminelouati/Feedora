@@ -1,28 +1,28 @@
-# Privacy Policy for ReadYou Pro
+# Privacy Policy for Feedora
 
 **Last updated:** August 29, 2026
 
-**ReadYou Pro** is an open-source Android RSS feed reader developed and maintained by **Mohamed Amine Louati** ([mohamedaminlouati@gmail.com](mailto:mohamedaminlouati@gmail.com)).
+**Feedora** is an open-source Android RSS feed reader developed and maintained by **Mohamed Amine Louati** ([mohamedaminlouati@gmail.com](mailto:mohamedaminlouati@gmail.com)).
 
-Your privacy is a foundational principle of ReadYou Pro. This Privacy Policy outlines how your information is handled when using the ReadYou Pro application.
+Your privacy is a foundational principle of Feedora. This Privacy Policy outlines how your information is handled when using the Feedora application.
 
 ---
 
 ## 1. Zero Personal Data Collection
 
-- **No Data Collection:** ReadYou Pro does not collect, harvest, store, or transmit any personal identifiable information (PII).
+- **No Data Collection:** Feedora does not collect, harvest, store, or transmit any personal identifiable information (PII).
 - **No Analytics or Trackers:** The application contains zero advertising libraries, zero tracking SDKs, and zero telemetry or analytics frameworks.
-- **No User Registration:** ReadYou Pro does not require an account or registration with us to use the app.
+- **No User Registration:** Feedora does not require an account or registration with us to use the app.
 
 ---
 
 ## 2. Direct Network Communication
 
-ReadYou Pro communicates over the network solely to fulfill your direct requests:
+Feedora communicates over the network solely to fulfill your direct requests:
 
 - **RSS / Atom Feeds:** The application connects directly to the RSS/Atom feed URLs you subscribe to in order to download and parse article content and favicons.
 - **Third-Party RSS Services:** If you configure an account (Miniflux, Tiny Tiny RSS, Feedbin, Inoreader, Feedly, Fever, Google Reader API / FreshRSS), the application communicates directly with the endpoint server specified using the credentials or access tokens you provide. These credentials are encrypted and stored solely on your local device.
-- **Optional AI Summarization:** If you explicitly invoke the AI summary feature on an article, the article URL is sent directly to the Smry.ai service to extract and format the summary.
+- **Optional AI Summarization:** If you explicitly invoke the AI summary feature on an article, the article URL is sent directly to your chosen summarizer provider to format the summary.
 - **Application Updates:** When checking for application updates, the application queries the public GitHub Releases API (`https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest`) to determine if a newer version is available.
 
 ---
@@ -37,7 +37,7 @@ ReadYou Pro communicates over the network solely to fulfill your direct requests
 
 ## 4. Permissions
 
-ReadYou Pro requests only the minimal Android permissions necessary for its functionality:
+Feedora requests only the minimal Android permissions necessary for its functionality:
 
 - `android.permission.INTERNET`: Required to fetch RSS feeds and synchronize with chosen cloud providers.
 - `android.permission.POST_NOTIFICATIONS`: Optional permission to alert you when new articles are fetched during background synchronization.
@@ -47,7 +47,7 @@ ReadYou Pro requests only the minimal Android permissions necessary for its func
 
 ## 5. Compliance & Open Source
 
-ReadYou Pro is free software distributed under the terms of the **GNU General Public License v3.0 (GPL-3.0)**. The complete source code is publicly auditable at [https://github.com/mohamedaminelouati/ReadYou-Pro](https://github.com/mohamedaminelouati/ReadYou-Pro).
+Feedora is free software distributed under the terms of the **GNU General Public License v3.0 (GPL-3.0)**. The complete source code is publicly auditable at [https://github.com/mohamedaminelouati/ReadYou-Pro](https://github.com/mohamedaminelouati/ReadYou-Pro).
 
 ---
 

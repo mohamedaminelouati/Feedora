@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">Összes</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d archivált cikk</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">Tippek és támogatás</string>
     <string name="tips_and_support_desc">Névjegy, szponzorálás, nyílt forráskódú licencek</string>
     <string name="welcome">Üdvözöljük</string>
-    <string name="tos_tips">Olvassa át és fogadja el a Read You Pro használati feltételeit és adatvédelmi irányelveit a folytatáshoz.</string>
+    <string name="tos_tips">Olvassa át és fogadja el a Feedora használati feltételeit és adatvédelmi irányelveit a folytatáshoz.</string>
     <string name="browse_tos_tips">A </string>
     <string name="terms_of_service">Használati feltételek</string>
     <string name="tos_content"></string>

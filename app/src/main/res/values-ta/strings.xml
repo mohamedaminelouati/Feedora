@@ -1,5 +1,5 @@
 <resources>
-    <string name="read_you" translatable="false">Read You Pro</string>
+    <string name="read_you" translatable="false">Feedora</string>
     <string name="all">அனைத்தும்</string>
     <plurals name="all_desc">
         <item quantity="one">%1$d உருபடி ஆவணக்கிடங்கிலிட்டது</item>
@@ -126,7 +126,7 @@
     <string name="tips_and_support">கொசுறு &amp; ஆதரவு</string>
     <string name="tips_and_support_desc">இது பற்றி, விரி எழுவாய் உரிமங்கள்</string>
     <string name="welcome">நல்வரவு</string>
-    <string name="tos_tips">தொடர்வதற்கு, தயவுசெய்து Read You Pro\' இன் சேவை விதிமுறைகள் மற்றும் தனியுரிமைக் கொள்கையை படித்து ஒப்புக்கொள்ளுங்கள்.</string>
+    <string name="tos_tips">தொடர்வதற்கு, தயவுசெய்து Feedora\' இன் சேவை விதிமுறைகள் மற்றும் தனியுரிமைக் கொள்கையை படித்து ஒப்புக்கொள்ளுங்கள்.</string>
     <string name="browse_tos_tips">உலாவவும்</string>
     <string name="terms_of_service">சேவை விதிமுறைகள்</string>
     <string name="tos_content"></string>
