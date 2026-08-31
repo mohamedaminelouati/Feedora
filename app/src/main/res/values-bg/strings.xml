@@ -108,7 +108,7 @@
     <string name="interaction_desc">Стартова страница, жестове</string>
     <string name="languages">Езици</string>
     <string name="help_translate">Помогни с превода</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">Използвай езика на устройството</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

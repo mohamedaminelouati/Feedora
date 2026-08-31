@@ -59,7 +59,7 @@ class CloudBackupServiceTest {
             protocol = RemoteStorageProtocol.WEBDAV,
             host = "example.com",
             port = 443,
-            remotePath = "/ReadYou/",
+            remotePath = "/Feedora/",
         )
         `when`(clientFactory.createClient(config)).thenReturn(mockClient)
         `when`(mockClient.testConnection()).thenReturn(Result.success(Unit))

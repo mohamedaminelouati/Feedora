@@ -15,6 +15,7 @@ class OkHttpClientModuleTest {
     fun testUserAgentStringIsBrowserCompatible() {
         assertTrue(USER_AGENT_STRING.startsWith("Mozilla/5.0"))
         assertTrue(USER_AGENT_STRING.contains("Mobile"))
+        assertTrue(!USER_AGENT_STRING.contains("Feedora"))
         assertTrue(!USER_AGENT_STRING.contains("ReadYou"))
     }
 

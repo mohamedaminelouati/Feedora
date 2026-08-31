@@ -108,7 +108,7 @@
     <string name="interaction_desc">Başlanğıc səhifə, jestlər</string>
     <string name="languages">Xarici Dillər</string>
     <string name="help_translate">Tərcümə etməyə kömək edin</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">Cihaz dilindən istifadə edin</string>
     <string name="english" translatable="false">İngilis dili</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

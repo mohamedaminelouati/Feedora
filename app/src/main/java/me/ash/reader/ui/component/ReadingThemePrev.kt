@@ -134,9 +134,9 @@ fun ReadingThemePrev(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-private fun ReadYouPreview() {
+private fun FeedoraPreview() {
     ReadingThemePrev(
         selected = ReadingThemePreference.MaterialYou,
         theme = ReadingThemePreference.MaterialYou,

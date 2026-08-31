@@ -54,7 +54,7 @@ constructor(
     }
 
     companion object {
-        private const val SYNC_WORK_NAME_PERIODIC = "ReadYou"
+        private const val SYNC_WORK_NAME_PERIODIC = "Feedora"
         @Deprecated("do not use")
         private const val READER_WORK_NAME_PERIODIC = "FETCH_FULL_CONTENT_PERIODIC"
         private const val POST_SYNC_WORK_NAME = "POST_SYNC_WORK"

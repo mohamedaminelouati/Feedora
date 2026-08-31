@@ -105,7 +105,7 @@
     <string name="interaction_desc">시작 페이지, 햅틱 피드백</string>
     <string name="languages">언어</string>
     <string name="help_translate">번역 도와주기</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">기기 설정에 따름</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

@@ -108,7 +108,7 @@
     <string name="interaction_desc">Komenca paĝo, haptika retrosciigo</string>
     <string name="languages">Lingvoj</string>
     <string name="help_translate">Helpu traduki</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">Uzi aparatlingvon</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

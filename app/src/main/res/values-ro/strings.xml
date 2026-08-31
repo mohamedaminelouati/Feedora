@@ -111,7 +111,7 @@
     <string name="interaction_desc">Pagina inițială, feedback haptic</string>
     <string name="languages">Limbi</string>
     <string name="help_translate">Ajută la traducere</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">Folosește limba dispozitivului</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

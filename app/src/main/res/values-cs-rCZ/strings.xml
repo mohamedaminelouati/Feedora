@@ -111,7 +111,7 @@
     <string name="interaction_desc">Úvodní stránka, gesta</string>
     <string name="languages">Jazyky</string>
     <string name="help_translate">Pomozte nám s překladem</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">Použít jazyk zařízení</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

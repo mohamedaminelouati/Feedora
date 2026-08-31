@@ -24,7 +24,7 @@ data class RemoteServerConfig(
     val protocol: RemoteStorageProtocol = RemoteStorageProtocol.WEBDAV,
     val host: String = "",
     val port: Int = protocol.defaultPort,
-    val remotePath: String = "/ReadYou/",
+    val remotePath: String = "/Feedora/",
     val username: String = "",
     val password: String = "",
     val trustInsecureSsl: Boolean = false,

@@ -108,7 +108,7 @@
     <string name="interaction_desc">Kezdőoldal, gesztusok</string>
     <string name="languages">Nyelvek</string>
     <string name="help_translate">Segítsen a fordításban</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">Eszköz nyelvének használata</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

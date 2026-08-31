@@ -111,7 +111,7 @@
     <string name="interaction_desc">Page de démarrage, gestes</string>
     <string name="languages">Langues</string>
     <string name="help_translate">Aidez-nous à traduire</string>
-    <string name="translatable_url" translatable="false">https://hosted.weblate.org/projects/readyou/</string>
+    <string name="translatable_url" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="use_device_languages">Utiliser la langue système</string>
     <string name="english" translatable="false">English</string>
     <string name="chinese_simplified" translatable="false">简体中文</string>

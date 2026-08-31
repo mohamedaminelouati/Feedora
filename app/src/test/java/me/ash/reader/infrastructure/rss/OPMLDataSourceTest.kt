@@ -85,7 +85,7 @@ class OPMLDataSourceTest {
     }
 
     @Test
-    fun testReadYouAttributesAndFallbackName() {
+    fun testFeedoraAttributesAndFallbackName() {
         val opml = fill("""
             <outline text="Blogs" title="Blogs">
                 <outline type="rss" xmlUrl="https://ash7.io/index.xml"

@@ -66,7 +66,7 @@ class CloudBackupPreferencesManager @Inject constructor(
         val protocol = RemoteStorageProtocol.fromString(prefs[CloudBackupDataStoreKeys.PROTOCOL] ?: RemoteStorageProtocol.WEBDAV.name)
         val host = prefs[CloudBackupDataStoreKeys.HOST] ?: ""
         val port = prefs[CloudBackupDataStoreKeys.PORT] ?: protocol.defaultPort
-        val remotePath = prefs[CloudBackupDataStoreKeys.REMOTE_PATH] ?: "/ReadYou/"
+        val remotePath = prefs[CloudBackupDataStoreKeys.REMOTE_PATH] ?: "/Feedora/"
         val username = prefs[CloudBackupDataStoreKeys.USERNAME] ?: ""
         val password = prefs[CloudBackupDataStoreKeys.PASSWORD] ?: ""
         val trustInsecureSsl = prefs[CloudBackupDataStoreKeys.TRUST_INSECURE_SSL] ?: false
