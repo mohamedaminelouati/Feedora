@@ -14,10 +14,13 @@ AutoName: Feedora
 RepoType: git
 Repo: https://github.com/mohamedaminelouati/Feedora.git
 
+Binaries: https://github.com/mohamedaminelouati/Feedora/releases/download/v%v/Feedora-v%v.apk
+AllowedAPKSigningKeys: 715696914a35366d98fa45312af96811f7e6de4085b5e4709f4c1e74f8bde4d0
+
 Builds:
   - versionName: 1.0.0
     versionCode: 100
-    commit: 81c6ae4045fbc52e0be5a6eb85beee207e4ea6a1
+    commit: 11a998963c65c2e0b57e4e04910cf6b29f7ce2b8
     subdir: app
     gradle:
       - fdroid
