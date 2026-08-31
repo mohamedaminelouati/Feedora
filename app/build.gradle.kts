@@ -112,7 +112,7 @@ android {
     }
     androidResources { generateLocaleConfig = true }
     composeCompiler { featureFlags = setOf(ComposeFeatureFlag.PausableComposition) }
-    namespace = "me.ash.reader"
+    namespace = "com.mohamedaminelouati.feedora"
 }
 
 aboutLibraries { excludeFields = arrayOf("generated") }

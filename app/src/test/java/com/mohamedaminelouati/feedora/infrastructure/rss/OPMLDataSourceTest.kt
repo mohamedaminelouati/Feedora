@@ -1,0 +1,101 @@
+package com.mohamedaminelouati.feedora.infrastructure.rss
+
+import android.content.Context
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.runBlocking
+import com.mohamedaminelouati.feedora.domain.model.group.Group
+import com.mohamedaminelouati.feedora.domain.model.group.GroupWithFeed
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.mock
+
+internal const val OPML_TEMPLATE: String = """
+<opml version="1.0">
+    <head>
+        <title>Import OPML Unit Test👿</title>
+    </head>
+     <body>
+        {{var}}
+    </body>
+</opml>
+"""
+
+@RunWith(MockitoJUnitRunner::class)
+class OPMLDataSourceTest {
+
+    @Mock
+    private lateinit var mockContext: Context
+
+    @Mock
+    private lateinit var mockIODispatcher: CoroutineDispatcher
+
+    private lateinit var opmlDataSource: OPMLDataSource
+
+    private val defaultGroup = Group(id = "1", name = "Default", accountId = 1)
+
+    private lateinit var mockObject: OPMLDataSourceTest
+
+    @Before
+    fun setUp() {
+        mockContext = mock<Context> { }
+        mockIODispatcher = mock<CoroutineDispatcher> {}
+        opmlDataSource = OPMLDataSource(mockContext, mockIODispatcher)
+    }
+
+    private fun fill(value: String): String = OPML_TEMPLATE.replace("{{var}}", value)
+
+    private fun parse(opml: String): List<GroupWithFeed> = runBlocking {
+        opmlDataSource.parseFileInputStream(
+            inputStream = opml.byteInputStream(Charsets.UTF_8),
+            defaultGroup = defaultGroup,
+            targetAccountId = 1
+        )
+    }
+
+    @Test
+    fun testEmptyTitle() {
+        val opml = fill("""
+            <outline text="Blogs" title="Blogs">
+                <outline type="rss" xmlUrl="https://example.com/index.xml" htmlUrl="https://example.com"/>
+            </outline>
+        """)
+        val result = parse(opml)
+        Assert.assertEquals(2, result.size)
+        Assert.assertEquals("Default", result[0].group.name)
+        Assert.assertEquals(0, result[0].feeds.size)
+        Assert.assertEquals("Blogs", result[1].group.name)
+        Assert.assertEquals(1, result[1].feeds.size)
+        Assert.assertEquals("example.com", result[1].feeds[0].name)
+        Assert.assertEquals("https://example.com/index.xml", result[1].feeds[0].url)
+    }
+
+    @Test
+    fun testTopLevelFeedUsesDefaultGroup() {
+        val opml = fill("""
+            <outline type="rss" text="Loose Feed" xmlUrl="https://loose.example/feed.xml"/>
+        """)
+        val result = parse(opml)
+        Assert.assertEquals(1, result.size)
+        Assert.assertEquals(defaultGroup.id, result[0].feeds[0].groupId)
+        Assert.assertEquals("Loose Feed", result[0].feeds[0].name)
+    }
+
+    @Test
+    fun testFeedoraAttributesAndFallbackName() {
+        val opml = fill("""
+            <outline text="Blogs" title="Blogs">
+                <outline type="rss" xmlUrl="https://example.com/index.xml"
+                    isNotification="true" isFullContent="true" isBrowser="true"/>
+            </outline>
+        """)
+        val feed = parse(opml)[1].feeds[0]
+        Assert.assertEquals("example.com", feed.name)
+        Assert.assertTrue(feed.isNotification)
+        Assert.assertTrue(feed.isFullContent)
+        Assert.assertTrue(feed.isBrowser)
+    }
+}

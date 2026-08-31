@@ -1,0 +1,208 @@
+package com.mohamedaminelouati.feedora.infrastructure.rss
+
+import android.content.Context
+import kotlinx.coroutines.CoroutineDispatcher
+import okhttp3.OkHttpClient
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.mock
+
+internal const val enclosureUrlString1: String = "https://example.com/enclosure.jpg"
+internal const val enclosureUrlString2: String = "https://github.blog/wp-content/uploads/2024/03/github_copilot_header.png"
+internal const val imageUrlString: String = "https://example.com/image.jpg"
+internal const val enclosureHtmlCase1: String = """
+        <enclosure url="$enclosureUrlString1" type="image/jpeg"/>
+        <img src="$imageUrlString"/>
+    """
+internal const val enclosureHtmlCase2: String = """
+        <img src="$imageUrlString"/>
+        <enclosure url="$enclosureUrlString1" type="image/jpeg"/>
+        <img src="$imageUrlString"/> 
+    """
+internal const val enclosureHtmlCase3: String = """
+        <img src="$imageUrlString"/>
+        <enclosure url="$enclosureUrlString2" type="image/png"/>
+        <img src="$imageUrlString"/> 
+    """
+internal const val imageHtmlCase1: String = """
+        <img src="$enclosureUrlString1"/>
+        <img src="$imageUrlString"/> 
+    """
+internal const val imageHtmlCase2: String = """
+        <img src="$imageUrlString"/> 
+        <img src="$enclosureUrlString1"/> 
+        <img src="$enclosureUrlString1"/> 
+    """
+
+@RunWith(MockitoJUnitRunner::class)
+class RssHelperTest {
+
+    @Mock
+    private lateinit var mockContext: Context
+
+    @Mock
+    private lateinit var mockIODispatcher: CoroutineDispatcher
+
+    @Mock
+    private lateinit var mockOkHttpClient: OkHttpClient
+
+    private lateinit var rssHelper: RssHelper
+
+    @Before
+    fun setUp() {
+        mockContext = mock<Context> { }
+        mockIODispatcher = mock<CoroutineDispatcher> {}
+        mockOkHttpClient = mock<OkHttpClient> {}
+        rssHelper = RssHelper(mockContext, mockIODispatcher, mockOkHttpClient)
+    }
+
+    @Test
+    fun testFindThumbnail() {
+        Assert.assertNull(rssHelper.findThumbnail(""))
+        Assert.assertNull(rssHelper.findThumbnail(" "))
+        Assert.assertNull(rssHelper.findThumbnail(null))
+        Assert.assertEquals(enclosureUrlString1, rssHelper.findThumbnail(enclosureHtmlCase1))
+        Assert.assertEquals(enclosureUrlString1, rssHelper.findThumbnail(enclosureHtmlCase2))
+        Assert.assertEquals(enclosureUrlString2, rssHelper.findThumbnail(enclosureHtmlCase3))
+        Assert.assertEquals(enclosureUrlString1, rssHelper.findThumbnail(imageHtmlCase1))
+        Assert.assertEquals(imageUrlString, rssHelper.findThumbnail(imageHtmlCase2))
+    }
+
+    @Test
+    fun testEnclosureNoFilenameExtension() {
+        val case = """
+            <enclosure url="$imageUrlString" type="image/jpeg" length="0"/>
+        """
+        Assert.assertEquals(imageUrlString, rssHelper.findThumbnail(case))
+    }
+
+    @Test
+    fun testMediaNamespaceThumbnailInRSS20() {
+        val case = """
+            <enclosure url="$imageUrlString" type="image/jpeg" length="0"/>
+        """
+        Assert.assertEquals(imageUrlString, rssHelper.findThumbnail(case))
+    }
+
+    @Test
+    fun testParseRss20Feed() {
+        val sampleFeedXml = """
+            <?xml version="1.0"?>
+            <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+             <channel>
+                <title>Open Source Tech News</title>
+                <link>https://news.example.com/</link>
+                <description>Software Reviews, Performance Benchmarks</description>
+                <language>en-us</language>
+              <item>
+               <title>Sample Linux Article</title>
+               <link>https://news.example.com/news/sample-linux-article</link>
+               <guid>https://news.example.com/news/sample-linux-article</guid>
+               <description>Sample article description.</description>
+               <pubDate>Sun, 23 Aug 2026 07:41:04 -0400</pubDate>
+               <dc:creator>John Doe</dc:creator>
+              </item>
+             </channel>
+            </rss>
+        """.trimIndent()
+
+        val inputStream = java.io.ByteArrayInputStream(sampleFeedXml.toByteArray(Charsets.UTF_8))
+        val syndFeed = com.rometools.rome.io.SyndFeedInput().build(com.rometools.rome.io.XmlReader(inputStream, "text/xml; charset=UTF-8"))
+        Assert.assertEquals("Open Source Tech News", syndFeed.title)
+        Assert.assertEquals(1, syndFeed.entries.size)
+        Assert.assertEquals("Sample Linux Article", syndFeed.entries[0].title)
+        Assert.assertEquals("John Doe", syndFeed.entries[0].author)
+    }
+
+    @Test
+    fun testDetectHtmlCharsetFromHeaderWithComma() {
+        val bytes = "<html><body>Test</body></html>".toByteArray(Charsets.ISO_8859_1)
+        val charset = rssHelper.detectHtmlCharset("text/html, charset=iso-8859-1", bytes)
+        Assert.assertEquals(Charsets.ISO_8859_1, charset)
+    }
+
+    @Test
+    fun testDetectHtmlCharsetFromMetaCharset() {
+        val html = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="iso-8859-1">
+                <title>Test</title>
+            </head>
+            <body>Perplexity a lancé son abonnement</body>
+            </html>
+        """.trimIndent()
+        val bytes = html.toByteArray(Charsets.ISO_8859_1)
+        val charset = rssHelper.detectHtmlCharset("text/html", bytes)
+        Assert.assertEquals(Charsets.ISO_8859_1, charset)
+
+        val decoded = String(bytes, charset)
+        Assert.assertTrue(decoded.contains("Perplexity a lancé son abonnement"))
+        Assert.assertFalse(decoded.contains("\uFFFD"))
+    }
+
+    @Test
+    fun testDetectHtmlCharsetFromMetaHttpEquiv() {
+        val html = """
+            <html>
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+            </head>
+            <body>Déjà vu été français</body>
+            </html>
+        """.trimIndent()
+        val win1252 = java.nio.charset.Charset.forName("windows-1252")
+        val bytes = html.toByteArray(win1252)
+        val charset = rssHelper.detectHtmlCharset(null, bytes)
+        Assert.assertEquals(win1252, charset)
+
+        val decoded = String(bytes, charset)
+        Assert.assertTrue(decoded.contains("Déjà vu été français"))
+    }
+
+    @Test
+    fun testFrenchCharactersDecodingAccuracy() {
+        val originalFrenchText = "Club des développeurs : Actualités, cours, tutoriels & événements d'ingénierie"
+        val bytes = originalFrenchText.toByteArray(Charsets.ISO_8859_1)
+        val charset = rssHelper.detectHtmlCharset("text/html, charset=iso-8859-1", bytes)
+        val decoded = String(bytes, charset)
+        Assert.assertEquals(originalFrenchText, decoded)
+    }
+
+    @Test
+    fun testHtmlFeedParserSample() {
+        val sampleHtml = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Linux News Portal</title>
+                <meta name="description" content="Latest Linux updates">
+            </head>
+            <body>
+                <article>
+                    <header><a href="/news/gnome-test-1">GNOME Test Article 1</a></header>
+                    <p>Description for GNOME test article 1.</p>
+                    <div class="details">7 March 2026 - Resources 1.10.2</div>
+                </article>
+                <article>
+                    <header><a href="/news/gnome-test-2">GNOME Test Article 2</a></header>
+                    <p>Description for GNOME test article 2.</p>
+                    <div class="details">5 March 2026 - GNOME 50.rc</div>
+                </article>
+            </body>
+            </html>
+        """.trimIndent()
+
+        val feed = HtmlFeedParser.parse("https://news.example.com/linux/GNOME", sampleHtml.toByteArray(Charsets.UTF_8))
+        Assert.assertNotNull(feed)
+        Assert.assertEquals(2, feed!!.entries.size)
+        Assert.assertEquals("GNOME Test Article 1", feed.entries[0].title)
+        Assert.assertEquals("https://news.example.com/news/gnome-test-1", feed.entries[0].link)
+        Assert.assertEquals("Description for GNOME test article 1.", feed.entries[0].description.value)
+    }
+}
