@@ -17,7 +17,7 @@ Repo: https://github.com/mohamedaminelouati/Feedora.git
 Builds:
   - versionName: 1.0.0
     versionCode: 100
-    commit: 7f9b9837a4b8686127e4e1a0b73c2cb006c4f39b
+    commit: 81c6ae4045fbc52e0be5a6eb85beee207e4ea6a1
     subdir: app
     gradle:
       - fdroid
