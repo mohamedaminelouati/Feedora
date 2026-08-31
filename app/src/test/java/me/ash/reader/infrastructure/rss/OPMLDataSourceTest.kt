@@ -60,7 +60,7 @@ class OPMLDataSourceTest {
     fun testEmptyTitle() {
         val opml = fill("""
             <outline text="Blogs" title="Blogs">
-                <outline type="rss" xmlUrl="https://ash7.io/index.xml" htmlUrl="https://ash7.io"/>
+                <outline type="rss" xmlUrl="https://example.com/index.xml" htmlUrl="https://example.com"/>
             </outline>
         """)
         val result = parse(opml)
@@ -69,8 +69,8 @@ class OPMLDataSourceTest {
         Assert.assertEquals(0, result[0].feeds.size)
         Assert.assertEquals("Blogs", result[1].group.name)
         Assert.assertEquals(1, result[1].feeds.size)
-        Assert.assertEquals("ash7.io", result[1].feeds[0].name)
-        Assert.assertEquals("https://ash7.io/index.xml", result[1].feeds[0].url)
+        Assert.assertEquals("example.com", result[1].feeds[0].name)
+        Assert.assertEquals("https://example.com/index.xml", result[1].feeds[0].url)
     }
 
     @Test
@@ -88,12 +88,12 @@ class OPMLDataSourceTest {
     fun testFeedoraAttributesAndFallbackName() {
         val opml = fill("""
             <outline text="Blogs" title="Blogs">
-                <outline type="rss" xmlUrl="https://ash7.io/index.xml"
+                <outline type="rss" xmlUrl="https://example.com/index.xml"
                     isNotification="true" isFullContent="true" isBrowser="true"/>
             </outline>
         """)
         val feed = parse(opml)[1].feeds[0]
-        Assert.assertEquals("ash7.io", feed.name)
+        Assert.assertEquals("example.com", feed.name)
         Assert.assertTrue(feed.isNotification)
         Assert.assertTrue(feed.isFullContent)
         Assert.assertTrue(feed.isBrowser)

@@ -79,8 +79,7 @@ class MainActivity : AppCompatActivity() {
             LanguagesPreference.fromValue(languages).let { LanguagesPreference.setLocale(it) }
         }
 
-        // Workaround for https://github.com/ReadYouApp/ReadYou/issues/312: increase cursor window
-        // size
+        // Workaround: increase cursor window size for large article queries
         try {
             val field: Field = CursorWindow::class.java.getDeclaredField("sCursorWindowSize")
             field.isAccessible = true
