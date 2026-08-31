@@ -151,10 +151,10 @@
     <string name="reading_page">閲覧ページ</string>
     <string name="sponsor">スポンサー</string>
     <string name="open_source_licenses">オープンソースライセンス</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">変更履歴</string>
     <string name="update">アップデート</string>
     <string name="skip_this_version">このバージョンをスキップ</string>
@@ -332,7 +332,7 @@
     <string name="troubleshooting">トラブルシューティング</string>
     <string name="troubleshooting_desc">バグ報告、アプリの設定</string>
     <string name="bug_report">バグ報告</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">アプリの設定</string>
     <string name="import_from_protobuf_file">protobufファイルからインポート</string>
     <string name="export_as_protobuf_file">protobufファイルにエクスポート</string>

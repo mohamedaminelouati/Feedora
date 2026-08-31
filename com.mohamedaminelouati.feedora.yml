@@ -4,15 +4,15 @@ Categories:
 License: GPL-3.0-only
 AuthorName: Mohamed Amine Louati
 AuthorEmail: mohamedaminlouati@gmail.com
-AuthorWebSite: https://github.com/mohamedaminelouati/ReadYou-Pro
-SourceCode: https://github.com/mohamedaminelouati/ReadYou-Pro
-IssueTracker: https://github.com/mohamedaminelouati/ReadYou-Pro/issues
-Changelog: https://github.com/mohamedaminelouati/ReadYou-Pro/releases
+AuthorWebSite: https://github.com/mohamedaminelouati/Feedora
+SourceCode: https://github.com/mohamedaminelouati/Feedora
+IssueTracker: https://github.com/mohamedaminelouati/Feedora/issues
+Changelog: https://github.com/mohamedaminelouati/Feedora/releases
 
 AutoName: Feedora
 
 RepoType: git
-Repo: https://github.com/mohamedaminelouati/ReadYou-Pro.git
+Repo: https://github.com/mohamedaminelouati/Feedora.git
 
 Builds:
   - versionName: 1.0.0

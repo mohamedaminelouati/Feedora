@@ -157,10 +157,10 @@
     <string name="reading_page">Lasīšanas lapa</string>
     <string name="sponsor">Sponsors</string>
     <string name="open_source_licenses">Atvērtā pirmkoda licences</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">Izmaiņu žurnāls</string>
     <string name="update">Atjaunināt</string>
     <string name="skip_this_version">Izlaist šo versiju</string>
@@ -339,7 +339,7 @@
     <string name="troubleshooting">Problēmu novēršana</string>
     <string name="troubleshooting_desc">Kļūdu pārskats, lietotņu preferences</string>
     <string name="bug_report">Kļūdu ziņojums</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">Lietotņu preferences</string>
     <string name="import_from_protobuf_file">Importēt no protobuf faila</string>
     <string name="export_as_protobuf_file">Eksportēt kā protobuf failu</string>

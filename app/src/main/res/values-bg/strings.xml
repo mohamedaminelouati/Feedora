@@ -154,10 +154,10 @@
     <string name="reading_page">Страница за четене</string>
     <string name="sponsor">Спонсор</string>
     <string name="open_source_licenses">Лицензи с отворен код</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">Списък с промени</string>
     <string name="update">Актуализация</string>
     <string name="skip_this_version">Пропусни тази версия</string>
@@ -335,7 +335,7 @@
     <string name="troubleshooting">Отстраняване на неизправности</string>
     <string name="troubleshooting_desc">Доклад за грешка, предпочитания за приложението</string>
     <string name="bug_report">Доклад за грешка</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">Предпочитания за приложението</string>
     <string name="import_from_protobuf_file">Внасяне от protobuf файл</string>
     <string name="export_as_protobuf_file">Изнасяне като protobuf файл</string>

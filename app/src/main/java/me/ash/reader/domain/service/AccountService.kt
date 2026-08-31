@@ -110,7 +110,7 @@ constructor(
             id = account.id!!.spacerDollar(UUID.randomUUID().toString()),
             name = "Feedora Releases",
             icon = "https://github.com/mohamedaminelouati.png",
-            url = "https://github.com/mohamedaminelouati/ReadYou-Pro/releases.atom",
+            url = "https://github.com/mohamedaminelouati/Feedora/releases.atom",
             groupId = group.id,
             accountId = account.id,
         )

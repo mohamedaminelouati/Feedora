@@ -1,16 +1,16 @@
 <div align="center">
-    <img width="200" height="200" style="display: block; border: 1px solid #1E293B; border-radius: 9999px;" src="https://raw.githubusercontent.com/mohamedaminelouati/ReadYou-Pro/main/fastlane/metadata/android/en-US/images/icon.png">
+    <img width="200" height="200" style="display: block; border: 1px solid #1E293B; border-radius: 9999px;" src="https://raw.githubusercontent.com/mohamedaminelouati/Feedora/main/fastlane/metadata/android/en-US/images/icon.png">
 </div>
 
 <br>
 <br>
 
 <div align="center">
-    <img alt="GitHub" src="https://img.shields.io/github/license/mohamedaminelouati/ReadYou-Pro?color=c3e7ff&style=flat-square">
-    <a target="_blank" href="https://github.com/mohamedaminelouati/ReadYou-Pro/releases">
-        <img alt="Version" src="https://img.shields.io/github/v/release/mohamedaminelouati/ReadYou-Pro?color=c3e7ff&label=version&style=flat-square">
+    <img alt="GitHub" src="https://img.shields.io/github/license/mohamedaminelouati/Feedora?color=c3e7ff&style=flat-square">
+    <a target="_blank" href="https://github.com/mohamedaminelouati/Feedora/releases">
+        <img alt="Version" src="https://img.shields.io/github/v/release/mohamedaminelouati/Feedora?color=c3e7ff&label=version&style=flat-square">
     </a>
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/mohamedaminelouati/ReadYou-Pro?color=c3e7ff&style=flat-square">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/mohamedaminelouati/Feedora?color=c3e7ff&style=flat-square">
     <br>
     <a target="_blank" href="https://www.linkedin.com/in/mohamed-amine-louati-a383a367">
         <img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Mohamed_Amine_Louati-0077b5?logo=linkedin&style=flat-square">
@@ -66,7 +66,7 @@
 
 Get the latest releases and APKs directly from GitHub:
 
-[<img src="https://s1.ax1x.com/2023/01/12/pSu1a36.png" alt="Get it on GitHub" height="80">](https://github.com/mohamedaminelouati/ReadYou-Pro/releases)
+[<img src="https://s1.ax1x.com/2023/01/12/pSu1a36.png" alt="Get it on GitHub" height="80">](https://github.com/mohamedaminelouati/Feedora/releases)
 
 ## Contact & Maintainer
 
@@ -78,7 +78,7 @@ Get the latest releases and APKs directly from GitHub:
 
 1. Clone the repository:
    ```shell
-   git clone https://github.com/mohamedaminelouati/ReadYou-Pro.git
+   git clone https://github.com/mohamedaminelouati/Feedora.git
    ```
 
 2. Open the project in [Android Studio](https://developer.android.com/studio).
@@ -108,5 +108,5 @@ Get the latest releases and APKs directly from GitHub:
 
 ## License
 
-GNU General Public License v3.0 (GPL-3.0) © [Feedora](https://github.com/mohamedaminelouati/ReadYou-Pro/blob/main/LICENSE)  
+GNU General Public License v3.0 (GPL-3.0) © [Feedora](https://github.com/mohamedaminelouati/Feedora/blob/main/LICENSE)  
 Based on Read You by Ash and contributors.

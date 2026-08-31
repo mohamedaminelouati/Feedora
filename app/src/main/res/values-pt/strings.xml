@@ -157,10 +157,10 @@
     <string name="reading_page">Página de leitura</string>
     <string name="sponsor">Tornar-se num mecenas</string>
     <string name="open_source_licenses">Licenças de código aberto</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">Registo de alterações</string>
     <string name="update">Atualizar</string>
     <string name="skip_this_version">Ignorar esta versão</string>
@@ -338,7 +338,7 @@
     <string name="troubleshooting">Solução de problemas</string>
     <string name="troubleshooting_desc">Relatório de erros, preferências do aplicativo</string>
     <string name="bug_report">Relatório de erros</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">Preferências do aplicativo</string>
     <string name="import_from_protobuf_file">Importar do arquivo protobuf</string>
     <string name="export_as_protobuf_file">Exportar como arquivo protobuf</string>

@@ -154,10 +154,10 @@
     <string name="reading_page">စာမျက်နှာဖတ်ခြင်း။</string>
     <string name="sponsor">စပွန်ဆာ</string>
     <string name="open_source_licenses">Open Source လိုင်စင်များ</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">ပြောင်းလဲမှုမှတ်တမ်း</string>
     <string name="update">အပ်ဒိတ်</string>
     <string name="skip_this_version">ဤဗားရှင်းကို ကျော်လိုက်ပါ။</string>
@@ -336,7 +336,7 @@
     <string name="troubleshooting">ပြသာနာရှာဖွေရှင်းပေးခြင်း</string>
     <string name="troubleshooting_desc">ချွတ်ယွင်းချက်အစီရင်ခံစာ၊ အက်ပ်စိတ်ကြိုက်များ</string>
     <string name="bug_report">ချွတ်ယွင်းချက်အစီရင်ခံစာ</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">အက်ပ်စိတ်ကြိုက်များ</string>
     <string name="import_from_protobuf_file">protobuf ဖိုင်မှ တင်သွင်းပါ။</string>
     <string name="export_as_protobuf_file">protobuf ဖိုင်အဖြစ် ထုတ်ယူပါ။</string>

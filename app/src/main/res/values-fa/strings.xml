@@ -154,10 +154,10 @@
     <string name="reading_page">صفحه خواندن</string>
     <string name="sponsor">حامی</string>
     <string name="open_source_licenses">لایسنس های متن باز</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">تغییرات</string>
     <string name="update">بروزرسانی</string>
     <string name="skip_this_version">رد کردن این نسخه</string>
@@ -335,7 +335,7 @@
     <string name="troubleshooting">عیب یابی</string>
     <string name="troubleshooting_desc">گزارش باگ، ابزار های اشکال‌زدایی (دیباگ)</string>
     <string name="bug_report">گزارش ایراد (باگ)</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">تنظیمات برنامه</string>
     <string name="import_from_protobuf_file">وارد کردن از فایل protobuf</string>
     <string name="export_as_protobuf_file">خروجی بعنوان فایل protobuf</string>

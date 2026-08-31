@@ -154,10 +154,10 @@
     <string name="reading_page">വായന പേജ്</string>
     <string name="sponsor">സ്പോൺസർ</string>
     <string name="open_source_licenses">ഓപ്പൺ സോഴ്സ് ലൈസൻസുകൾ</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">മാറ്റങ്ങൾ</string>
     <string name="update">അപ്ഡേറ്റ്</string>
     <string name="skip_this_version">ഈ പതിപ്പ് ഒഴിവാക്കുക</string>
@@ -336,7 +336,7 @@
     <string name="troubleshooting">ട്രബിൾഷൂട്ടിംഗ്</string>
     <string name="troubleshooting_desc">ബഗ് റിപ്പോർട്ട്, ആപ്പ് മുൻഗണനകൾ</string>
     <string name="bug_report">ബഗ് റിപ്പോർട്ട്</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">ആപ്പ് മുൻഗണനകൾ</string>
     <string name="import_from_protobuf_file">പ്രോട്ടോബഫ് ഫയലിൽ നിന്ന് ഇറക്കുമതി ചെയ്യുക</string>
     <string name="export_as_protobuf_file">പ്രോട്ടോബഫ് ഫയലായി കയറ്റുമതി ചെയ്യുക</string>

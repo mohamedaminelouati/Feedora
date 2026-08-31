@@ -157,10 +157,10 @@
     <string name="reading_page">Čtecí stránka</string>
     <string name="sponsor">Sponzor</string>
     <string name="open_source_licenses">Licence open source</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">Seznam změn</string>
     <string name="update">Aktualizovat</string>
     <string name="skip_this_version">Přeskočit tuto verzi</string>
@@ -338,7 +338,7 @@
     <string name="troubleshooting">Řešení chyb</string>
     <string name="troubleshooting_desc">Hlášení chyb, nastavení aplikace</string>
     <string name="bug_report">Nahlásit chybu</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">Předvolby aplikace</string>
     <string name="import_from_protobuf_file">Importovat ze souboru protobuf</string>
     <string name="export_as_protobuf_file">Exportovat do souboru protobuf</string>

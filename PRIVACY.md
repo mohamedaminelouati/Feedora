@@ -23,7 +23,7 @@ Feedora communicates over the network solely to fulfill your direct requests:
 - **RSS / Atom Feeds:** The application connects directly to the RSS/Atom feed URLs you subscribe to in order to download and parse article content and favicons.
 - **Third-Party RSS Services:** If you configure an account (Miniflux, Tiny Tiny RSS, Feedbin, Inoreader, Feedly, Fever, Google Reader API / FreshRSS), the application communicates directly with the endpoint server specified using the credentials or access tokens you provide. These credentials are encrypted and stored solely on your local device.
 - **Optional AI Summarization:** If you explicitly invoke the AI summary feature on an article, the article URL is sent directly to your chosen summarizer provider to format the summary.
-- **Application Updates:** When checking for application updates, the application queries the public GitHub Releases API (`https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest`) to determine if a newer version is available.
+- **Application Updates:** When checking for application updates, the application queries the public GitHub Releases API (`https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest`) to determine if a newer version is available.
 
 ---
 
@@ -47,7 +47,7 @@ Feedora requests only the minimal Android permissions necessary for its function
 
 ## 5. Compliance & Open Source
 
-Feedora is free software distributed under the terms of the **GNU General Public License v3.0 (GPL-3.0)**. The complete source code is publicly auditable at [https://github.com/mohamedaminelouati/ReadYou-Pro](https://github.com/mohamedaminelouati/ReadYou-Pro).
+Feedora is free software distributed under the terms of the **GNU General Public License v3.0 (GPL-3.0)**. The complete source code is publicly auditable at [https://github.com/mohamedaminelouati/Feedora](https://github.com/mohamedaminelouati/Feedora).
 
 ---
 
@@ -58,4 +58,4 @@ If you have any questions or feedback regarding this Privacy Policy, please cont
 - **Maintainer:** Mohamed Amine Louati
 - **Email:** [mohamedaminlouati@gmail.com](mailto:mohamedaminlouati@gmail.com)
 - **LinkedIn:** [https://www.linkedin.com/in/mohamed-amine-louati-a383a367](https://www.linkedin.com/in/mohamed-amine-louati-a383a367)
-- **GitHub Issues:** [https://github.com/mohamedaminelouati/ReadYou-Pro/issues](https://github.com/mohamedaminelouati/ReadYou-Pro/issues)
+- **GitHub Issues:** [https://github.com/mohamedaminelouati/Feedora/issues](https://github.com/mohamedaminelouati/Feedora/issues)

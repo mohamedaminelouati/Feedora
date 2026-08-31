@@ -151,10 +151,10 @@
     <string name="reading_page">Halaman membaca</string>
     <string name="sponsor">Sponsor</string>
     <string name="open_source_licenses">Lisensi sumber terbuka</string>
-    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro</string>
+    <string name="github_link" translatable="false">https://github.com/mohamedaminelouati/Feedora</string>
     <string name="linkedin_link" translatable="false">https://www.linkedin.com/in/mohamed-amine-louati-a383a367</string>
-    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/wiki</string>
-    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/ReadYou-Pro/releases/latest</string>
+    <string name="wiki_link" translatable="false">https://github.com/mohamedaminelouati/Feedora/wiki</string>
+    <string name="update_link">https://api.github.com/repos/mohamedaminelouati/Feedora/releases/latest</string>
     <string name="change_log">Daftar Perubahan</string>
     <string name="update">Perbarui</string>
     <string name="skip_this_version">Lewati Versi ini</string>
@@ -332,7 +332,7 @@
     <string name="troubleshooting">Pemecahan Masalah</string>
     <string name="troubleshooting_desc">Laporan Bug, Preferensi Aplikasi</string>
     <string name="bug_report">Laporan kutu</string>
-    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/ReadYou-Pro/issues</string>
+    <string name="issue_tracer_url" translatable="false">https://github.com/mohamedaminelouati/Feedora/issues</string>
     <string name="app_preferences">Preferensi aplikasi</string>
     <string name="import_from_protobuf_file">Impor dari berkas protobuf</string>
     <string name="export_as_protobuf_file">Ekspor sebagai berkas protobuf</string>
