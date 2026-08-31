@@ -24,21 +24,6 @@ class AiSummaryServiceTest {
     fun testSummarizerEngineUrls() {
         val testUrl = "https://example.com/article/123"
 
-        val chatGptFrenchKeyPoints = SummarizerEnginePreference.ChatGPT.buildSummaryUrl(
-            articleUrl = testUrl,
-            language = AiLanguage.FRENCH,
-            style = AiSummaryStyle.KEY_POINTS,
-        )
-        Assert.assertTrue(chatGptFrenchKeyPoints.contains("chatgpt.com/?q="))
-        Assert.assertTrue(chatGptFrenchKeyPoints.contains("points"))
-
-        val perplexityArabicTldr = SummarizerEnginePreference.Perplexity.buildSummaryUrl(
-            articleUrl = testUrl,
-            language = AiLanguage.ARABIC,
-            style = AiSummaryStyle.TLDR,
-        )
-        Assert.assertTrue(perplexityArabicTldr.contains("perplexity.ai/search?q="))
-
         val duckAiEnglishDetailed = SummarizerEnginePreference.DuckAi.buildSummaryUrl(
             articleUrl = testUrl,
             language = AiLanguage.ENGLISH,
@@ -52,9 +37,6 @@ class AiSummaryServiceTest {
             style = AiSummaryStyle.KEY_POINTS,
         )
         Assert.assertTrue(protonLumoUrl.contains("lumo.proton.me/guest/?q="))
-
-        val smryUrl = SummarizerEnginePreference.Smry.buildSummaryUrl(testUrl)
-        Assert.assertEquals("https://smry.ai/example.com/article/123", smryUrl)
     }
 
     @Test

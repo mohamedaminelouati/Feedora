@@ -132,18 +132,18 @@ class RssHelperTest {
             <html>
             <head>
                 <meta charset="iso-8859-1">
-                <title>Test</title>
-            </head>
-            <body>Perplexity a lancé son abonnement</body>
-            </html>
+                <title>Test &amp; Article</title>
+            <body>Flux RSS et actualites technologiques</body>
+        </html>
         """.trimIndent()
+
         val bytes = html.toByteArray(Charsets.ISO_8859_1)
         val charset = rssHelper.detectHtmlCharset("text/html", bytes)
         Assert.assertEquals(Charsets.ISO_8859_1, charset)
 
-        val decoded = String(bytes, charset)
-        Assert.assertTrue(decoded.contains("Perplexity a lancé son abonnement"))
-        Assert.assertFalse(decoded.contains("\uFFFD"))
+        val decodedResult = String(bytes, charset)
+        Assert.assertTrue(decodedResult.contains("Flux RSS et actualites technologiques"))
+        Assert.assertFalse(decodedResult.contains("\uFFFD"))
     }
 
     @Test

@@ -20,9 +20,6 @@ val LocalSummarizerEngine =
 sealed class SummarizerEnginePreference(val value: Int) : Preference() {
     data object ProtonLumo : SummarizerEnginePreference(0)
     data object DuckAi : SummarizerEnginePreference(1)
-    data object Smry : SummarizerEnginePreference(2)
-    data object Perplexity : SummarizerEnginePreference(3)
-    data object ChatGPT : SummarizerEnginePreference(4)
 
     override fun put(context: Context, scope: CoroutineScope) {
         scope.launch {
@@ -38,9 +35,6 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
         when (this) {
             ProtonLumo -> "Proton Lumo"
             DuckAi -> "Duck.ai"
-            Smry -> "Smry.ai"
-            Perplexity -> "Perplexity AI"
-            ChatGPT -> "ChatGPT"
         }
 
     fun buildSummaryUrl(
@@ -61,32 +55,17 @@ sealed class SummarizerEnginePreference(val value: Int) : Preference() {
                 val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
                 "https://duckduckgo.com/?q=$encoded&ia=chat"
             }
-            Smry -> {
-                val noProtocol = cleanUrl.removePrefix("https://").removePrefix("http://")
-                "https://smry.ai/$noProtocol"
-            }
-            Perplexity -> {
-                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
-                "https://www.perplexity.ai/search?q=$encoded"
-            }
-            ChatGPT -> {
-                val encoded = runCatching { URLEncoder.encode(fullQuery, "UTF-8") }.getOrDefault(fullQuery)
-                "https://chatgpt.com/?q=$encoded"
-            }
         }
     }
 
     companion object {
         val default: SummarizerEnginePreference = ProtonLumo
-        val values = listOf(ProtonLumo, DuckAi, Smry, Perplexity, ChatGPT)
+        val values = listOf(ProtonLumo, DuckAi)
 
         fun fromPreferences(preferences: Preferences): SummarizerEnginePreference =
             when (preferences[DataStoreKey.keys[summarizerEngine]?.key as Preferences.Key<Int>]) {
                 0 -> ProtonLumo
                 1 -> DuckAi
-                2 -> Smry
-                3 -> Perplexity
-                4 -> ChatGPT
                 else -> default
             }
     }
