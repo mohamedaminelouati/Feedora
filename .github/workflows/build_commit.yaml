@@ -5,13 +5,13 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3.3.0
-            - uses: actions/setup-java@v3.10.0
+            - uses: actions/checkout@v4
+            - uses: actions/setup-java@v4
               with:
                   distribution: temurin
                   java-version: 17
 
-            - uses: gradle/gradle-build-action@v2.4.2
+            - uses: gradle/actions/setup-gradle@v3
             - run: ./gradlew assembleGithubRelease
 
             - uses: actions/upload-artifact@v4

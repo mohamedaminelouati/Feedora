@@ -74,8 +74,11 @@ android {
         create("release") {
             keyAlias = keyProps["keyAlias"] as String?
             keyPassword = keyProps["keyPassword"] as String?
-            storeFile = keyProps["storeFile"]?.let { file(it as String) }
-            storePassword = keyProps["storePassword"] as String?
+            val sFile = keyProps["storeFile"]?.let { file(it as String) }
+            if (sFile != null && sFile.exists()) {
+                storeFile = sFile
+                storePassword = keyProps["storePassword"] as String?
+            }
         }
     }
     lint { disable.addAll(listOf("MissingTranslation", "ExtraTranslation")) }
@@ -87,9 +90,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-            signingConfig = signingConfigs.getByName("release")
+            val sFile = keyProps["storeFile"]?.let { file(it as String) }
+            if (sFile != null && sFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
-        all { signingConfig = signingConfigs.getByName("release") }
     }
     applicationVariants.all {
         outputs.all {

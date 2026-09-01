@@ -96,6 +96,4 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
-
-signature
+.vscode/
