@@ -19,7 +19,7 @@ Binaries:
 Builds:
   - versionName: 1.0.0
     versionCode: 100
-    commit: 4944bd34377bedd0fd6f4501526547b9d3a11322
+    commit: 440bd5fd8e217bb4cfa068e21151fc70a256a422
     subdir: app
     gradle:
       - fdroid
