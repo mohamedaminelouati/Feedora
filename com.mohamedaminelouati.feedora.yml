@@ -20,7 +20,7 @@ AllowedAPKSigningKeys: f9732c9b3441db046f360b44134a108f0308039c6b6adb3cbd546c6d4
 Builds:
   - versionName: 1.0.0
     versionCode: 100
-    commit: 69d4109787e914041b6c7aa4806a74daebf9cba8
+    commit: 9d51ba36365a6ccebcae3db0fc00fba68fbf1df3
     subdir: app
     gradle:
       - fdroid
