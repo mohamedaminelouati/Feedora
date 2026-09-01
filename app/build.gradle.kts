@@ -111,6 +111,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures { buildConfig = true }
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
     packaging {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
         resources.excludes.add("rome-utils-*.jar")
